@@ -50,3 +50,15 @@
 | 2026-10-19 | Anonymous workspaces, no login | Hackathon rule: free, unrestricted testing |
 | 2026-10-19 | RLS on, no policies; browser never talks to Supabase | Simple, secure server-only access |
 | 2026-10-19 | Fail closed on Qloo; kill switch is a tested feature | Proves the product depends on Qloo |
+| 2026-10-19 | D-01 Demo city **Brooklyn, NY**; Qloo location via `filter.location.query=<city>` + `filter.location.radius=0` | Phase 0: 50 venues per type, strict boundary, 82–100% websites. Without `radius=0` results leak into Manhattan |
+| 2026-10-19 | D-02 `take` capped at 50 per Qloo call | Live 400 above 50 |
+| 2026-10-19 | D-03 Baseline percentile = percentile of Qloo `popularity` within the pool of target ∪ baseline venues for that type (instead of "0 if not in baseline") | Only 10–13 of 50 target venues appear in the baseline top 50, so the old rule made lift ≈ target for most venues. The baseline query is ordered by `popularity`, so this keeps the same meaning for every venue. `not_in_baseline` flag kept ("not among the 50 most popular") |
+| 2026-10-19 | D-04 Coverage notice when fewer than 15 venues survive or the baseline returns fewer than 15 (overlap rule dropped) | Overlap is structurally low (D-03) |
+| 2026-10-19 | D-05 F04 per-product queries use `filter.results.entities=<ranked venue ids>` | Every ranked venue gets a real per-product percentile; "missing = 0" no longer needed |
+| 2026-10-19 | D-06 Evidence uses `feature.explainability=true` on the target call (0 extra calls) plus one `filter.type=urn:tag` audience-taste call per run, intersected with venue tags | Qloo has no per-venue explanation endpoint; these two give grounded reasons |
+| 2026-10-19 | D-07 Planner variant cut (cut list #4) | Native tool calls on `gemma4:31b` passed 5/5 with a "one tool per turn" prompt; deterministic fallback kept |
+| 2026-10-19 | D-08 Contacts: Qloo `website` → venue's own site published email (`source=website`) → OSM email → Hunter (when `HUNTER_API_KEY` is set) | No Hunter key yet; OSM emails 4/50, own-site emails 3/12 in the spike. Emails are only ever copied from a page, never constructed |
+| 2026-10-19 | D-09 Local Postgres 15 + `scripts/migrate.py` applying `supabase/migrations/*.sql` | Supabase CLI and Docker not available; the same SQL applies to Supabase when the user adds `DATABASE_URL` |
+| 2026-10-19 | D-10 Demo brand is a fictional Brooklyn drinks maker entered by description; its products resolve through real comparables | Avoids implying a real brand endorses the public demo; still exercises the small-brand → comparables path |
+| 2026-10-19 | D-11 Live rules (read 2026-10-19): demo video **not** required; an externally hosted demo **is** required; licence visible in repo About | Devpost overview and rules pages |
+| 2026-10-19 | D-12 Gemini adapter not built; provider layer has Ollama Cloud + Fake | Not needed for the demo; adding one is a new file under `llm/` |

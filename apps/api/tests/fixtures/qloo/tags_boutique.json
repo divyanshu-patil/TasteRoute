@@ -1,0 +1,1 @@
+{"request":{"path":"/v2/tags","params":[["filter.query","boutique"],["filter.tag.types","urn:tag:category:place"],["take","15"]]},"status":200,"body":{"duration":98,"success":true,"results":{"tags":[{"id":"urn:tag:category:place:boutique","name":"Boutique","type":"urn:tag:category:place","popularity":0.9998152}]}}}

@@ -36,3 +36,16 @@ yarn-error.log*
 # Misc
 .DS_Store
 *.pem
+
+# Python
+__pycache__/
+.venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+apps/api/scripts/.qloo_calls.log
+
+# Playwright
+test-results/
+playwright-report/

@@ -1,0 +1,76 @@
+{
+ "ok": true,
+ "ms": 2314,
+ "first": {
+  "index": 0,
+  "name": "rank_venues",
+  "arguments": {
+   "venue_types": [
+    "cafe",
+    "bar"
+   ]
+  }
+ },
+ "second": {
+  "index": 0,
+  "name": "finish_phase",
+  "arguments": {
+   "summary": "I have initiated the scout phase for Brooklyn by ranking cafes and bars, identifying SEY Coffee as a top venue."
+  }
+ },
+ "raw1": {
+  "model": "gemma4:31b",
+  "created_at": "2026-10-18T22:51:31.805094872Z",
+  "message": {
+   "role": "assistant",
+   "content": "",
+   "tool_calls": [
+    {
+     "id": "call_j2u2brcg",
+     "function": {
+      "index": 0,
+      "name": "rank_venues",
+      "arguments": {
+       "venue_types": [
+        "cafe",
+        "bar"
+       ]
+      }
+     }
+    }
+   ]
+  },
+  "done": true,
+  "done_reason": "stop",
+  "total_duration": 267012329,
+  "prompt_eval_count": 185,
+  "prompt_eval_cached_count": 0,
+  "eval_count": 21
+ },
+ "raw2": {
+  "model": "gemma4:31b",
+  "created_at": "2026-10-18T22:51:32.506406202Z",
+  "message": {
+   "role": "assistant",
+   "content": "",
+   "tool_calls": [
+    {
+     "id": "call_esq94er8",
+     "function": {
+      "index": 0,
+      "name": "finish_phase",
+      "arguments": {
+       "summary": "I have initiated the scout phase for Brooklyn by ranking cafes and bars, identifying SEY Coffee as a top venue."
+      }
+     }
+    }
+   ]
+  },
+  "done": true,
+  "done_reason": "stop",
+  "total_duration": 310356870,
+  "prompt_eval_count": 228,
+  "prompt_eval_cached_count": 160,
+  "eval_count": 41
+ }
+}
