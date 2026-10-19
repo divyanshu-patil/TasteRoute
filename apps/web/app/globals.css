@@ -110,7 +110,7 @@ main { padding-bottom: var(--section); min-height: 70vh; }
   .nav { height: auto; padding: 16px 0; }
   .nav .wrap { flex-wrap: wrap; }
   .pill { order: 3; width: 100%; justify-content: space-between; overflow-x: auto; }
-  .pill a { padding: 8px 12px; font-size: 14px; white-space: nowrap; }
+  .pill a { padding: 8px 10px; font-size: 13px; white-space: nowrap; }
   .nav .btn { padding: 12px 16px; }
 }
 
