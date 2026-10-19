@@ -11,6 +11,7 @@
 | `/start` (step 2) | Brand profile | Editable profile card, product rows (1–5), unsupported banner (Flow D) |
 | `/start` (step 3) | Products and comparables | Per product: "Qloo knows this" or "Using similar brands", entity chips, remove, Qloo search to add |
 | `/start` (step 4) | City, your location, venue types | City search (suggestions as you type; the chosen city is framed on the map with a dashed outline), optional business location (suggestions inside the city as you type, Enter for a full search, or click the map; shown as a mint "You" pin). The map shows before a city is chosen; changing the city keeps the pin, venue type checkboxes from the pack, Start run. With a location, results show km per venue and a "Nearest to you" sort; ranking is unchanged |
+| `/runs` | All runs (nav: "All runs") | Every run in the workspace: this browser's, or, when logged in, every device the user logged in on |
 | `/runs/[id]` | Live run then results | Progress steps with Qloo call counter, then the ranked table, filters, select checkboxes, "Find contacts" action |
 | `/runs/[id]/venues/[venueId]` | Venue detail | Fit, lift, confidence explainer, per-product fit bars, evidence list with source chips, OSM facts |
 | `/runs/[id]/outreach` | Contacts and drafts | Live panel while running (spinning active step, k of n bar, the venue being checked, results as they land, Cancel), contact status per venue with sources (the venue website is a link), draft editors, approve, regenerate, export bar. The contacts box appears once the first venue is checked |

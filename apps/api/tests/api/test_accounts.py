@@ -33,10 +33,14 @@ async def test_login_keeps_work_and_merges_a_second_device(client, ws, svc, net)
 
     other = await new_workspace(client)  # another device, used before signing in
     await make_brand(client, other, svc)
+    for headers in (ws, other):  # the same do-not-contact entry on both: kept once
+        await client.post("/v1/suppressions", headers=headers, json={"kind": "domain", "value": "rival.test"})
     second = (await login(client, other)).json()
     assert second["workspace_token"] == first["workspace_token"]  # the same account workspace
     n = await svc.pool.fetchval("select count(*) from brands where workspace_id = $1", uuid.UUID(first["workspace_id"]))
     assert n == 2  # the second device's brand joined the account
+    sup = (await client.get("/v1/suppressions", headers={"X-Workspace-Token": first["workspace_token"]})).json()
+    assert [x["value"] for x in sup] == ["rival.test"]
     assert not await svc.pool.fetchval("select count(*) from workspaces where id = $1",
                                        uuid.UUID(other["X-Workspace-Token"].split(".")[0]))
     assert (await login(client, None)).json()["workspace_token"] == first["workspace_token"]  # a fresh browser

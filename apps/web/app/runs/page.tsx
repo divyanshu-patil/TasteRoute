@@ -21,9 +21,9 @@ export default function Runs() {
   }, []);
   return (
     <div className="wrap stack" style={{ gap: 32 }}>
-      <h1 className="display d-l">My runs</h1>
+      <h1 className="display d-l">All runs</h1>
       <p className="muted">
-        {email ? `Saved to your account (${email}): they show on any device you log in from.`
+        {email ? `Every run from any device you logged in on, saved to your account (${email}).`
           : enabled ? "Runs live in this browser. Log in to save them and see them on any device."
           : "Runs live in this browser's anonymous workspace. Clearing site data starts a new one."}
       </p>

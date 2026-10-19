@@ -4,6 +4,7 @@ import contextlib
 import uuid
 from typing import Literal
 
+import asyncpg
 import httpx
 from fastapi import APIRouter, Depends, Query, Request
 
@@ -69,8 +70,18 @@ async def session(body: SessionIn, request: Request, s: Services = Depends(svc))
     return SessionOut(workspace_token=sign(ws), workspace_id=ws)
 
 
-# Tables whose rows belong to a workspace, moved into the account when work done before signing in joins it
-OWNED = ("brands", "products", "runs", "contacts", "drafts", "suppressions")
+# Tables whose rows belong to a workspace (besides suppressions), moved when work joins an account
+OWNED = ("brands", "products", "runs", "contacts", "drafts")
+
+
+async def absorb(con: asyncpg.Connection, others: list[uuid.UUID], into: uuid.UUID) -> None:
+    """Moves the work of other workspaces into one, then deletes them. One copy of each do-not-contact entry is kept."""
+    await con.execute("insert into suppressions (workspace_id, kind, value, reason, created_at) "
+                      "select $2, kind, value, reason, created_at from suppressions where workspace_id = any($1::uuid[]) "
+                      "on conflict do nothing", others, into)
+    for t in OWNED:
+        await con.execute(f"update {t} set workspace_id = $2 where workspace_id = any($1::uuid[])", others, into)
+    await con.execute("delete from workspaces where id = any($1::uuid[])", others)
 
 
 @router.post("/v1/workspaces/login", response_model=AccountOut)
@@ -99,12 +110,8 @@ async def login(body: LoginIn, request: Request, s: Services = Depends(svc)) -> 
             "select id from workspaces where id = $1 and kind = 'anon' and user_id is null for update", here)
         if mine is None:
             mine = here if free else await con.fetchval("insert into workspaces default values returning id")
-        elif free:
-            await con.execute("delete from suppressions a using suppressions b where a.workspace_id = $1 "
-                              "and b.workspace_id = $2 and a.kind = b.kind and a.value = b.value", here, mine)
-            for t in OWNED:
-                await con.execute(f"update {t} set workspace_id = $2 where workspace_id = $1", here, mine)
-            await con.execute("delete from workspaces where id = $1", here)
+        elif here and free:
+            await absorb(con, [here], mine)
         await con.execute("update workspaces set user_id = $2, email = $3, last_seen_at = now() where id = $1", mine, uid, email)
     return AccountOut(workspace_token=sign(str(mine)), workspace_id=str(mine), email=email)
 

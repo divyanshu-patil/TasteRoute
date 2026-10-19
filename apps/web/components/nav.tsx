@@ -7,7 +7,7 @@ import { signIn, signOut, useAccount } from "../lib/account";
 const LINKS = [
   { href: "/", label: "Home" },
   { href: "/sample", label: "Sample run" },
-  { href: "/runs", label: "My runs" },
+  { href: "/runs", label: "All runs" },
   { href: "/settings/suppression", label: "Do-not-contact" },
 ];
 
