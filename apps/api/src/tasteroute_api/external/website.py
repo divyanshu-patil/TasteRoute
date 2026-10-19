@@ -40,6 +40,10 @@ class WebsiteUnreadable(AppError):
     code, status, title = "website_unreadable", 422, "We couldn't read that site. Describe your brand instead."
 
 
+# A 403 or a Cloudflare challenge: the owner turned automated readers away. We respect that and never work around it.
+BLOCKED = "That site blocks automated readers like ours"
+
+
 async def system_resolver(host: str) -> list[str]:
     infos = await asyncio.get_running_loop().getaddrinfo(host, None, type=socket.SOCK_STREAM)
     return list({str(i[4][0]) for i in infos})
@@ -111,6 +115,8 @@ class WebsiteReader:
                         url = urljoin(url, r.headers["location"])
                         continue
                     ctype = r.headers.get("content-type", "")
+                    if r.status_code == 403 or r.headers.get("cf-mitigated"):
+                        raise WebsiteUnreadable(f"{BLOCKED}. Describe your brand instead.")
                     if r.status_code != 200 or "html" not in ctype:
                         raise WebsiteUnreadable(f"Site returned {r.status_code} {ctype.split(';')[0]}".strip())
                     buf = b""

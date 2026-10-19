@@ -147,6 +147,13 @@ async def test_intake_paths(client, ws, svc):
     r = await client.post("/v1/brands/intake", headers=ws, json={"website_url": "https://broken-site.test/"})
     assert r.status_code == 422 and r.json()["code"] == "website_unreadable"
 
+    r = await client.post("/v1/brands/intake", headers=ws, json={"website_url": "https://blocked-site.test/"})
+    assert r.status_code == 422 and "blocks automated readers" in r.json()["detail"]
+    svc.llm.provider.script = [LLMResult(content=json.dumps(profile))]
+    r = await client.post("/v1/brands/intake", headers=ws,
+                          json={"website_url": "https://blocked-site.test/", "description": "We make cold brew in Brooklyn."})
+    assert r.json()["notice"] == "That site blocks automated readers like ours, so we used your description."
+
 
 async def test_live_runs_are_limited_per_day(client, ws, svc):
     """DMO-02."""

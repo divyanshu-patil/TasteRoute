@@ -11,7 +11,7 @@ from ..agent.context import Services
 from ..categories import UNSUPPORTED, all_packs, default_pack
 from ..errors import AppError, LLMBadResponse, LLMUnavailable
 from ..external import cached_call
-from ..external.website import WebsiteReader, WebsiteUnreadable, check_url
+from ..external.website import BLOCKED, WebsiteReader, WebsiteUnreadable, check_url
 from ..llm.prompts import load
 from ..llm.structured import structured
 
@@ -70,7 +70,8 @@ async def propose(svc: Services, website_url: str | None, description: str | Non
         elif not description:
             raise WebsiteUnreadable((body or {}).get("error", "") or WebsiteUnreadable.title)
         else:
-            notice = "We couldn't read that site, so we used your description."
+            blocked = BLOCKED in (body or {}).get("error", "")
+            notice = f"{BLOCKED}, so we used your description." if blocked else "We couldn't read that site, so we used your description."
     if description:
         text = (text + "\n\n" if text else "") + description[:1500]
     prompt, version = load("brand_profile")

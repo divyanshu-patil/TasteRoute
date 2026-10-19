@@ -103,6 +103,8 @@ def fake_site(request: httpx.Request) -> httpx.Response:
     host = (request.url.host or "").removeprefix("www.")
     if "broken" in host:
         return httpx.Response(500)
+    if "blocked" in host:  # a Cloudflare bot check
+        return httpx.Response(403, html="<title>Just a moment...</title>", headers={"cf-mitigated": "challenge"})
     if request.url.path == "/robots.txt":
         return httpx.Response(404)
     return httpx.Response(200, html=SITE.format(host=host))

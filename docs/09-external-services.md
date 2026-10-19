@@ -57,6 +57,7 @@
 ## Website reader
 
 - httpx with the SSRF guard (block private, loopback, link-local, metadata IPs on every redirect), 3 redirects max, 1.5 MB cap, `text/html` only, robots.txt checked for fetched paths, `trafilatura` for main text.
+- A 403 or a Cloudflare challenge (`cf-mitigated`) means the owner blocks automated readers: we stop and say so ("That site blocks automated readers like ours") and use the description instead. We never work around bot checks.
 
 ## Apollo (optional, disabled by default)
 
