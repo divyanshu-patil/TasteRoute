@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import re
 import uuid
 from dataclasses import dataclass, field
 from datetime import timedelta
@@ -12,9 +13,16 @@ import asyncpg
 from ..agent.context import RunContext
 from ..errors import AppError
 from ..external import cached_call, hunter, osm
-from ..external.website import WebsiteReader
+from ..external.website import WebsiteReader, clean_email
 
 BAD_VERIFICATION = {"invalid", "disposable"}
+# Which inbox a supplier's first pitch should reach, best first. Anything unlisted ranks between "main" and "other".
+PURPOSES = [
+    (re.compile(r"^(wholesale|trade|sales|orders?|buy(ing|er)|purchas\w*|procure\w*|stockists?|partners?(hips?)?)\b"), "sales inbox"),
+    (re.compile(r"^(info|hello|hi|hey|contact|general|office|team|mail|owners?|manager|host|inquir\w*|enquir\w*)\b"), "main inbox"),
+    (re.compile(r"^(reserv\w*|book\w*|events?|private\w*|catering|jobs?|careers?|hiring|press|media|pr|marketing|privacy"
+                r"|legal|support|billing|abuse|webmaster|admin|gift\w*)\b"), None),
+]
 
 
 @dataclass
@@ -32,16 +40,31 @@ class Candidate:
         return self.email.rsplit("@", 1)[-1].lower()
 
 
-def choose(cands: list[Candidate]) -> Candidate | None:
-    """Verified role (Hunter) → verified generic (Hunter) → OSM → venue website → unverified Hunter (CON-03)."""
+def purpose(email: str) -> tuple[int, str | None]:
+    """(rank, label) for the local part: sales/wholesale 0, main inbox 1, unknown 2, reservations/careers/press 3."""
+    local = email.split("@", 1)[0].lower()
+    for i, (pat, label) in enumerate(PURPOSES):
+        if pat.match(local):
+            return (i if i < 2 else 3), label
+    return 2, None
+
+
+def choose(cands: list[Candidate], domain: str | None = None) -> Candidate | None:
+    """Verified role (Hunter) → verified generic (Hunter) → published (OSM, venue website) → unverified Hunter (CON-03).
+    Among published addresses: the venue's own domain, then the inbox that suits a supplier pitch, then OSM over website."""
     usable = [c for c in cands if (c.verification or "").lower() not in BAD_VERIFICATION]
 
-    def order(c: Candidate) -> int:
+    def order(c: Candidate) -> tuple[int, int, int, int, int]:
         if c.source == "hunter" and c.verification == "valid":
-            return 0 if hunter.is_role(c.role) else 1
-        return {"osm": 2, "website": 3, "qloo": 3, "hunter": 4}.get(c.source, 9)
+            tier = 0 if hunter.is_role(c.role) else 1
+        else:
+            tier = 3 if c.source == "hunter" else 2
+        # A scraped address on another domain may be the web agency's; OSM's email tag is the venue's own listing.
+        off = int(c.source == "website" and bool(domain) and c.domain != domain and not c.domain.endswith("." + str(domain)))
+        src = {"osm": 0, "website": 1, "qloo": 1}.get(c.source, 2)
+        return tier, off, purpose(c.email)[0], src, -(c.confidence or 0)
 
-    usable.sort(key=lambda c: (order(c), -(c.confidence or 0)))
+    usable.sort(key=order)
     return usable[0] if usable else None
 
 
@@ -108,8 +131,9 @@ async def find_contacts(ctx: RunContext, venue_ids: list[str]) -> dict[str, Any]
                 if not website:
                     website = tags.get("website") or tags.get("contact:website")
                 email = tags.get("email") or tags.get("contact:email")
-                if email and "@" in email:
-                    cands.append(Candidate(email.strip().lower(), "osm", "generic",
+                email = clean_email(email.split(";")[0]) if email else None  # OSM allows "a@x.com;b@x.com"
+                if email:
+                    cands.append(Candidate(email, "osm", "generic", purpose(email)[1],
                                            sources=[{"uri": f"https://www.openstreetmap.org/{m['id']}"}]))
                 await ctx.pool.execute(
                     "update venues set osm_ref = $2, website = coalesce(website, $3) where id = $1", vid, m["id"], website)
@@ -135,8 +159,9 @@ async def find_contacts(ctx: RunContext, venue_ids: list[str]) -> dict[str, Any]
 
             code, found_emails, _, _ = await cached_call(ctx.pool, "website", "/emails", {"url": website}, timedelta(days=7),
                                                          read, run_id=ctx.run_id, emit=ctx.emit)
-            for email, page in found_emails if code == 200 else []:
-                cands.append(Candidate(email, "website", "generic", sources=[{"uri": page}]))
+            for raw, page in found_emails if code == 200 else []:
+                if email := clean_email(raw):  # also tidies results cached before clean_email existed
+                    cands.append(Candidate(email, "website", "generic", purpose(email)[1], sources=[{"uri": page}]))
             # Hunter domain search, capped per run (CON-02, CON-06)
             if hunter_key and domain:
                 if hunter_used >= s.hunter_max_calls_per_run:
@@ -158,7 +183,7 @@ async def find_contacts(ctx: RunContext, venue_ids: list[str]) -> dict[str, Any]
                         status = "suppressed"
         if status != "suppressed":
             cands = [c for c in cands if not is_suppressed(c.email, sup_emails, sup_domains)]
-            best = choose(cands)
+            best = choose(cands, domain)
             if best and best.source == "hunter" and best.verification != "valid" and hunter_key \
                     and hunter_used < s.hunter_max_calls_per_run:
                 hunter_used += 1
@@ -168,11 +193,12 @@ async def find_contacts(ctx: RunContext, venue_ids: list[str]) -> dict[str, Any]
                 except hunter.HunterClaimed:
                     await suppress(ctx.pool, ctx.workspace_id, "email", best.email, "claimed_email")
                     cands = [c for c in cands if c.email != best.email]
-                best = choose(cands)
+                best = choose(cands, domain)
             await ctx.pool.execute("delete from contacts where run_id = $1 and venue_id = $2", ctx.rid, vid)
             if best:
                 status = "found"
-                for c in [best] + [c for c in cands if c.email != best.email][:2]:
+                rest = sorted((c for c in cands if c.email != best.email), key=lambda c: purpose(c.email)[0])
+                for c in [best] + list({c.email: c for c in rest}.values())[:2]:
                     await ctx.pool.execute(
                         "insert into contacts (workspace_id, run_id, venue_id, email, role, type, source, confidence, "
                         "verification_status, sources, is_primary) values ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11) "

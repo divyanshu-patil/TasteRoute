@@ -11,6 +11,7 @@ from urllib.parse import urljoin, urlparse
 from urllib.robotparser import RobotFileParser
 
 import httpx
+import tldextract
 
 from ..errors import AppError
 
@@ -22,7 +23,11 @@ CONTACT_HINTS = re.compile(r"contact|wholesale|trade|stockist|info", re.I)
 LINK = re.compile(r"<a\b[^>]*href=[\"']([^\"'#]+)[\"'][^>]*>(.*?)</a>", re.I | re.S)
 MAILTO = re.compile(r"mailto:([A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,})", re.I)
 EMAIL = re.compile(r"\b[A-Za-z0-9._%+-]+@[A-Za-z0-9-]+(?:\.[A-Za-z0-9-]+)*\.[A-Za-z]{2,}\b")
-JUNK_EMAIL = re.compile(r"(example\.|sentry|wixpress|godaddy|domain\.com|email\.com|yourname|\.(png|jpg|jpeg|gif|webp|svg)$)", re.I)
+JUNK_EMAIL = re.compile(
+    r"(^example@|example\.|mysite\.|yoursite|yourdomain|yourname|sentry|wixpress|godaddy|domain\.com|email\.com"
+    r"|^no-?reply@|^donotreply@|\.(png|jpg|jpeg|gif|webp|svg)$)", re.I)
+# Bundled public-suffix list, no network. ".test" is the RFC 2606 name our fixtures use.
+_SUFFIXES = tldextract.TLDExtract(suffix_list_urls=(), extra_suffixes=("test",))
 
 Resolver = Callable[[str], Awaitable[list[str]]]
 
@@ -185,9 +190,24 @@ def pick_links(page: Page, hints: re.Pattern[str], limit: int) -> list[str]:
     return out
 
 
+def clean_email(raw: str) -> str | None:
+    """A published address as written, minus page text glued after it ('info@x.com.Hours' -> 'info@x.com').
+    None for placeholders, no-reply inboxes and anything without a real domain suffix."""
+    local, _, domain = raw.strip().lower().partition("@")
+    labels = domain.split(".")
+    for n in range(len(labels), 1, -1):
+        d = ".".join(labels[:n])
+        ext = _SUFFIXES(d)
+        if local and ext.domain and ext.suffix and d.endswith("." + ext.suffix):
+            e = f"{local}@{d}"
+            return None if JUNK_EMAIL.search(e) else e
+    return None
+
+
 def emails_in(page: Page) -> list[tuple[str, str]]:
     raw = MAILTO.findall(page.html) + EMAIL.findall(re.sub(r"<[^>]+>", " ", unescape(page.html)))
-    return [(e.lower(), page.url) for e in dict.fromkeys(raw) if not JUNK_EMAIL.search(e)]
+    cleaned = (clean_email(e) for e in raw)
+    return [(e, page.url) for e in dict.fromkeys(c for c in cleaned if c)]
 
 
 def extract_text(html: str) -> str:

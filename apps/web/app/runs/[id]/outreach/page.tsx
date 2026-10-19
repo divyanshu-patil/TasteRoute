@@ -150,7 +150,7 @@ export default function Outreach() {
                 <li key={c.venue_id} className="card-mist stack-s" style={{ padding: "14px 16px" }}>
                   <div className="row between"><strong>{c.rank}. {c.name}</strong></div>
                   {c.contacts[0] ? (
-                    <span className="small"><span className="email">{c.contacts[0].email}</span> <span className="mono faint">{c.contacts[0].source}</span></span>
+                    <span className="small"><span className="email">{c.contacts[0].email}</span> <span className="mono faint">{c.contacts[0].source}{c.contacts[0].role ? ` · ${c.contacts[0].role}` : ""}</span></span>
                   ) : (
                     <span className="small muted">{CONTACT_STATUS[c.status] ?? c.status}</span>
                   )}

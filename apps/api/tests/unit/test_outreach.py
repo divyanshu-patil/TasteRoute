@@ -108,6 +108,14 @@ def test_contact_choice_order():
     assert choose([Candidate("bad@v.test", "hunter", "generic", None, 99, "invalid")]) is None
 
 
+def test_contact_choice_prefers_pitch_inbox_on_venue_domain():
+    site = [Candidate("reservations@v.test", "website", "generic"), Candidate("hi@agency.test", "website", "generic"),
+            Candidate("info@v.test", "website", "generic"), Candidate("sales@v.test", "website", "generic")]
+    assert choose(site, "v.test").email == "sales@v.test"
+    assert choose(site[:3], "v.test").email == "info@v.test"
+    assert choose(site[:2], "v.test").email == "reservations@v.test"  # on-domain beats another site's address
+
+
 def test_hunter_only_gets_venue_domains():
     assert hunter.registrable_domain("https://www.oslocoffee.com/menu") == "oslocoffee.com"
     for url in ("https://instagram.com/oslo", "https://www.facebook.com/x", "https://linktr.ee/x", "https://x.square.site"):
