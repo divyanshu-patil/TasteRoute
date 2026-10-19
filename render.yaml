@@ -18,11 +18,15 @@ services:
       - { key: OLLAMA_MODEL, value: gemma4:31b }
       - { key: DEMO_MODE_ENABLED, value: "true" }
       - { key: SESSION_SECRET, generateValue: true }
+      - { key: CORS_ORIGINS, value: https://taste-route.vercel.app }
+      # The Supabase transaction pooler (port 6543) can't keep prepared statements.
+      - { key: DB_STATEMENT_CACHE_SIZE, value: "0" }
       # Entered in the Render dashboard, never committed:
       - { key: DATABASE_URL, sync: false }
       - { key: QLOO_API_KEY, sync: false }
       - { key: OLLAMA_API_KEY, sync: false }
       - { key: HUNTER_API_KEY, sync: false }
-      - { key: CORS_ORIGINS, sync: false }
       - { key: OSM_USER_AGENT, sync: false }
       - { key: DEMO_RUN_ID, sync: false }
+      - { key: SUPABASE_URL, sync: false }
+      - { key: SUPABASE_ANON_KEY, sync: false }
