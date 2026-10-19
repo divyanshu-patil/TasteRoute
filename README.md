@@ -83,7 +83,7 @@ Keys stay on the API. The browser calls only FastAPI, plus public map tiles that
   </tr>
   <tr>
     <td><img src="./docs/screenshots/trace.png" alt="Trace page listing agent steps, LLM calls, Qloo calls with cache hits and web lookups."></td>
-    <td><img src="./docs/screenshots/start.png" alt="Start wizard step one: use my website or describe instead."></td>
+    <td><img src="./docs/screenshots/start.png" alt="Start wizard step one: use my website or describe instead, then an optional business location with a search box and a world map to click."></td>
   </tr>
   <tr>
     <td><b>Trace.</b> Every agent step, LLM call, Qloo call and web lookup, in order. Keys never appear.</td>
