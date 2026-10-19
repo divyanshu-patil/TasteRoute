@@ -3,12 +3,14 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { EmptyState, Skeleton } from "../../components/ui";
+import { useAccount } from "../../lib/account";
 import { api } from "../../lib/api";
 import { ago } from "../../lib/format";
 
 type RunItem = { id: string; status: string; city: string; brand: string; created_at: string };
 
 export default function Runs() {
+  const { enabled, email } = useAccount();
   const [runs, setRuns] = useState<RunItem[] | null>(null);
   useEffect(() => {
     let alive = true;
@@ -20,7 +22,11 @@ export default function Runs() {
   return (
     <div className="wrap stack" style={{ gap: 32 }}>
       <h1 className="display d-l">My runs</h1>
-      <p className="muted">Runs live in this browser&apos;s anonymous workspace. Clearing site data starts a new one.</p>
+      <p className="muted">
+        {email ? `Saved to your account (${email}): they show on any device you log in from.`
+          : enabled ? "Runs live in this browser. Log in to save them and see them on any device."
+          : "Runs live in this browser's anonymous workspace. Clearing site data starts a new one."}
+      </p>
       {!runs ? <Skeleton rows={4} /> : runs.length === 0 ? (
         <EmptyState title="No runs yet"><Link className="btn" href="/start">Start a run</Link></EmptyState>
       ) : (

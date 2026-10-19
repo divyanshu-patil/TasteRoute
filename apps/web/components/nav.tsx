@@ -17,11 +17,11 @@ function Account() {
   return email ? (
     <div className="account">
       <span className="small muted" title={email}>{email}</span>
-      <button className="btn-ghost btn-sm" onClick={() => void signOut()}>Log out</button>
+      <button className="btn btn-light" onClick={() => void signOut()}>Log out</button>
     </div>
   ) : (
-    <button className="btn-ghost btn-sm" onClick={() => void signIn()} title={error ?? "Log in with Google to keep your runs on any device and send emails from your Gmail"}>
-      Log in to save progress
+    <button className="btn btn-light" onClick={() => void signIn()} title={error ?? "Log in with Google to keep your runs on any device and send emails from your Gmail"}>
+      <span>Log in<span className="hide-s"> to save progress</span></span>
     </button>
   );
 }
@@ -42,11 +42,8 @@ export function Nav() {
             </Link>
           ))}
         </nav>
-        <div className="row" style={{ gap: 8 }}>
+        <div>
           <Account />
-          <Link href="/start" className="btn">
-            Start a run
-          </Link>
         </div>
       </div>
     </header>

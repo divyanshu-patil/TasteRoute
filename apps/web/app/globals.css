@@ -112,7 +112,7 @@ main { padding-bottom: var(--section); min-height: 70vh; }
   .pill { order: 3; width: 100%; justify-content: space-between; overflow-x: auto; }
   .pill a { padding: 8px 10px; font-size: 13px; white-space: nowrap; }
   .nav .btn { padding: 12px 16px; }
-  .account > span { display: none; }
+  .account > span, .hide-s { display: none; }
 }
 
 /* ---------- buttons ---------- */
@@ -293,7 +293,9 @@ table.t { width: 100%; border-collapse: collapse; font-size: 14px; }
 .status-exported { background: var(--black); color: var(--white); }
 .status-edited { background: var(--yellow); }
 .status-sent { background: var(--black); color: var(--mint); }
-.account { display: flex; align-items: center; gap: 8px; min-width: 0; }
+.btn-light { background: var(--white); color: var(--black); }
+.btn-light:hover { background: var(--mist); }
+.account { display: flex; align-items: center; gap: 12px; min-width: 0; }
 .account > span { max-width: 180px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
 /* ---------- landing ---------- */
