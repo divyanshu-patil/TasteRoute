@@ -22,7 +22,7 @@ export default function Terms() {
       <section className="stack-s">
         <h2 className="h2">What the results mean</h2>
         <ul>
-          <li>Taste fit is a starting list, not a sales forecast. It says whose guests may like what you make, not who will buy.</li>
+          <li>Taste fit is a starting list, not a sales forecast. It shows whose guests may like what you make; it doesn't predict orders.</li>
           <li>Drafts are written by an AI from the facts shown. Read and edit every draft before you send it; you are responsible for what it says.</li>
           <li>Contacts are public business addresses and may be out of date.</li>
         </ul>

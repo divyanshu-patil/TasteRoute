@@ -40,7 +40,7 @@ function DraftEditor({ draft, readOnly, onChange }: { draft: S["DraftOut"]; read
     try {
       if (dirty) await api(`/v1/drafts/${draft.id}`, { method: "PATCH", body: { subject, body } });
       const token = googleToken();
-      if (!account.email || !token) return void (await signIn()); // back on this page; one more click sends
+      if (!account.user || !token) return void (await signIn()); // back on this page; one more click sends
       onChange(await api<S["DraftOut"]>(`/v1/drafts/${draft.id}/send`, { method: "POST", body: { google_access_token: token } }));
     } catch (e) {
       if (e instanceof ApiError && e.code === "gmail_reconnect") forgetGoogle();
@@ -102,11 +102,11 @@ function DraftEditor({ draft, readOnly, onChange }: { draft: S["DraftOut"]; read
           <div className="row" style={{ gap: 8 }}>
             {draft.mailto && !dirty && <a className="btn-ghost btn-sm" href={draft.mailto}>Open in mail app</a>}
             {(draft.status === "draft" || draft.status === "edited" || dirty) && (
-              <button className={account.email ? "btn-ghost btn-sm" : "btn btn-sm"} disabled={busy} onClick={() => save("approved")}>Approve</button>
+              <button className={account.user ? "btn-ghost btn-sm" : "btn btn-sm"} disabled={busy} onClick={() => save("approved")}>Approve</button>
             )}
             {account.enabled && (
               <button className="btn btn-sm" disabled={busy} onClick={send}>
-                {!account.email ? "Log in to send with Gmail" : googleToken() ? "Send with Gmail" : "Connect Gmail to send"}
+                {!account.user ? "Log in to send with Gmail" : googleToken() ? "Send with Gmail" : "Connect Gmail to send"}
               </button>
             )}
           </div>

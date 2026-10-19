@@ -10,7 +10,8 @@ import { ago } from "../../lib/format";
 type RunItem = { id: string; status: string; city: string; brand: string; created_at: string };
 
 export default function Runs() {
-  const { enabled, email } = useAccount();
+  const { enabled, user } = useAccount();
+  const email = user?.email;
   const [runs, setRuns] = useState<RunItem[] | null>(null);
   useEffect(() => {
     let alive = true;

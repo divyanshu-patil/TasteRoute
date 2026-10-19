@@ -81,9 +81,11 @@ function link(session: Session): Promise<void> {
   return linking;
 }
 
-/** Who is signed in (null when not), and whether sign-in is set up at all. */
-export function useAccount(): { enabled: boolean; email: string | null; error: string | null } {
-  const [email, setEmail] = useState<string | null>(null);
+type Who = { email: string; name: string | null; avatar: string | null };
+
+/** Who is signed in (null when not), with Google's name and picture, and whether sign-in is set up at all. */
+export function useAccount(): { enabled: boolean; user: Who | null; error: string | null } {
+  const [user, setUser] = useState<Who | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [enabled, setEnabled] = useState(false);
   useEffect(() => {
@@ -91,7 +93,9 @@ export function useAccount(): { enabled: boolean; email: string | null; error: s
     if (!sb) return;
     setEnabled(true);
     const { data } = sb.auth.onAuthStateChange((_event, session) => {
-      setEmail(session?.user.email ?? null);
+      const u = session?.user;
+      const meta = (u?.user_metadata ?? {}) as { full_name?: string; name?: string; avatar_url?: string; picture?: string };
+      setUser(u?.email ? { email: u.email, name: meta.full_name ?? meta.name ?? null, avatar: meta.avatar_url ?? meta.picture ?? null } : null);
       if (!session) return;
       if (session.provider_token && session.provider_token !== google()?.token) {
         write(GOOGLE, JSON.stringify({ token: session.provider_token, exp: Date.now() + 55 * 60_000 })); // new: just signed in
@@ -103,5 +107,5 @@ export function useAccount(): { enabled: boolean; email: string | null; error: s
     });
     return () => data.subscription.unsubscribe();
   }, []);
-  return { enabled, email, error };
+  return { enabled, user, error };
 }

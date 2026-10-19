@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
 import { signIn, signOut, useAccount } from "../lib/account";
 
 const LINKS = [
@@ -12,14 +13,49 @@ const LINKS = [
 ];
 
 function Account() {
-  const { enabled, email, error } = useAccount();
+  const { enabled, user, error } = useAccount();
+  const [open, setOpen] = useState(false);
+  const [broken, setBroken] = useState(false); // the picture didn't load: show the initial
+  const box = useRef<HTMLDivElement>(null);
+  const button = useRef<HTMLButtonElement>(null);
+  useEffect(() => {
+    if (!open) return;
+    const away = (e: PointerEvent) => !box.current?.contains(e.target as Node) && setOpen(false);
+    const esc = (e: KeyboardEvent) => {
+      if (e.key !== "Escape") return;
+      setOpen(false);
+      button.current?.focus();
+    };
+    document.addEventListener("pointerdown", away);
+    document.addEventListener("keydown", esc);
+    return () => {
+      document.removeEventListener("pointerdown", away);
+      document.removeEventListener("keydown", esc);
+    };
+  }, [open]);
   if (!enabled) return null;
-  return email ? (
-    <div className="account">
-      <span className="small muted" title={email}>{email}</span>
-      <button className="btn btn-light" onClick={() => void signOut()}>Log out</button>
-    </div>
-  ) : (
+  if (user) {
+    const label = user.name ?? user.email;
+    return (
+      <div className="account" ref={box}>
+        <button ref={button} className="avatar" aria-haspopup="menu" aria-expanded={open} aria-label={`Account: ${label}`} onClick={() => setOpen((o) => !o)}>
+          {user.avatar && !broken
+            ? <img src={user.avatar} alt="" referrerPolicy="no-referrer" onError={() => setBroken(true)} /> // eslint-disable-line @next/next/no-img-element
+            : label.charAt(0).toUpperCase()}
+        </button>
+        {open && (
+          <div className="account-menu" role="menu" aria-label="Account">
+            <div className="stack-s" style={{ gap: 4 }}>
+              {user.name && <strong>{user.name}</strong>}
+              <span className="small">{user.email}</span>
+            </div>
+            <button role="menuitem" className="btn btn-light" onClick={() => void signOut()}>Log out</button>
+          </div>
+        )}
+      </div>
+    );
+  }
+  return (
     <button className="btn btn-light" onClick={() => void signIn()} title={error ?? "Log in with Google to keep your runs on any device and send emails from your Gmail"}>
       <span>Log in<span className="hide-s"> to save progress</span></span>
     </button>

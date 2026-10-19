@@ -67,5 +67,5 @@ ConfidenceBadge, ScoreCell (fit and lift with tooltip), SourceChip, EvidenceItem
 - Say "taste fit", never "will buy" or "demand".
 - Label inferences as "Our inference".
 - Always show "Nothing is sent without your click. Emails go from your own Gmail when you're logged in, or you copy approved ones into your inbox."
-- Nav: "Log in to save progress" (Google via Supabase Auth), or the account email and "Log out". Hidden when sign-in isn't configured.
+- Nav: "Log in to save progress" (Google via Supabase Auth). Logged in: the Google profile picture (or the initial) in a round button that opens a flat black menu with name, email and "Log out"; Escape or a click outside closes it. Hidden when sign-in isn't configured.
 - Draft card, when sign-in is configured: "Send with Gmail" (or "Log in to send with Gmail" / "Connect Gmail to send"). A sent draft shows "Sent from your Gmail on …" and can't be edited (F12).
