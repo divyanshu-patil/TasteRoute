@@ -18,7 +18,8 @@ Let a user keep their work across devices, and send an approved pitch from their
 2. The API rebuilds the email from the stored draft (to the contact's address, the subject and body, with the opt-out line), checks the do-not-contact list, claims the draft so a double click cannot send twice, and calls Gmail's `users.messages.send`.
 3. Google's token lasts about an hour. It stays in the browser, goes to the API with each send, and is never stored or logged. When Gmail refuses it, the button asks to connect Gmail again.
 4. A sent draft is final: status `sent`, `sent_at`, Gmail's message id. It can't be edited or regenerated, and re-running outreach leaves it alone.
-5. Nothing is sent in bulk or on a schedule. The "Open in mail app" link, "Copy email" and the CSV still work for users who don't sign in.
+5. **Send all** sends every unsent draft on the outreach page (one run, at most 25 venues), one at a time through the same route, after the user confirms the count. It waits while any draft has unsaved edits, shows "Sending k of n", reports drafts that failed, and stops when Gmail wants permission again; the next click sends the rest. Nothing is sent on a schedule.
+6. The "Open in mail app" link, "Copy email" and the CSV still work for users who don't sign in.
 
 ## Outputs and storage
 

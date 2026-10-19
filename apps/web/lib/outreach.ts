@@ -1,4 +1,4 @@
-import { api } from "./api";
+import { api, type S } from "./api";
 
 // The start request in flight. It outlives the results page, so the outreach page can show it and cancel it.
 let pending: { runId: string; ctl: AbortController; done: Promise<unknown> } | null = null;
@@ -19,4 +19,28 @@ export const startingOutreach = (runId: string) => (pending?.runId === runId ? p
 export async function cancelOutreach(runId: string): Promise<void> {
   if (pending?.runId === runId) pending.ctl.abort();
   await api(`/v1/runs/${runId}/cancel`, { method: "POST" });
+}
+
+/** Send all: sends the drafts one at a time from the user's Gmail. Stops when Gmail wants permission again, so the rest
+ * wait for the next click; the API sends each draft at most once, so nothing goes twice. */
+export async function sendAll(
+  drafts: { id: string; venue_name: string }[],
+  googleToken: string,
+  each: (done: number, sent: S["DraftOut"] | null) => void,
+): Promise<{ sent: number; failed: string[]; reconnect: boolean }> {
+  let sent = 0;
+  const failed: string[] = [];
+  for (const [i, d] of drafts.entries()) {
+    try {
+      const out = await api<S["DraftOut"]>(`/v1/drafts/${d.id}/send`, { method: "POST", body: { google_access_token: googleToken } });
+      sent++;
+      each(i + 1, out);
+    } catch (e) {
+      const err = e as { code?: string; detail?: string; title?: string };
+      if (err.code === "gmail_reconnect") return { sent, failed, reconnect: true };
+      failed.push(`${d.venue_name}: ${err.detail || err.title || "not sent"}`);
+      each(i + 1, null);
+    }
+  }
+  return { sent, failed, reconnect: false };
 }

@@ -31,7 +31,7 @@ export default function Terms() {
       <section className="stack-s">
         <h2 className="h2">Sending email</h2>
         <ul>
-          <li>You are the sender. Emails go from your own Gmail, one per click, or you copy them into your own email app.</li>
+          <li>You are the sender. Emails go from your own Gmail when you click Send, or Send all after confirming the count, or you copy them into your own email app.</li>
           <li>Follow the email and privacy laws that apply to you and the people you write to (for example CAN-SPAM, GDPR or PECR).</li>
           <li>Send relevant, honest business pitches only: no bulk or unsolicited mass mail, no false claims, no misleading subjects.</li>
           <li>Keep the opt-out line, and honour every opt-out: add the address to your do-not-contact list.</li>

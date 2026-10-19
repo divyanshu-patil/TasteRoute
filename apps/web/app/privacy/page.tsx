@@ -33,8 +33,8 @@ export default function Privacy() {
           It can&apos;t read your inbox, contacts or any other Google data, and we don&apos;t ask for more.
         </p>
         <ul>
-          <li>We send an email only when you click <strong>Send with Gmail</strong> on that draft: one click, one email, to the address shown.</li>
-          <li>Google&apos;s access token stays in your browser for about an hour. It reaches our server only with the email you are sending, is used for that one request, and is never stored or logged.</li>
+          <li>We send email only when you click: <strong>Send with Gmail</strong> sends that one draft, and <strong>Send all</strong> sends every unsent draft on the page after you confirm how many. Each goes to the address shown, at most once.</li>
+          <li>Google&apos;s access token stays in your browser for about an hour. It reaches our server only with the emails you are sending, is used for those requests, and is never stored or logged.</li>
           <li>We keep the time each email was sent and Gmail&apos;s id for it, so the draft shows as sent and can&apos;t go twice.</li>
           <li>You can withdraw the permission at any time in your <a href="https://myaccount.google.com/permissions">Google account settings</a>.</li>
         </ul>

@@ -4,7 +4,7 @@ This is engineering guidance, not legal advice. Check the email and data protect
 
 ## Outreach principles
 
-1. **Human approval.** Every email is written as a draft and approved by the user. Nothing is sent without the user's click: one email per click, from their own Gmail (F12), or copied out by hand. No bulk or scheduled sending.
+1. **Human approval.** Every email is written as a draft and approved by the user. Nothing is sent without the user's click, from their own Gmail (F12) or copied out by hand: "Send with Gmail" sends one draft; "Send all" sends the unsent drafts of one run (at most 25 venues) after the user confirms the count. No scheduled or background sending.
 2. **Business contacts only.** Contacts come from the venue's own website, its public listing (OpenStreetMap), its own domain (Hunter domain search) or, as a last resort, a web search that keeps only addresses on the venue's domain or carrying its name. Each shows the page it came from. No consumer data, no personal social profiles, no guessed addresses.
 3. **Relevance.** Each draft must cite the specific reason the venue fits (grounding validator). No bulk or generic messages.
 4. **Opt-out.** Every draft includes an opt-out line. Opt-outs are recorded in the suppression list and honoured everywhere.

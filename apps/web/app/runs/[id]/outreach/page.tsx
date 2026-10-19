@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { LiveProgress } from "../../../../components/live-progress";
 import { RunShell } from "../../../../components/run-shell";
 import { Tour, type TourStep } from "../../../../components/tour";
@@ -10,10 +10,12 @@ import { Banner, ContactSource, EmptyState, NOTHING_SENT, Skeleton } from "../..
 import { forgetGoogle, googleToken, signIn, useAccount } from "../../../../lib/account";
 import { ApiError, api, downloadCsv, type S } from "../../../../lib/api";
 import { CONTACT_STATUS, OUTREACH_STEPS } from "../../../../lib/format";
-import { cancelOutreach, startingOutreach } from "../../../../lib/outreach";
+import { cancelOutreach, sendAll, startingOutreach } from "../../../../lib/outreach";
 import { useRun } from "../../../../lib/use-run";
 
-function DraftEditor({ draft, readOnly, onChange }: { draft: S["DraftOut"]; readOnly: boolean; onChange: (d: S["DraftOut"] | null) => void }) {
+type EditorProps = { draft: S["DraftOut"]; readOnly: boolean; onChange: (d: S["DraftOut"] | null) => void; onDirty: (id: string, dirty: boolean) => void };
+
+function DraftEditor({ draft, readOnly, onChange, onDirty }: EditorProps) {
   const account = useAccount();
   const [subject, setSubject] = useState(draft.subject);
   const [body, setBody] = useState(draft.body);
@@ -21,6 +23,10 @@ function DraftEditor({ draft, readOnly, onChange }: { draft: S["DraftOut"]; read
   const [err, setErr] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
   const dirty = subject !== draft.subject || body !== draft.body;
+  useEffect(() => { // Send all waits while any draft has unsaved edits
+    onDirty(draft.id, dirty);
+    return () => onDirty(draft.id, false);
+  }, [draft.id, dirty, onDirty]);
 
   const save = async (status?: "approved") => {
     setBusy(true);
@@ -131,6 +137,13 @@ export default function Outreach() {
   const [err, setErr] = useState<string | null>(null);
   const [starting, setStarting] = useState(() => !!startingOutreach(id)); // the results page sent the start just now
   const [cancelling, setCancelling] = useState(false);
+  const account = useAccount();
+  const [edited, setEdited] = useState<string[]>([]); // drafts with unsaved edits
+  const onDirty = useCallback((draftId: string, dirty: boolean) =>
+    setEdited((l) => (dirty ? (l.includes(draftId) ? l : [...l, draftId]) : l.filter((x) => x !== draftId))), []);
+  const [confirming, setConfirming] = useState(false);
+  const [sending, setSending] = useState<{ done: number; of: number } | null>(null);
+  const [note, setNote] = useState<{ ok: boolean; text: string } | null>(null);
 
   useEffect(() => {
     const start = startingOutreach(id);
@@ -178,9 +191,28 @@ export default function Outreach() {
   const running = starting || status === "outreach_running";
   const approved = (drafts ?? []).filter((d) => d.status === "approved" || d.status === "exported").length;
   const sent = (drafts ?? []).filter((d) => d.status === "sent").length;
+  const unsent = (drafts ?? []).filter((d) => d.status !== "sent");
   const update = (d: S["DraftOut"] | null) => {
     if (d) setDrafts((list) => (list ?? []).map((x) => (x.id === d.id ? d : x)));
     else refresh();
+  };
+  // Send all (F12): every unsent draft on this page, one at a time, after the user confirms the count
+  const sendEvery = async () => {
+    const token = googleToken();
+    setConfirming(false);
+    if (!account.user || !token) return void (await signIn()); // back here with Gmail connected
+    setNote(null);
+    setErr(null);
+    setSending({ done: 0, of: unsent.length });
+    const r = await sendAll(unsent, token, (done, d) => {
+      if (d) update(d);
+      setSending({ done, of: unsent.length });
+    });
+    setSending(null);
+    if (r.reconnect) forgetGoogle();
+    const text = [`Sent ${r.sent} email${r.sent === 1 ? "" : "s"} from your Gmail.`,
+      r.reconnect ? "Gmail needs your permission again: click Send all to reconnect and send the rest." : "", ...r.failed];
+    setNote({ ok: !r.reconnect && r.failed.length === 0, text: text.filter(Boolean).join(" ") });
   };
   const exportCsv = async () => {
     try {
@@ -196,6 +228,7 @@ export default function Outreach() {
       {running && <LiveProgress progress={progress} steps={OUTREACH_STEPS} title="Finding contacts and drafting" onCancel={cancel} cancelling={cancelling} />}
       <Banner tone="ink">{NOTHING_SENT}</Banner>
       {err && <Banner tone="warn">{err}</Banner>}
+      {note && <Banner tone={note.ok ? "mint" : "warn"}>{note.text}</Banner>}
       {!running && status === "scouted" && run?.error_message && <Banner tone="warn">{run.error_message}</Banner>}
       {!contacts || contacts.length === 0 ? (
         running ? null : !contacts ? <Skeleton /> : ( // the live panel above covers the wait
@@ -234,7 +267,7 @@ export default function Outreach() {
           </section>
           <section className="stack" aria-label="Drafts" data-tour="draft">
             {(drafts ?? []).map((d) => (
-              <DraftEditor key={`${d.id}-${d.updated_at}`} draft={d} readOnly={!!run?.is_demo} onChange={update} />
+              <DraftEditor key={`${d.id}-${d.updated_at}`} draft={d} readOnly={!!run?.is_demo} onChange={update} onDirty={onDirty} />
             ))}
             {drafts && drafts.length === 0 && !running && <EmptyState title="No drafts">Drafts are written only for venues with a public business email.</EmptyState>}
           </section>
@@ -243,8 +276,27 @@ export default function Outreach() {
       {drafts && drafts.length > 0 && (
         <div className="actionbar" role="region" aria-label="Export" data-tour="export">
           <div>
-            <span><strong>{approved}</strong> of {drafts.length} approved{sent > 0 && <>, <strong>{sent}</strong> sent</>}</span>
-            <button className="btn" onClick={exportCsv}>Download CSV</button>
+            {sending ? (
+              <span role="status">Sending {sending.done + 1 > sending.of ? sending.of : sending.done + 1} of {sending.of}…</span>
+            ) : confirming ? (
+              <span role="status">Send {unsent.length} email{unsent.length === 1 ? "" : "s"} from your Gmail now?</span>
+            ) : (
+              <span><strong>{approved}</strong> of {drafts.length} approved{sent > 0 && <>, <strong>{sent}</strong> sent</>}</span>
+            )}
+            <div className="row" style={{ gap: 8 }}>
+              {account.enabled && !run?.is_demo && unsent.length > 0 && !sending && (confirming ? (
+                <>
+                  <button className="btn-ghost" onClick={() => setConfirming(false)}>Cancel</button>
+                  <button className="btn" onClick={sendEvery}>Send {unsent.length}</button>
+                </>
+              ) : (
+                <button className="btn" disabled={edited.length > 0} title={edited.length ? "Save or undo your edits first" : undefined}
+                  onClick={() => (account.user && googleToken() ? setConfirming(true) : void signIn())}>
+                  {!account.user ? "Log in to send all" : !googleToken() ? "Connect Gmail to send all" : edited.length ? "Save edits to send all" : `Send all (${unsent.length})`}
+                </button>
+              ))}
+              {!confirming && !sending && <button className={account.user ? "btn-ghost" : "btn"} onClick={exportCsv}>Download CSV</button>}
+            </div>
           </div>
         </div>
       )}
