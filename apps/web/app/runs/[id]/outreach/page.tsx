@@ -58,7 +58,7 @@ function DraftEditor({ draft, readOnly, onChange }: { draft: S["DraftOut"]; read
         </div>
         <div className="row" style={{ gap: 6 }}>
           <span className={`status status-${draft.status}`}>{draft.status}</span>
-          <span className="tag tag-mist">{draft.source === "llm" ? `AI draft · ${draft.cited_evidence_ids.length} Qloo facts cited` : "template"}</span>
+          <span className="tag tag-mist">{draft.source === "llm" ? `AI draft · ${draft.cited_evidence_ids.length} Qloo fact${draft.cited_evidence_ids.length === 1 ? "" : "s"} cited` : "template"}</span>
         </div>
       </div>
       <label className="field">

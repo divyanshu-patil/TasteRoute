@@ -20,6 +20,7 @@ A small food or drink brand needs its first wholesale accounts. Lists of cafés 
 
 - **Which venues to pitch**, ranked by taste fit, not by how busy they are.
 - **Which product to lead with** at each one.
+- **Where they are**, on a map numbered by rank.
 - **Why**, as a reason built from Qloo's explanation, with every source one click away.
 - **A first email** that cites only that evidence, for you to edit, approve and send from your own inbox.
 
@@ -88,10 +89,18 @@ Keys stay on the API. The browser calls only FastAPI, plus public map tiles that
     <td><b>Trace.</b> Every agent step, LLM call, Qloo call and web lookup, in order. Keys never appear.</td>
     <td><b>Start.</b> Four steps: brand, profile, Qloo matches, city and venue types.</td>
   </tr>
+  <tr>
+    <td><img src="./docs/screenshots/tour.png" alt="Guided tour, step 4 of 6: the results map is outlined and a black card explains that the top 10 venues are numbered by rank."></td>
+    <td><img src="./docs/screenshots/landing.png" alt="Landing page: Find venues that share your taste, with Start a run and Take the 2-minute tour buttons."></td>
+  </tr>
+  <tr>
+    <td><b>Guided tour.</b> Walks through the sample from results to venue, outreach and trace. Esc or Skip closes it.</td>
+    <td><b>Landing.</b> Start a run, or take the tour of the sample run.</td>
+  </tr>
 </table>
 
 <p align="center">
-  <img src="./docs/screenshots/mobile.png" width="100%" alt="The landing page, results and venue detail at phone width.">
+  <img src="./docs/screenshots/mobile.png" width="100%" alt="At phone width: the landing page, the results map with the guided tour open, and venue detail for Oslo Coffee Roasters.">
 </p>
 
 ## Does Qloo change the answer?
