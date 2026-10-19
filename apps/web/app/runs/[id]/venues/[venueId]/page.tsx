@@ -5,9 +5,18 @@ import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { ReasonText } from "../../../../../components/reason";
 import { NotFoundPanel } from "../../../../../components/run-shell";
+import { Tour, type TourStep } from "../../../../../components/tour";
 import { ConfidenceBadge, ErrorPanel, Skeleton, SourceChip, Tip } from "../../../../../components/ui";
+import { VenueMap } from "../../../../../components/venue-map";
 import { ApiError, api, type S } from "../../../../../lib/api";
 import { CONFIDENCE, CONTACT_STATUS, FIT_LABEL, liftText, pct, venueTypeLabel } from "../../../../../lib/format";
+
+const TOUR: TourStep[] = [
+  { target: "venue-scores", title: "One venue, all its numbers", body: "Fit and lift, and the two Qloo percentiles behind them: taste for your brands' fans, and plain popularity." },
+  { target: "why", title: "The reason", body: "Built from Qloo's explanation: which of your brands' fans drive the match and who goes here. Labels show what came from Qloo." },
+  { target: "product-fit", title: "Which product to lead with", body: "A separate Qloo query per product. The longest bar is the one to pitch first; \"close call\" means the gap is small." },
+  { target: "evidence", title: "Every source", body: "Each item says whether it came from Qloo, the public web or our inference, and the map shows where the venue is." },
+];
 
 type Fit = { product_id: string; name: string; percentile: number; is_best: boolean; label: string | null; margin: number | null };
 
@@ -63,6 +72,7 @@ export default function VenuePage() {
   if (error) return <div className="wrap">{error.status === 404 ? <NotFoundPanel /> : <ErrorPanel code={error.code} title={error.title} />}</div>;
   if (!d) return <div className="wrap"><Skeleton rows={8} /></div>;
   const v = d.venue;
+  const pin = d.lat != null && d.lon != null ? [{ id: v.venue_id, lat: d.lat, lon: d.lon, label: String(v.rank), title: v.name, sub: d.address ?? undefined }] : [];
   const fits = d.product_fit as Fit[];
   const qloo = d.evidence.filter((e) => e.source_kind === "qloo");
   const other = d.evidence.filter((e) => e.source_kind !== "qloo");
@@ -84,7 +94,7 @@ export default function VenuePage() {
         </p>
       </header>
 
-      <section className="grid-4">
+      <section className="grid-4" data-tour="venue-scores">
         <div className="stat"><span className="label"><Tip label="Fit">0.7 × taste percentile + 0.3 × positive lift, as 0–100.</Tip></span><span className="v">{pct(v.fit)}</span><span className="mono faint">out of 100</span></div>
         <div className="stat"><span className="label"><Tip label="Lift">Taste percentile minus popularity percentile. Positive means the match is about taste, not footfall.</Tip></span><span className="v">{pct(v.lift) > 0 ? "+" : ""}{pct(v.lift)}</span><span className="mono faint">{liftText(v.lift)}</span></div>
         <div className="stat"><span className="label">Taste percentile</span><span className="v">{pct(v.target_pct)}</span><span className="mono faint">among {venueTypeLabel(v.venue_type).toLowerCase()} venues, from Qloo affinity</span></div>
@@ -92,12 +102,12 @@ export default function VenuePage() {
       </section>
 
       <section className="grid-2">
-        <div className="card stack">
+        <div className="card stack" data-tour="why">
           <h2 className="h2">Why this venue</h2>
           <p style={{ fontSize: 18, lineHeight: 1.4 }}><ReasonText text={v.reason ?? ""} traceHref={`/runs/${id}/trace`} /></p>
           <p className="small faint">Confidence: {CONFIDENCE[v.confidence]}</p>
         </div>
-        <div className="card stack">
+        <div className="card stack" data-tour="product-fit">
           <div className="row between">
             <h2 className="h2">Product fit</h2>
             <SourceChip kind="inference" />
@@ -114,7 +124,7 @@ export default function VenuePage() {
         </div>
       </section>
 
-      <section className="stack">
+      <section className="stack" data-tour="evidence">
         <div className="row between">
           <h2 className="display d-m">Evidence</h2>
           <Link className="link-mint" href={`/runs/${id}/trace`}>See every call in the trace →</Link>
@@ -130,6 +140,11 @@ export default function VenuePage() {
             ))}
           </div>
           <div className="evidence">
+            {d.lat != null && d.lon != null && (
+              <article className="ev" style={{ padding: 0, overflow: "hidden" }}>
+                <VenueMap pins={pin} label={`Map: ${v.name}`} height={240} />
+              </article>
+            )}
             {other.map((e) => (
               <article key={e.id} className="ev">
                 <div className="row between"><strong>{e.label}</strong><SourceChip kind={e.source_kind} /></div>
@@ -146,6 +161,7 @@ export default function VenuePage() {
           </div>
         </div>
       </section>
+      <Tour steps={TOUR} ready next={{ href: `/runs/${id}/outreach?tour=1`, label: "See the outreach" }} />
     </div>
   );
 }

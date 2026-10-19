@@ -5,6 +5,7 @@ import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { LiveProgress } from "../../../../components/live-progress";
 import { RunShell } from "../../../../components/run-shell";
+import { Tour, type TourStep } from "../../../../components/tour";
 import { Banner, EmptyState, NOTHING_SENT, Skeleton } from "../../../../components/ui";
 import { ApiError, api, downloadCsv, type S } from "../../../../lib/api";
 import { CONTACT_STATUS, OUTREACH_STEPS } from "../../../../lib/format";
@@ -90,6 +91,12 @@ function DraftEditor({ draft, readOnly, onChange }: { draft: S["DraftOut"]; read
   );
 }
 
+const TOUR: TourStep[] = [
+  { target: "contacts", title: "Public business contacts", body: "Only addresses a venue published itself: its OpenStreetMap listing or its own website. Each shows where it was found and which sources were checked." },
+  { target: "draft", title: "A grounded first email", body: "The AI writes from the venue's evidence only, and a validator rejects any name or number that isn't in it. You edit and approve; TasteRoute never sends anything." },
+  { target: "export", title: "Take it with you", body: "Download every venue, contact and approved draft as a CSV for your own mail app or CRM." },
+];
+
 export default function Outreach() {
   const { id } = useParams<{ id: string }>();
   const { run, error, progress, online, refresh } = useRun(id);
@@ -143,7 +150,7 @@ export default function Outreach() {
         </EmptyState>
       ) : (
         <div className="split">
-          <section className="card stack sticky" aria-labelledby="contacts-h">
+          <section className="card stack sticky" aria-labelledby="contacts-h" data-tour="contacts">
             <h2 id="contacts-h" className="h2">Contacts</h2>
             <ul className="stack-s" style={{ listStyle: "none", padding: 0, margin: 0 }}>
               {contacts.map((c) => (
@@ -159,7 +166,7 @@ export default function Outreach() {
               ))}
             </ul>
           </section>
-          <section className="stack" aria-label="Drafts">
+          <section className="stack" aria-label="Drafts" data-tour="draft">
             {(drafts ?? []).map((d) => (
               <DraftEditor key={`${d.id}-${d.updated_at}`} draft={d} readOnly={!!run?.is_demo} onChange={update} />
             ))}
@@ -168,13 +175,14 @@ export default function Outreach() {
         </div>
       )}
       {drafts && drafts.length > 0 && (
-        <div className="actionbar" role="region" aria-label="Export">
+        <div className="actionbar" role="region" aria-label="Export" data-tour="export">
           <div>
             <span><strong>{approved}</strong> of {drafts.length} approved</span>
             <button className="btn" onClick={exportCsv}>Download CSV</button>
           </div>
         </div>
       )}
+      <Tour steps={TOUR} ready={!!contacts && !!drafts} next={{ href: `/runs/${id}/trace?tour=1`, label: "See the trace" }} />
     </RunShell>
   );
 }

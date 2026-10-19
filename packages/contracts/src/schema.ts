@@ -1008,8 +1008,12 @@ export interface components {
             fit: number;
             /** Flags */
             flags: string[];
+            /** Lat */
+            lat?: number | null;
             /** Lift */
             lift: number;
+            /** Lon */
+            lon?: number | null;
             /** Name */
             name: string;
             /** Neighborhood */

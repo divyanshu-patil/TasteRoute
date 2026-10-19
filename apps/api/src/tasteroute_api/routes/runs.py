@@ -163,7 +163,7 @@ where vs.run_id = $1
 def _row(r: Any) -> VenueRow:
     return VenueRow(
         venue_id=str(r["venue_id"]), rank=r["rank"], name=r["name"], venue_type=r["venue_type"],
-        neighborhood=r["neighborhood"], fit=float(r["fit"]), lift=float(r["lift"]), target_pct=float(r["target_pct"]),
+        neighborhood=r["neighborhood"], lat=r["lat"], lon=r["lon"], fit=float(r["fit"]), lift=float(r["lift"]), target_pct=float(r["target_pct"]),
         baseline_pct=float(r["baseline_pct"]), confidence=r["confidence"], flags=list(r["flags"]),
         best_product=BestProduct(product_id=str(r["best_product_id"]), name=r["best_product_name"], label=r["best_label"],
                                  margin=float(r["best_margin"]) if r["best_margin"] is not None else None)

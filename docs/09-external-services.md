@@ -9,6 +9,7 @@
 | Nominatim | City geocoding | Identifying User-Agent | Max 1 req/s, cache, no autocomplete, no systematic queries | 30 days |
 | Overpass API | Venue website and email tags | Identifying User-Agent | No parallel queries, back off on 429/406, light daily use | 7 days per (city, venue type) |
 | Website reader | Brand intake pages | None | Robots.txt, timeouts, SSRF guard | 7 days per URL |
+| OpenStreetMap tiles | Map on results and venue pages (loaded by the browser, not the API) | None; attribution shown on the map | [Tile usage policy](https://operations.osmfoundation.org/policies/tiles/): light use only, no bulk download. Swap to a keyed or self-hosted tile service before real traffic | Browser cache |
 | Apollo (optional, off) | Buyers at chains | API key | Free plan limited; reselling Apollo data needs a contract | 14 days |
 
 ## Hunter

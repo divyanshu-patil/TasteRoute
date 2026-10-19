@@ -6,7 +6,9 @@ import { useEffect, useMemo, useState } from "react";
 import { LiveProgress } from "../../../components/live-progress";
 import { ReasonText } from "../../../components/reason";
 import { RunShell } from "../../../components/run-shell";
+import { Tour, type TourStep } from "../../../components/tour";
 import { Banner, ConfidenceBadge, EmptyState, ErrorPanel, Skeleton, Tip } from "../../../components/ui";
+import { VenueMap, type Pin } from "../../../components/venue-map";
 import { ApiError, api, type S } from "../../../lib/api";
 import { CONTACT_STATUS, FIT_LABEL, SCOUT_STEPS, liftText, pct, venueTypeLabel } from "../../../lib/format";
 import { useRun } from "../../../lib/use-run";
@@ -18,6 +20,15 @@ const WEIGHTS = [
   { label: "Balanced", target: 0.7, lift: 0.3 },
   { label: "Taste first", target: 1, lift: 0 },
   { label: "Lift first", target: 0.4, lift: 0.6 },
+];
+const TOUR: TourStep[] = [
+  { target: "run-head", title: "A finished run", body: "The brand, its city and the venue types it covers. The sample is a fictional Brooklyn drinks maker; every number comes from real, stored Qloo calls." },
+  { target: "stats", title: "What the run did", body: "How many venues Qloo scored, how many are high confidence, and the Qloo calls it took. Cached calls reuse a stored answer." },
+  { target: "signal", title: "The taste signal", body: "Qloo matched each product to brands it knows, or to real comparable brands when a product is too new. Venues rank by how much their guests share these brands' fans' taste." },
+  { target: "map", title: "Where they are", body: "Every ranked venue. The top 10 are numbered by rank, and venues you select turn yellow. Open a pin for its scores." },
+  { target: "table", title: "Fit and lift", body: "Fit is 70% taste (Qloo affinity percentile) and 30% lift. Lift is taste minus Qloo's popularity percentile, so a venue doesn't rank high just for being busy." },
+  { target: "reason", title: "Why each venue", body: "Open a reason to see what Qloo said and what is our inference. Each label links to the call in the trace." },
+  { target: "weights", title: "Re-weight for free", body: "Shift the balance between taste and lift. Scores are recomputed from stored answers, with no new Qloo calls." },
 ];
 
 export default function RunPage() {
@@ -94,6 +105,14 @@ export default function RunPage() {
   const items = page?.items ?? [];
   const hasFilters = !!(type || conf || product);
   const signal = Object.values((run?.resolution ?? {}) as Record<string, { entities: string[] }>).flatMap((r) => r.entities);
+  const pins = useMemo<Pin[]>(
+    () => rows.filter((v) => v.lat != null && v.lon != null).map((v) => ({
+      id: v.venue_id, lat: v.lat as number, lon: v.lon as number, label: String(v.rank), title: `${v.rank}. ${v.name}`,
+      on: selected.includes(v.venue_id), dot: v.rank > 10 && !selected.includes(v.venue_id),
+      sub: `${venueTypeLabel(v.venue_type)} · fit ${pct(v.fit)} · ${liftText(v.lift)}`, href: `/runs/${id}/venues/${v.venue_id}`,
+    })),
+    [rows, selected, id],
+  );
 
   return (
     <RunShell run={run} error={error} tab="results" online={online}>
@@ -111,7 +130,7 @@ export default function RunPage() {
 
       {ready && (
         <>
-          <section className="grid-4" aria-label="Run summary">
+          <section className="grid-4" aria-label="Run summary" data-tour="stats">
             <div className="stat">
               <span className="label"><Tip label="Venues ranked">Venues Qloo scored for your taste in this city, across the venue types you picked.</Tip></span>
               <span className="v">{page?.total ?? "–"}</span>
@@ -133,7 +152,7 @@ export default function RunPage() {
           </section>
 
           {signal.length > 0 && (
-            <div className="row">
+            <div className="row" data-tour="signal">
               <span className="mono muted">TASTE SIGNAL FROM QLOO</span>
               {[...new Set(signal)].map((s) => <span key={s} className="tag">{s}</span>)}
             </div>
@@ -179,7 +198,7 @@ export default function RunPage() {
                 </label>
               </div>
               {!run.is_demo && (
-                <div className="stack-s">
+                <div className="stack-s" data-tour="weights">
                   <span className="label">Weighting (no new Qloo calls)</span>
                   <div className="row" style={{ gap: 6 }}>
                     {WEIGHTS.map((w) => (
@@ -194,6 +213,16 @@ export default function RunPage() {
             </div>
           </section>
 
+          {pins.length > 0 && (
+            <section className="card stack-s" aria-labelledby="map-h" data-tour="map">
+              <div className="row between">
+                <h2 id="map-h" className="label">Map</h2>
+                <span className="mono faint">{pins.length} venues · top 10 and your picks numbered</span>
+              </div>
+              <VenueMap pins={pins} label="Map of the ranked venues" height={480} />
+            </section>
+          )}
+
           {!page ? (
             <Skeleton rows={10} />
           ) : rows.length === 0 ? (
@@ -201,7 +230,7 @@ export default function RunPage() {
               {hasFilters && <button className="btn-ghost" onClick={() => { setType(""); setConf(""); setProduct(""); }}>Clear filters</button>}
             </EmptyState>
           ) : (
-            <div className="table-wrap">
+            <div className="table-wrap" data-tour="table">
               <table className="t">
                 <caption className="sr-only">Venues ranked by taste fit</caption>
                 <thead>
@@ -218,7 +247,7 @@ export default function RunPage() {
                   </tr>
                 </thead>
                 <tbody>
-                  {rows.slice(0, shown).map((v) => {
+                  {rows.slice(0, shown).map((v, i) => {
                     const sel = selected.includes(v.venue_id);
                     return (
                       <tr key={v.venue_id} className={sel ? "selected" : undefined}>
@@ -250,7 +279,7 @@ export default function RunPage() {
                             </>
                           ) : <span className="faint">–</span>}
                         </td>
-                        <td data-label="Why" className="cell-wide">
+                        <td data-label="Why" className="cell-wide" data-tour={i === 0 ? "reason" : undefined}>
                           <details className="reason small">
                             <summary><span className="clamp">{v.reason}</span></summary>
                             <p style={{ marginTop: 8 }}><ReasonText text={v.reason ?? ""} traceHref={`/runs/${id}/trace`} /></p>
@@ -292,6 +321,7 @@ export default function RunPage() {
           )}
         </>
       )}
+      <Tour steps={TOUR} ready={!!page} next={items[0] ? { href: `/runs/${id}/venues/${(items.find((v) => v.rank === 1) ?? items[0]).venue_id}?tour=1`, label: "Open venue #1" } : undefined} />
     </RunShell>
   );
 }

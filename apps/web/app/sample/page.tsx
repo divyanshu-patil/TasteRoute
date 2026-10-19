@@ -12,7 +12,7 @@ export default function Sample() {
   useEffect(() => {
     fetch(`${API_URL}/v1/demo`)
       .then((r) => r.json() as Promise<{ run_id: string | null; available: boolean }>)
-      .then((d) => (d.available && d.run_id ? router.replace(`/runs/${d.run_id}`) : setMissing(true)))
+      .then((d) => (d.available && d.run_id ? router.replace(`/runs/${d.run_id}${window.location.search}`) : setMissing(true)))
       .catch(() => setMissing(true));
   }, [router]);
   return (

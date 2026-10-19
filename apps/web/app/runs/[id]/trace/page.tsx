@@ -3,6 +3,7 @@
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { RunShell } from "../../../../components/run-shell";
+import { Tour, type TourStep } from "../../../../components/tour";
 import { EmptyState, Skeleton } from "../../../../components/ui";
 import { api, type S } from "../../../../lib/api";
 import { useRun } from "../../../../lib/use-run";
@@ -23,6 +24,11 @@ function brief(t: S["TraceRow"]): string {
   return t.step === "step_done" ? "done" : t.step === "tool_call" ? "called" : String(t.step);
 }
 
+const TOUR: TourStep[] = [
+  { target: "trace-filter", title: "Filter the trace", body: "Agent steps, LLM calls, Qloo calls and web lookups, each with a count." },
+  { target: "trace", title: "Every call, in order", body: "Timings, cache hits and results for each call this run made. The agent's tool calls were checked by a plan guard; keys never appear." },
+];
+
 export default function Trace() {
   const { id } = useParams<{ id: string }>();
   const { run, error, online } = useRun(id);
@@ -41,7 +47,7 @@ export default function Trace() {
   return (
     <RunShell run={run} error={error} tab="trace" online={online}>
       <p className="lead">Every agent step, LLM call, Qloo call and web lookup in this run, in order. Keys never appear here.</p>
-      <div className="row" role="group" aria-label="Filter by kind">
+      <div className="row" role="group" aria-label="Filter by kind" data-tour="trace-filter">
         {KINDS.map((k) => (
           <button key={k.key} className="btn-ghost btn-sm" aria-pressed={kind === k.key} onClick={() => setKind(k.key)}
             style={kind === k.key ? { background: "#000", color: "#fff", borderColor: "#000" } : undefined}>
@@ -50,7 +56,7 @@ export default function Trace() {
         ))}
       </div>
       {!rows ? <Skeleton /> : rows.length === 0 ? <EmptyState title="Nothing recorded for this filter" /> : (
-        <div className="table-wrap">
+        <div className="table-wrap" data-tour="trace">
           <table className="t trace">
             <caption className="sr-only">Run trace</caption>
             <thead><tr><th scope="col">Time</th><th scope="col">Kind</th><th scope="col">Step</th><th scope="col">Call</th><th scope="col">Result</th></tr></thead>
@@ -71,6 +77,7 @@ export default function Trace() {
           </table>
         </div>
       )}
+      <Tour steps={TOUR} ready={!!rows} next={{ href: "/start", label: "Start your own run" }} />
     </RunShell>
   );
 }

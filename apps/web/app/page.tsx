@@ -38,8 +38,8 @@ export default function Home() {
             <Link href="/start" className="btn">
               Start a run
             </Link>
-            <Link href="/sample" className="btn-ghost">
-              See a sample run
+            <Link href="/sample?tour=1" className="btn-ghost">
+              Take the 2-minute tour
             </Link>
           </div>
         </div>

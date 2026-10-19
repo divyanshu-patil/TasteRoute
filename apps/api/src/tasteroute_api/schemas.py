@@ -198,6 +198,8 @@ class VenueRow(BaseModel):
     name: str
     venue_type: str
     neighborhood: str | None
+    lat: float | None = None
+    lon: float | None = None
     fit: float
     lift: float
     target_pct: float

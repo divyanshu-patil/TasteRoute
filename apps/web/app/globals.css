@@ -298,3 +298,35 @@ table.t { width: 100%; border-collapse: collapse; font-size: 14px; }
 .split { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.6fr); gap: 24px; align-items: start; }
 .split > .sticky { position: sticky; top: 16px; }
 @media (max-width: 900px) { .split { grid-template-columns: minmax(0, 1fr); } .split > .sticky { position: static; } }
+
+/* Map: Leaflet on a grey OSM basemap; flat black controls and popups, numbered rank pins */
+.map { position: relative; isolation: isolate; border-radius: var(--r-card-sm); overflow: hidden; background: var(--canvas); }
+.map .leaflet-tile-pane { filter: grayscale(1) contrast(0.85) brightness(1.06); }
+.leaflet-container { font-family: var(--font-body); background: var(--canvas); }
+.leaflet-bar { border: 0 !important; border-radius: var(--r-btn) !important; overflow: hidden; }
+.leaflet-bar a, .leaflet-bar a:hover { background: var(--black); color: var(--white); border-bottom-color: var(--graphite) !important; }
+.leaflet-bar a:hover { background: var(--graphite); }
+.leaflet-control-attribution { font-family: var(--font-mono); font-size: 10px; background: rgba(255, 255, 255, 0.85) !important; border-radius: var(--r-btn) 0 0 0; }
+.leaflet-popup-content-wrapper, .leaflet-popup-tip { background: var(--black); color: var(--white); box-shadow: none; }
+.leaflet-popup-content-wrapper { border-radius: 16px; }
+.leaflet-popup-content { margin: 14px 18px; font-size: 14px; line-height: 1.5; }
+.leaflet-popup-content .mono { color: var(--ash); }
+.leaflet-popup-content a { color: var(--mint); font-weight: 500; }
+.leaflet-container a.leaflet-popup-close-button { color: var(--smoke); }
+.pin { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; background: var(--black); color: var(--white); border: 2px solid var(--white); font: 500 12px/1 var(--font-mono); letter-spacing: -0.03em; }
+.pin-on { background: var(--yellow); color: var(--black); border-color: var(--black); }
+.pin-dot { display: block; width: 12px; height: 12px; border-radius: 50%; background: var(--slate); border: 2px solid var(--white); }
+.leaflet-marker-icon:focus-visible { outline: none; }
+.leaflet-marker-icon:focus-visible .pin { outline: 3px solid var(--black); outline-offset: 2px; }
+
+/* Tour: one flat black card; the step's element gets a black outline */
+.tour { position: fixed; right: 24px; bottom: 96px; z-index: 30; width: min(420px, calc(100vw - 32px)); background: var(--black); color: var(--white); border-radius: var(--r-card-sm); padding: 20px 24px; display: grid; gap: 12px; }
+.tour:focus { outline: none; }
+.tour .mono, .tour-skip { color: var(--smoke); }
+.tour-skip { font-size: 14px; }
+.tour p { margin: 0; color: var(--canvas); line-height: 1.5; }
+.tour .btn-ghost { color: var(--white); border-color: var(--smoke); }
+.tour .btn-ghost:disabled { opacity: 0.4; cursor: default; }
+.tour .tour-next { background: var(--mint); color: var(--black); }
+.tour-target { outline: 3px solid var(--black); outline-offset: 6px; scroll-margin: 140px; }
+@media (max-width: 640px) { .tour { left: 16px; right: 16px; width: auto; bottom: 84px; } }

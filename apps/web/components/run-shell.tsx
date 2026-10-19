@@ -30,9 +30,10 @@ export function RunShell({ run, error, tab, online = true, children }: { run: S[
   const base = `/runs/${run.id}`;
   return (
     <div className="wrap stack" style={{ gap: 32 }}>
-      <header className="stack" style={{ gap: 20 }}>
+      <header className="stack" style={{ gap: 20 }} data-tour="run-head">
         <div className="row">
           {run.is_demo && <span className="tag tag-ink">Sample run · stored data · read-only</span>}
+          {run.is_demo && <Link className="link-mint" href={`${base}?tour=1`}>Take the tour →</Link>}
           <span className="tag tag-mist">{run.city.name as string}</span>
           {run.venue_types.map((t) => <span key={t} className="tag tag-mist">{venueTypeLabel(t)}</span>)}
           <span className="mono faint">RUN {run.id.slice(0, 8)}</span>

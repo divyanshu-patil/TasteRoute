@@ -1783,9 +1783,31 @@
             "title": "Flags",
             "type": "array"
           },
+          "lat": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Lat"
+          },
           "lift": {
             "title": "Lift",
             "type": "number"
+          },
+          "lon": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Lon"
           },
           "name": {
             "title": "Name",
