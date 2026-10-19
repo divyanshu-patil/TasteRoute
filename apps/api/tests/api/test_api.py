@@ -281,3 +281,9 @@ async def test_rls_enabled_without_policies(svc):
         "where n.nspname = 'public' and c.relkind = 'r'")
     assert rows and all(r["relrowsecurity"] for r in rows)
     assert await svc.pool.fetchval("select count(*) from pg_policies where schemaname = 'public'") == 0
+
+
+async def test_city_search_says_when_nominatim_is_down(client, ws, net, svc):
+    net.route(url__startswith=svc.settings.nominatim_base_url).mock(side_effect=httpx.ConnectTimeout("down"))
+    r = await client.get("/v1/cities/search", headers=ws, params={"q": "Atlantis"})
+    assert r.status_code == 503 and r.json()["code"] == "city_search_unavailable"

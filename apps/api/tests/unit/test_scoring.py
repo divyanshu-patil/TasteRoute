@@ -88,3 +88,13 @@ def test_reasons_skip_sensitive_and_common_tags():
     text = reason(audience_overlap=["Natural wine"], crowd=["LGBTQ+ friendly", "Locals"], interests=["Specialty coffee"],
                   driver_names=["Blue Bottle Coffee"], best_product="Cold Brew", runner_up="Espresso", label="close")
     assert "lgbt" not in text.lower() and "(our inference)" in text and "(Qloo)" in text
+
+
+def test_brand_extension_must_fit_the_product():
+    pickle = "garlic dill pickles pickles small-batch"
+    assert names.is_match("Grillo's", "Grillo's Pickles", pickle)
+    assert not names.is_match("Bubbies", "Bubbies Ice Cream", pickle)
+    assert names.is_match("Blue Bottle", "Blue Bottle Coffee", "nitro cold brew")  # generic word
+    assert names.is_match("McClure's Pickles", "McClure's", pickle)  # the query may drop a word the product uses
+    assert not names.is_match("Health-Ade", "Health", "ginger kombucha")
+    assert names.is_match("Kaigo", "Kaigo Coffee Room")  # venues (no context) keep the old rule

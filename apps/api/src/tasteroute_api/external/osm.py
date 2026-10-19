@@ -8,6 +8,7 @@ from typing import Any
 import asyncpg
 import httpx
 
+from ..errors import AppError
 from ..qloo.client import TokenBucket
 from ..scoring.names import similarity
 from . import Emit, cached_call
@@ -33,16 +34,22 @@ def _lock() -> asyncio.Lock:
 async def search_cities(pool: asyncpg.Pool, http: httpx.AsyncClient, base_url: str, user_agent: str, q: str) -> list[dict[str, Any]]:
     async def fetch() -> tuple[int, Any]:
         await _bucket().acquire()
-        r = await http.get(
-            f"{base_url}/search",
-            params={"q": q, "format": "jsonv2", "limit": 5, "addressdetails": 1},
-            headers={"User-Agent": user_agent},
-            timeout=15,
-        )
+        try:
+            r = await http.get(
+                f"{base_url}/search",
+                params={"q": q, "format": "jsonv2", "limit": 5, "addressdetails": 1},
+                headers={"User-Agent": user_agent},
+                timeout=15,
+            )
+        except httpx.HTTPError:
+            return 503, None
         return r.status_code, r.json() if r.status_code == 200 else None
 
     status, body, _, _ = await cached_call(pool, "nominatim", "/search", {"q": q.strip().lower()}, timedelta(days=30), fetch)
-    if status != 200 or not isinstance(body, list):
+    if status != 200:
+        raise AppError("City search is unavailable right now. Try again in a moment.", code="city_search_unavailable",
+                       status=503)
+    if not isinstance(body, list):
         return []
     out = []
     for x in body:
