@@ -18,6 +18,7 @@ Every request carries the signed workspace token in the `X-Workspace-Token` head
 | `GET /v1/qloo/search?q=&type=` | Manual entity search for adding comparables (cached, counts to budget) | F02 |
 | `GET /v1/cities/search?q=` | City lookup via Nominatim (cached, 1 req/s); each hit has a plain-English `label` and `detail` | F03 |
 | `GET /v1/places/search?q=&bbox=s,w,n,e` | The brand's own location: Nominatim search bounded to the city's box → `[{label, detail, lat, lon}]` | F03 |
+| `GET /v1/places/suggest?q=&kind=place\|city&bbox=` | Suggestions while typing, from Photon → `[{label, detail, lat, lon}]`; `[]` when Photon is down. A picked city suggestion is then looked up once with `/v1/cities/search` for its area | F03 |
 | `GET /v1/places/reverse?lat=&lon=` | A dropped map pin → nearest address as `{label, detail, lat, lon}` ("Dropped pin" if Nominatim has none) | F03 |
 | `POST /v1/runs` | `{brand_id, product_ids, entity_ids_by_product, city_id_or_query, venue_types, base?}`; `base` is the brand's location, used only for distances, never for ranking → `202 {run_id}` | F09 |
 | `GET /v1/runs/{id}` | Run status, counters, orchestration, warnings | F09 |
@@ -80,6 +81,6 @@ Every request carries the signed workspace token in the `X-Workspace-Token` head
 
 ## Rate limits
 
-- `POST /v1/runs`: `PUBLIC_RUNS_PER_IP_PER_DAY` per IP and per workspace.
+- `POST /v1/runs`: `PUBLIC_RUNS_PER_IP_PER_DAY` per IP and per workspace in a rolling 24 hours (default 3; `0` turns the limit off for local use).
 - `POST /v1/brands/intake`: 20 per hour per IP.
-- `GET /v1/qloo/search`, `/v1/cities/search` and `/v1/places/*`: 30 per minute per IP.
+- `GET /v1/qloo/search`, `/v1/cities/search`, `/v1/places/search` and `/v1/places/reverse`: 30 per minute per IP. `/v1/places/suggest`: 60 per minute per IP.

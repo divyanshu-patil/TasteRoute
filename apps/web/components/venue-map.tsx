@@ -14,7 +14,7 @@ const ATTRIBUTION = '&copy; <a href="https://www.openstreetmap.org/copyright">Op
 
 const esc = (s: string) => s.replace(/[&<>"']/g, (c) => `&#${c.charCodeAt(0)};`);
 
-/** Leaflet map in the design system. `bounds` ([s, w, n, e]) frames an empty map; `onPick` makes a click choose a point. */
+/** Leaflet map in the design system. `bounds` ([s, w, n, e]) frames an empty map, else it shows the world; `onPick` makes a click choose a point. */
 export function VenueMap({ pins, label, height = 380, bounds, onPick }: Props) {
   const el = useRef<HTMLDivElement>(null);
   const L = useRef<typeof Leaflet | null>(null);
@@ -23,13 +23,16 @@ export function VenueMap({ pins, label, height = 380, bounds, onPick }: Props) {
   const latest = useRef(pins);
   const area = useRef(bounds);
   const pick = useRef(onPick);
-  const fitted = useRef("");
+  const fitted = useRef({ ids: "", where: "" });
 
   const draw = () => {
     const l = L.current, m = map.current, g = layer.current;
     if (!l || !m || !g) return;
     g.clearLayers();
     const pts = latest.current;
+    const box = area.current?.length === 4 ? (area.current as [number, number, number, number]) : null;
+    const boxLL: Leaflet.LatLngBoundsExpression | null = box && [[box[0], box[1]], [box[2], box[3]]];
+    if (boxLL) l.rectangle(boxLL, { className: "map-area", interactive: false }).addTo(g); // the city being scouted
     for (const p of [...pts].reverse()) { // rank 1 drawn last, on top
       const size: [number, number] = p.dot ? [12, 12] : p.base ? [48, 28] : [30, 30];
       const cls = p.dot ? "pin-dot" : p.base ? "pin pin-base" : `pin${p.on ? " pin-on" : ""}`;
@@ -38,18 +41,16 @@ export function VenueMap({ pins, label, height = 380, bounds, onPick }: Props) {
         .bindPopup(`<strong>${esc(p.title)}</strong>${p.sub ? `<br><span class="mono">${esc(p.sub)}</span>` : ""}${p.href ? `<br><a href="${esc(p.href)}">Open venue →</a>` : ""}`)
         .addTo(g);
     }
-    const key = `${pts.map((p) => p.id).join()}|${area.current?.join()}|${el.current?.clientWidth}`;
-    if (key === fitted.current) return; // selection changes recolour pins without moving the map
-    fitted.current = key;
+    const ids = pts.map((p) => p.id).join(), where = `${box}|${el.current?.clientWidth}`;
+    if (ids === fitted.current.ids && where === fitted.current.where) return; // selection changes recolour pins without moving the map
+    const moved = where !== fitted.current.where; // a new city (or size) is framed whole
+    fitted.current = { ids, where };
     m.invalidateSize();
     const focus = pts.some((p) => !p.dot) ? pts.filter((p) => !p.dot) : pts; // frame the numbered pins; dots may sit just outside
-    const box = area.current;
-    if (focus.length > 1) m.fitBounds(focus.map((p) => [p.lat, p.lon] as [number, number]), { padding: [32, 32], maxZoom: 15 });
+    if (boxLL && (moved || !focus.length)) m.fitBounds(boxLL);
+    else if (focus.length > 1) m.fitBounds(focus.map((p) => [p.lat, p.lon] as [number, number]), { padding: [32, 32], maxZoom: 15 });
     else if (focus[0]) m.setView([focus[0].lat, focus[0].lon], Math.max(15, pick.current ? m.getZoom() || 0 : 0));
-    else if (box?.length === 4) {
-      const [s, w, n, e] = box as [number, number, number, number];
-      m.fitBounds([[s, w], [n, e]]);
-    }
+    else m.setView([20, 0], 2); // nothing to frame yet: the world
   };
 
   useEffect(() => {
@@ -70,7 +71,7 @@ export function VenueMap({ pins, label, height = 380, bounds, onPick }: Props) {
       ro.disconnect();
       map.current?.remove();
       map.current = null;
-      fitted.current = "";
+      fitted.current = { ids: "", where: "" };
     };
   }, []);
 

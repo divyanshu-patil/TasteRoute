@@ -156,6 +156,11 @@ async def test_live_runs_are_limited_per_day(client, ws, svc):
     r = await client.post("/v1/runs", headers=ws, json={
         "brand_id": brand["brand_id"], "product_ids": brand["product_ids"], "city": BROOKLYN, "venue_types": ["cafe"]})
     assert r.status_code == 429 and r.json()["code"] == "rate_limited"
+    svc.settings.public_runs_per_ip_per_day = 0  # no limit
+    r = await client.post("/v1/runs", headers=ws, json={
+        "brand_id": brand["brand_id"], "product_ids": brand["product_ids"], "city": BROOKLYN, "venue_types": ["cafe"]})
+    assert r.status_code == 202
+    await run_service.drain()
     svc.settings.public_runs_per_ip_per_day = 50
 
 
@@ -337,3 +342,33 @@ async def test_run_keeps_the_business_location(client, ws, svc):
     assert (await client.get(f"/v1/runs/{run_id}", headers=ws)).json()["base"] == base
     v = (await _venues(client, ws, run_id))[0]
     assert (await client.get(f"/v1/runs/{run_id}/venues/{v['venue_id']}", headers=ws)).json()["base"] == base
+
+
+async def test_suggestions_while_typing_come_from_photon_in_plain_english(client, ws, net, svc):
+    def feature(lon, lat, **p):
+        return {"type": "Feature", "geometry": {"type": "Point", "coordinates": [lon, lat]}, "properties": p}
+    body = {"type": "FeatureCollection", "features": [
+        feature(-73.954, 40.729, housenumber="123", street="Franklin Street", locality="Greenpoint", district="Brooklyn",
+                city="New York", state="New York", country="United States"),
+        feature(-73.954, 40.729, housenumber="123", street="Franklin Street", locality="Greenpoint", district="Brooklyn",
+                city="New York", state="New York", country="United States"),  # duplicate collapses
+    ]}
+    route = net.route(url__startswith=svc.settings.photon_base_url).mock(return_value=httpx.Response(200, json=body))
+    bbox = ",".join(map(str, BROOKLYN["bbox"]))
+    r = await client.get("/v1/places/suggest", headers=ws, params={"q": "123 Frank", "bbox": bbox})
+    assert r.json() == [{"label": "123 Franklin Street", "detail": "Greenpoint, Brooklyn, New York, United States",
+                         "lat": 40.729, "lon": -73.954}]
+    sent = route.calls.last.request.url.params
+    assert sent["lang"] == "en" and sent["bbox"] == "-74.056688,40.550339,-73.832945,40.739434"
+    assert "layer" not in sent
+    await client.get("/v1/places/suggest", headers=ws, params={"q": "123 Frank", "bbox": bbox})
+    assert route.call_count == 1  # cached
+
+    await client.get("/v1/places/suggest", headers=ws, params={"q": "Brookl", "kind": "city"})
+    assert route.calls.last.request.url.params.get_list("layer") == ["city", "district", "county", "locality"]
+
+
+async def test_suggestions_fail_quietly(client, ws, net, svc):
+    net.route(url__startswith=svc.settings.photon_base_url).mock(return_value=httpx.Response(502))
+    r = await client.get("/v1/places/suggest", headers=ws, params={"q": "Brooklyn"})
+    assert r.status_code == 200 and r.json() == []

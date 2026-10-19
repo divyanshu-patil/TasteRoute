@@ -62,7 +62,7 @@ flowchart LR
     AG[Agent loop]
     T[Tools]
     Q[Qloo client]
-    X[External clients: website, Nominatim, Overpass, Hunter]
+    X[External clients: website, Nominatim, Photon, Overpass, Hunter]
     S[Scoring: lift, confidence, product fit]
     G[Grounding validator]
     L[LLM provider: Ollama Cloud Gemma 4 31B]
@@ -191,7 +191,7 @@ WEBSITE_FETCH_TIMEOUT_SECONDS=12
 # Demo and limits
 DEMO_MODE_ENABLED=true
 DEMO_RUN_ID=
-PUBLIC_RUNS_PER_IP_PER_DAY=3
+PUBLIC_RUNS_PER_IP_PER_DAY=3      # 0 = no limit (local only)
 MAX_VENUES_PER_RUN=60
 MAX_OUTREACH_VENUES_PER_RUN=25
 PACK_FASHION_ENABLED=false          # set true only after Phase 0 proves boutique coverage
@@ -212,7 +212,7 @@ TEST_DATABASE_URL=                  # never the production database
 | Agent LLM | Ollama Cloud, Gemma 4 31B | Native tool calling (verify in Phase 0) |
 | Taste data | Qloo Taste AI (hackathon API) | Core |
 | Contacts | Hunter API v2 (domain search, email verifier) | Business domains only |
-| Places | Nominatim (city geocode), Overpass (venue website/email tags) | Policy limits respected |
+| Places | Nominatim (city and address search on Enter, dropped-pin reverse), Photon (suggestions while typing), Overpass (venue website/email tags) | Policy limits respected |
 | Tests | pytest, respx, Vitest, Testing Library, Playwright | See `13-test-plan.md` |
 | Types | openapi-typescript into `packages/contracts` | Generated, never hand-edited |
 | Deploy | Vercel (web), Render/Railway/Fly (API), Supabase Cloud (DB) | See `16-runbook.md` |

@@ -2588,6 +2588,84 @@
         "summary": "Places"
       }
     },
+    "/v1/places/suggest": {
+      "get": {
+        "description": "Suggestions while typing (Photon). Picking a city suggestion then makes one Nominatim city search.",
+        "operationId": "suggest_v1_places_suggest_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "q",
+            "required": true,
+            "schema": {
+              "maxLength": 160,
+              "minLength": 3,
+              "title": "Q",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "kind",
+            "required": false,
+            "schema": {
+              "default": "place",
+              "enum": [
+                "place",
+                "city"
+              ],
+              "title": "Kind",
+              "type": "string"
+            }
+          },
+          {
+            "description": "south,west,north,east",
+            "in": "query",
+            "name": "bbox",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "south,west,north,east",
+              "title": "Bbox"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/Place"
+                  },
+                  "title": "Response Suggest V1 Places Suggest Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Suggest"
+      }
+    },
     "/v1/products/{product_id}/entities": {
       "put": {
         "operationId": "set_entities_v1_products__product_id__entities_put",

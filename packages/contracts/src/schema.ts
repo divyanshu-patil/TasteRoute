@@ -215,6 +215,26 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/v1/places/suggest": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Suggest
+         * @description Suggestions while typing (Photon). Picking a city suggestion then makes one Nominatim city search.
+         */
+        get: operations["suggest_v1_places_suggest_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/v1/products/{product_id}/entities": {
         parameters: {
             query?: never;
@@ -1491,6 +1511,40 @@ export interface operations {
         parameters: {
             query: {
                 q: string;
+                /** @description south,west,north,east */
+                bbox?: string | null;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Place"][];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    suggest_v1_places_suggest_get: {
+        parameters: {
+            query: {
+                q: string;
+                kind?: "place" | "city";
                 /** @description south,west,north,east */
                 bbox?: string | null;
             };

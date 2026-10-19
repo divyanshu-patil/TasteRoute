@@ -139,6 +139,7 @@ def net(fake_qloo: FakeQloo, monkeypatch: pytest.MonkeyPatch) -> Any:
         m.route(host="hackathon.api.qloo.com").mock(side_effect=fake_qloo)
         m.route(url__startswith=s.overpass_base_url).mock(return_value=httpx.Response(200, json=load("overpass/brooklyn_cafe.json")))
         m.route(url__startswith=s.nominatim_base_url).mock(return_value=httpx.Response(200, json=load("nominatim/brooklyn.json")))
+        m.route(url__startswith=s.photon_base_url).mock(side_effect=AssertionError("no live Photon calls in tests"))
         m.route(host="ollama.com").mock(side_effect=AssertionError("no live LLM calls in tests"))
         m.route(host="api.hunter.io", name="hunter").mock(side_effect=AssertionError("no live Hunter calls in tests"))
         m.route().mock(side_effect=fake_site)

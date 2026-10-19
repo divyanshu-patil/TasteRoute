@@ -58,7 +58,7 @@ Done: README (hero and drawn flow in `assets/readme/`, real screenshots), MIT `L
 
 Claims audit and end-to-end check: every judge-path step passes over HTTP (`scripts/e2e_smoke.py`, run 9c15f088). Passing: SEC-01 (secret scan clean), API-01 (contracts current; CI now fails on drift), QLO-07, LLM-06, REP-01, REP-02 (architecture diagram added to the README), REP-03 (clean clone). Fixed on the way: contact choice prefers the venue's own sales or main inbox and drops placeholder, script-embedded and other-domain emails (CON-03, CON-05); brand name read from the site's title (INT-01); a one-brand signal can reach high confidence (FIT-02, D-13a); comparables must fit the product, so "Bubbies" no longer matches "Bubbies Ice Cream" (ENT-03); city search returns 503 when Nominatim is down (REL-01); tests refuse non-loopback sockets (SEC-01). Docs corrected: the grounding validator checks names, numbers, evidence ids, the venue name and the opt-out line, not general claims.
 
-Added at the user's request: a venue map on results and venue detail (Leaflet, grey OSM tiles, numbered rank pins) and a guided tour of the sample run (`?tour=1`, results → venue → outreach → trace). Then the business location: search inside the city or click the map (plain-English labels from Nominatim with `accept-language=en`, bounded to the city box), a mint "You" pin, km per venue, a "Nearest to you" sort and distance on venue detail. Ranking is unchanged. City search no longer debounces as you type; it runs on Enter or Search, as Nominatim's policy requires. 114 API and 13 web tests pass. Not built: DAT-04 (stretch cleanup script).
+Added at the user's request: a venue map on results and venue detail (Leaflet, grey OSM tiles, numbered rank pins) and a guided tour of the sample run (`?tour=1`, results → venue → outreach → trace). Then the business location: search inside the city or click the map (plain-English labels from Nominatim with `accept-language=en`, bounded to the city box), a mint "You" pin, km per venue, a "Nearest to you" sort and distance on venue detail. Ranking is unchanged. Suggestions now appear as you type, from Photon (built for search-as-you-type; Nominatim forbids it, so Nominatim runs only on Enter, a map click, or once when a city suggestion is picked). The location picker is also on step 1, the step 4 map shows before a city is chosen, and the chosen city is framed with a dashed outline. `PUBLIC_RUNS_PER_IP_PER_DAY=0` turns the daily run limit off locally. 116 API and 14 web tests pass. Not built: DAT-04 (stretch cleanup script).
 
 Open: public deploy (needs accounts and a Supabase URL), demo video, a cited wholesale figure for the Devpost text, blind-pair judging (metric 3) and reason checks (metric 4).
 
@@ -69,7 +69,8 @@ Open: public deploy (needs accounts and a Supabase URL), demo video, a cited who
 | Qloo | 128 live: 44 Phase 0 spikes (7 × 400 while learning the `take` limit), 25 first seed, 9 re-seed, 8 evaluation (re-run fully cached), 42 claims audit and end-to-end runs; 0 in tests |
 | Ollama Cloud | ~157: ~20 spike, ~20 first seed, 20 re-seed, 12 + 12 evaluation, 11 sample outreach refresh, 62 audit and end-to-end runs |
 | Venue websites | 27 live in the local DB (seed, contact fixes, end-to-end runs) |
-| Nominatim / Overpass | 4 / 5 live in the local DB (2 for the location picker via `scripts/place_probe.py`; screenshot checks hit the cache) |
+| Nominatim / Overpass | 7 / 5 live in the local DB (5 for the location picker: 4 via `scripts/place_probe.py`, 1 from a step 1 screenshot check) |
+| Photon | 4 live, all via `scripts/place_probe.py`; screenshot checks hit the cache |
 | Hunter | 0 (no key) |
 
 ## Blockers / needed from the user

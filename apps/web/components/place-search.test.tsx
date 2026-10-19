@@ -28,4 +28,26 @@ describe("PlaceSearch", () => {
     fireEvent.keyDown(input, { key: "Escape" });
     expect(screen.queryByText(/No matches/)).toBeNull();
   });
+
+  it("suggests while typing after a pause, and only the latest text counts", async () => {
+    vi.useFakeTimers();
+    try {
+      const suggest = vi.fn((q: string) => Promise.resolve([{ label: `${q} Street`, detail: "Greenpoint" }]));
+      const search = vi.fn();
+      render(<PlaceSearch id="t" label="Business" placeholder="Street" search={search} suggest={suggest} onPick={vi.fn()} />);
+      const input = screen.getByLabelText("Business");
+      fireEvent.change(input, { target: { value: "Fr" } });
+      fireEvent.change(input, { target: { value: "Fran" } });
+      fireEvent.change(input, { target: { value: "Frank" } });
+      await act(async () => { vi.advanceTimersByTime(349); });
+      expect(suggest).not.toHaveBeenCalled();
+      await act(async () => { vi.advanceTimersByTime(1); });
+      expect(suggest).toHaveBeenCalledTimes(1);
+      expect(suggest).toHaveBeenCalledWith("Frank");
+      expect(screen.getByText("Frank Street")).toBeTruthy();
+      expect(search).not.toHaveBeenCalled(); // the full search waits for Enter
+    } finally {
+      vi.useRealTimers();
+    }
+  });
 });

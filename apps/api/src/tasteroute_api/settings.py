@@ -41,12 +41,13 @@ class Settings(BaseSettings):
     hunter_max_calls_per_run: int = 25
     osm_user_agent: str = "TasteRoute/0.1 (contact: you@example.com)"
     nominatim_base_url: str = "https://nominatim.openstreetmap.org"
+    photon_base_url: str = "https://photon.komoot.io"
     overpass_base_url: str = "https://overpass-api.de/api/interpreter"
     website_fetch_timeout_seconds: float = 12.0
 
     demo_mode_enabled: bool = True
     demo_run_id: str = ""
-    public_runs_per_ip_per_day: int = 3
+    public_runs_per_ip_per_day: int = 3  # live runs per visitor (IP or workspace) per rolling 24 h; 0 = no limit
     max_venues_per_run: int = 60
     max_outreach_venues_per_run: int = 25
     pack_fashion_enabled: bool = False

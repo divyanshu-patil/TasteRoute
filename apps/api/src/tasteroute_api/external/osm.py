@@ -1,4 +1,5 @@
-"""Nominatim city and place lookup (1 req/s, cached 30 days) and Overpass venue contact tags (single-flight, cached 7 days)."""
+"""Nominatim city and place lookup (1 req/s, cached 30 days), Photon suggestions while typing, and Overpass venue
+contact tags (single-flight, cached 7 days)."""
 
 import asyncio
 import math
@@ -112,6 +113,44 @@ async def search_places(pool: asyncpg.Pool, http: httpx.AsyncClient, base_url: s
         if (label, detail) not in seen:  # a street comes back once per OSM segment; one suggestion is enough
             seen.add((label, detail))
             out.append({"label": label, "detail": detail, "lat": float(x["lat"]), "lon": float(x["lon"])})
+    return out
+
+
+# Photon address parts, most local first.
+_PHOTON_KEYS = ("street", "locality", "district", "city", "state", "country")
+_CITY_LAYERS = ("city", "district", "county", "locality")
+
+
+async def suggest(pool: asyncpg.Pool, http: httpx.AsyncClient, base_url: str, user_agent: str, q: str, kind: str,
+                  bbox: list[float] | None) -> list[dict[str, Any]]:
+    """Suggestions while the user types, from Photon, which is built for search-as-you-type (Nominatim forbids it).
+    Cached 30 days. Any failure means no suggestions: Enter still runs the full Nominatim search."""
+    params: list[tuple[str, Any]] = [("q", q), ("limit", 6), ("lang", "en")]
+    if kind == "city":
+        params += [("layer", v) for v in _CITY_LAYERS]
+    if bbox:
+        s, w, n, e = bbox
+        params.append(("bbox", f"{w},{s},{e},{n}"))
+
+    async def fetch() -> tuple[int, Any]:
+        try:
+            r = await http.get(f"{base_url}/api", params=params, headers={"User-Agent": user_agent}, timeout=8)
+        except httpx.HTTPError:
+            return 503, None
+        return r.status_code, r.json() if r.status_code == 200 else None
+
+    key = {"q": q.strip().lower(), "kind": kind, "bbox": [round(v, 3) for v in bbox] if bbox else None}
+    status, body, _, _ = await cached_call(pool, "photon", "/api", key, timedelta(days=30), fetch)
+    out, seen = [], set()
+    for f in body.get("features", []) if status == 200 and isinstance(body, dict) else []:
+        p, (lon, lat) = f.get("properties") or {}, f["geometry"]["coordinates"][:2]
+        street = " ".join(str(p[k]) for k in ("housenumber", "street") if p.get(k))
+        label = p.get("name") or street
+        detail = ", ".join(dict.fromkeys(
+            str(p[k]) for k in _PHOTON_KEYS if p.get(k) and p[k] != label and not (k == "street" and street == label)))
+        if label and (label, detail) not in seen:
+            seen.add((label, detail))
+            out.append({"label": label, "detail": detail, "lat": float(lat), "lon": float(lon)})
     return out
 
 

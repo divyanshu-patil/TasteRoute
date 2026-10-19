@@ -102,6 +102,8 @@ After deploy: run `seed_demo.py` against production (or copy the demo rows), set
 | Model replies with text, not tool calls | Tool calling unsupported or prompt issue | Planner variant or deterministic fallback runs; check `docs/llm-contract.md` |
 | Overpass 429/504 | Public instance overloaded | Wait; use cached results; retry later |
 | Nominatim blocked | Missing or generic User-Agent, too many requests | Set `OSM_USER_AGENT` with contact; keep 1 req/s |
+| No suggestions while typing | Photon down or throttling | Nothing to fix in the app: Enter still searches through Nominatim. Point `PHOTON_BASE_URL` at another Photon instance if it lasts |
+| "Live runs are limited to N per day" | `PUBLIC_RUNS_PER_IP_PER_DAY` reached (rolling 24 h, per IP or workspace) | Wait, or raise it in `apps/api/.env` and restart the API; `0` = no limit (local only) |
 | Hunter 429 or credits out | Limits | Back off; use cached demo; upgrade one month if needed |
 | Browser shows CORS error | Web origin missing | Add it to `CORS_ORIGINS` |
 | Sample page empty | `DEMO_RUN_ID` unset or wrong database | Seed and set the id |

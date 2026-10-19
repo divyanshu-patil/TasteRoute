@@ -317,6 +317,7 @@ table.t { width: 100%; border-collapse: collapse; font-size: 14px; }
 .pin-on { background: var(--yellow); color: var(--black); border-color: var(--black); }
 .pin-base { width: auto; padding: 0 10px; border-radius: var(--r-btn); background: var(--mint); color: var(--black); border-color: var(--black); }
 .map-pick .leaflet-container, .map-pick.leaflet-container { cursor: crosshair; }
+.map-area { stroke: var(--black); stroke-width: 1.5; stroke-dasharray: 6 6; fill: var(--mint); fill-opacity: 0.12; }
 .pin-dot { display: block; width: 12px; height: 12px; border-radius: 50%; background: var(--slate); border: 2px solid var(--white); }
 .leaflet-marker-icon:focus-visible { outline: none; }
 .leaflet-marker-icon:focus-visible .pin { outline: 3px solid var(--black); outline-offset: 2px; }

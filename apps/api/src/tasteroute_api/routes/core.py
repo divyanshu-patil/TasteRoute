@@ -1,6 +1,7 @@
 """Health, workspaces, categories, city and place search, manual Qloo search, demo."""
 
 import uuid
+from typing import Literal
 
 from fastapi import APIRouter, Depends, Query, Request
 
@@ -87,16 +88,31 @@ async def places(request: Request, q: str = Query(min_length=3, max_length=160),
                  _: str = Depends(workspace_id), s: Services = Depends(svc)) -> list[dict[str, object]]:
     """The brand's own address or business, searched on submit (Nominatim allows no autocomplete)."""
     rate(request, "search", 30, 60)
-    box = None
-    if bbox:
-        try:
-            box = [float(v) for v in bbox.split(",")]
-        except ValueError:
-            box = []
-        if len(box) != 4 or not (-90 <= box[0] < box[2] <= 90 and -180 <= box[1] < box[3] <= 180):
-            raise ValidationFailed("bbox must be south,west,north,east")
     st = s.settings
-    return await osm.search_places(s.pool, s.http, st.nominatim_base_url, st.osm_user_agent, q, box)
+    return await osm.search_places(s.pool, s.http, st.nominatim_base_url, st.osm_user_agent, q, _box(bbox))
+
+
+@router.get("/v1/places/suggest", response_model=list[Place])
+async def suggest(request: Request, q: str = Query(min_length=3, max_length=160),
+                  kind: Literal["place", "city"] = "place",
+                  bbox: str | None = Query(default=None, description="south,west,north,east"),
+                  _: str = Depends(workspace_id), s: Services = Depends(svc)) -> list[dict[str, object]]:
+    """Suggestions while typing (Photon). Picking a city suggestion then makes one Nominatim city search."""
+    rate(request, "suggest", 60, 60)
+    st = s.settings
+    return await osm.suggest(s.pool, s.http, st.photon_base_url, st.osm_user_agent, q, kind, _box(bbox))
+
+
+def _box(bbox: str | None) -> list[float] | None:
+    if not bbox:
+        return None
+    try:
+        box = [float(v) for v in bbox.split(",")]
+    except ValueError:
+        box = []
+    if len(box) != 4 or not (-90 <= box[0] < box[2] <= 90 and -180 <= box[1] < box[3] <= 180):
+        raise ValidationFailed("bbox must be south,west,north,east")
+    return box
 
 
 @router.get("/v1/places/reverse", response_model=Place)

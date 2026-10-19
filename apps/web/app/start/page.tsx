@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useCallback, useRef, useState } from "react";
-import { LocationPicker } from "../../components/location-picker";
+import { BasePicker, LocationPicker } from "../../components/location-picker";
 import { Banner, ErrorPanel } from "../../components/ui";
 import { ApiError, api, type S } from "../../lib/api";
 
@@ -221,6 +221,7 @@ export default function Start() {
               onChange={(e) => setDescription(e.target.value)}
             />
           </label>
+          <BasePicker base={base} onBase={setBase} onError={placeError} />
           <div className="row between">
             <p className="small faint">We read up to 3 pages of your site. Your text is kept for 30 days.</p>
             <button className="btn" disabled={busy || (mode === "url" ? !url.trim() : description.trim().length < 20)} onClick={submitIntake}>

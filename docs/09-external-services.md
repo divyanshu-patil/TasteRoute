@@ -7,6 +7,7 @@
 | Ollama Cloud | Agent, profile, comparables, drafts | Bearer API key | Account limits (check your plan) | No |
 | Hunter API v2 | Business emails for venue domains | `X-API-KEY` header | Domain search 15 req/s, 500/min; verifier 10 req/s, 300/min; free plan 50 credits/month | 14 days per domain |
 | Nominatim | City and business-location geocoding, reverse lookup of a dropped pin | Identifying User-Agent | Max 1 req/s, cache, no autocomplete, no systematic queries | 30 days |
+| Photon (komoot) | Place suggestions while the user types | Identifying User-Agent | Fair use; built for search-as-you-type; debounced 350 ms, minimum 3 characters | 30 days |
 | Overpass API | Venue website and email tags | Identifying User-Agent | No parallel queries, back off on 429/406, light daily use | 7 days per (city, venue type) |
 | Website reader | Brand intake pages | None | Robots.txt, timeouts, SSRF guard | 7 days per URL |
 | OpenStreetMap tiles | Map on results and venue pages (loaded by the browser, not the API) | None; attribution shown on the map | [Tile usage policy](https://operations.osmfoundation.org/policies/tiles/): light use only, no bulk download. Swap to a keyed or self-hosted tile service before real traffic | Browser cache |
@@ -29,6 +30,13 @@
 - One request per second maximum across the whole app (shared limiter), results cached 30 days.
 - Called only on an explicit action: pressing Enter or Search (minimum 3 characters), or clicking the map. Never as you type.
 - Show "© OpenStreetMap contributors" attribution where OSM data appears.
+
+## Photon
+
+- `GET {PHOTON_BASE_URL}/api?q=<text>&limit=6&lang=en[&bbox=w,s,e,n][&layer=city&layer=district&layer=county&layer=locality]` with `User-Agent: OSM_USER_AGENT`. Default host `https://photon.komoot.io`.
+- Fills the dropdown while the user types (debounced 350 ms in the browser, minimum 3 characters). Nominatim forbids autocomplete, so it is never used for this.
+- Picking a city suggestion makes one Nominatim city search with the suggestion's full name, for the bounding box the run is limited to.
+- Any failure returns no suggestions; Enter still runs the full Nominatim search. Same OSM attribution.
 
 ## Overpass
 

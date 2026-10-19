@@ -67,7 +67,7 @@ async def create_run(body: RunIn, request: Request, ws: str = Depends(workspace_
     used = await s.pool.fetchval(
         "select count(*) from runs where (client_ip_hash = $1 or workspace_id = $2) and created_at > now() - interval '1 day'",
         iph, uuid.UUID(ws))
-    if used >= s.settings.public_runs_per_ip_per_day:
+    if 0 < s.settings.public_runs_per_ip_per_day <= used:  # 0 = no limit (local use)
         raise RateLimited(f"Live runs are limited to {s.settings.public_runs_per_ip_per_day} per day. The sample run is always available.")
     if s.qloo.configured and await monthly_live_calls(s.pool) >= 0.8 * s.settings.qloo_monthly_limit:
         raise QlooBudgetExceeded("The monthly Qloo budget is nearly used. Please explore the sample run instead.")
