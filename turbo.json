@@ -10,6 +10,12 @@
         "$TURBO_DEFAULT$",
         ".env*"
       ],
+      "env": [
+        "VERCEL",
+        "VERCEL_URL",
+        "VERCEL_BRANCH_URL",
+        "VERCEL_PROJECT_PRODUCTION_URL"
+      ],
       "outputs": [
         ".next/**",
         "!.next/cache/**",
