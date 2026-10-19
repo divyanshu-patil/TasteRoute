@@ -2872,6 +2872,46 @@
         "summary": "Get Run Out"
       }
     },
+    "/v1/runs/{run_id}/cancel": {
+      "post": {
+        "description": "Stops a running outreach; what it found so far is kept. Does nothing otherwise.",
+        "operationId": "cancel_outreach_v1_runs__run_id__cancel_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "run_id",
+            "required": true,
+            "schema": {
+              "title": "Run Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Accepted"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Cancel Outreach"
+      }
+    },
     "/v1/runs/{run_id}/contacts": {
       "get": {
         "operationId": "get_contacts_v1_runs__run_id__contacts_get",
