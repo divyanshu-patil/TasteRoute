@@ -10,7 +10,8 @@
 | Photon (komoot) | Place suggestions while the user types | Identifying User-Agent | Fair use; built for search-as-you-type; debounced 350 ms, minimum 3 characters | 30 days |
 | Overpass API | Venue website and email tags | Identifying User-Agent | No parallel queries, back off on 429/406, light daily use | 7 days per (city, venue type) |
 | Website reader | Brand intake pages | None | Robots.txt, timeouts, SSRF guard | 7 days per URL |
-| OpenStreetMap tiles | Map on results and venue pages (loaded by the browser, not the API) | None; attribution shown on the map | [Tile usage policy](https://operations.osmfoundation.org/policies/tiles/): light use only, no bulk download. Swap to a keyed or self-hosted tile service before real traffic | Browser cache |
+| OpenFreeMap vector tiles | Map on results, venue and wizard pages (loaded by the browser, not the API): the "Liberty" style trimmed to food and drink places and famous sights | None; attribution shown on the map | [openfreemap.org](https://openfreemap.org): free, no key, no usage limits | Browser cache |
+| OpenStreetMap tiles | Fallback map if OpenFreeMap is unreachable | None; attribution shown on the map | [Tile usage policy](https://operations.osmfoundation.org/policies/tiles/): light use | Browser cache |
 | Apollo (optional, off) | Buyers at chains | API key | Free plan limited; reselling Apollo data needs a contract | 14 days |
 
 ## Hunter
