@@ -39,6 +39,9 @@ class Settings(BaseSettings):
     llm_max_calls_per_run: int = 80
 
     hunter_api_key: SecretStr = SecretStr("")
+    # Sign-in (F12): the Supabase project URL and its anon (publishable) key, both public. Empty = no sign-in.
+    supabase_url: str = ""
+    supabase_anon_key: str = ""
     hunter_max_calls_per_run: int = 25
     osm_user_agent: str = "TasteRoute/0.1 (contact: you@example.com)"
     nominatim_base_url: str = "https://nominatim.openstreetmap.org"

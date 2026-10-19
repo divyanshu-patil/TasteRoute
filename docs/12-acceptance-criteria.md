@@ -79,7 +79,7 @@ Each criterion has an ID, a measurable statement, how it is checked, and a prior
 | EXP-01 | mailto links exist only for approved drafts and are correctly encoded | Unit + API tests | MVP |
 | EXP-02 | CSV has the documented columns, escaping and UTF-8 | Unit test | MVP |
 | EXP-03 | Users can add and remove suppression entries (email or domain) | API test | MVP |
-| EXP-04 | The app never sends email (no SMTP or email-sending dependency in the codebase) | Dependency and code search check | MVP |
+| EXP-04 | Nothing is sent without the user's click: no SMTP or mail-service dependency; an email leaves only through the send route, from the signed-in user's own Gmail (F12) | Dependency and code search check | MVP |
 
 ## Agent (F09)
 
@@ -91,6 +91,14 @@ Each criterion has an ID, a measurable statement, how it is checked, and a prior
 | AGT-04 | SSE streams all event types and replays from `Last-Event-ID` | API test | MVP |
 | AGT-05 | The trace lists every LLM step, tool call, Qloo call and external call; no secret appears | API test + string search | MVP |
 | AGT-06 | Agent, planner and deterministic paths produce identical venue scores for the same inputs and cache | Integration test | MVP |
+
+## Accounts and sending (F12)
+
+| ID | Criterion | Check | Priority |
+|---|---|---|---|
+| ACC-01 | Signing in keeps this browser's work; signing in on a second device merges its work into the account | API test | Stretch |
+| ACC-02 | A forged or expired Supabase token is refused, and anonymous workspaces cannot send | API test | Stretch |
+| ACC-03 | "Send with Gmail" sends one draft once (never twice), honours the do-not-contact list, and asks to reconnect when Gmail refuses the token | API test | Stretch |
 
 ## Demo and budget (F10)
 

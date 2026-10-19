@@ -29,7 +29,7 @@ Steps in detail:
 5. **Results.** A ranked list of venues with fit score, lift over baseline, best product, a reason, and confidence. Filters: venue type, minimum confidence, product.
 6. **Contacts.** The user selects venues (up to 25 per run in the MVP) and clicks "Find contacts". The app looks for a website and an email from OpenStreetMap tags, then Hunter domain search on the venue's domain. Each contact shows its source and verification status.
 7. **Drafts.** The agent writes one pitch per selected venue that has a contact, using only the stored evidence. The grounding validator checks every claim.
-8. **Approve and export.** The user edits and approves drafts. Approved drafts can be opened in the user's email app (mailto link) or exported as CSV. Nothing is sent by the app.
+8. **Approve and export.** The user edits and approves drafts. Approved drafts can be opened in the user's email app (mailto link) or exported as CSV. A user logged in with Google can send a draft from their own Gmail in one click (F12). Nothing is sent without that click.
 
 ## Flow B: Field rep with a portfolio
 

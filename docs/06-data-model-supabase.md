@@ -42,6 +42,8 @@ create extension if not exists citext;
 create table workspaces (
   id uuid primary key default gen_random_uuid(),
   kind text not null default 'anon' check (kind in ('anon','demo')),
+  user_id uuid unique,                 -- Supabase Auth user, once signed in (F12)
+  email text,                          -- the account's email, shown in the nav
   created_at timestamptz not null default now(),
   last_seen_at timestamptz not null default now()
 );
@@ -255,13 +257,15 @@ create table drafts (
   body text not null,
   cited_evidence_ids uuid[] not null default '{}',
   source text not null check (source in ('llm','template')),
-  status text not null default 'draft' check (status in ('draft','edited','approved','exported')),
+  status text not null default 'draft' check (status in ('draft','edited','approved','exported','sent')),
   model text,
   prompt_version text,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now(),
   approved_at timestamptz,
   exported_at timestamptz,
+  sent_at timestamptz,                 -- sent from the user's Gmail (F12)
+  gmail_message_id text,
   unique (run_id, venue_id, contact_id)
 );
 

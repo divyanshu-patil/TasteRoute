@@ -4,7 +4,7 @@ This is engineering guidance, not legal advice. Check the email and data protect
 
 ## Outreach principles
 
-1. **Human approval.** Every email is written as a draft and approved by the user. The app never sends email.
+1. **Human approval.** Every email is written as a draft and approved by the user. Nothing is sent without the user's click: one email per click, from their own Gmail (F12), or copied out by hand. No bulk or scheduled sending.
 2. **Business contacts only.** Contacts come from the venue's own website, its public listing (OpenStreetMap), its own domain (Hunter domain search) or, as a last resort, a web search that keeps only addresses on the venue's domain or carrying its name. Each shows the page it came from. No consumer data, no personal social profiles, no guessed addresses.
 3. **Relevance.** Each draft must cite the specific reason the venue fits (grounding validator). No bulk or generic messages.
 4. **Opt-out.** Every draft includes an opt-out line. Opt-outs are recorded in the suppression list and honoured everywhere.
@@ -22,13 +22,15 @@ This is engineering guidance, not legal advice. Check the email and data protect
 | Drafts | User's work | With the run |
 | Suppression list | Never contact again | With the workspace |
 | Client IP | Rate limiting | Stored only as a salted hash |
+| Account email and Supabase user id (signed-in users) | Keep the workspace across devices | With the workspace |
+| Google token for sending | Send the email the user clicked | Never stored: kept in the browser, used for one request |
 
 No passwords, no payment data, no consumer data.
 
 ## Security controls
 
 - Keys only in server environment variables. `.env` files are git-ignored.
-- RLS enabled on all tables with no public policies; the browser never talks to Supabase.
+- RLS enabled on all tables with no public policies; the browser never talks to Supabase's database (only to Supabase Auth to sign in).
 - Signed workspace token (HMAC with `SESSION_SECRET`) checked on every request; it grants access only to that anonymous workspace's data. HTTPS only in production.
 - SSRF guard on the website reader.
 - Input validation on every endpoint; unknown fields rejected.

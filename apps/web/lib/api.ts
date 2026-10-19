@@ -34,6 +34,12 @@ function store(token: string): void {
 let pending: Promise<string> | null = null;
 let memory: string | null = null;
 
+/** Switches this browser to another workspace (an account's), or back to a new anonymous one with null. */
+export function setWorkspaceToken(token: string | null): void {
+  memory = token;
+  store(token ?? "");
+}
+
 /** Gets or creates the anonymous workspace token (signed by the API, kept in localStorage as ss_ws). */
 export function workspaceToken(): Promise<string> {
   if (memory) return Promise.resolve(memory);

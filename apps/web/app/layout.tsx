@@ -27,7 +27,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           <div className="wrap row between">
             <p className="mono">TASTEROUTE · TASTE FIT FROM QLOO · AI AGENT WITH A PLAN GUARD</p>
             <p className="small">
-              Taste fit is a starting list, not a sales forecast. Nothing is sent from TasteRoute.{" "}
+              Taste fit is a starting list, not a sales forecast. Nothing is sent without your click.{" "}
               <Link href="/settings/suppression">Do-not-contact list</Link>
             </p>
           </div>

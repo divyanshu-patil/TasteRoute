@@ -87,7 +87,7 @@ flowchart LR
   T --> DB
 ```
 
-The browser talks **only** to FastAPI, plus public map tiles (OpenFreeMap vector tiles, OpenStreetMap raster tiles as a fallback; no key). It never calls Supabase, Qloo, Hunter or Ollama directly, so no key ever reaches the browser.
+The browser talks **only** to FastAPI, plus public map tiles (OpenFreeMap vector tiles, OpenStreetMap raster tiles as a fallback; no key). It never calls Supabase's database, Qloo, Hunter or Ollama directly, so no secret key ever reaches the browser. The only exceptions are sign-in (Supabase Auth with the public anon key) and Google, which hands the browser a short-lived Gmail token (F12).
 
 ## Run lifecycle
 
@@ -128,15 +128,15 @@ A run has two phases. **Scout** (ranking, automatic) and **Outreach** (contacts 
 6. **Budget aware.** Per-run caps for Qloo and Hunter calls, a shared response cache, and demo mode for visitors.
 7. **No secrets in the browser.** All keys live in the API environment.
 
-## Identity and workspaces (no login in the MVP)
+## Identity and workspaces
 
 - On first visit the web app calls `POST /v1/workspaces/session`. The API creates an anonymous workspace and returns a **workspace token**: the workspace id plus an HMAC signature made with `SESSION_SECRET`.
 - The web app stores the token in `localStorage` (`ss_ws`) and sends it on every request as the header `X-Workspace-Token`. The SSE endpoint, which cannot send custom headers through `EventSource`, accepts it as the `token` query parameter.
-- A header token is used instead of a cookie because the web (Vercel) and API (another host) are on different sites in the hackathon deployment, where third-party cookies are unreliable. The token only grants access to anonymous workspace data; real accounts replace it after the hackathon.
+- A header token is used instead of a cookie because the web (Vercel) and API (another host) are on different sites in the hackathon deployment, where third-party cookies are unreliable. The token grants access to that one workspace's data.
 - Every brand, run, draft and suppression row carries `workspace_id`. The API verifies the signature and filters every query by it.
 - The demo run belongs to a special read-only workspace and is visible to everyone.
 - Rate limits use workspace id and client IP.
-- Real accounts (Supabase Auth) are a post-hackathon item.
+- Optional sign-in (F12): Supabase Auth with Google. `POST /v1/workspaces/login` checks the Supabase access token once and ties a workspace to the account (merging work done before signing in), then returns an ordinary workspace token.
 
 ## Database access
 

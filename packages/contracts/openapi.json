@@ -19,6 +19,36 @@
         "title": "Accepted",
         "type": "object"
       },
+      "AccountOut": {
+        "properties": {
+          "email": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Email"
+          },
+          "workspace_id": {
+            "title": "Workspace Id",
+            "type": "string"
+          },
+          "workspace_token": {
+            "title": "Workspace Token",
+            "type": "string"
+          }
+        },
+        "required": [
+          "workspace_token",
+          "workspace_id",
+          "email"
+        ],
+        "title": "AccountOut",
+        "type": "object"
+      },
       "BestProduct": {
         "properties": {
           "label": {
@@ -669,6 +699,18 @@
             ],
             "title": "Model"
           },
+          "sent_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Sent At"
+          },
           "source": {
             "enum": [
               "llm",
@@ -1006,6 +1048,34 @@
           }
         },
         "title": "IntakeIn",
+        "type": "object"
+      },
+      "LoginIn": {
+        "additionalProperties": false,
+        "properties": {
+          "access_token": {
+            "description": "Supabase Auth access token",
+            "maxLength": 4096,
+            "minLength": 10,
+            "title": "Access Token",
+            "type": "string"
+          },
+          "workspace_token": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Workspace Token"
+          }
+        },
+        "required": [
+          "access_token"
+        ],
+        "title": "LoginIn",
         "type": "object"
       },
       "Place": {
@@ -1532,6 +1602,23 @@
           "finished_at"
         ],
         "title": "RunOut",
+        "type": "object"
+      },
+      "SendIn": {
+        "additionalProperties": false,
+        "properties": {
+          "google_access_token": {
+            "description": "Google token with gmail.send; used once, never stored",
+            "maxLength": 4096,
+            "minLength": 10,
+            "title": "Google Access Token",
+            "type": "string"
+          }
+        },
+        "required": [
+          "google_access_token"
+        ],
+        "title": "SendIn",
         "type": "object"
       },
       "SessionIn": {
@@ -2480,6 +2567,56 @@
           }
         },
         "summary": "Regenerate"
+      }
+    },
+    "/v1/drafts/{draft_id}/send": {
+      "post": {
+        "description": "One click sends the draft from the signed-in user's own Gmail (F10). Clicking send is the approval. The Google token\ncomes from the browser for this one request and is never stored or logged.",
+        "operationId": "send_draft_v1_drafts__draft_id__send_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "draft_id",
+            "required": true,
+            "schema": {
+              "title": "Draft Id",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SendIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DraftOut"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Send Draft"
       }
     },
     "/v1/places/reverse": {
@@ -3584,6 +3721,45 @@
           }
         },
         "summary": "Delete Suppression"
+      }
+    },
+    "/v1/workspaces/login": {
+      "post": {
+        "description": "Sign in (F10): checks the Supabase Auth token with Supabase once, then ties a workspace to the account. Work done\nin this browser before signing in stays: it becomes the account's workspace, or joins the one it already has.",
+        "operationId": "login_v1_workspaces_login_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AccountOut"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Login"
       }
     },
     "/v1/workspaces/session": {

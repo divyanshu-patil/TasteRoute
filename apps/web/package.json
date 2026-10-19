@@ -15,6 +15,7 @@
   "dependencies": {
     "@repo/contracts": "workspace:*",
     "@repo/ui": "workspace:*",
+    "@supabase/supabase-js": "^2.118.0",
     "maplibre-gl": "6.12.0",
     "next": "16.3.8",
     "react": "19.2.8",

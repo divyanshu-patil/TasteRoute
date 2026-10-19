@@ -1,11 +1,14 @@
 """Runs (F03-F05, F09), outreach (F06-F08), trace, export, suppressions."""
 
 import asyncio
+import base64
 import json
 import uuid
 from datetime import UTC, datetime, timedelta
+from email.message import EmailMessage
 from typing import Any
 
+import httpx
 from fastapi import APIRouter, Depends, Query, Request, Response
 from sse_starlette.sse import EventSourceResponse
 
@@ -24,6 +27,7 @@ from ..schemas import (
     RunCreated,
     RunIn,
     RunOut,
+    SendIn,
     SuppressionIn,
     SuppressionOut,
     TraceRow,
@@ -364,7 +368,7 @@ def _draft(d: Any, demo: bool) -> DraftOut:
         id=str(d["id"]), venue_id=str(d["venue_id"]), venue_name=d["venue_name"], contact_id=str(d["contact_id"]),
         contact_email=email, subject=d["subject"], body=d["body"], cited_evidence_ids=[str(x) for x in d["cited_evidence_ids"]],
         source=d["source"], status=d["status"], model=d["model"], mailto=mailto(d["email"], d["subject"], d["body"]) if ok else None,
-        updated_at=d["updated_at"], approved_at=d["approved_at"],
+        updated_at=d["updated_at"], approved_at=d["approved_at"], sent_at=d["sent_at"],
     )
 
 
@@ -386,6 +390,8 @@ async def patch_draft(draft_id: str, body: DraftPatch, ws: str = Depends(workspa
     d = await s.pool.fetchrow(DRAFT_SQL + " where d.id = $1 and d.workspace_id = $2", as_uuid(draft_id), uuid.UUID(ws))
     if d is None:
         raise NotFound("Draft not found")
+    if d["status"] == "sent":
+        raise Conflict("This email was already sent.")
     subject = body.subject if body.subject is not None else d["subject"]
     text = body.body if body.body is not None else d["body"]
     edited = subject != d["subject"] or text != d["body"]
@@ -408,10 +414,48 @@ async def regenerate(draft_id: str, ws: str = Depends(workspace_id), s: Services
     d = await s.pool.fetchrow("select * from drafts where id = $1 and workspace_id = $2", as_uuid(draft_id), uuid.UUID(ws))
     if d is None:
         raise NotFound("Draft not found")
-    if d["status"] in ("approved", "exported"):
+    if d["status"] in ("approved", "exported", "sent"):
         raise DraftLocked()
     run_service.spawn(run_service.run_outreach(s, str(d["run_id"]), [str(d["venue_id"])], drafts_only=True), str(d["run_id"]))
     return Accepted(run_id=str(d["run_id"]), status="outreach_running")
+
+
+GMAIL_SEND = "https://gmail.googleapis.com/gmail/v1/users/me/messages/send"
+
+
+@router.post("/drafts/{draft_id}/send", response_model=DraftOut)
+async def send_draft(draft_id: str, body: SendIn, ws: str = Depends(workspace_id), s: Services = Depends(svc)) -> DraftOut:
+    """One click sends the draft from the signed-in user's own Gmail (F12). Clicking send is the approval. The Google token
+    comes from the browser for this one request and is never stored or logged."""
+    d = await s.pool.fetchrow(DRAFT_SQL + " where d.id = $1 and d.workspace_id = $2", as_uuid(draft_id), uuid.UUID(ws))
+    if d is None:
+        raise NotFound("Draft not found")
+    if not await s.pool.fetchval("select user_id is not null from workspaces where id = $1", uuid.UUID(ws)):
+        raise AppError("Log in with Google to send from your Gmail.", code="signin_required", status=403)
+    sup_e, sup_d = await suppression_sets(s.pool, ws)
+    if is_suppressed(d["email"], sup_e, sup_d):
+        raise Conflict("This contact is on your do-not-contact list.")
+    if not await s.pool.fetchval("update drafts set sent_at = now() where id = $1 and sent_at is null returning id", d["id"]):
+        raise Conflict("This email was already sent.")  # claimed first, so a double click can't send twice
+    msg = EmailMessage()
+    msg["To"] = d["email"]
+    msg["Subject"] = " ".join(d["subject"].split())
+    msg.set_content(d["body"])
+    try:
+        r: httpx.Response | None = await s.http.post(
+            GMAIL_SEND, json={"raw": base64.urlsafe_b64encode(msg.as_bytes()).decode()}, timeout=20,
+            headers={"Authorization": f"Bearer {body.google_access_token}"})
+    except httpx.HTTPError:
+        r = None
+    if r is None or r.status_code != 200:
+        await s.pool.execute("update drafts set sent_at = null where id = $1", d["id"])
+        if r is not None and r.status_code in (401, 403):  # expired, or the gmail.send permission wasn't granted
+            raise AppError("Gmail needs your permission again.", code="gmail_reconnect", status=403)
+        raise AppError("Gmail did not send the email. Try again.", code="gmail_failed", status=502)
+    await s.pool.execute(
+        "update drafts set status = 'sent', gmail_message_id = $2, approved_at = coalesce(approved_at, now()), "
+        "updated_at = now() where id = $1", d["id"], r.json().get("id"))
+    return _draft(await s.pool.fetchrow(DRAFT_SQL + " where d.id = $1", d["id"]), False)
 
 
 @router.get("/runs/{run_id}/export.csv")
@@ -428,7 +472,7 @@ async def export_csv(run_id: str, ws: str = Depends(workspace_id), s: Services =
         c, d = cs.get(vid), ds.get(vid)
         if c and is_suppressed(c["email"], sup_e, sup_d):
             c, d = None, None
-        approved = d is not None and d["status"] in ("approved", "exported")
+        approved = d is not None and d["status"] in ("approved", "exported", "sent")
         out.append({
             "rank": v["rank"], "venue_name": v["name"], "venue_type": v["venue_type"], "city": r["city"].get("name"),
             "fit": round(float(v["fit"]) * 100), "lift": round(float(v["lift"]) * 100), "confidence": v["confidence"],
@@ -439,7 +483,7 @@ async def export_csv(run_id: str, ws: str = Depends(workspace_id), s: Services =
             "draft_status": d["status"] if d else None,
             "draft_subject": d["subject"] if approved and d else None, "draft_body": d["body"] if approved and d else None,
         })
-        if approved and d and not demo:
+        if approved and d and not demo and d["status"] != "sent":
             exported.append(d["id"])
     if exported:
         await s.pool.execute("update drafts set status = 'exported', exported_at = now() where id = any($1::uuid[])", exported)

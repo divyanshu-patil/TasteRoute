@@ -24,6 +24,7 @@ TRANSITIONS = {
     "edited": {"edited", "approved"},
     "approved": {"edited", "exported", "approved"},
     "exported": {"edited", "exported"},
+    "sent": set(),  # sent from the user's Gmail: final
 }
 
 
@@ -184,7 +185,7 @@ async def draft_pitches(ctx: RunContext, venue_ids: list[str]) -> dict[str, Any]
         existing = await ctx.pool.fetchval(
             "select status from drafts where run_id = $1 and venue_id = $2 and contact_id = $3",
             ctx.rid, r["venue_id"], r["contact_id"])
-        if existing in ("approved", "exported"):
+        if existing in ("approved", "exported", "sent"):
             return "skipped_approved"
         async with sem:
             await ctx.emit("venue", {"tool": "draft_pitches", "venue": r["name"], "state": "checking", "done": done,
@@ -197,7 +198,7 @@ async def draft_pitches(ctx: RunContext, venue_ids: list[str]) -> dict[str, Any]
             "on conflict (run_id, venue_id, contact_id) do update set subject = excluded.subject, body = excluded.body, "
             "cited_evidence_ids = excluded.cited_evidence_ids, source = excluded.source, status = 'draft', "
             "model = excluded.model, prompt_version = excluded.prompt_version, updated_at = now() "
-            "where drafts.status not in ('approved','exported')",
+            "where drafts.status not in ('approved','exported','sent')",
             uuid.UUID(ctx.workspace_id), ctx.rid, r["venue_id"], r["contact_id"], out.subject, out.body,
             [uuid.UUID(i) for i in out.cited_evidence_ids], source, model, version,
         )

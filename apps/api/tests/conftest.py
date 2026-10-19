@@ -20,6 +20,8 @@ os.environ.update({
     "DEMO_RUN_ID": "",
     "PUBLIC_RUNS_PER_IP_PER_DAY": "50",
     "OSM_USER_AGENT": "TasteRoute/test",
+    "SUPABASE_URL": "https://auth.test",
+    "SUPABASE_ANON_KEY": "anon-test",
 })
 
 import httpx  # noqa: E402
@@ -146,6 +148,8 @@ def net(fake_qloo: FakeQloo, monkeypatch: pytest.MonkeyPatch) -> Any:
             side_effect=AssertionError("no live web searches in tests"))
         m.route(host="ollama.com").mock(side_effect=AssertionError("no live LLM calls in tests"))
         m.route(host="api.hunter.io", name="hunter").mock(side_effect=AssertionError("no live Hunter calls in tests"))
+        m.route(host="auth.test", name="supabase").mock(side_effect=AssertionError("no Supabase calls without a stub"))
+        m.route(host="gmail.googleapis.com", name="gmail").mock(side_effect=AssertionError("no live Gmail calls in tests"))
         m.route().mock(side_effect=fake_site)
         yield m
 

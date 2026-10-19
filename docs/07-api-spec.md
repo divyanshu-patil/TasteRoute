@@ -10,6 +10,7 @@ Every request carries the signed workspace token in the `X-Workspace-Token` head
 |---|---|---|
 | `GET /health` | `{status, db, qloo: ok/unconfigured/error, llm: {provider, model, tools_ok}, hunter: ok/unconfigured, version}` | — |
 | `POST /v1/workspaces/session` | Create an anonymous workspace, or validate an existing token → `{workspace_token}` | — |
+| `POST /v1/workspaces/login` | `{access_token, workspace_token?}` (Supabase Auth) → `{workspace_token, workspace_id, email}`: the account's workspace, with this browser's work merged in. `400 signin_failed`, `503 auth_unconfigured` | F12 |
 | `GET /v1/categories` | Enabled category packs and their venue types | F11 |
 | `POST /v1/brands/intake` | `{website_url?, description?}` → proposed profile (not saved yet) | F01 |
 | `POST /v1/brands` | Save a confirmed profile and products → `{brand_id, product_ids}` | F01 |
@@ -31,7 +32,8 @@ Every request carries the signed workspace token in the `X-Workspace-Token` head
 | `POST /v1/runs/{id}/drafts` | `{venue_ids}` → `draft_pitches` → `202` | F07 |
 | `GET /v1/runs/{id}/drafts` | Drafts with status | F07 |
 | `PATCH /v1/drafts/{id}` | `{subject?, body?, status?: "approved"}`; edit-after-approve resets to `edited` | F07 |
-| `POST /v1/drafts/{id}/regenerate` | Only if not approved | F07 |
+| `POST /v1/drafts/{id}/regenerate` | Only if not approved or sent | F07 |
+| `POST /v1/drafts/{id}/send` | `{google_access_token}` → the sent draft. Sends from the signed-in user's Gmail, once. `403 signin_required`, `403 gmail_reconnect`, `409` already sent or suppressed, `502 gmail_failed` | F12 |
 | `GET /v1/runs/{id}/export.csv` | CSV of the run (approved drafts only) | F08 |
 | `GET /v1/suppressions` / `POST` / `DELETE /v1/suppressions/{id}` | Manage do-not-contact list | F08 |
 | `GET /v1/runs/{id}/trace?kind=qloo|external|llm|tool` | Ordered trace, no secrets | F09 |
@@ -79,10 +81,11 @@ Every request carries the signed workspace token in the `X-Workspace-Token` head
 
 ## Error codes
 
-`invalid_workspace`, `url_not_allowed`, `website_unreadable`, `unsupported_business`, `no_entities_resolved`, `qloo_unconfigured`, `qloo_auth`, `qloo_unavailable`, `qloo_rate_limited`, `qloo_budget_exceeded`, `qloo_contract_violation`, `no_venues`, `hunter_unconfigured`, `hunter_limit_reached`, `llm_unavailable` (non-fatal), `rate_limited`, `validation_error`, `not_found`, `forbidden_workspace`, `draft_locked`.
+`invalid_workspace`, `url_not_allowed`, `website_unreadable`, `unsupported_business`, `no_entities_resolved`, `qloo_unconfigured`, `qloo_auth`, `qloo_unavailable`, `qloo_rate_limited`, `qloo_budget_exceeded`, `qloo_contract_violation`, `no_venues`, `hunter_unconfigured`, `hunter_limit_reached`, `llm_unavailable` (non-fatal), `rate_limited`, `validation_error`, `not_found`, `forbidden_workspace`, `draft_locked`, `signin_failed`, `auth_unconfigured`, `signin_required`, `gmail_reconnect`, `gmail_failed`.
 
 ## Rate limits
 
 - `POST /v1/runs`: `PUBLIC_RUNS_PER_IP_PER_DAY` per IP and per workspace in a rolling 24 hours (default 3; `0` turns the limit off for local use).
 - `POST /v1/brands/intake`: 20 per hour per IP.
+- `POST /v1/workspaces/login`: 20 per hour per IP.
 - `GET /v1/qloo/search`, `/v1/cities/search`, `/v1/places/search` and `/v1/places/reverse`: 30 per minute per IP. `/v1/places/suggest`: 60 per minute per IP.

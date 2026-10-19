@@ -24,7 +24,10 @@ def test_category_names_only_in_packs():
     assert bad == []
 
 
-def test_no_email_sending_code_or_dependency():
+def test_email_goes_only_from_the_users_own_gmail():
+    """No mail service of our own: an email leaves only through the send route, from the signed-in user's Gmail (F12)."""
+    gmail = [p.name for p in SRC.rglob("*.py") if "gmail.googleapis.com" in p.read_text()]
+    assert gmail == ["runs.py"]
     pat = re.compile(r"smtplib|aiosmtplib|sendgrid|mailgun|postmark|resend|ses\.send|send_email\(")
     bad = [str(p) for p in SRC.rglob("*.py") if pat.search(p.read_text())]
     deps = (SRC.parents[1] / "pyproject.toml").read_text()

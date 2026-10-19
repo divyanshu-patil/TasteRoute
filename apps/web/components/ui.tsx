@@ -67,7 +67,7 @@ export function Skeleton({ rows = 6 }: { rows?: number }) {
   );
 }
 
-export const NOTHING_SENT = "Nothing is sent from TasteRoute. You send approved emails from your own inbox.";
+export const NOTHING_SENT = "Nothing is sent without your click. Emails go from your own Gmail when you're logged in, or you copy approved ones into your inbox.";
 
 const CONTACT_SOURCE: Record<string, string> = { osm: "OpenStreetMap", website: "venue website", web: "web search", hunter: "Hunter", qloo: "Qloo" };
 

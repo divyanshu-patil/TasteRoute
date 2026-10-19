@@ -22,6 +22,19 @@ class SessionOut(BaseModel):
     workspace_id: str
 
 
+class LoginIn(In):
+    access_token: str = Field(min_length=10, max_length=4096, description="Supabase Auth access token")
+    workspace_token: str | None = None
+
+
+class AccountOut(SessionOut):
+    email: str | None
+
+
+class SendIn(In):
+    google_access_token: str = Field(min_length=10, max_length=4096, description="Google token with gmail.send; used once, never stored")
+
+
 class VenueTypeOut(BaseModel):
     id: str
     label: str
@@ -311,6 +324,7 @@ class DraftOut(BaseModel):
     mailto: str | None
     updated_at: datetime
     approved_at: datetime | None
+    sent_at: datetime | None = None
 
 
 class DraftPatch(In):

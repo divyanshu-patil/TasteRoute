@@ -9,7 +9,7 @@ Let the user send approved pitches **from their own email** and keep a do-not-co
 1. **Open in email app.** For each approved draft, a `mailto:` link with `to`, `subject` and `body` URL-encoded. Bodies longer than about 1,800 characters after encoding are shortened with a note, because some clients truncate long mailto links; a "Copy email" button always works.
 2. **CSV export** of the run: `rank, venue_name, venue_type, city, fit, lift, confidence, best_product, reason, contact_email, contact_role, contact_source, verification_status, draft_status, draft_subject, draft_body`. Only approved drafts include subject and body. UTF-8 with a header row.
 3. Exporting sets the draft status to `exported` and records `exported_at`.
-4. The app never sends email.
+4. The app sends nothing on its own. A signed-in user can send one draft at a time from their own Gmail (F12).
 
 ## Suppression list
 

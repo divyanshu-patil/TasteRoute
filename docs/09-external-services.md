@@ -10,6 +10,8 @@
 | Photon (komoot) | Place suggestions while the user types | Identifying User-Agent | Fair use; built for search-as-you-type; debounced 350 ms, minimum 3 characters | 30 days |
 | Overpass API | Venue website and email tags | Identifying User-Agent | No parallel queries, back off on 429/406, light daily use | 7 days per (city, venue type) |
 | Ollama web search | Last resort for a venue's published email, when its own pages show none (`POST /api/web_search`, 5 results) | Same Bearer key as Ollama Cloud; off with `WEB_SEARCH_ENABLED=false` | Free tier for individuals, higher limits on paid plans; one search per venue without an email | 14 days per query |
+| Supabase Auth | Optional sign-in with Google (F12) | Public anon key (browser and API) | Auth rate limits of the plan | No |
+| Gmail API | Send one draft from the signed-in user's own Gmail (F12) | The user's Google token (`gmail.send`), per request, never stored | Per-user Gmail sending limits; unverified apps are limited to test users | No |
 | Website reader | Brand intake pages; venue emails | None | Robots.txt, timeouts, SSRF guard | 7 days per URL |
 | OpenFreeMap vector tiles | Map on results, venue and wizard pages (loaded by the browser, not the API): the "Liberty" style trimmed to food and drink places and famous sights | None; attribution shown on the map | [openfreemap.org](https://openfreemap.org): free, no key, no usage limits | Browser cache |
 | OpenStreetMap tiles | Fallback map if OpenFreeMap is unreachable | None; attribution shown on the map | [Tile usage policy](https://operations.osmfoundation.org/policies/tiles/): light use | Browser cache |
@@ -63,6 +65,13 @@
 - If no pattern finds an address, one LLM call reads the same pages and must quote the words that show an address. Code checks the quote is on the page and spells that address out, so the AI can find an address but never invent one (CON-05). If the model is unavailable, the result is not cached.
 - If the venue's pages, OpenStreetMap and Hunter give no address, one Ollama web search (`"<venue>" <city> email`) runs. Only addresses on the venue's own domain, or carrying its name (cabinjuice@…, yampasandwichco@gmail.com), are kept, with the result page as the source; a directory's other listings are dropped. Stored as source `web`.
 - A 403 or a Cloudflare challenge (`cf-mitigated`) means the owner blocks automated readers: we stop and say so ("That site blocks automated readers like ours") and use the description instead. We never work around bot checks.
+
+## Supabase Auth and Gmail (F12)
+
+- Supabase project → Authentication → Providers → Google: enabled with the Google OAuth client. URL configuration: the site URL and redirect URLs must include the web app's origin (`http://localhost:3000/**` locally).
+- Google Cloud: the Gmail API enabled, and `https://www.googleapis.com/auth/gmail.send` added to the OAuth consent screen. While the app is unverified, only listed test users can grant it.
+- Sign-in asks for `gmail.send` (send only, never read). The API checks a Supabase access token with `GET {SUPABASE_URL}/auth/v1/user` once per sign-in.
+- Sending: `POST https://gmail.googleapis.com/gmail/v1/users/me/messages/send` with `{raw}` (the RFC 2822 message, base64url). 401 or 403 means the token expired or the permission wasn't granted; the user reconnects. Google's client secret is not needed: there is no server-side refresh.
 
 ## Apollo (optional, disabled by default)
 

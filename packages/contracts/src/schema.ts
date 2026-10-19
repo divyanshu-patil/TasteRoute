@@ -175,6 +175,27 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/v1/drafts/{draft_id}/send": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Send Draft
+         * @description One click sends the draft from the signed-in user's own Gmail (F10). Clicking send is the approval. The Google token
+         *     comes from the browser for this one request and is never stored or logged.
+         */
+        post: operations["send_draft_v1_drafts__draft_id__send_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/v1/places/reverse": {
         parameters: {
             query?: never;
@@ -503,6 +524,27 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/v1/workspaces/login": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Login
+         * @description Sign in (F10): checks the Supabase Auth token with Supabase once, then ties a workspace to the account. Work done
+         *     in this browser before signing in stays: it becomes the account's workspace, or joins the one it already has.
+         */
+        post: operations["login_v1_workspaces_login_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/v1/workspaces/session": {
         parameters: {
             query?: never;
@@ -530,6 +572,15 @@ export interface components {
             run_id: string;
             /** Status */
             status: string;
+        };
+        /** AccountOut */
+        AccountOut: {
+            /** Email */
+            email: string | null;
+            /** Workspace Id */
+            workspace_id: string;
+            /** Workspace Token */
+            workspace_token: string;
         };
         /** BestProduct */
         BestProduct: {
@@ -709,6 +760,8 @@ export interface components {
             mailto: string | null;
             /** Model */
             model: string | null;
+            /** Sent At */
+            sent_at?: string | null;
             /**
              * Source
              * @enum {string}
@@ -822,6 +875,16 @@ export interface components {
             description?: string | null;
             /** Website Url */
             website_url?: string | null;
+        };
+        /** LoginIn */
+        LoginIn: {
+            /**
+             * Access Token
+             * @description Supabase Auth access token
+             */
+            access_token: string;
+            /** Workspace Token */
+            workspace_token?: string | null;
         };
         /**
          * Place
@@ -994,6 +1057,14 @@ export interface components {
             weights: {
                 [key: string]: number;
             };
+        };
+        /** SendIn */
+        SendIn: {
+            /**
+             * Google Access Token
+             * @description Google token with gmail.send; used once, never stored
+             */
+            google_access_token: string;
         };
         /** SessionIn */
         SessionIn: {
@@ -1484,6 +1555,41 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["Accepted"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    send_draft_v1_drafts__draft_id__send_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                draft_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["SendIn"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["DraftOut"];
                 };
             };
             /** @description Validation Error */
@@ -2195,6 +2301,39 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content?: never;
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    login_v1_workspaces_login_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["LoginIn"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AccountOut"];
+                };
             };
             /** @description Validation Error */
             422: {

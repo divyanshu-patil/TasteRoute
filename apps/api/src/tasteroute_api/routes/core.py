@@ -1,22 +1,26 @@
-"""Health, workspaces, categories, city and place search, manual Qloo search, demo."""
+"""Health, workspaces and sign-in, categories, city and place search, manual Qloo search, demo."""
 
+import contextlib
 import uuid
 from typing import Literal
 
+import httpx
 from fastapi import APIRouter, Depends, Query, Request
 
 from .. import __version__
 from ..agent.context import Services
 from ..categories import enabled_packs
-from ..errors import InvalidWorkspace, ValidationFailed
+from ..errors import AppError, InvalidWorkspace, ValidationFailed
 from ..external import osm
 from ..qloo import api
 from ..qloo.client import Trace
 from ..schemas import (
+    AccountOut,
     CategoryOut,
     CityHit,
     DemoOut,
     HealthOut,
+    LoginIn,
     Place,
     QlooSearchItem,
     SessionIn,
@@ -63,6 +67,46 @@ async def session(body: SessionIn, request: Request, s: Services = Depends(svc))
     rate(request, "session", 30, 3600)
     ws = str(await s.pool.fetchval("insert into workspaces (kind) values ('anon') returning id"))
     return SessionOut(workspace_token=sign(ws), workspace_id=ws)
+
+
+# Tables whose rows belong to a workspace, moved into the account when work done before signing in joins it
+OWNED = ("brands", "products", "runs", "contacts", "drafts", "suppressions")
+
+
+@router.post("/v1/workspaces/login", response_model=AccountOut)
+async def login(body: LoginIn, request: Request, s: Services = Depends(svc)) -> AccountOut:
+    """Sign in (F12): checks the Supabase Auth token with Supabase once, then ties a workspace to the account. Work done
+    in this browser before signing in stays: it becomes the account's workspace, or joins the one it already has."""
+    rate(request, "login", 20, 3600)
+    st = s.settings
+    if not (st.supabase_url and st.supabase_anon_key):
+        raise AppError("Sign-in is not set up on this server.", code="auth_unconfigured", status=503)
+    try:
+        r = await s.http.get(f"{st.supabase_url.rstrip('/')}/auth/v1/user", timeout=10,
+                             headers={"apikey": st.supabase_anon_key, "Authorization": f"Bearer {body.access_token}"})
+    except httpx.HTTPError as e:
+        raise AppError("Could not reach the sign-in service, try again.", code="signin_failed", status=502) from e
+    if r.status_code != 200:  # not 401: the web client treats 401 as a lost workspace
+        raise AppError("Your sign-in has expired. Log in again.", code="signin_failed", status=400)
+    user = r.json()
+    uid, email = uuid.UUID(user["id"]), user.get("email")
+    here = None
+    with contextlib.suppress(InvalidWorkspace):
+        here = uuid.UUID(verify(body.workspace_token))
+    async with s.pool.acquire() as con, con.transaction():
+        mine = await con.fetchval("select id from workspaces where user_id = $1", uid)
+        free = here and await con.fetchval(
+            "select id from workspaces where id = $1 and kind = 'anon' and user_id is null for update", here)
+        if mine is None:
+            mine = here if free else await con.fetchval("insert into workspaces default values returning id")
+        elif free:
+            await con.execute("delete from suppressions a using suppressions b where a.workspace_id = $1 "
+                              "and b.workspace_id = $2 and a.kind = b.kind and a.value = b.value", here, mine)
+            for t in OWNED:
+                await con.execute(f"update {t} set workspace_id = $2 where workspace_id = $1", here, mine)
+            await con.execute("delete from workspaces where id = $1", here)
+        await con.execute("update workspaces set user_id = $2, email = $3, last_seen_at = now() where id = $1", mine, uid, email)
+    return AccountOut(workspace_token=sign(str(mine)), workspace_id=str(mine), email=email)
 
 
 @router.get("/v1/categories", response_model=list[CategoryOut])

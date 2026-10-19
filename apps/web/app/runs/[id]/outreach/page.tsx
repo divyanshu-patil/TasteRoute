@@ -7,12 +7,14 @@ import { LiveProgress } from "../../../../components/live-progress";
 import { RunShell } from "../../../../components/run-shell";
 import { Tour, type TourStep } from "../../../../components/tour";
 import { Banner, ContactSource, EmptyState, NOTHING_SENT, Skeleton } from "../../../../components/ui";
+import { forgetGoogle, googleToken, signIn, useAccount } from "../../../../lib/account";
 import { ApiError, api, downloadCsv, type S } from "../../../../lib/api";
 import { CONTACT_STATUS, OUTREACH_STEPS } from "../../../../lib/format";
 import { cancelOutreach, startingOutreach } from "../../../../lib/outreach";
 import { useRun } from "../../../../lib/use-run";
 
 function DraftEditor({ draft, readOnly, onChange }: { draft: S["DraftOut"]; readOnly: boolean; onChange: (d: S["DraftOut"] | null) => void }) {
+  const account = useAccount();
   const [subject, setSubject] = useState(draft.subject);
   const [body, setBody] = useState(draft.body);
   const [busy, setBusy] = useState(false);
@@ -27,6 +29,22 @@ function DraftEditor({ draft, readOnly, onChange }: { draft: S["DraftOut"]; read
       onChange(await api<S["DraftOut"]>(`/v1/drafts/${draft.id}`, { method: "PATCH", body: { subject, body, ...(status ? { status } : {}) } }));
     } catch (e) {
       setErr(e instanceof ApiError ? e.detail || e.title : "Could not save");
+    } finally {
+      setBusy(false);
+    }
+  };
+  // One click sends it from the user's own Gmail (F12); without sign-in or a fresh Google token, it goes to Google first
+  const send = async () => {
+    setBusy(true);
+    setErr(null);
+    try {
+      if (dirty) await api(`/v1/drafts/${draft.id}`, { method: "PATCH", body: { subject, body } });
+      const token = googleToken();
+      if (!account.email || !token) return void (await signIn()); // back on this page; one more click sends
+      onChange(await api<S["DraftOut"]>(`/v1/drafts/${draft.id}/send`, { method: "POST", body: { google_access_token: token } }));
+    } catch (e) {
+      if (e instanceof ApiError && e.code === "gmail_reconnect") forgetGoogle();
+      setErr(e instanceof ApiError ? e.detail || e.title : "Could not send");
     } finally {
       setBusy(false);
     }
@@ -71,7 +89,8 @@ function DraftEditor({ draft, readOnly, onChange }: { draft: S["DraftOut"]; read
         <textarea className="textarea" value={body} maxLength={4000} readOnly={readOnly} onChange={(e) => setBody(e.target.value)} />
       </label>
       {err && <p className="err" role="alert">{err}</p>}
-      {!readOnly && (
+      {draft.sent_at && <p className="small muted">Sent from your Gmail on {new Date(draft.sent_at).toLocaleString()}.</p>}
+      {!readOnly && draft.status !== "sent" && (
         <div className="row between">
           <div className="row" style={{ gap: 8 }}>
             {dirty && <button className="btn-ghost btn-sm" disabled={busy} onClick={() => save()}>Save edits</button>}
@@ -83,7 +102,12 @@ function DraftEditor({ draft, readOnly, onChange }: { draft: S["DraftOut"]; read
           <div className="row" style={{ gap: 8 }}>
             {draft.mailto && !dirty && <a className="btn-ghost btn-sm" href={draft.mailto}>Open in mail app</a>}
             {(draft.status === "draft" || draft.status === "edited" || dirty) && (
-              <button className="btn btn-sm" disabled={busy} onClick={() => save("approved")}>Approve</button>
+              <button className={account.email ? "btn-ghost btn-sm" : "btn btn-sm"} disabled={busy} onClick={() => save("approved")}>Approve</button>
+            )}
+            {account.enabled && (
+              <button className="btn btn-sm" disabled={busy} onClick={send}>
+                {!account.email ? "Log in to send with Gmail" : googleToken() ? "Send with Gmail" : "Connect Gmail to send"}
+              </button>
             )}
           </div>
         </div>
@@ -94,7 +118,7 @@ function DraftEditor({ draft, readOnly, onChange }: { draft: S["DraftOut"]; read
 
 const TOUR: TourStep[] = [
   { target: "contacts", title: "Public business contacts", body: "Only addresses a venue published itself: its OpenStreetMap listing or its own website. Each shows where it was found and which sources were checked." },
-  { target: "draft", title: "A grounded first email", body: "The AI writes from the venue's evidence only, and a validator rejects any name or number that isn't in it. You edit and approve; TasteRoute never sends anything." },
+  { target: "draft", title: "A grounded first email", body: "The AI writes from the venue's evidence only, and a validator rejects any name or number that isn't in it. You edit it, then send it from your own Gmail in one click, or approve it to copy out. Nothing goes without your click." },
   { target: "export", title: "Take it with you", body: "Download every venue, contact and approved draft as a CSV for your own mail app or CRM." },
 ];
 
@@ -153,6 +177,7 @@ export default function Outreach() {
 
   const running = starting || status === "outreach_running";
   const approved = (drafts ?? []).filter((d) => d.status === "approved" || d.status === "exported").length;
+  const sent = (drafts ?? []).filter((d) => d.status === "sent").length;
   const update = (d: S["DraftOut"] | null) => {
     if (d) setDrafts((list) => (list ?? []).map((x) => (x.id === d.id ? d : x)));
     else refresh();
@@ -169,7 +194,7 @@ export default function Outreach() {
   return (
     <RunShell run={run} error={error} tab="outreach" online={online}>
       {running && <LiveProgress progress={progress} steps={OUTREACH_STEPS} title="Finding contacts and drafting" onCancel={cancel} cancelling={cancelling} />}
-      <Banner tone="ink">{NOTHING_SENT} Every email needs your approval first.</Banner>
+      <Banner tone="ink">{NOTHING_SENT}</Banner>
       {err && <Banner tone="warn">{err}</Banner>}
       {!running && status === "scouted" && run?.error_message && <Banner tone="warn">{run.error_message}</Banner>}
       {!contacts || contacts.length === 0 ? (
@@ -218,7 +243,7 @@ export default function Outreach() {
       {drafts && drafts.length > 0 && (
         <div className="actionbar" role="region" aria-label="Export" data-tour="export">
           <div>
-            <span><strong>{approved}</strong> of {drafts.length} approved</span>
+            <span><strong>{approved}</strong> of {drafts.length} approved{sent > 0 && <>, <strong>{sent}</strong> sent</>}</span>
             <button className="btn" onClick={exportCsv}>Download CSV</button>
           </div>
         </div>
