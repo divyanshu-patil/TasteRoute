@@ -245,7 +245,7 @@ export default function RunPage() {
           ) : (
             <div className="table-wrap" data-tour="table">
               {!run.is_demo && (
-                <div className="row" style={{ padding: "14px 16px 0" }}>
+                <div className="row select-all" style={{ padding: "14px 16px 0" }}>
                   <label className="check small">
                     <input type="checkbox" checked={allShown} onChange={toggleShown} />
                     Select all shown{visible.length > MAX_OUTREACH ? ` (first ${MAX_OUTREACH})` : ""}
@@ -256,7 +256,12 @@ export default function RunPage() {
                 <caption className="sr-only">Venues ranked by taste fit</caption>
                 <thead>
                   <tr>
-                    {!run.is_demo && <th scope="col"><span className="sr-only">Select</span></th>}
+                    {!run.is_demo && (
+                      <th scope="col">
+                        <input type="checkbox" className="check" style={{ width: 20, height: 20, accentColor: "#000" }} checked={allShown} onChange={toggleShown}
+                          aria-label={`Select all ${visible.length} shown${visible.length > MAX_OUTREACH ? ` (first ${MAX_OUTREACH})` : ""}`} title="Select all shown" />
+                      </th>
+                    )}
                     <th scope="col">#</th>
                     <th scope="col">Venue</th>
                     <th scope="col"><Tip label="Fit">0–100. 70% how strongly the venue&apos;s guests share your taste (Qloo affinity percentile), 30% how far that beats a popularity-only baseline.</Tip></th>

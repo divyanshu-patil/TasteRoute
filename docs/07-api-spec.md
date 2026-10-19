@@ -27,7 +27,7 @@ Every request carries the signed workspace token in the `X-Workspace-Token` head
 | `GET /v1/runs/{id}/venues/{venue_id}` | Venue detail, per-product fit, evidence | F04, F05 |
 | `POST /v1/runs/{id}/contacts` | `{venue_ids}` → starts outreach `find_contacts` → `202` | F06 |
 | `POST /v1/runs/{id}/cancel` | Stops a running outreach mid-way (its LLM and web calls too); contacts and drafts found so far are kept. Also frees a run left running by an API restart. A no-op otherwise → `202` | F06 |
-| `GET /v1/runs/{id}/contacts` | Contact status per selected venue | F06 |
+| `GET /v1/runs/{id}/contacts` | Contact status per selected venue, with the sources checked and the venue's website | F06 |
 | `POST /v1/runs/{id}/drafts` | `{venue_ids}` → `draft_pitches` → `202` | F07 |
 | `GET /v1/runs/{id}/drafts` | Drafts with status | F07 |
 | `PATCH /v1/drafts/{id}` | `{subject?, body?, status?: "approved"}`; edit-after-approve resets to `edited` | F07 |
@@ -46,6 +46,7 @@ Every request carries the signed workspace token in the `X-Workspace-Token` head
 | `tool_call` | `{step, tool, args_summary}` |
 | `qloo_call` | `{call_id, endpoint, cache_hit, duration_ms, status}` |
 | `external_call` | `{call_id, service, cache_hit, status}` |
+| `venue` | `{tool, venue, state: checking or done, result, done, of}`: outreach progress per venue (contacts, then drafts) |
 | `step_done` | `{step, tool, summary}` |
 | `warning` | `{code, message}` |
 | `phase_done` | `{phase, summary}` |

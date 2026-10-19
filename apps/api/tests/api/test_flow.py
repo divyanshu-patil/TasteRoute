@@ -138,6 +138,15 @@ async def test_outreach_contacts_drafts_approve_export(client, ws, svc):
 
     contacts = (await client.get(f"/v1/runs/{run_id}/contacts", headers=ws)).json()
     assert {c["venue_id"] for c in contacts} == set(top)
+    assert any(c["website"] for c in contacts)  # the outreach page links the venue's site
+    # Live progress: a 'checking' and a 'done' event per venue, counting up to the total
+    ev = [json.loads(e["payload"]) if isinstance(e["payload"], str) else e["payload"] for e in await svc.pool.fetch(
+        "select payload from run_events where run_id = $1 and type = 'venue' order by id", uuid.UUID(run_id))]
+    found_done = [e for e in ev if e["tool"] == "find_contacts" and e["state"] == "done"]
+    assert [e["done"] for e in found_done] == list(range(1, len(top) + 1)) and found_done[-1]["of"] == len(top)
+    assert all(e["result"] in ("found", "none", "limit_reached", "suppressed", "skipped_social") for e in found_done)
+    drafted = [e for e in ev if e["tool"] == "draft_pitches" and e["state"] == "done"]
+    assert drafted and drafted[-1]["done"] == drafted[-1]["of"]
     found = [c for c in contacts if c["status"] == "found"]
     assert found
     for c in found:  # CON-05: every stored email has a source

@@ -681,6 +681,8 @@ export interface components {
             status: string;
             /** Venue Id */
             venue_id: string;
+            /** Website */
+            website?: string | null;
         };
         /** DemoOut */
         DemoOut: {

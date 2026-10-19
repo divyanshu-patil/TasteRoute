@@ -32,6 +32,26 @@ describe("progress reducer", () => {
     expect(reduce(replayed, ev(2, "tool_call", { tool: "x" }))).toBe(replayed);
   });
 
+  it("starts clean for the outreach phase and follows each venue live", () => {
+    let p = initialProgress;
+    for (const e of [
+      ev(1, "phase_started", { phase: "scout" }),
+      ev(2, "qloo_call", { cache_hit: false }),
+      ev(3, "phase_done", { phase: "scout" }),
+      ev(4, "phase_started", { phase: "outreach" }),
+      ev(5, "tool_call", { tool: "find_contacts" }),
+      ev(6, "venue", { tool: "find_contacts", venue: "Cabin Juice", state: "checking", done: 0, of: 2 }),
+      ev(7, "external_call", { service: "website", status: 200, cache_hit: false }),
+      ev(8, "venue", { tool: "find_contacts", venue: "Cabin Juice", state: "done", result: "found", done: 1, of: 2 }),
+      ev(9, "venue", { tool: "find_contacts", venue: "Safeway", state: "checking", done: 1, of: 2 }),
+    ]) p = reduce(p, e);
+    expect([p.phase, p.qlooLive, p.finished]).toEqual(["outreach", 0, false]); // the scout phase is not carried over
+    expect(p.counts.find_contacts).toEqual({ done: 1, of: 2 });
+    expect(p.current).toEqual({ tool: "find_contacts", venue: "Safeway" });
+    expect(p.results).toEqual([{ id: 8, tool: "find_contacts", venue: "Cabin Juice", result: "found" }]);
+    expect(p.log.map((l) => l.text)).toContain("website 200");
+  });
+
   it("records failures", () => {
     const p = reduce(initialProgress, ev(1, "failed", { code: "qloo_auth", message: "Qloo rejected the key" }));
     expect(p.failed).toEqual({ code: "qloo_auth", message: "Qloo rejected the key" });

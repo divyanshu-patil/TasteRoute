@@ -117,8 +117,10 @@ async def find_contacts(ctx: RunContext, venue_ids: list[str]) -> dict[str, Any]
     osm_cache: dict[str, list[dict[str, Any]]] = {}
     counts = {"found": 0, "none": 0, "limit_reached": 0, "suppressed": 0, "skipped_social": 0, "error": 0}
 
-    for v in rows:
+    for i, v in enumerate(rows):
         vid = v["id"]
+        # Live progress for the outreach page (one venue at a time)
+        await ctx.emit("venue", {"tool": "find_contacts", "venue": v["name"], "state": "checking", "done": i, "of": len(rows)})
         checked: list[str] = []
         cands: list[Candidate] = []
         status = "none"
@@ -228,6 +230,8 @@ async def find_contacts(ctx: RunContext, venue_ids: list[str]) -> dict[str, Any]
             "checked_at = now()",
             ctx.rid, vid, status, checked,
         )
+        await ctx.emit("venue", {"tool": "find_contacts", "venue": v["name"], "state": "done", "result": status,
+                                 "done": i + 1, "of": len(rows)})
     with_contact = await ctx.pool.fetch(
         "select distinct venue_id from contacts where run_id = $1 and is_primary and venue_id = any($2::uuid[])",
         ctx.rid, [r["id"] for r in rows],

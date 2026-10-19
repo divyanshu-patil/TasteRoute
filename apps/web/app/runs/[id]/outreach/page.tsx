@@ -149,7 +149,7 @@ export default function Outreach() {
     return () => {
       alive = false;
     };
-  }, [id, status, version]);
+  }, [id, status, version, progress.results.length]); // and again as each venue finishes, so results show up live
 
   const running = starting || status === "outreach_running";
   const approved = (drafts ?? []).filter((d) => d.status === "approved" || d.status === "exported").length;
@@ -172,13 +172,13 @@ export default function Outreach() {
       <Banner tone="ink">{NOTHING_SENT} Every email needs your approval first.</Banner>
       {err && <Banner tone="warn">{err}</Banner>}
       {!running && status === "scouted" && run?.error_message && <Banner tone="warn">{run.error_message}</Banner>}
-      {!contacts ? (
-        <Skeleton />
-      ) : contacts.length === 0 && !running ? (
-        <EmptyState title="No venues selected yet">
-          <p className="muted">Pick venues on the results page and choose “Find contacts &amp; draft”.</p>
-          <Link className="btn" href={`/runs/${id}`}>Go to results</Link>
-        </EmptyState>
+      {!contacts || contacts.length === 0 ? (
+        running ? null : !contacts ? <Skeleton /> : ( // the live panel above covers the wait
+          <EmptyState title="No venues selected yet">
+            <p className="muted">Pick venues on the results page and choose “Find contacts &amp; draft”.</p>
+            <Link className="btn" href={`/runs/${id}`}>Go to results</Link>
+          </EmptyState>
+        )
       ) : (
         <div className="split">
           <section className="card stack sticky" aria-labelledby="contacts-h" data-tour="contacts">
@@ -192,7 +192,17 @@ export default function Outreach() {
                   ) : (
                     <span className="small muted">{CONTACT_STATUS[c.status] ?? c.status}</span>
                   )}
-                  <span className="mono faint">checked: {c.checked_sources.join(", ") || "–"}</span>
+                  <span className="mono faint">
+                    checked:{" "}
+                    {c.checked_sources.length ? c.checked_sources.map((s, i) => (
+                      <span key={s}>
+                        {i > 0 && ", "}
+                        {s.includes("website") && c.website && /^https?:\/\//i.test(c.website)
+                          ? <a className="link" href={c.website} target="_blank" rel="noopener noreferrer">{s} ↗</a>
+                          : s}
+                      </span>
+                    )) : "–"}
+                  </span>
                 </li>
               ))}
             </ul>

@@ -40,6 +40,14 @@ export const STEP_LABEL: Record<string, string> = {
 
 export const SCOUT_STEPS = ["resolve_entities", "rank_venues", "match_products", "attach_evidence"];
 export const OUTREACH_STEPS = ["find_contacts", "draft_pitches"];
+export const DRAFT_RESULT: Record<string, string> = {
+  llm: "AI draft written",
+  template: "Template draft",
+  skipped_approved: "Approved draft kept",
+  suppressed: "On your do-not-contact list",
+};
+/** What the live panel says while a step works on one venue. */
+export const STEP_DOING: Record<string, string> = { find_contacts: "Checking", draft_pitches: "Drafting for" };
 
 /** Venue types come from the category pack; the API only returns ids on rows. */
 export const venueTypeLabel = (id: string) => id.charAt(0).toUpperCase() + id.slice(1);

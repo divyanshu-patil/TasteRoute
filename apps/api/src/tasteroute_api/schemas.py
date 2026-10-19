@@ -292,6 +292,7 @@ class ContactStatusOut(BaseModel):
     rank: int
     status: str
     checked_sources: list[str]
+    website: str | None = None  # the venue's own site, when known
     contacts: list[ContactOut]
 
 

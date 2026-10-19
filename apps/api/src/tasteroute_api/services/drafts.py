@@ -168,21 +168,29 @@ async def draft_pitches(ctx: RunContext, venue_ids: list[str]) -> dict[str, Any]
     sup_e, sup_d = await suppression_sets(ctx.pool, ctx.workspace_id)
     sem = asyncio.Semaphore(4)
     counts = {"llm": 0, "template": 0, "skipped_approved": 0, "suppressed": 0}
+    done = 0
 
     async def one(r: Any) -> None:
+        nonlocal done
+        result = await draft(r)
+        counts[result] += 1
+        done += 1  # live progress for the outreach page
+        await ctx.emit("venue", {"tool": "draft_pitches", "venue": r["name"], "state": "done", "result": result,
+                                 "done": done, "of": len(rows)})
+
+    async def draft(r: Any) -> str:
         if is_suppressed(r["email"], sup_e, sup_d):
-            counts["suppressed"] += 1
-            return
+            return "suppressed"
         existing = await ctx.pool.fetchval(
             "select status from drafts where run_id = $1 and venue_id = $2 and contact_id = $3",
             ctx.rid, r["venue_id"], r["contact_id"])
         if existing in ("approved", "exported"):
-            counts["skipped_approved"] += 1
-            return
+            return "skipped_approved"
         async with sem:
+            await ctx.emit("venue", {"tool": "draft_pitches", "venue": r["name"], "state": "checking", "done": done,
+                                     "of": len(rows)})
             b = await build_bundle(ctx, dict(r), dict(r))
             out, source, model, version = await write_pitch(ctx, b)
-        counts[source] += 1
         await ctx.pool.execute(
             "insert into drafts (workspace_id, run_id, venue_id, contact_id, subject, body, cited_evidence_ids, source, "
             "status, model, prompt_version) values ($1,$2,$3,$4,$5,$6,$7,$8,'draft',$9,$10) "
@@ -193,6 +201,7 @@ async def draft_pitches(ctx: RunContext, venue_ids: list[str]) -> dict[str, Any]
             uuid.UUID(ctx.workspace_id), ctx.rid, r["venue_id"], r["contact_id"], out.subject, out.body,
             [uuid.UUID(i) for i in out.cited_evidence_ids], source, model, version,
         )
+        return source
 
     await asyncio.gather(*[one(r) for r in rows])
     return {"drafted": counts["llm"] + counts["template"], **{k: v for k, v in counts.items() if v}}

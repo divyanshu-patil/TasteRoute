@@ -327,7 +327,7 @@ async def get_contacts(run_id: str, ws: str = Depends(workspace_id), s: Services
     r = await get_run(s, ws, run_id)
     demo = r["workspace_kind"] == "demo"
     checks = await s.pool.fetch(
-        "select cc.*, v.name, vs.rank from contact_checks cc join venues v on v.id = cc.venue_id "
+        "select cc.*, v.name, v.website, vs.rank from contact_checks cc join venues v on v.id = cc.venue_id "
         "join venue_scores vs on vs.run_id = cc.run_id and vs.venue_id = cc.venue_id where cc.run_id = $1 order by vs.rank", r["id"])
     cs = await s.pool.fetch("select * from contacts where run_id = $1 order by is_primary desc", r["id"])
     sup_e, sup_d = await suppression_sets(s.pool, ws)
@@ -342,7 +342,8 @@ async def get_contacts(run_id: str, ws: str = Depends(workspace_id), s: Services
         if status == "found" and not contacts:
             status = "suppressed"
         out.append(ContactStatusOut(venue_id=str(c["venue_id"]), name=c["name"], rank=c["rank"], status=status,
-                                    checked_sources=list(c["checked_sources"] or []), contacts=contacts))
+                                    checked_sources=list(c["checked_sources"] or []), website=c["website"],
+                                    contacts=contacts))
     return out
 
 

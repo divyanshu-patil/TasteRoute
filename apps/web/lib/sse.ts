@@ -2,7 +2,7 @@ import { API_URL, workspaceToken } from "./api";
 
 export type RunEvent = { id: number; type: string; payload: Record<string, unknown> };
 export const EVENT_TYPES = [
-  "phase_started", "tool_call", "step_done", "qloo_call", "external_call", "warning", "phase_done", "failed",
+  "phase_started", "tool_call", "step_done", "qloo_call", "external_call", "warning", "phase_done", "failed", "venue",
 ] as const;
 
 /** EventSource with the token as a query param. The browser reconnects with Last-Event-ID; the API replays. */
