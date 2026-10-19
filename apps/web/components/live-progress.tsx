@@ -1,14 +1,19 @@
 import { STEP_LABEL } from "../lib/format";
 import type { Progress } from "../lib/progress";
 
-export function LiveProgress({ progress, steps, title }: { progress: Progress; steps: string[]; title: string }) {
+type Props = { progress: Progress; steps: string[]; title: string; onCancel?: () => void; cancelling?: boolean };
+
+export function LiveProgress({ progress, steps, title, onCancel, cancelling }: Props) {
   const state = (s: string) => (progress.done.includes(s) ? "done" : progress.active === s ? "active" : "todo");
   return (
     <section className="grid-2" aria-live="polite">
       <div className="card stack">
         <div className="row between">
           <h2 className="h2">{title}</h2>
-          <span className="tag">{progress.orchestration === "deterministic_fallback" ? "Deterministic plan" : "AI agent"}</span>
+          <div className="row" style={{ gap: 8 }}>
+            <span className="tag">{progress.orchestration === "deterministic_fallback" ? "Deterministic plan" : "AI agent"}</span>
+            {onCancel && <button className="btn-ghost btn-sm" disabled={cancelling} onClick={onCancel}>{cancelling ? "Cancelling…" : "Cancel"}</button>}
+          </div>
         </div>
         <ol className="steps">
           {steps.map((s, i) => (

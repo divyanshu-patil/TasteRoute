@@ -9,6 +9,7 @@ import { Tour, type TourStep } from "../../../../components/tour";
 import { Banner, EmptyState, NOTHING_SENT, Skeleton } from "../../../../components/ui";
 import { ApiError, api, downloadCsv, type S } from "../../../../lib/api";
 import { CONTACT_STATUS, OUTREACH_STEPS } from "../../../../lib/format";
+import { cancelOutreach, startingOutreach } from "../../../../lib/outreach";
 import { useRun } from "../../../../lib/use-run";
 
 function DraftEditor({ draft, readOnly, onChange }: { draft: S["DraftOut"]; readOnly: boolean; onChange: (d: S["DraftOut"] | null) => void }) {
@@ -104,6 +105,35 @@ export default function Outreach() {
   const [drafts, setDrafts] = useState<S["DraftOut"][] | null>(null);
   const [version, setVersion] = useState(0);
   const [err, setErr] = useState<string | null>(null);
+  const [starting, setStarting] = useState(() => !!startingOutreach(id)); // the results page sent the start just now
+  const [cancelling, setCancelling] = useState(false);
+
+  useEffect(() => {
+    const start = startingOutreach(id);
+    if (!start) return;
+    let alive = true;
+    start
+      .then(() => alive && refresh())
+      .catch((e: unknown) => {
+        if (alive && (e as Error).name !== "AbortError") setErr(e instanceof ApiError ? e.detail || e.title : "Could not start outreach");
+      })
+      .finally(() => alive && setStarting(false));
+    return () => {
+      alive = false;
+    };
+  }, [id, refresh]);
+
+  const cancel = async () => {
+    setCancelling(true);
+    try {
+      await cancelOutreach(id);
+    } catch (e) {
+      setErr(e instanceof ApiError ? e.detail || e.title : "Could not cancel");
+    }
+    setStarting(false);
+    setCancelling(false);
+    refresh();
+  };
 
   const status = run?.status;
   useEffect(() => {
@@ -121,7 +151,7 @@ export default function Outreach() {
     };
   }, [id, status, version]);
 
-  const running = status === "outreach_running";
+  const running = starting || status === "outreach_running";
   const approved = (drafts ?? []).filter((d) => d.status === "approved" || d.status === "exported").length;
   const update = (d: S["DraftOut"] | null) => {
     if (d) setDrafts((list) => (list ?? []).map((x) => (x.id === d.id ? d : x)));
@@ -138,9 +168,10 @@ export default function Outreach() {
 
   return (
     <RunShell run={run} error={error} tab="outreach" online={online}>
-      {running && <LiveProgress progress={progress} steps={OUTREACH_STEPS} title="Finding contacts and drafting" />}
+      {running && <LiveProgress progress={progress} steps={OUTREACH_STEPS} title="Finding contacts and drafting" onCancel={cancel} cancelling={cancelling} />}
       <Banner tone="ink">{NOTHING_SENT} Every email needs your approval first.</Banner>
       {err && <Banner tone="warn">{err}</Banner>}
+      {!running && status === "scouted" && run?.error_message && <Banner tone="warn">{run.error_message}</Banner>}
       {!contacts ? (
         <Skeleton />
       ) : contacts.length === 0 && !running ? (

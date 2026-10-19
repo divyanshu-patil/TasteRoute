@@ -1,8 +1,10 @@
 """Flow A end to end over fixtures: intake -> resolve -> scout (agent) -> contacts -> drafts -> approve -> export."""
 
+import asyncio
 import csv
 import io
 import json
+import uuid
 
 from tasteroute_api.errors import LLMUnavailable
 from tasteroute_api.services import runs as run_service
@@ -177,6 +179,36 @@ async def test_outreach_contacts_drafts_approve_export(client, ws, svc):
     # Editing an exported draft sends it back to 'edited' (DRF-04)
     r = await client.patch(f"/v1/drafts/{d0['id']}", headers=ws, json={"subject": "New subject"})
     assert r.json()["status"] == "edited" and r.json()["mailto"] is None
+
+
+async def test_cancel_stops_outreach(client, ws, svc, monkeypatch):
+    brand = await make_brand(client, ws, svc)
+    run_id = await scout(client, ws, brand)
+    venues = (await client.get(f"/v1/runs/{run_id}/venues", headers=ws)).json()["items"]
+    stopped = asyncio.Event()
+
+    async def slow_phase(*_: object) -> None:  # an outreach that would run for an hour
+        try:
+            await asyncio.sleep(3600)
+        finally:
+            stopped.set()
+
+    monkeypatch.setattr(run_service, "run_phase", slow_phase)
+    r = await client.post(f"/v1/runs/{run_id}/contacts", headers=ws, json={"venue_ids": [venues[0]["venue_id"]]})
+    assert r.json()["status"] == "outreach_running"
+    assert (await client.get(f"/v1/runs/{run_id}", headers=ws)).json()["status"] == "outreach_running"  # before any work ran
+    r = await client.post(f"/v1/runs/{run_id}/cancel", headers=ws)
+    assert r.status_code == 202 and r.json()["status"] == "scouted"
+    assert stopped.is_set()  # the background work stopped, not just the status
+    await run_service.drain()
+    run = (await client.get(f"/v1/runs/{run_id}", headers=ws)).json()
+    assert run["status"] == "scouted" and run["error_code"] == "cancelled"
+    assert (await client.post(f"/v1/runs/{run_id}/cancel", headers=ws)).json()["status"] == "scouted"  # nothing running: no-op
+
+    # A run left 'outreach_running' by an API restart has no task; cancel still frees it
+    await svc.pool.execute("update runs set status = 'outreach_running' where id = $1", uuid.UUID(run_id))
+    assert (await client.post(f"/v1/runs/{run_id}/cancel", headers=ws)).json()["status"] == "scouted"
+    assert (await client.get(f"/v1/runs/{run_id}", headers=ws)).json()["status"] == "scouted"
 
 
 async def test_suppression_hides_contacts_drafts_and_export(client, ws, svc):

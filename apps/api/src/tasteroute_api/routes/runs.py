@@ -306,8 +306,20 @@ async def start_contacts(run_id: str, body: VenueIdsIn, ws: str = Depends(worksp
     if len(body.venue_ids) > s.settings.max_outreach_venues_per_run:
         raise ValidationFailed(f"Select at most {s.settings.max_outreach_venues_per_run} venues.")
     ids = await _ranked_ids(s, r["id"], body.venue_ids)
-    run_service.spawn(run_service.run_outreach(s, run_id, ids))
+    # Running before the reply, so the outreach page shows progress at once
+    await s.pool.execute("update runs set status = 'outreach_running', phase = 'outreach' where id = $1", r["id"])
+    run_service.spawn(run_service.run_outreach(s, run_id, ids), run_id)
     return Accepted(run_id=run_id, status="outreach_running")
+
+
+@router.post("/runs/{run_id}/cancel", response_model=Accepted, status_code=202)
+async def cancel_outreach(run_id: str, ws: str = Depends(workspace_id), s: Services = Depends(svc)) -> Accepted:
+    """Stops a running outreach; what it found so far is kept. Does nothing otherwise."""
+    r = await get_run(s, ws, run_id, write=True)
+    if r["status"] != "outreach_running":
+        return Accepted(run_id=run_id, status=r["status"])
+    await run_service.cancel_outreach(s, run_id)
+    return Accepted(run_id=run_id, status="scouted")
 
 
 @router.get("/runs/{run_id}/contacts", response_model=list[ContactStatusOut])
@@ -340,7 +352,7 @@ async def start_drafts(run_id: str, body: VenueIdsIn, ws: str = Depends(workspac
     if r["status"] not in ("scouted", "done"):
         raise Conflict(f"Run is {r['status']}.")
     ids = await _ranked_ids(s, r["id"], body.venue_ids)
-    run_service.spawn(run_service.run_outreach(s, run_id, ids, drafts_only=True))
+    run_service.spawn(run_service.run_outreach(s, run_id, ids, drafts_only=True), run_id)
     return Accepted(run_id=run_id, status="outreach_running")
 
 
@@ -397,7 +409,7 @@ async def regenerate(draft_id: str, ws: str = Depends(workspace_id), s: Services
         raise NotFound("Draft not found")
     if d["status"] in ("approved", "exported"):
         raise DraftLocked()
-    run_service.spawn(run_service.run_outreach(s, str(d["run_id"]), [str(d["venue_id"])], drafts_only=True))
+    run_service.spawn(run_service.run_outreach(s, str(d["run_id"]), [str(d["venue_id"])], drafts_only=True), str(d["run_id"]))
     return Accepted(run_id=str(d["run_id"]), status="outreach_running")
 
 

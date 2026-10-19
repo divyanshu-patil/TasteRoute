@@ -22,7 +22,7 @@
 
 Columns: select, rank, venue, type, fit (0–100), lift ("+23 vs typical"), confidence badge (text plus colour), best product (with label), reason (one line, expandable), contact status.
 
-Controls: venue type filter, confidence filter, product filter, sort by fit or lift, page size 20. A sticky action bar shows "N selected → Find contacts".
+Controls: venue type filter, confidence filter, product filter, sort by fit or lift, page size 20. "Select all shown" picks the rows on screen (up to 25). A sticky action bar shows "N selected", Cancel (clears the selection and stops any outreach in progress) and "Find contacts", which opens the outreach page at once; its progress panel has a Cancel button that stops the work on the API.
 
 Every number has a tooltip explaining it in one sentence. The reason has source chips ("Qloo", "Our inference").
 

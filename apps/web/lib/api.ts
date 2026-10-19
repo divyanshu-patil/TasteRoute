@@ -64,12 +64,13 @@ async function toError(r: Response): Promise<ApiError> {
   }
 }
 
-export async function api<T>(path: string, init: { method?: string; body?: unknown } = {}): Promise<T> {
+export async function api<T>(path: string, init: { method?: string; body?: unknown; signal?: AbortSignal } = {}): Promise<T> {
   const call = async (token: string) =>
     fetch(`${API_URL}${path}`, {
       method: init.method ?? "GET",
       headers: { "Content-Type": "application/json", "X-Workspace-Token": token },
       body: init.body === undefined ? undefined : JSON.stringify(init.body),
+      signal: init.signal,
     });
   let r: Response;
   try {
@@ -80,7 +81,7 @@ export async function api<T>(path: string, init: { method?: string; body?: unkno
       r = await call(await workspaceToken());
     }
   } catch (e) {
-    if (e instanceof ApiError) throw e;
+    if (e instanceof ApiError || init.signal?.aborted) throw e;
     throw new ApiError(0, "network_error", "Can't reach the TasteRoute API", "Check your connection and try again.");
   }
   if (!r.ok) throw await toError(r);

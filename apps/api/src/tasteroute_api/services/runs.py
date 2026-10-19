@@ -16,13 +16,27 @@ from ..errors import AppError, QlooUnconfigured
 
 log = logging.getLogger("tasteroute.runs")
 _tasks: set[asyncio.Task[Any]] = set()
+_outreach: dict[str, asyncio.Task[Any]] = {}  # by run id, so a running outreach can be cancelled
+CANCELLED = "Stopped at your request. Contacts and drafts found so far are kept."
 
 
-def spawn(coro: Coroutine[Any, Any, Any]) -> asyncio.Task[Any]:
+def spawn(coro: Coroutine[Any, Any, Any], run_id: str | None = None) -> asyncio.Task[Any]:
     t = asyncio.create_task(coro)
     _tasks.add(t)
     t.add_done_callback(_tasks.discard)
+    if run_id:
+        _outreach[run_id] = t
+        t.add_done_callback(lambda _: _outreach.pop(run_id) if _outreach.get(run_id) is t else None)
     return t
+
+
+async def cancel_outreach(svc: Services, run_id: str) -> None:
+    """Stops the run's outreach mid-way (LLM and web calls included). Also frees a run left running by an API restart."""
+    t = _outreach.get(run_id)
+    if t:
+        t.cancel()
+        await asyncio.gather(t, return_exceptions=True)  # it has stopped writing before the status changes
+    await _fail(svc, run_id, "outreach", AppError(CANCELLED, code="cancelled"), "scouted")
 
 
 async def drain() -> None:

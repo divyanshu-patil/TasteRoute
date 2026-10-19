@@ -11,6 +11,7 @@ import { Banner, ConfidenceBadge, EmptyState, ErrorPanel, Skeleton, Tip } from "
 import { VenueMap, type Pin } from "../../../components/venue-map";
 import { ApiError, api, type S } from "../../../lib/api";
 import { CONTACT_STATUS, FIT_LABEL, SCOUT_STEPS, km, kmText, liftText, pct, venueTypeLabel } from "../../../lib/format";
+import { cancelOutreach, startOutreach, startingOutreach } from "../../../lib/outreach";
 import { useRun } from "../../../lib/use-run";
 
 const PAGE = 20;
@@ -42,7 +43,6 @@ export default function RunPage() {
   const [sort, setSort] = useState<"fit" | "lift" | "near">("fit");
   const [shown, setShown] = useState(PAGE);
   const [selected, setSelected] = useState<string[]>([]);
-  const [busy, setBusy] = useState(false);
   const [actionError, setActionError] = useState<string | null>(null);
 
   const ready = run && ["scouted", "done", "outreach_running"].includes(run.status);
@@ -73,16 +73,20 @@ export default function RunPage() {
   }, [page, type, conf, product, sort, base, away]);
 
   const toggle = (vid: string) => setSelected((s) => (s.includes(vid) ? s.filter((x) => x !== vid) : s.length >= MAX_OUTREACH ? s : [...s, vid]));
+  const visible = rows.slice(0, shown).map((v) => v.venue_id);
+  const allShown = visible.length > 0 && visible.every((v) => selected.includes(v));
+  const toggleShown = () =>
+    setSelected((s) => (allShown ? s.filter((x) => !visible.includes(x)) : [...s, ...visible.filter((x) => !s.includes(x))].slice(0, MAX_OUTREACH)));
 
-  const findContacts = async () => {
-    setBusy(true);
-    setActionError(null);
-    try {
-      await api(`/v1/runs/${id}/contacts`, { method: "POST", body: { venue_ids: selected } });
-      router.push(`/runs/${id}/outreach`);
-    } catch (e) {
-      setActionError(e instanceof ApiError ? e.detail || e.title : "Could not start outreach");
-      setBusy(false);
+  // The outreach page opens at once and shows the start request; it can cancel it there too
+  const findContacts = () => {
+    startOutreach(id, selected);
+    router.push(`/runs/${id}/outreach`);
+  };
+  const cancel = () => {
+    setSelected([]);
+    if (run?.status === "outreach_running" || startingOutreach(id)) {
+      cancelOutreach(id).then(refresh, (e: unknown) => setActionError(e instanceof ApiError ? e.detail || e.title : "Could not cancel"));
     }
   };
 
@@ -240,6 +244,14 @@ export default function RunPage() {
             </EmptyState>
           ) : (
             <div className="table-wrap" data-tour="table">
+              {!run.is_demo && (
+                <div className="row" style={{ padding: "14px 16px 0" }}>
+                  <label className="check small">
+                    <input type="checkbox" checked={allShown} onChange={toggleShown} />
+                    Select all shown{visible.length > MAX_OUTREACH ? ` (first ${MAX_OUTREACH})` : ""}
+                  </label>
+                </div>
+              )}
               <table className="t">
                 <caption className="sr-only">Venues ranked by taste fit</caption>
                 <thead>
@@ -314,10 +326,8 @@ export default function RunPage() {
               <div>
                 <span><strong>{selected.length}</strong> selected{selected.length >= MAX_OUTREACH ? " (max)" : ""}</span>
                 <div className="row" style={{ gap: 8 }}>
-                  <button className="link" style={{ color: "#979797" }} onClick={() => setSelected([])}>Clear</button>
-                  <button className="btn" disabled={busy || run.status === "outreach_running"} onClick={findContacts}>
-                    {busy ? "Starting…" : "Find contacts & draft →"}
-                  </button>
+                  <button className="link" style={{ color: "#979797" }} onClick={cancel}>Cancel</button>
+                  <button className="btn" disabled={run.status === "outreach_running"} onClick={findContacts}>Find contacts &amp; draft →</button>
                 </div>
               </div>
             </div>
