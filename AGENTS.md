@@ -1,10 +1,10 @@
-# AGENTS.md: Stockist Scout
+# AGENTS.md: TasteRoute
 
 (If the repo already has an AGENTS.md, append this file to it.)
 
 ## What this repo builds
 
-Stockist Scout, for the Qloo Agentic Hackathon 2026: a Next.js app (`apps/web`) and a FastAPI service (`apps/api`) with Supabase Postgres. It ranks venues for a brand by the taste of each venue's customers (Qloo), picks the best product per venue, finds public business contacts (Hunter, OpenStreetMap), and drafts grounded pitch emails that the user approves. The agent runs on Ollama Cloud with Gemma 4 31B.
+TasteRoute, for the Qloo Agentic Hackathon 2026: a Next.js app (`apps/web`) and a FastAPI service (`apps/api`) with Supabase Postgres. It ranks venues for a brand by the taste of each venue's customers (Qloo), picks the best product per venue, finds public business contacts (Hunter, OpenStreetMap), and drafts grounded pitch emails that the user approves. The agent runs on Ollama Cloud with Gemma 4 31B.
 
 Read `README.md`, then `docs/` in numbered order, before writing code.
 
@@ -16,7 +16,7 @@ Read `README.md`, then `docs/` in numbered order, before writing code.
 4. **Humans approve every email. The app never sends email.** No SMTP or email-sending library.
 5. **Business contacts only, never constructed.** Every stored email has a source. Respect the suppression list and Hunter 451.
 6. **Secrets stay server-side.** Keys only in git-ignored `.env`; never logged, traced, returned or bundled. The browser never talks to Supabase, Qloo, Hunter or Ollama.
-7. **Provider isolation.** Only files under `apps/api/src/stockist_api/llm/` may name an LLM provider. Only `categories/` may name a category.
+7. **Provider isolation.** Only files under `apps/api/src/tasteroute_api/llm/` may name an LLM provider. Only `categories/` may name a category.
 8. **Respect limits.** Qloo ≤ 4 req/s and the monthly budget; Nominatim ≤ 1 req/s with an identifying User-Agent; Overpass one query at a time; Hunter caps. Cache everything the docs say to cache.
 9. **Tests never hit the network.** Use fixtures and respx. Live tests carry `@pytest.mark.live` and never run in CI.
 10. **Design.** Read `docs/DESIGN.md` before UI work. If it starts with `PLACEHOLDER`, do not build screens; build client, types and state only, and tell the user.

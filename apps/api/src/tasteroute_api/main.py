@@ -1,4 +1,4 @@
-"""FastAPI app. Run with: uv run uvicorn stockist_api.main:app --reload"""
+"""FastAPI app. Run with: uv run uvicorn tasteroute_api.main:app --reload"""
 
 import logging
 from collections.abc import AsyncIterator
@@ -47,7 +47,7 @@ async def lifespan(app: FastAPI) -> AsyncIterator[None]:
 
 def create_app() -> FastAPI:
     s = get_settings()
-    app = FastAPI(title="Stockist Scout API", version=__version__, lifespan=lifespan)
+    app = FastAPI(title="TasteRoute API", version=__version__, lifespan=lifespan)
     app.add_middleware(
         CORSMiddleware, allow_origins=s.cors_origin_list, allow_methods=["GET", "POST", "PATCH", "PUT", "DELETE"],
         allow_headers=["Content-Type", "X-Workspace-Token", "Last-Event-ID"], expose_headers=["Content-Disposition"],

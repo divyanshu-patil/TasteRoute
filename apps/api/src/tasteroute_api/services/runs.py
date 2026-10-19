@@ -14,7 +14,7 @@ from ..agent.context import RunContext, Services, emit_event
 from ..agent.loop import run_phase
 from ..errors import AppError, QlooUnconfigured
 
-log = logging.getLogger("stockist.runs")
+log = logging.getLogger("tasteroute.runs")
 _tasks: set[asyncio.Task[Any]] = set()
 
 

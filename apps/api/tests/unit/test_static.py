@@ -4,7 +4,7 @@ import re
 import subprocess
 from pathlib import Path
 
-SRC = Path(__file__).parents[2] / "src" / "stockist_api"
+SRC = Path(__file__).parents[2] / "src" / "tasteroute_api"
 ROOT = Path(__file__).parents[4]
 
 

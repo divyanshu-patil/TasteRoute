@@ -38,7 +38,7 @@ curl -s localhost:8000/health
   "name": "api",
   "private": true,
   "scripts": {
-    "dev": "uv run uvicorn stockist_api.main:app --reload --port 8000",
+    "dev": "uv run uvicorn tasteroute_api.main:app --reload --port 8000",
     "lint": "uv run ruff check . && uv run ruff format --check . && uv run mypy src",
     "test": "uv run pytest -m \"not live\"",
     "build": "uv run python scripts/export_openapi.py"
@@ -89,7 +89,7 @@ from qloo_calls group by run_id order by max(created_at) desc limit 10;
 | Part | Where | Notes |
 |---|---|---|
 | Database | Supabase Cloud (production project) | `supabase link --project-ref <prod-ref> && supabase db push` |
-| API | Render, Railway or Fly.io | Start command `uv run uvicorn stockist_api.main:app --host 0.0.0.0 --port $PORT`; set all env vars; one instance (rate limiter and Nominatim/Overpass limiters are in-process) |
+| API | Render, Railway or Fly.io | Start command `uv run uvicorn tasteroute_api.main:app --host 0.0.0.0 --port $PORT`; set all env vars; one instance (rate limiter and Nominatim/Overpass limiters are in-process) |
 | Web | Vercel, root `apps/web` | Set `NEXT_PUBLIC_API_URL` to the API URL; add the web origin to `CORS_ORIGINS` |
 
 After deploy: run `seed_demo.py` against production (or copy the demo rows), set `DEMO_RUN_ID`, open `/sample` in a private window, then run one live run.

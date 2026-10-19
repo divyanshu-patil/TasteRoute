@@ -9,9 +9,9 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "sw
 const mono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-jetbrains", display: "swap" });
 
 export const metadata: Metadata = {
-  title: { default: "Stockist Scout — find venues whose guests share your taste", template: "%s · Stockist Scout" },
+  title: { default: "TasteRoute — find venues whose guests share your taste", template: "%s · TasteRoute" },
   description:
-    "Stockist Scout uses Qloo taste data to rank the cafés and bars whose guests already like what you make, explains why, and drafts grounded pitches you approve and send yourself.",
+    "TasteRoute uses Qloo taste data to rank the cafés and bars whose guests already like what you make, explains why, and drafts grounded pitches you approve and send yourself.",
 };
 
 export const viewport: Viewport = { themeColor: "#e5e5e5" };
@@ -25,9 +25,9 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <main id="main">{children}</main>
         <footer className="footer">
           <div className="wrap row between">
-            <p className="mono">STOCKIST SCOUT · TASTE FIT FROM QLOO · AI AGENT WITH A PLAN GUARD</p>
+            <p className="mono">TASTEROUTE · TASTE FIT FROM QLOO · AI AGENT WITH A PLAN GUARD</p>
             <p className="small">
-              Taste fit is a starting list, not a sales forecast. Nothing is sent from Stockist Scout.{" "}
+              Taste fit is a starting list, not a sales forecast. Nothing is sent from TasteRoute.{" "}
               <Link href="/settings/suppression">Do-not-contact list</Link>
             </p>
           </div>

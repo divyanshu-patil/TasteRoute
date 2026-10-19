@@ -21,7 +21,7 @@
 │     ├─ pyproject.toml
 │     ├─ package.json                  # wrapper scripts so turbo can run dev/test/lint
 │     ├─ .env.example
-│     ├─ src/stockist_api/
+│     ├─ src/tasteroute_api/
 │     │  ├─ main.py                    # app factory, lifespan, routers, CORS
 │     │  ├─ settings.py                # pydantic-settings; every env var
 │     │  ├─ errors.py                  # typed errors -> problem responses
@@ -183,7 +183,7 @@ HUNTER_API_KEY=
 HUNTER_MAX_CALLS_PER_RUN=25
 APOLLO_ENABLED=false
 APOLLO_API_KEY=
-OSM_USER_AGENT=StockistScout/0.1 (contact: you@example.com)
+OSM_USER_AGENT=TasteRoute/0.1 (contact: you@example.com)
 NOMINATIM_BASE_URL=https://nominatim.openstreetmap.org
 OVERPASS_BASE_URL=https://overpass-api.de/api/interpreter
 WEBSITE_FETCH_TIMEOUT_SECONDS=12

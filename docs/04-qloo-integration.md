@@ -1,6 +1,6 @@
 # 04. Qloo integration
 
-Qloo is the core of Stockist Scout: it decides **which venues**, **which product** and **why**. This file defines the integration boundary, the call chain, normalisation, verification and budget.
+Qloo is the core of TasteRoute: it decides **which venues**, **which product** and **why**. This file defines the integration boundary, the call chain, normalisation, verification and budget.
 
 ## Status of facts in this file
 

@@ -9,7 +9,7 @@ from pathlib import Path
 
 import asyncpg
 
-from stockist_api.settings import get_settings
+from tasteroute_api.settings import get_settings
 
 MIGRATIONS = Path(__file__).resolve().parents[3] / "supabase" / "migrations"
 

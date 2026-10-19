@@ -64,4 +64,4 @@ ConfidenceBadge, ScoreCell (fit and lift with tooltip), SourceChip, EvidenceItem
 
 - Say "taste fit", never "will buy" or "demand".
 - Label inferences as "Our inference".
-- Always show "Nothing is sent from Stockist Scout. You send approved emails from your own inbox."
+- Always show "Nothing is sent from TasteRoute. You send approved emails from your own inbox."

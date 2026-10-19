@@ -81,7 +81,7 @@ export async function api<T>(path: string, init: { method?: string; body?: unkno
     }
   } catch (e) {
     if (e instanceof ApiError) throw e;
-    throw new ApiError(0, "network_error", "Can't reach the Stockist Scout API", "Check your connection and try again.");
+    throw new ApiError(0, "network_error", "Can't reach the TasteRoute API", "Check your connection and try again.");
   }
   if (!r.ok) throw await toError(r);
   if (r.status === 204) return undefined as T;
@@ -92,7 +92,7 @@ export async function api<T>(path: string, init: { method?: string; body?: unkno
 export async function downloadCsv(runId: string): Promise<void> {
   const r = await fetch(`${API_URL}/v1/runs/${runId}/export.csv`, { headers: { "X-Workspace-Token": await workspaceToken() } });
   if (!r.ok) throw await toError(r);
-  const name = /filename="([^"]+)"/.exec(r.headers.get("content-disposition") ?? "")?.[1] ?? "stockist-scout.csv";
+  const name = /filename="([^"]+)"/.exec(r.headers.get("content-disposition") ?? "")?.[1] ?? "tasteroute.csv";
   const url = URL.createObjectURL(await r.blob());
   const a = Object.assign(document.createElement("a"), { href: url, download: name });
   a.click();

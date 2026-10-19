@@ -428,7 +428,7 @@ async def export_csv(run_id: str, ws: str = Depends(workspace_id), s: Services =
             exported.append(d["id"])
     if exported:
         await s.pool.execute("update drafts set status = 'exported', exported_at = now() where id = any($1::uuid[])", exported)
-    name = f"stockist-scout-{r['city'].get('name', 'run')}-{str(r['id'])[:8]}.csv".replace(" ", "-").lower()
+    name = f"tasteroute-{r['city'].get('name', 'run')}-{str(r['id'])[:8]}.csv".replace(" ", "-").lower()
     return Response(to_csv(out), media_type="text/csv; charset=utf-8",
                     headers={"Content-Disposition": f'attachment; filename="{name}"'})
 

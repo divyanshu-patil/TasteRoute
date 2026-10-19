@@ -4,7 +4,7 @@
 
 Keep the engine general while shipping one category in depth. A **category pack** is a small config file that tells the engine which Qloo entity types describe the seller's products, which place types count as prospects, and how to word the pitch.
 
-## Pack format (`apps/api/src/stockist_api/categories/food_drink.yaml`)
+## Pack format (`apps/api/src/tasteroute_api/categories/food_drink.yaml`)
 
 ```yaml
 id: food_drink

@@ -2,7 +2,7 @@
 
 ## One line
 
-**Stockist Scout tells a brand which cafés, bars, restaurants and shops to pitch, which product to lead with at each, and why, based on what each venue's own customers like.**
+**TasteRoute tells a brand which cafés, bars, restaurants and shops to pitch, which product to lead with at each, and why, based on what each venue's own customers like.**
 
 ## The problem
 
@@ -61,5 +61,5 @@ If Qloo is switched off, the app must say it cannot rank venues and stop. This i
 ## Positioning against existing tools
 
 - **Explee, Apollo, Clay:** find companies and emails using company data. They cannot see what a venue's customers like.
-- **Overproof (liquor):** ranks accounts by cocktail trends, competitor placements and venue type. Stockist Scout ranks by the taste of the venue's customers and works beyond liquor.
+- **Overproof (liquor):** ranks accounts by cocktail trends, competitor placements and venue type. TasteRoute ranks by the taste of the venue's customers and works beyond liquor.
 - **Qloo hackathon 2025 winners** (GeoTaste, Resonance AI, Zesty, Alloy): none pick accounts for a brand or match products to venues.

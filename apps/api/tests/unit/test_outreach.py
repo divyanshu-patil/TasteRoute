@@ -6,13 +6,13 @@ from urllib.parse import parse_qs, unquote, urlparse
 
 import pytest
 
-from stockist_api.agent.plan_guard import PlanGuard
-from stockist_api.errors import AppError
-from stockist_api.external import hunter
-from stockist_api.grounding import Bundle, validate
-from stockist_api.services.contacts import Candidate, choose, is_suppressed
-from stockist_api.services.drafts import next_status, short_name, template_draft
-from stockist_api.services.export import CSV_COLUMNS, MAILTO_BODY_MAX, mailto, mask, to_csv
+from tasteroute_api.agent.plan_guard import PlanGuard
+from tasteroute_api.errors import AppError
+from tasteroute_api.external import hunter
+from tasteroute_api.grounding import Bundle, validate
+from tasteroute_api.services.contacts import Candidate, choose, is_suppressed
+from tasteroute_api.services.drafts import next_status, short_name, template_draft
+from tasteroute_api.services.export import CSV_COLUMNS, MAILTO_BODY_MAX, mailto, mask, to_csv
 
 OPT_OUT = "If you'd rather not hear from me, reply 'no thanks' and I won't contact you again."
 

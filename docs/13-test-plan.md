@@ -28,7 +28,7 @@
 # API (from apps/api)
 uv run ruff check . && uv run ruff format --check .
 uv run mypy src
-uv run pytest -m "not live" --cov=stockist_api --cov-report=term-missing
+uv run pytest -m "not live" --cov=tasteroute_api --cov-report=term-missing
 uv run pytest -m live -k smoke            # manual only, spends real calls
 
 # Web (from repo root)

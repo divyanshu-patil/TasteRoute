@@ -5,12 +5,12 @@ import pytest
 import respx
 from pydantic import BaseModel
 
-from stockist_api.errors import LLMBadResponse
-from stockist_api.external import osm
-from stockist_api.external.website import UrlNotAllowed, WebsiteReader, check_url, extract_text, ip_allowed
-from stockist_api.llm import LLMResult
-from stockist_api.llm.fake import FakeProvider
-from stockist_api.llm.structured import extract_json, structured
+from tasteroute_api.errors import LLMBadResponse
+from tasteroute_api.external import osm
+from tasteroute_api.external.website import UrlNotAllowed, WebsiteReader, check_url, extract_text, ip_allowed
+from tasteroute_api.llm import LLMResult
+from tasteroute_api.llm.fake import FakeProvider
+from tasteroute_api.llm.structured import extract_json, structured
 
 
 class Out(BaseModel):

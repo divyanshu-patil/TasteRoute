@@ -16,7 +16,7 @@ class Settings(BaseSettings):
     cors_origins: str = "http://localhost:3000"
     log_level: str = "info"
 
-    database_url: str = "postgresql://localhost:5432/stockist"
+    database_url: str = "postgresql://localhost:5432/tasteroute"
     db_statement_cache_size: int = 100  # set 0 for the Supavisor transaction pooler
 
     qloo_api_key: SecretStr = SecretStr("")
@@ -39,7 +39,7 @@ class Settings(BaseSettings):
 
     hunter_api_key: SecretStr = SecretStr("")
     hunter_max_calls_per_run: int = 25
-    osm_user_agent: str = "StockistScout/0.1 (contact: you@example.com)"
+    osm_user_agent: str = "TasteRoute/0.1 (contact: you@example.com)"
     nominatim_base_url: str = "https://nominatim.openstreetmap.org"
     overpass_base_url: str = "https://overpass-api.de/api/interpreter"
     website_fetch_timeout_seconds: float = 12.0

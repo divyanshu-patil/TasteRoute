@@ -46,7 +46,7 @@ def unsupported(p: BrandProfile) -> bool:
 
 
 UNSUPPORTED_MESSAGE = (
-    "Stockist Scout ranks businesses by what their customers like. Your prospects seem to be chosen on company "
+    "TasteRoute ranks businesses by what their customers like. Your prospects seem to be chosen on company "
     "size and industry, which Qloo does not cover. A company-data tool (for example Apollo or Clay) fits better."
 )
 

@@ -7,15 +7,15 @@ Prints the run id for DEMO_RUN_ID and how many live calls were spent.
 import argparse
 import asyncio
 
-from stockist_api import db
-from stockist_api.categories import pack_for
-from stockist_api.main import build_services, close_services
-from stockist_api.qloo.client import Trace
-from stockist_api.scoring import SCORING_VERSION
-from stockist_api.services import runs as run_service
-from stockist_api.services.intake import propose
-from stockist_api.services.resolve import resolve_product
-from stockist_api.settings import get_settings
+from tasteroute_api import db
+from tasteroute_api.categories import pack_for
+from tasteroute_api.main import build_services, close_services
+from tasteroute_api.qloo.client import Trace
+from tasteroute_api.scoring import SCORING_VERSION
+from tasteroute_api.services import runs as run_service
+from tasteroute_api.services.intake import propose
+from tasteroute_api.services.resolve import resolve_product
+from tasteroute_api.settings import get_settings
 
 # D-10: a fictional brand, entered by description; its products resolve through real comparables.
 BRAND = "Fieldnote Drinks Co."

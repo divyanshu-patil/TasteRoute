@@ -15,7 +15,7 @@ Go/no-go: **GO**, demo city Brooklyn. Contracts: `docs/qloo-contract.md`, `docs/
 
 ## Phases 1–4: API, scout engine, agent, outreach — done 2026-10-19
 
-`uv run pytest -m "not live"`: 99 passed, 91% coverage (scoring 96–100%, qloo 86–100%, agent 81–100%, grounding 100%). `ruff` and `mypy` clean. No network in tests (respx, recorded fixtures, `FakeProvider`, local `stockist_test` DB).
+`uv run pytest -m "not live"`: 99 passed, 91% coverage (scoring 96–100%, qloo 86–100%, agent 81–100%, grounding 100%). `ruff` and `mypy` clean. No network in tests (respx, recorded fixtures, `FakeProvider`, local `tasteroute_test` DB).
 
 | Area | IDs passing | Tests |
 |---|---|---|

@@ -45,11 +45,11 @@ class QlooError(AppError):
 
 
 class QlooUnconfigured(QlooError):
-    code, status, title = "qloo_unconfigured", 503, "Qloo API key is not configured. Stockist Scout cannot rank venues without Qloo."
+    code, status, title = "qloo_unconfigured", 503, "Qloo API key is not configured. TasteRoute cannot rank venues without Qloo."
 
 
 class QlooAuthError(QlooError):
-    code, status, title = "qloo_auth", 502, "Qloo rejected the API key. Stockist Scout cannot rank venues without Qloo."
+    code, status, title = "qloo_auth", 502, "Qloo rejected the API key. TasteRoute cannot rank venues without Qloo."
 
 
 class QlooRateLimited(QlooError):
@@ -78,7 +78,7 @@ class LLMBadResponse(AppError):
 
 def problem(status: int, code: str, title: str, detail: str) -> JSONResponse:
     return JSONResponse(
-        {"type": f"https://stockist.scout/errors/{code}", "title": title, "status": status, "detail": detail, "code": code},
+        {"type": f"https://tasteroute.app/errors/{code}", "title": title, "status": status, "detail": detail, "code": code},
         status_code=status,
         media_type="application/problem+json",
     )

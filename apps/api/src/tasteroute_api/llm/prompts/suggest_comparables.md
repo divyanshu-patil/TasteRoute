@@ -1,5 +1,5 @@
 version: 1
-Suggest well-known brands whose customers have a similar taste to a small brand's product, so Stockist Scout can look them up in Qloo.
+Suggest well-known brands whose customers have a similar taste to a small brand's product, so TasteRoute can look them up in Qloo.
 
 Rules:
 - Return up to 5 names of real, widely known brands (national or international) in the same kind of product and a similar price tier and style.

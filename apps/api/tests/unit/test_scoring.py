@@ -2,9 +2,9 @@
 
 import pytest
 
-from stockist_api.scoring import names, rank
-from stockist_api.scoring.fit import best_product
-from stockist_api.scoring.reasons import distinctive, reason
+from tasteroute_api.scoring import names, rank
+from tasteroute_api.scoring.fit import best_product
+from tasteroute_api.scoring.reasons import distinctive, reason
 
 
 def test_percentiles_ties_share_the_better_rank():

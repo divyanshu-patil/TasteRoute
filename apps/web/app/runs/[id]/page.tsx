@@ -103,7 +103,7 @@ export default function RunPage() {
         <ErrorPanel code={run.error_code ?? undefined} title={run.error_code?.startsWith("qloo") ? "Qloo is unavailable" : "This run stopped"}>
           <p style={{ maxWidth: "60ch" }}>
             {run.error_message}{" "}
-            {run.error_code?.startsWith("qloo") && "Stockist Scout never ranks venues without Qloo, so nothing partial is shown."}
+            {run.error_code?.startsWith("qloo") && "TasteRoute never ranks venues without Qloo, so nothing partial is shown."}
           </p>
           {!run.is_demo && <div className="row"><button className="btn" onClick={retry}>Retry run</button><Link className="btn-ghost" href="/start">Change inputs</Link></div>}
         </ErrorPanel>

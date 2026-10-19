@@ -18,7 +18,7 @@ from ..llm.prompts import load
 from ..llm.structured import parse, structured
 from .contacts import is_suppressed, suppression_sets
 
-log = logging.getLogger("stockist.drafts")
+log = logging.getLogger("tasteroute.drafts")
 TRANSITIONS = {
     "draft": {"edited", "approved"},
     "edited": {"edited", "approved"},

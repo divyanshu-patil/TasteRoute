@@ -8,8 +8,8 @@ import uuid
 import httpx
 from pydantic import SecretStr
 
-from stockist_api.llm import LLMResult
-from stockist_api.services import runs as run_service
+from tasteroute_api.llm import LLMResult
+from tasteroute_api.services import runs as run_service
 
 from ..conftest import BRAND, BROOKLYN, make_brand, new_workspace, scout
 

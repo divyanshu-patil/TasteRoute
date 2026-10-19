@@ -1,7 +1,7 @@
 [project]
-name = "stockist-api"
+name = "tasteroute-api"
 version = "0.1.0"
-description = "Stockist Scout API: taste-based venue targeting powered by Qloo"
+description = "TasteRoute API: taste-based venue targeting powered by Qloo"
 requires-python = ">=3.12,<3.13"
 dependencies = [
   "fastapi>=0.115",
@@ -33,7 +33,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/stockist_api"]
+packages = ["src/tasteroute_api"]
 
 [tool.pytest.ini_options]
 asyncio_mode = "auto"
@@ -56,5 +56,5 @@ ignore_missing_imports = true
 plugins = ["pydantic.mypy"]
 
 [[tool.mypy.overrides]]
-module = ["stockist_api.scoring.*", "stockist_api.qloo.*", "stockist_api.agent.*", "stockist_api.grounding"]
+module = ["tasteroute_api.scoring.*", "tasteroute_api.qloo.*", "tasteroute_api.agent.*", "tasteroute_api.grounding"]
 strict = true

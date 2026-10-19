@@ -1,6 +1,6 @@
-# Stockist Scout: documentation pack
+# TasteRoute: documentation pack
 
-**Stockist Scout** (working name) is an agent that tells a brand, or the sales rep who sells for it, **which consumer-facing businesses to pitch, which product to lead with, and why**, using Qloo taste data about each business's own customers. It then finds a public business contact and drafts a pitch email that the user approves before anything leaves the app.
+**TasteRoute** (working name) is an agent that tells a brand, or the sales rep who sells for it, **which consumer-facing businesses to pitch, which product to lead with, and why**, using Qloo taste data about each business's own customers. It then finds a public business contact and drafts a pitch email that the user approves before anything leaves the app.
 
 Built for the **Qloo Agentic Hackathon 2026** (deadline **Oct 30, 2026, 11:45pm EDT**, which is **Oct 31, 9:15am IST**).
 

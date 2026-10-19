@@ -1,4 +1,4 @@
-"""The Qloo calls Stockist Scout makes, with verified parameters (docs/qloo-contract.md)."""
+"""The Qloo calls TasteRoute makes, with verified parameters (docs/qloo-contract.md)."""
 
 from .client import Params, QlooClient, Trace
 from .models import Brand, InsightsBody, SearchBody, TagAffinity, TagInsightsBody

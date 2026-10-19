@@ -1,4 +1,4 @@
-"""Shrink Qloo responses to the fields Stockist Scout uses (a raw place response is ~2 MB).
+"""Shrink Qloo responses to the fields TasteRoute uses (a raw place response is ~2 MB).
 
 Stored responses and fixtures both go through this, so the models only ever see compact data.
 """

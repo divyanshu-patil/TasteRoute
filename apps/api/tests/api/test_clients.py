@@ -3,10 +3,10 @@
 import httpx
 import pytest
 
-from stockist_api.errors import QlooBadRequest, QlooBudgetExceeded, QlooRateLimited
-from stockist_api.external import hunter
-from stockist_api.qloo import api
-from stockist_api.qloo.client import Trace, monthly_live_calls
+from tasteroute_api.errors import QlooBadRequest, QlooBudgetExceeded, QlooRateLimited
+from tasteroute_api.external import hunter
+from tasteroute_api.qloo import api
+from tasteroute_api.qloo.client import Trace, monthly_live_calls
 
 PARAMS = [("query", "Blue Bottle Coffee"), ("types", "urn:entity:brand"), ("take", "5")]
 

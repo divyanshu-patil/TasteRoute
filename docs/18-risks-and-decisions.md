@@ -38,7 +38,7 @@
 
 | Date | Decision | Reason |
 |---|---|---|
-| 2026-10-19 | Build Stockist Scout (taste-based account targeting) | Best sellable idea that keeps Qloo essential; scored about 14.5/20 versus 7/20 for a general sales agent |
+| 2026-10-19 | Build TasteRoute (taste-based account targeting) | Best sellable idea that keeps Qloo essential; scored about 14.5/20 versus 7/20 for a general sales agent |
 | 2026-10-19 | Food and drink is the full category; fashion is secondary if coverage allows | Qloo's strongest place data; specific audience for judging |
 | 2026-10-19 | Turborepo, Next.js, FastAPI, Supabase | User's chosen stack |
 | 2026-10-19 | Agent on Ollama Cloud with Gemma 4 31B, provider layer for portability | User's choice; native tool calling listed for Gemma 4 |

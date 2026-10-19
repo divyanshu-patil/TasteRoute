@@ -67,4 +67,4 @@ export function Skeleton({ rows = 6 }: { rows?: number }) {
   );
 }
 
-export const NOTHING_SENT = "Nothing is sent from Stockist Scout. You send approved emails from your own inbox.";
+export const NOTHING_SENT = "Nothing is sent from TasteRoute. You send approved emails from your own inbox.";

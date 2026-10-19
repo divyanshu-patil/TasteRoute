@@ -43,7 +43,7 @@ Same as Flow A, but at step 2 the rep enters several products from different bra
 
 ## Flow D: Unsupported business
 
-If the intake shows the user's prospects are not consumer-facing businesses (for example "accounting software for law firms"), the app explains: "Stockist Scout ranks businesses by what their customers like. Your prospects are chosen on company size and industry, which Qloo does not cover." It suggests a company-data tool instead and does not run the agent.
+If the intake shows the user's prospects are not consumer-facing businesses (for example "accounting software for law firms"), the app explains: "TasteRoute ranks businesses by what their customers like. Your prospects are chosen on company size and industry, which Qloo does not cover." It suggests a company-data tool instead and does not run the agent.
 
 ## Flow E: Opt-out
 

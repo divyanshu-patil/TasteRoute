@@ -5,11 +5,11 @@ from pathlib import Path
 
 import pytest
 
-from stockist_api.errors import QlooContractViolation
-from stockist_api.qloo.client import TokenBucket, cache_key
-from stockist_api.qloo.compact import compact_entity, tag_kind
-from stockist_api.qloo.guards import guard_places, in_bbox
-from stockist_api.qloo.models import InsightsBody, Place
+from tasteroute_api.errors import QlooContractViolation
+from tasteroute_api.qloo.client import TokenBucket, cache_key
+from tasteroute_api.qloo.compact import compact_entity, tag_kind
+from tasteroute_api.qloo.guards import guard_places, in_bbox
+from tasteroute_api.qloo.models import InsightsBody, Place
 
 FIX = Path(__file__).parents[1] / "fixtures" / "qloo"
 BBOX = [40.5503390, -74.0566880, 40.7394340, -73.8329450]

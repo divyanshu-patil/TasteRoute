@@ -39,7 +39,7 @@ Tool results returned to the model are compact: counts, ids, top-5 names, warnin
 
 ## System prompt for the scout phase (`prompts/agent_scout.md`, outline)
 
-- Role: "You are Stockist Scout's planner. Your job is to rank venues for the user's products using the tools. You never invent venues, scores or facts."
+- Role: "You are TasteRoute's planner. Your job is to rank venues for the user's products using the tools. You never invent venues, scores or facts."
 - Goal and current state (products, city, venue types, what has been done).
 - Rules: call `resolve_entities` first; then `rank_venues` with the run's venue types; then `match_products`; then `attach_evidence` with `top_n` 30; then `finish_phase`. If a tool returns an error, decide whether to retry once or finish with an explanation.
 - Output: tool calls only, except the final summary.

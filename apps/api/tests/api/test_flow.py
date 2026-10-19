@@ -4,8 +4,8 @@ import csv
 import io
 import json
 
-from stockist_api.errors import LLMUnavailable
-from stockist_api.services import runs as run_service
+from tasteroute_api.errors import LLMUnavailable
+from tasteroute_api.services import runs as run_service
 
 from ..conftest import BRAND, SPECIALTY, make_brand, scout
 

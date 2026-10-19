@@ -9,7 +9,7 @@ from urllib.parse import parse_qsl
 
 os.environ.update({
     "APP_ENV": "test",
-    "DATABASE_URL": os.environ.get("TEST_DATABASE_URL", "postgresql://localhost:5432/stockist_test"),
+    "DATABASE_URL": os.environ.get("TEST_DATABASE_URL", "postgresql://localhost:5432/tasteroute_test"),
     "LLM_PROVIDER": "fake",
     "QLOO_API_KEY": "test-key",
     "QLOO_RPS": "1000",
@@ -18,20 +18,20 @@ os.environ.update({
     "SESSION_SECRET": "test-secret",
     "DEMO_RUN_ID": "",
     "PUBLIC_RUNS_PER_IP_PER_DAY": "50",
-    "OSM_USER_AGENT": "StockistScout/test",
+    "OSM_USER_AGENT": "TasteRoute/test",
 })
 
 import httpx  # noqa: E402
 import pytest  # noqa: E402
 import respx  # noqa: E402
 
-from stockist_api import db  # noqa: E402
-from stockist_api.external import website  # noqa: E402
-from stockist_api.llm import LLMResult  # noqa: E402
-from stockist_api.main import app, build_services, close_services  # noqa: E402
-from stockist_api.routes import deps  # noqa: E402
-from stockist_api.services import runs as run_service  # noqa: E402
-from stockist_api.settings import get_settings  # noqa: E402
+from tasteroute_api import db  # noqa: E402
+from tasteroute_api.external import website  # noqa: E402
+from tasteroute_api.llm import LLMResult  # noqa: E402
+from tasteroute_api.main import app, build_services, close_services  # noqa: E402
+from tasteroute_api.routes import deps  # noqa: E402
+from tasteroute_api.services import runs as run_service  # noqa: E402
+from tasteroute_api.settings import get_settings  # noqa: E402
 
 FIX = Path(__file__).parent / "fixtures"
 SORTED_LISTS = {"signal.interests.entities", "filter.results.entities"}

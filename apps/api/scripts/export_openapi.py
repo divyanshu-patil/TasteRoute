@@ -3,7 +3,7 @@
 import json
 from pathlib import Path
 
-from stockist_api.main import app
+from tasteroute_api.main import app
 
 OUT = Path(__file__).resolve().parents[3] / "packages" / "contracts" / "openapi.json"
 

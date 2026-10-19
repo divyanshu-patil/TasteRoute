@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "uv run uvicorn stockist_api.main:app --reload --port 8000",
+    "dev": "uv run uvicorn tasteroute_api.main:app --reload --port 8000",
     "lint": "uv run ruff check . && uv run mypy src",
     "test": "uv run pytest -m \"not live\"",
     "migrate": "uv run python scripts/migrate.py",

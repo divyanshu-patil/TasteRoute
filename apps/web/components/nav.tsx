@@ -16,8 +16,8 @@ export function Nav() {
     <header className="nav">
       <div className="wrap">
         <Link href="/" className="logo">
-          <span>Stockist</span>
-          <span>Scout</span>
+          <span>Taste</span>
+          <span>Route</span>
         </Link>
         <nav className="pill" aria-label="Main">
           {LINKS.map((l) => (

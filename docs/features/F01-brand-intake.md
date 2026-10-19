@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Turn a website URL or a short description into a confirmed **brand profile** and a list of **1–5 products**, and stop early if the business is not a fit for Stockist Scout.
+Turn a website URL or a short description into a confirmed **brand profile** and a list of **1–5 products**, and stop early if the business is not a fit for TasteRoute.
 
 ## User story
 

@@ -31,7 +31,7 @@ export default function Home() {
           </div>
           <h1 className="display d-xl">Find venues that share your taste</h1>
           <p className="lead">
-            Stockist Scout ranks the cafés and bars in your city by taste fit with your brand, shows the Qloo evidence behind
+            TasteRoute ranks the cafés and bars in your city by taste fit with your brand, shows the Qloo evidence behind
             every pick, and drafts the first email.
           </p>
           <div className="row">

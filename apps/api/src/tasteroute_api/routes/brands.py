@@ -28,7 +28,7 @@ from ..services.resolve import resolve_product, validate_entity
 from .deps import as_uuid, rate, svc
 
 router = APIRouter(prefix="/v1")
-log = logging.getLogger("stockist.brands")
+log = logging.getLogger("tasteroute.brands")
 
 
 @router.post("/brands/intake")

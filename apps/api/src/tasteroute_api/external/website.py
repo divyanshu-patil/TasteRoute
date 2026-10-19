@@ -133,7 +133,7 @@ class WebsiteReader:
                 rp = None
             self._robots[base] = rp
         rp = self._robots[base]
-        return True if rp is None else rp.can_fetch("StockistScout", url)
+        return True if rp is None else rp.can_fetch("TasteRoute", url)
 
     async def read_site(self, url: str) -> SiteText:
         """Homepage plus at most 2 same-domain about/shop/product/menu pages; at most 12,000 characters (INT-01)."""
