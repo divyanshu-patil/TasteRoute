@@ -96,7 +96,8 @@ async def test_read_site_page_and_text_caps():
 @respx.mock
 async def test_find_emails_published_only():
     html = ('<a href="mailto:Hello@Cafe.test?subject=hi">Mail</a> wholesale@cafe.test <img src="logo@2x.png">'
-            ' example@mysite.com noreply@cafe.test <p>Email info@cafe.test.Hours: 8-6</p>')
+            ' example@mysite.com noreply@cafe.test <p>Email info@cafe.test.Hours: 8-6</p>'
+            '<script>/* GSAP by jack@greensock.com */</script>')
     respx.get("https://cafe.test/robots.txt").mock(return_value=httpx.Response(404))
     respx.get("https://cafe.test/").mock(return_value=httpx.Response(200, html=html))
     async with httpx.AsyncClient() as http:

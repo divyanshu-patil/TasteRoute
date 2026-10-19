@@ -16,6 +16,9 @@ from ..external import cached_call, hunter, osm
 from ..external.website import WebsiteReader, clean_email
 
 BAD_VERIFICATION = {"invalid", "disposable"}
+# A scraped address must be on the venue's own domain or a free-mail inbox; anything else is usually the web agency's or a widget's.
+FREEMAIL = {"gmail.com", "googlemail.com", "yahoo.com", "outlook.com", "hotmail.com", "live.com", "icloud.com", "me.com",
+            "aol.com", "proton.me", "protonmail.com", "gmx.com", "fastmail.com"}
 # Which inbox a supplier's first pitch should reach, best first. Anything unlisted ranks between "main" and "other".
 PURPOSES = [
     (re.compile(r"^(wholesale|trade|sales|orders?|buy(ing|er)|purchas\w*|procure\w*|stockists?|partners?(hips?)?)\b"), "sales inbox"),
@@ -38,6 +41,11 @@ class Candidate:
     @property
     def domain(self) -> str:
         return self.email.rsplit("@", 1)[-1].lower()
+
+
+def venue_inbox(email: str, domain: str | None) -> bool:
+    d = email.rsplit("@", 1)[-1]
+    return not domain or d in FREEMAIL or d == domain or d.endswith("." + domain)
 
 
 def purpose(email: str) -> tuple[int, str | None]:
@@ -160,7 +168,8 @@ async def find_contacts(ctx: RunContext, venue_ids: list[str]) -> dict[str, Any]
             code, found_emails, _, _ = await cached_call(ctx.pool, "website", "/emails", {"url": website}, timedelta(days=7),
                                                          read, run_id=ctx.run_id, emit=ctx.emit)
             for raw, page in found_emails if code == 200 else []:
-                if email := clean_email(raw):  # also tidies results cached before clean_email existed
+                email = clean_email(raw)  # also tidies results cached before clean_email existed
+                if email and venue_inbox(email, domain):
                     cands.append(Candidate(email, "website", "generic", purpose(email)[1], sources=[{"uri": page}]))
             # Hunter domain search, capped per run (CON-02, CON-06)
             if hunter_key and domain:

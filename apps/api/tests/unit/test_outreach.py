@@ -10,7 +10,7 @@ from tasteroute_api.agent.plan_guard import PlanGuard
 from tasteroute_api.errors import AppError
 from tasteroute_api.external import hunter
 from tasteroute_api.grounding import Bundle, validate
-from tasteroute_api.services.contacts import Candidate, choose, is_suppressed
+from tasteroute_api.services.contacts import Candidate, choose, is_suppressed, venue_inbox
 from tasteroute_api.services.drafts import next_status, short_name, template_draft
 from tasteroute_api.services.export import CSV_COLUMNS, MAILTO_BODY_MAX, mailto, mask, to_csv
 
@@ -144,3 +144,9 @@ def test_plan_guard():
     o = PlanGuard("outreach", {"venue_ids": {"v1"}, "draft_venue_ids": {"v1"}})
     o.record("find_contacts", {})
     assert "subset" in o.check("draft_pitches", {"venue_ids": ["v2"]})[1]
+
+
+def test_scraped_email_must_be_the_venues_or_free_mail():
+    assert venue_inbox("hi@ipsento.com", "ipsento.com") and venue_inbox("orders@shop.ipsento.com", "ipsento.com")
+    assert venue_inbox("ipsento606@gmail.com", "ipsento.com")
+    assert not venue_inbox("jack@greensock.com", "ipsento.com")

@@ -205,7 +205,8 @@ def clean_email(raw: str) -> str | None:
 
 
 def emails_in(page: Page) -> list[tuple[str, str]]:
-    raw = MAILTO.findall(page.html) + EMAIL.findall(re.sub(r"<[^>]+>", " ", unescape(page.html)))
+    html = re.sub(r"(?is)<(script|style|noscript)[^>]*>.*?</\1>", " ", page.html)  # library credits live in scripts
+    raw = MAILTO.findall(html) + EMAIL.findall(re.sub(r"<[^>]+>", " ", unescape(html)))
     cleaned = (clean_email(e) for e in raw)
     return [(e, page.url) for e in dict.fromkeys(c for c in cleaned if c)]
 
