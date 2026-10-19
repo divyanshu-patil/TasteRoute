@@ -71,6 +71,7 @@ def test_best_product_labels():
     ("La Colombe", "La Colombe Coffee Roasters", True), ("Fernet Branca", "Fernet-Branca", True),
     ("Partners Coffee", "Waitrose & Partners", False), ("Kings County Distillery", "Sacramento Kings", False),
     ("Sey Coffee", "Starbucks", False),
+    ("Health-Ade", "Health", False), ("Fieldnote Coffee", "Fieldnote", True),  # found in the live seed
 ])
 def test_name_matching(q, c, ok):
     assert names.is_match(q, c) is ok

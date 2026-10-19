@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import asyncio
 import json
+import logging
 import re
 import uuid
 from typing import Any
@@ -17,6 +18,7 @@ from ..llm.prompts import load
 from ..llm.structured import parse, structured
 from .contacts import is_suppressed, suppression_sets
 
+log = logging.getLogger("stockist.drafts")
 TRANSITIONS = {
     "draft": {"edited", "approved"},
     "edited": {"edited", "approved"},
@@ -76,13 +78,16 @@ async def build_bundle(ctx: RunContext, venue: dict[str, Any], contact: dict[str
     )
     profile = ctx.brand.get("profile") or {}
     vt = ctx.pack.venue_type(venue["venue_type"])
+    lead = next((p for p in ctx.products.values() if best and p["name"] == best["name"]), next(iter(ctx.products.values())))
     return Bundle(
         venue_name=short_name(venue["name"]),
         venue_type=vt.label if vt else venue["venue_type"],
         brand_name=ctx.brand["name"],
         sender_name=profile.get("sender_name") or f"The {ctx.brand['name']} team",
         product_names=[p["name"] for p in ctx.products.values()],
-        best_product=best["name"] if best else next(iter(ctx.products.values()))["name"],
+        best_product=lead["name"],
+        best_product_kind=lead.get("kind") or "",
+        brand_one_liner=profile.get("one_liner") or "",
         reason=venue.get("reason") or "",
         evidence={str(e["id"]): evidence_text(dict(e)) for e in ev},
         contact_role=contact.get("role"),
@@ -120,7 +125,8 @@ async def write_pitch(ctx: RunContext, b: Bundle) -> tuple[PitchOut, str, str | 
     prompt, version = load("pitch_email")
     bundle_json = json.dumps({
         "venue_name": b.venue_name, "venue_type": b.venue_type, "brand_name": b.brand_name, "sender_name": b.sender_name,
-        "lead_product": b.best_product, "other_products": [p for p in b.product_names if p != b.best_product],
+        "brand_one_liner": b.brand_one_liner, "lead_product": b.best_product, "lead_product_kind": b.best_product_kind,
+        "other_products": [p for p in b.product_names if p != b.best_product], "why_this_venue": b.reason,
         "evidence": [{"id": i, "text": t} for i, t in b.evidence.items()], "contact_role": b.contact_role,
         "ask_examples": b.ask_examples, "opt_out_line": b.opt_out_line,
     }, ensure_ascii=False)
@@ -137,10 +143,12 @@ async def write_pitch(ctx: RunContext, b: Bundle) -> tuple[PitchOut, str, str | 
                 {"role": "user", "content": "Fix these problems and return the corrected JSON only: " + "; ".join(errors)},
             ]
             r = await ctx.svc.llm.chat(msgs, **kwargs)
+            log.info("pitch for %s failed grounding, repairing: %s", b.venue_name, errors)
             out = parse(r.content, PitchOut)
             errors = validate(out.subject, out.body, out.cited_evidence_ids, b)
         if not errors:
             return out, "llm", ctx.svc.llm.model, version
+        log.info("pitch for %s still ungrounded, using template: %s", b.venue_name, errors)
     except (LLMUnavailable, LLMBadResponse, ValueError):
         pass
     except Exception as e:  # pydantic ValidationError from parse()

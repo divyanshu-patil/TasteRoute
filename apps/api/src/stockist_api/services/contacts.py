@@ -4,13 +4,14 @@ from __future__ import annotations
 
 import uuid
 from dataclasses import dataclass, field
+from datetime import timedelta
 from typing import Any
 
 import asyncpg
 
 from ..agent.context import RunContext
 from ..errors import AppError
-from ..external import hunter, osm
+from ..external import cached_call, hunter, osm
 from ..external.website import WebsiteReader
 
 BAD_VERIFICATION = {"invalid", "disposable"}
@@ -126,11 +127,16 @@ async def find_contacts(ctx: RunContext, venue_ids: list[str]) -> dict[str, Any]
         elif website:
             # The venue's own site (D-08)
             checked.append("venue website")
-            try:
-                for email, page in await reader.find_emails(website):
-                    cands.append(Candidate(email, "website", "generic", sources=[{"uri": page}]))
-            except AppError:
-                pass
+            async def read(url: str = website) -> tuple[int, Any]:
+                try:
+                    return 200, [list(x) for x in await reader.find_emails(url)]
+                except AppError as e:
+                    return 422, {"error": e.detail}
+
+            code, found_emails, _, _ = await cached_call(ctx.pool, "website", "/emails", {"url": website}, timedelta(days=7),
+                                                         read, run_id=ctx.run_id, emit=ctx.emit)
+            for email, page in found_emails if code == 200 else []:
+                cands.append(Candidate(email, "website", "generic", sources=[{"uri": page}]))
             # Hunter domain search, capped per run (CON-02, CON-06)
             if hunter_key and domain:
                 if hunter_used >= s.hunter_max_calls_per_run:

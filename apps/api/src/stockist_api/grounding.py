@@ -34,11 +34,14 @@ class Bundle:
     contact_role: str | None
     ask_examples: list[str]
     opt_out_line: str
+    best_product_kind: str = ""
+    brand_one_liner: str = ""
     extra_terms: list[str] = field(default_factory=list)
 
     def allowed_text(self) -> str:
         parts = [
             self.venue_name, self.venue_type, self.brand_name, self.sender_name, self.best_product, self.reason,
+            self.best_product_kind, self.brand_one_liner,
             self.contact_role or "", self.opt_out_line, *self.product_names, *self.evidence.values(),
             *self.ask_examples, *self.extra_terms,
         ]
