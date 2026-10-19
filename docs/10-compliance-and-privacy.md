@@ -5,7 +5,7 @@ This is engineering guidance, not legal advice. Check the email and data protect
 ## Outreach principles
 
 1. **Human approval.** Every email is written as a draft and approved by the user. The app never sends email.
-2. **Business contacts only.** Contacts come from the venue's own domain (Hunter domain search) or the venue's public listing (OpenStreetMap). No consumer data, no personal social profiles, no guessed addresses.
+2. **Business contacts only.** Contacts come from the venue's own website, its public listing (OpenStreetMap), its own domain (Hunter domain search) or, as a last resort, a web search that keeps only addresses on the venue's domain or carrying its name. Each shows the page it came from. No consumer data, no personal social profiles, no guessed addresses.
 3. **Relevance.** Each draft must cite the specific reason the venue fits (grounding validator). No bulk or generic messages.
 4. **Opt-out.** Every draft includes an opt-out line. Opt-outs are recorded in the suppression list and honoured everywhere.
 5. **Honesty.** No false claims, no fake urgency, no misleading subjects. The sender is the user, using their own email account.

@@ -124,7 +124,7 @@ create index qloo_month_idx on qloo_calls(created_at) where cache_hit = false;
 create table external_calls (
   id uuid primary key default gen_random_uuid(),
   run_id uuid references runs(id) on delete set null,
-  service text not null check (service in ('website','nominatim','overpass','hunter','apollo')),
+  service text not null check (service in ('website','nominatim','overpass','hunter','apollo','photon','web_search')),
   endpoint text not null,
   params jsonb not null,
   cache_key text not null,
@@ -236,7 +236,7 @@ create table contacts (
   email citext not null,
   role text,
   type text check (type in ('personal','generic')),
-  source text not null check (source in ('hunter','osm','qloo','apollo')),
+  source text not null check (source in ('hunter','osm','qloo','apollo','website','web')),
   confidence integer,
   verification_status text,
   sources jsonb not null default '[]',

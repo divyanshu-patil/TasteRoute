@@ -10,7 +10,14 @@ from tasteroute_api.agent.plan_guard import PlanGuard
 from tasteroute_api.errors import AppError
 from tasteroute_api.external import hunter
 from tasteroute_api.grounding import Bundle, validate
-from tasteroute_api.services.contacts import Candidate, choose, is_suppressed, names_venue, venue_inbox
+from tasteroute_api.services.contacts import (
+    Candidate,
+    choose,
+    emails_from_results,
+    is_suppressed,
+    names_venue,
+    venue_inbox,
+)
 from tasteroute_api.services.drafts import next_status, short_name, template_draft
 from tasteroute_api.services.export import CSV_COLUMNS, MAILTO_BODY_MAX, mailto, mask, to_csv
 
@@ -153,3 +160,16 @@ def test_scraped_email_must_be_the_venues_or_free_mail():
     # On its owner's domain but named for the venue: kept. A web designer's address: still dropped.
     assert names_venue("cabinjuice@gravityhaus.com", "Cabin Juice", "cabinjuice.com")
     assert not names_venue("hello@studiodesign.com", "Cabin Juice", "cabinjuice.com")
+    assert not names_venue("sandwichshop@gmail.com", "Yampa Sandwich Co.", None)  # a generic word ties nothing
+
+
+def test_web_results_keep_only_this_venues_address():
+    results = [
+        {"title": "Yampa Sandwich Co. - Denver", "url": "https://dir.test/yampa",
+         "content": "Yampa Sandwich Co. Catering: catering [at] yampasandwichco [dot] com. Nearby: Joe's Subs joessubs@gmail.com"},
+        {"title": "Best sandwiches in Denver", "url": "https://dir.test/list", "content": "Write to yampasandwichco@gmail.com"},
+        {"title": "Delis", "url": "https://dir.test/other", "content": "Ask at sandwichshop@gmail.com or info@agency.test"},
+    ]
+    # Its own domain (spelled out) and a Gmail inbox carrying its name; neighbours' and agencies' addresses are dropped.
+    got = emails_from_results(results, "Yampa Sandwich Co.", "yampasandwichco.com")
+    assert got == [("catering@yampasandwichco.com", "https://dir.test/yampa"), ("yampasandwichco@gmail.com", "https://dir.test/list")]

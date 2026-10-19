@@ -31,6 +31,7 @@ class Settings(BaseSettings):
     ollama_base_url: str = "https://ollama.com"
     ollama_api_key: SecretStr = SecretStr("")
     ollama_model: str = "gemma4:31b"
+    web_search_enabled: bool = True  # Ollama web search (same key) when a venue's own pages show no email
     llm_timeout_seconds: float = 90.0
     llm_temperature_tools: float = 0.2
     llm_temperature_writing: float = 0.7

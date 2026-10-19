@@ -47,7 +47,7 @@ Switch Qloo off and TasteRoute says it cannot rank venues and stops. It never fa
 2. **Qloo resolves taste.** Each product is looked up with Qloo `/search`. Products too new for Qloo use real comparable brands, each one verified by `/search`. Entity ids only ever come from Qloo.
 3. **Rank.** For each venue type, a Qloo `/v2/insights` place query with your brands as the signal and `feature.explainability` gives the **taste** percentile and which of your brands drive it. The same query without a signal gives the **popularity** baseline. `lift = taste − popularity`, `fit = 0.7 × taste + 0.3 × max(lift, 0)`.
 4. **Evidence and product fit.** One insights query per product with `filter.results.entities` scores every ranked venue for that product. Audience tags (`filter.type=urn:tag`) and each venue's Qloo tags explain the match. Reasons label each claim as "Qloo" or "Our inference".
-5. **Contacts.** Only public business addresses: the venue's OpenStreetMap listing and its own website (Hunter domain search when a key is set). Every contact shows where it was published.
+5. **Contacts.** Only public business addresses: the venue's OpenStreetMap listing and its own website, then a web search that keeps only the venue's own addresses (Hunter domain search when a key is set). Every contact shows where it was published.
 6. **Drafts.** The LLM writes a short pitch from an evidence bundle. A grounding validator rejects any name or number that is not in that bundle, and any draft that cites unknown evidence, misnames the venue or drops the opt-out line. After one repair attempt, a template that always passes takes over. Nothing is sent for you.
 
 An AI agent (Gemma 4 31B on Ollama Cloud, native tool calls) runs these steps as tools. A plan guard checks every call's phase, order and arguments. After two invalid steps, an unavailable model or the step limit, a deterministic plan runs the same tools and produces identical scores.
@@ -61,7 +61,7 @@ flowchart LR
   AG -. fallback .-> DP[Deterministic plan] --> T
   T --> Q[Qloo client: cache, rate limit, budget] --> QL[(Qloo API)]
   T --> S[Scoring: fit, lift, confidence, product fit]
-  T --> X[Contacts: OpenStreetMap, venue sites, Hunter]
+  T --> X[Contacts: OpenStreetMap, venue sites, web search, Hunter]
   T --> G[Grounding validator]
   R --> DB[(Postgres, row-level security)]
   T --> DB
@@ -151,7 +151,7 @@ createdb tasteroute_test
 pnpm turbo lint check-types test
 ```
 
-120 API tests (pytest) and 17 web tests (Vitest). Tests never call Qloo, the LLM, OpenStreetMap or Photon: recorded fixtures, a fake model, and a network block stand in. CI runs the same checks on Postgres 15 and fails if `packages/contracts` drifts from the API.
+123 API tests (pytest) and 17 web tests (Vitest). Tests never call Qloo, the LLM, web search, OpenStreetMap or Photon: recorded fixtures, a fake model, and a network block stand in. CI runs the same checks on Postgres 15 and fails if `packages/contracts` drifts from the API.
 
 With the API running, `uv run python scripts/e2e_smoke.py` (in `apps/api`) walks the whole judge path over HTTP: intake, Qloo matches, run, ranking, rescore, contacts, drafts, approval, CSV export, do-not-contact, trace. It makes live calls (about 10 Qloo and 15–25 LLM) and prints what it spent.
 

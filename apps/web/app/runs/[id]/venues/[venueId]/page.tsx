@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { ReasonText } from "../../../../../components/reason";
 import { NotFoundPanel } from "../../../../../components/run-shell";
 import { Tour, type TourStep } from "../../../../../components/tour";
-import { ConfidenceBadge, ErrorPanel, Skeleton, SourceChip, Tip } from "../../../../../components/ui";
+import { ConfidenceBadge, ContactSource, ErrorPanel, Skeleton, SourceChip, Tip } from "../../../../../components/ui";
 import { VenueMap, type Pin } from "../../../../../components/venue-map";
 import { ApiError, api, type S } from "../../../../../lib/api";
 import { CONFIDENCE, CONTACT_STATUS, FIT_LABEL, km, kmText, liftText, pct, venueTypeLabel } from "../../../../../lib/format";
@@ -157,7 +157,7 @@ export default function VenuePage() {
             <article className="ev" style={{ background: "#fff" }}>
               <div className="row between"><strong>Contact</strong><span className="mono faint">{CONTACT_STATUS[v.contact_status]}</span></div>
               {d.contacts.map((c) => (
-                <p key={c.id} className="small"><span className="email">{c.email}</span> <span className="mono faint">{c.source}{c.role ? ` · ${c.role}` : ""}</span></p>
+                <p key={c.id} className="small"><span className="email">{c.email}</span> <span className="mono faint"><ContactSource contact={c} />{c.role ? ` · ${c.role}` : ""}</span></p>
               ))}
               {d.checked_sources.length > 0 && <p className="mono faint">checked: {d.checked_sources.join(", ")}</p>}
             </article>

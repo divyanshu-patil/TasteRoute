@@ -4,7 +4,11 @@ import asyncio
 import csv
 import io
 import json
+import re
 import uuid
+
+import httpx
+from pydantic import SecretStr
 
 from tasteroute_api.errors import LLMUnavailable
 from tasteroute_api.services import runs as run_service
@@ -188,6 +192,33 @@ async def test_outreach_contacts_drafts_approve_export(client, ws, svc):
     # Editing an exported draft sends it back to 'edited' (DRF-04)
     r = await client.patch(f"/v1/drafts/{d0['id']}", headers=ws, json={"subject": "New subject"})
     assert r.json()["status"] == "edited" and r.json()["mailto"] is None
+
+
+async def test_web_search_is_the_last_resort_for_an_email(client, ws, svc, net, monkeypatch):
+    """No address on the venues' own pages (and the AI finds none): Ollama web search, keeping only the venue's own."""
+    brand = await make_brand(client, ws, svc)
+    run_id = await scout(client, ws, brand)
+    venues = (await client.get(f"/v1/runs/{run_id}/venues", headers=ws)).json()["items"]
+    monkeypatch.setattr("tests.conftest.SITE", "<html><body><h1>{host}</h1><p>Coffee and natural wine.</p></body></html>")
+    monkeypatch.setattr(svc.settings, "ollama_api_key", SecretStr("k"))
+
+    def results(request: httpx.Request) -> httpx.Response:
+        name = json.loads(request.content)["query"].split('"')[1]
+        handle = re.sub(r"[^a-z0-9]", "", name.lower())
+        return httpx.Response(200, json={"results": [{"title": name, "url": "https://dir.test/" + handle,
+                                                      "content": f"{name}: write to {handle}@gmail.com or ads@dir.test"}]})
+
+    net["web_search"].side_effect = results
+    pick = [v["venue_id"] for v in venues[:3]]
+    await client.post(f"/v1/runs/{run_id}/contacts", headers=ws, json={"venue_ids": pick})
+    await run_service.drain()
+    contacts = (await client.get(f"/v1/runs/{run_id}/contacts", headers=ws)).json()
+    web = [c for c in contacts if "web search" in c["checked_sources"]]
+    assert web and net["web_search"].called
+    for c in web:  # no OpenStreetMap or page address: the web found the venue's own inbox, never the directory's
+        assert "venue website (read by AI)" in c["checked_sources"]
+        assert [(x["source"], x["sources"][0]["found_by"]) for x in c["contacts"]] == [("web", "web_search")]
+        assert not any(x["email"].endswith("@dir.test") for x in c["contacts"])
 
 
 async def test_cancel_stops_outreach(client, ws, svc, monkeypatch):

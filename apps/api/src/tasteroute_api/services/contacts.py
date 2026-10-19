@@ -14,7 +14,8 @@ from pydantic import BaseModel
 from ..agent.context import RunContext
 from ..errors import AppError, LLMBadResponse, LLMUnavailable
 from ..external import cached_call, hunter, osm
-from ..external.website import Page, WebsiteReader, clean_email, page_emails, visible_text
+from ..external.website import EMAIL, Page, WebsiteReader, clean_email, deobfuscate, page_emails, visible_text
+from ..llm import web_search
 from ..llm.prompts import load
 from ..llm.structured import structured
 
@@ -51,15 +52,39 @@ def venue_inbox(email: str, domain: str | None) -> bool:
     return not domain or d in FREEMAIL or d == domain or d.endswith("." + domain)
 
 
+# Words in many venue names, so they don't tie an address to this venue
+GENERIC = {"coffee", "bakery", "bagels", "kitchen", "restaurant", "sandwich", "sandwiches", "brewing", "brewery", "tavern",
+           "bistro", "lounge", "market", "grille", "pizzeria", "eatery", "cantina", "taproom", "roasters", "roastery",
+           "cocktails", "company", "saloon", "canteen", "brasserie", "trattoria", "osteria", "creamery", "juicery"}
+
+
 def squash(t: str) -> str:
     return re.sub(r"[^a-z0-9]", "", t.lower())
+
+
+def venue_keys(name: str, domain: str | None) -> set[str]:
+    """Distinctive strings for a venue: its whole name, its longer non-generic words, its domain's name."""
+    keys = {squash(name), (domain or "").split(".")[0], *(squash(w) for w in name.split() if squash(w) not in GENERIC)}
+    return {k for k in keys if len(k) >= 6}
 
 
 def names_venue(email: str, name: str, domain: str | None) -> bool:
     """An address on another domain that carries the venue's name, e.g. cabinjuice@gravityhaus.com (its owner's)."""
     local, _, d = email.partition("@")
-    keys = {squash(name), *(squash(w) for w in name.split()), (domain or "").split(".")[0]}
-    return any(len(k) >= 6 and k in squash(local + d.split(".")[0]) for k in keys)
+    return any(k in squash(local + d.split(".")[0]) for k in venue_keys(name, domain))
+
+
+def emails_from_results(results: list[dict[str, str]], name: str, domain: str | None) -> list[tuple[str, str]]:
+    """Addresses in web search results that belong to this venue: on its own domain, or carrying its name. A directory
+    page lists many businesses, so any other address on it is dropped. (email, result url)"""
+    out: dict[str, str] = {}
+    for r in results:
+        for raw in EMAIL.findall(deobfuscate(r["content"])):
+            e = clean_email(raw)
+            d = (e or "").rsplit("@", 1)[-1]
+            if e and (bool(domain) and (d == domain or d.endswith(f".{domain}")) or names_venue(e, name, domain)):
+                out.setdefault(e, r["url"])
+    return list(out.items())
 
 
 class EmailOnPage(BaseModel):
@@ -255,6 +280,13 @@ async def find_contacts(ctx: RunContext, venue_ids: list[str]) -> dict[str, Any]
                         await suppress(ctx.pool, ctx.workspace_id, "domain", domain, "claimed_email")
                         sup_domains.add(domain)
                         status = "suppressed"
+        # Last resort: a web search, when nothing above found an address (uses the LLM key; cached 14 days)
+        if status != "suppressed" and not cands and web_search.enabled(s):
+            checked.append("web search")
+            results = await web_search.search(ctx.pool, ctx.svc.http, s, f'"{v["name"]}" {ctx.city.get("name", "")} email',
+                                              run_id=ctx.run_id, emit=ctx.emit)
+            for email, url in emails_from_results(results, v["name"], domain):
+                cands.append(Candidate(email, "web", "generic", purpose(email)[1], sources=[{"uri": url, "found_by": "web_search"}]))
         if status != "suppressed":
             cands = [c for c in cands if not is_suppressed(c.email, sup_emails, sup_domains)]
             best = choose(cands, domain)

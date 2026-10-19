@@ -9,7 +9,8 @@
 | Nominatim | City and business-location geocoding, reverse lookup of a dropped pin | Identifying User-Agent | Max 1 req/s, cache, no autocomplete, no systematic queries | 30 days |
 | Photon (komoot) | Place suggestions while the user types | Identifying User-Agent | Fair use; built for search-as-you-type; debounced 350 ms, minimum 3 characters | 30 days |
 | Overpass API | Venue website and email tags | Identifying User-Agent | No parallel queries, back off on 429/406, light daily use | 7 days per (city, venue type) |
-| Website reader | Brand intake pages | None | Robots.txt, timeouts, SSRF guard | 7 days per URL |
+| Ollama web search | Last resort for a venue's published email, when its own pages show none (`POST /api/web_search`, 5 results) | Same Bearer key as Ollama Cloud; off with `WEB_SEARCH_ENABLED=false` | Free tier for individuals, higher limits on paid plans; one search per venue without an email | 14 days per query |
+| Website reader | Brand intake pages; venue emails | None | Robots.txt, timeouts, SSRF guard | 7 days per URL |
 | OpenFreeMap vector tiles | Map on results, venue and wizard pages (loaded by the browser, not the API): the "Liberty" style trimmed to food and drink places and famous sights | None; attribution shown on the map | [openfreemap.org](https://openfreemap.org): free, no key, no usage limits | Browser cache |
 | OpenStreetMap tiles | Fallback map if OpenFreeMap is unreachable | None; attribution shown on the map | [Tile usage policy](https://operations.osmfoundation.org/policies/tiles/): light use | Browser cache |
 | Apollo (optional, off) | Buyers at chains | API key | Free plan limited; reselling Apollo data needs a contract | 14 days |
@@ -60,6 +61,7 @@
 - httpx with the SSRF guard (block private, loopback, link-local, metadata IPs on every redirect), 3 redirects max, 1.5 MB cap, `text/html` only, robots.txt checked for fetched paths, `trafilatura` for main text.
 - Venue emails (F06): the venue's page plus up to 3 contact-like pages on the same site (contact, then wholesale, catering or events, then about or visit; `/contact` when none is linked). A dead deep link falls back to the homepage, and a query string percent-encoded into the path is repaired. Addresses are read from `mailto:` links (URL-encoded too), plain text, spelled-out forms ("hello [at] venue [dot] com", "hello at venue dot com"), text split across tags, Cloudflare's scrambled email protection, and `"email"` fields in the page's data (schema.org). Kept: the venue's own domain, free-mail inboxes, or another domain that carries the venue's name (cabinjuice@gravityhaus.com). Cached 7 days per URL.
 - If no pattern finds an address, one LLM call reads the same pages and must quote the words that show an address. Code checks the quote is on the page and spells that address out, so the AI can find an address but never invent one (CON-05). If the model is unavailable, the result is not cached.
+- If the venue's pages, OpenStreetMap and Hunter give no address, one Ollama web search (`"<venue>" <city> email`) runs. Only addresses on the venue's own domain, or carrying its name (cabinjuice@…, yampasandwichco@gmail.com), are kept, with the result page as the source; a directory's other listings are dropped. Stored as source `web`.
 - A 403 or a Cloudflare challenge (`cf-mitigated`) means the owner blocks automated readers: we stop and say so ("That site blocks automated readers like ours") and use the description instead. We never work around bot checks.
 
 ## Apollo (optional, disabled by default)

@@ -212,7 +212,7 @@ TEST_DATABASE_URL=                  # never the production database
 | Agent LLM | Ollama Cloud, Gemma 4 31B | Native tool calling (verify in Phase 0) |
 | Taste data | Qloo Taste AI (hackathon API) | Core |
 | Contacts | Hunter API v2 (domain search, email verifier) | Business domains only |
-| Places | Nominatim (city and address search on Enter, dropped-pin reverse), Photon (suggestions while typing), Overpass (venue website/email tags) | Policy limits respected |
+| Places | Nominatim (city and address search on Enter, dropped-pin reverse), Photon (suggestions while typing), Overpass (venue website/email tags), Ollama web search (last resort for a venue email) | Policy limits respected |
 | Tests | pytest, respx, Vitest, Testing Library, Playwright | See `13-test-plan.md` |
 | Types | openapi-typescript into `packages/contracts` | Generated, never hand-edited |
 | Deploy | Vercel (web), Render/Railway/Fly (API), Supabase Cloud (DB) | See `16-runbook.md` |

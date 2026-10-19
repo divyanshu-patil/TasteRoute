@@ -2,9 +2,11 @@
 
 import httpx
 import pytest
+from pydantic import SecretStr
 
 from tasteroute_api.errors import QlooBadRequest, QlooBudgetExceeded, QlooRateLimited
 from tasteroute_api.external import hunter
+from tasteroute_api.llm import web_search
 from tasteroute_api.qloo import api
 from tasteroute_api.qloo.client import Trace, monthly_live_calls
 
@@ -73,3 +75,16 @@ async def test_hunter_domain_search_parses_and_451(svc, net):
     net["hunter"].side_effect = lambda request: httpx.Response(451, json={})
     with pytest.raises(hunter.HunterClaimed):
         await hunter.domain_search(svc.pool, svc.http, "k", "claimed.test", run_id=None, emit=None)
+
+
+async def test_web_search_parses_caches_and_fails_quietly(svc, net):
+    body = {"results": [{"title": "Yampa Sandwich Co.", "url": "https://dir.test/yampa", "content": "Email hi@yampa.test"}]}
+    net["web_search"].side_effect = lambda request: httpx.Response(200, json=body)
+    s = svc.settings.model_copy(update={"ollama_api_key": SecretStr("k")})
+    first = await web_search.search(svc.pool, svc.http, s, '"Yampa" Denver email', run_id=None, emit=None)
+    again = await web_search.search(svc.pool, svc.http, s, '"Yampa" Denver email', run_id=None, emit=None)
+    assert first == again == [{"title": "Yampa Sandwich Co.", "url": "https://dir.test/yampa", "content": "Email hi@yampa.test"}]
+    assert net["web_search"].call_count == 1  # the second came from the cache
+    assert net["web_search"].calls[0].request.headers["authorization"] == "Bearer k"
+    net["web_search"].side_effect = lambda request: httpx.Response(401, json={"error": "unauthorized"})
+    assert await web_search.search(svc.pool, svc.http, s, "other", run_id=None, emit=None) == []

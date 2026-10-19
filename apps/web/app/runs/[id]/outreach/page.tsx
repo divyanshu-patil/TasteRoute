@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { LiveProgress } from "../../../../components/live-progress";
 import { RunShell } from "../../../../components/run-shell";
 import { Tour, type TourStep } from "../../../../components/tour";
-import { Banner, EmptyState, NOTHING_SENT, Skeleton } from "../../../../components/ui";
+import { Banner, ContactSource, EmptyState, NOTHING_SENT, Skeleton } from "../../../../components/ui";
 import { ApiError, api, downloadCsv, type S } from "../../../../lib/api";
 import { CONTACT_STATUS, OUTREACH_STEPS } from "../../../../lib/format";
 import { cancelOutreach, startingOutreach } from "../../../../lib/outreach";
@@ -188,7 +188,7 @@ export default function Outreach() {
                 <li key={c.venue_id} className="card-mist stack-s" style={{ padding: "14px 16px" }}>
                   <div className="row between"><strong>{c.rank}. {c.name}</strong></div>
                   {c.contacts[0] ? (
-                    <span className="small"><span className="email">{c.contacts[0].email}</span> <span className="mono faint">{c.contacts[0].source}{c.contacts[0].sources.some((x) => x.found_by === "ai") ? " · found by AI on the page" : ""}{c.contacts[0].role ? ` · ${c.contacts[0].role}` : ""}</span></span>
+                    <span className="small"><span className="email">{c.contacts[0].email}</span> <span className="mono faint"><ContactSource contact={c.contacts[0]} />{c.contacts[0].role ? ` · ${c.contacts[0].role}` : ""}</span></span>
                   ) : (
                     <span className="small muted">{CONTACT_STATUS[c.status] ?? c.status}</span>
                   )}

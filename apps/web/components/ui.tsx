@@ -68,3 +68,14 @@ export function Skeleton({ rows = 6 }: { rows?: number }) {
 }
 
 export const NOTHING_SENT = "Nothing is sent from TasteRoute. You send approved emails from your own inbox.";
+
+const CONTACT_SOURCE: Record<string, string> = { osm: "OpenStreetMap", website: "venue website", web: "web search", hunter: "Hunter", qloo: "Qloo" };
+
+/** Where a contact was published, linked to that page, and whether the AI or a web search found it. */
+export function ContactSource({ contact }: { contact: { source: string; sources: { [k: string]: unknown }[] } }) {
+  const uri = contact.sources.find((x) => typeof x.uri === "string")?.uri as string | undefined;
+  const label = `${CONTACT_SOURCE[contact.source] ?? contact.source}${contact.sources.some((x) => x.found_by === "ai") ? " · found by AI on the page" : ""}`;
+  return uri && /^https?:\/\//i.test(uri)
+    ? <a className="link" href={uri} target="_blank" rel="noopener noreferrer">{label} ↗</a>
+    : <>{label}</>;
+}
