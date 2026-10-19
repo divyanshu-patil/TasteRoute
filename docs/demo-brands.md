@@ -37,6 +37,13 @@ Locations: only Greenpoint (St. Agrestis) and the Navy Yard (Kings County) are c
 **Devoción**
 > We roast farm-fresh Colombian specialty coffee. Our team in Colombia sources from farms all year, so the beans arrive fresh.
 
+**Little Collins** (https://www.littlecollinsnyc.com, site reads fine, 2 pages)
+> We're Little Collins, a Melbourne-style café in Midtown Manhattan, open for about a decade. We serve coffee and an Aussie brunch menu: smashed avocado and feta on multigrain, bircher muesli, our own tahini granola, banana bread with ricotta, and a bacon, egg and cheese roll.
+
+- Location to set: 708 3rd Ave, New York, NY 10017 (between 44th and 45th). City: Manhattan.
+- Products to list if you demo it as a maker: Collin's Tahini Granola, banana bread, coffee.
+- Caution: Little Collins is a café, so it is a venue rather than a wholesale brand. Step 2 may flag it as "Probably not a fit", and a run finds cafés like it (competitors), not buyers. Not yet checked against Qloo.
+
 ## Suggested demo order
 
 1. St. Agrestis: Qloo knows the brand itself, so step 3 shows "Qloo knows this".
