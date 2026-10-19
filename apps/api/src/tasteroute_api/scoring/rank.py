@@ -73,8 +73,9 @@ def fit(target_pct: float, lift_value: float, w: Weights = Weights()) -> float:
     return round(w.target * target_pct + w.lift * max(lift_value, 0.0), 4)
 
 
-def confidence(target_pct: float, lift_value: float, support: int, th: Thresholds = Thresholds()) -> Confidence:
-    if target_pct >= th.high_target and lift_value >= th.high_lift and support >= th.high_support:
+def confidence(target_pct: float, lift_value: float, support: int, th: Thresholds = Thresholds(), signals: int = 2) -> Confidence:
+    """`signals` = brands in the taste signal. A brand Qloo knows by itself is one signal, so it can't need two (D-13)."""
+    if target_pct >= th.high_target and lift_value >= th.high_lift and support >= min(th.high_support, max(signals, 1)):
         return "high"
     if target_pct >= th.medium_target and lift_value >= th.medium_lift:
         return "medium"
@@ -94,6 +95,7 @@ def score_type(
     baseline_popularity: dict[str, float],
     w: Weights = Weights(),
     th: Thresholds = Thresholds(),
+    signals: int = 2,
 ) -> list[Scored]:
     """Score one venue type. Baseline percentile = percentile of Qloo popularity within target ∪ baseline (D-03)."""
     if not target:
@@ -111,7 +113,7 @@ def score_type(
         t, b = round(tpct[c.venue_id], 4), round(bpct[c.venue_id], 4)
         lv = lift(t, b)
         flags = [] if c.venue_id in in_baseline else ["not_in_baseline"]
-        out.append(Scored(c.venue_id, venue_type, t, b, lv, fit(t, lv, w), confidence(t, lv, c.support, th), flags))
+        out.append(Scored(c.venue_id, venue_type, t, b, lv, fit(t, lv, w), confidence(t, lv, c.support, th, signals), flags))
     return out
 
 

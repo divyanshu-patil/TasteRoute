@@ -117,7 +117,7 @@ export default function RunPage() {
               <span className="v">{page?.total ?? "–"}</span>
             </div>
             <div className="stat">
-              <span className="label"><Tip label="High confidence">Top 20% taste fit, clearly above a typical venue, backed by at least two of your reference brands.</Tip></span>
+              <span className="label"><Tip label="High confidence">Top 20% taste fit, clearly above a typical venue, backed by at least two of your reference brands (or by your own brand when Qloo knows it and it is the only one).</Tip></span>
               <span className="v">{items.filter((v) => v.confidence === "high").length}</span>
             </div>
             <div className="stat">

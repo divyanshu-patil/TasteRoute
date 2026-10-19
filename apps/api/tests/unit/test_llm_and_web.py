@@ -9,7 +9,14 @@ from pydantic import BaseModel
 
 from tasteroute_api.errors import LLMBadResponse
 from tasteroute_api.external import osm
-from tasteroute_api.external.website import UrlNotAllowed, WebsiteReader, check_url, extract_text, ip_allowed
+from tasteroute_api.external.website import (
+    UrlNotAllowed,
+    WebsiteReader,
+    check_url,
+    extract_text,
+    ip_allowed,
+    site_name,
+)
 from tasteroute_api.llm import LLMResult
 from tasteroute_api.llm.fake import FakeProvider
 from tasteroute_api.llm.structured import extract_json, structured
@@ -122,3 +129,9 @@ async def test_fake_provider_plays_plan_then_finishes():
 def test_tests_cannot_reach_the_internet():
     with pytest.raises(AssertionError, match="network access in tests"):
         socket.create_connection(("1.1.1.1", 80), timeout=1)
+
+
+def test_site_name_from_title_and_og():
+    html = '<meta property="og:site_name" content="Oslo Coffee"><title>Shop &amp; Cafés | Oslo Coffee</title>'
+    assert site_name(html) == "Site name: Oslo Coffee | Shop & Cafés | Oslo Coffee"
+    assert site_name("<p>no head</p>") == ""

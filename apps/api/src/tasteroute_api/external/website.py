@@ -150,7 +150,7 @@ class WebsiteReader:
             except AppError:
                 continue
         out = SiteText(pages=[p.url for p in pages])
-        out.text = "\n\n".join(extract_text(p.html) for p in pages)[:MAX_CHARS]
+        out.text = "\n\n".join([site_name(home.html)] + [extract_text(p.html) for p in pages]).strip()[:MAX_CHARS]
         if len(out.text.strip()) < 40:
             raise WebsiteUnreadable("The site has too little readable text")
         return out
@@ -208,6 +208,14 @@ def emails_in(page: Page) -> list[tuple[str, str]]:
     raw = MAILTO.findall(page.html) + EMAIL.findall(re.sub(r"<[^>]+>", " ", unescape(page.html)))
     cleaned = (clean_email(e) for e in raw)
     return [(e, page.url) for e in dict.fromkeys(c for c in cleaned if c)]
+
+
+def site_name(html: str) -> str:
+    """The brand's name usually lives only in <title> or og:site_name, which body-text extraction drops."""
+    og = re.search(r"<meta[^>]+property=[\"']og:site_name[\"'][^>]+content=[\"']([^\"']+)", html, re.I)
+    title = re.search(r"<title[^>]*>(.*?)</title>", html, re.I | re.S)
+    parts = [unescape(m.group(1)).strip() for m in (og, title) if m]
+    return "Site name: " + " | ".join(dict.fromkeys(p for p in parts if p)) if any(parts) else ""
 
 
 def extract_text(html: str) -> str:

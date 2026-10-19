@@ -6,7 +6,7 @@ export function liftText(lift: number): string {
 }
 
 export const CONFIDENCE: Record<string, string> = {
-  high: "Top 20% taste fit, clearly above a typical venue, backed by at least two of your reference brands.",
+  high: "Top 20% taste fit, clearly above a typical venue, backed by at least two of your reference brands (or by your own brand when Qloo knows it and it is the only one).",
   medium: "Top 40% taste fit and above a typical venue.",
   low: "Weaker or less certain taste fit. Worth a look, not a priority.",
 };

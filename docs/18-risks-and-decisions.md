@@ -63,6 +63,7 @@
 | 2026-10-19 | D-11 Live rules (read 2026-10-19): demo video **not** required; an externally hosted demo **is** required; licence visible in repo About | Devpost overview and rules pages |
 | 2026-10-19 | D-12 Gemini adapter not built; provider layer has Ollama Cloud + Fake | Not needed for the demo; adding one is a new file under `llm/` |
 | 2026-10-19 | D-13 Confidence `support` = number of signal entities whose explainability score is at least half their fair share (≥ 0.5/k); `high` needs support ≥ 2 | Qloo explainability is per signal entity; a match driven by one comparable is weaker evidence |
+| 2026-10-19 | D-13a `high` needs support ≥ min(2, brands in the signal) | End-to-end run with a brand Qloo knows by itself (one signal entity): no venue could ever be `high` |
 | 2026-10-19 | D-14 Café venue type uses only `urn:tag:category:place:coffee_shop` | Verified in Phase 0; OR semantics of several `filter.tags` values are unverified |
 | 2026-10-19 | D-15 Contact chooser order (refines D-08): verified role Hunter → verified generic Hunter → OSM email → venue-site email → unverified Hunter; invalid or disposable never used | Prefer verified, then public listings, then the venue's own page |
 | 2026-10-19 | D-16 Fixture mode serves recorded Qloo responses by normalised params, with two documented synthetic cases: unknown `/search` name → no results; per-product `filter.results.entities` → recorded places with a deterministic affinity | Per-product calls cannot be pre-recorded for every product combination; tests still never touch the network |

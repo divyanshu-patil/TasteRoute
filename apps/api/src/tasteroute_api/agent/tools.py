@@ -146,7 +146,8 @@ async def score_from_stored(ctx: RunContext, *, max_venues: int | None = None, e
             rank.Candidate(p.entity_id, p.affinity, p.popularity, rank.support([(x.entity_id, x.score) for x in p.explain()]))
             for p in gt.kept
         ]
-        scored = rank.score_type(vt, cands, [p.entity_id for p in gb.kept], {p.entity_id: p.popularity for p in gb.kept}, weights)
+        scored = rank.score_type(vt, cands, [p.entity_id for p in gb.kept], {p.entity_id: p.popularity for p in gb.kept}, weights,
+                                  signals=len(ctx.settings_json.get("signal") or []) or 2)
         per_type.append(scored)
         by_type[vt] = len(scored)
         baseline_counts[vt] = len(gb.kept)

@@ -38,6 +38,11 @@ def test_confidence_boundaries(t, lift, support, label):
     assert rank.confidence(t, lift, support) == label
 
 
+def test_one_brand_signal_can_be_high_confidence():
+    assert rank.confidence(0.8, 0.15, 1, signals=1) == "high"
+    assert rank.confidence(0.8, 0.15, 1, signals=3) == "medium"
+
+
 def test_support_counts_fair_share_contributors():
     assert rank.support([("a", 0.5), ("b", 0.3), ("c", 0.2)]) == 3
     assert rank.support([("a", 0.9), ("b", 0.05), ("c", 0.05)]) == 1
