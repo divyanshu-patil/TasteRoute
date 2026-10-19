@@ -44,12 +44,21 @@ All 11 routes in `08-frontend-spec.md` built on `DESIGN.md` (Anton/Inter/JetBrai
 
 Unit tests: progress reducer (replay ignored, failures), formatting, source-chip rendering, copy grep.
 
+## Phase 6: Demo and evaluation — in progress 2026-10-19
+
+| ID | Status |
+|---|---|
+| DMO (seed) | Sample run re-seeded with live calls after the name-matching fix (Health-Ade Kombucha now resolves). Agent ran both phases; 60 venues; 4 of 8 top venues have a public email; all 4 drafts LLM-written with cited Qloo evidence. `/v1/demo` serves the newest demo-workspace run, so no env change is needed locally. |
+| EVL-01 | `scripts/evaluate.py` → `docs/evaluation-results.md`. Two brands (specialty coffee vs mainstream cola). Brand overlap 0.00, A vs popularity 0.00, A vs no-Qloo 0.00 (pool effect stated: only 1 of A's 15 was in C's OSM pool). Metric 3 (blind pairs, `docs/evaluation_pairs.csv`) and metric 4 (reason checks) wait for a human judge. |
+| Deploy | Waiting on hosting accounts and a Supabase `DATABASE_URL`. |
+
 ## Budget used
 
 | Service | Calls |
 |---|---|
-| Qloo | 44 live (37 × 200, 7 × 400 while learning `take` limit and shell quoting); 0 in tests |
-| Ollama Cloud | ~20 (spike) |
+| Qloo | 86 live: 44 Phase 0 spikes (7 × 400 while learning the `take` limit), 25 first seed, 9 re-seed, 8 evaluation (re-run fully cached); 0 in tests |
+| Ollama Cloud | ~84: ~20 spike, ~20 first seed, 20 re-seed, 12 + 12 evaluation |
+| Venue websites | 8 re-seed (first seed also read venue sites) |
 | Nominatim / Overpass | 1 / 1 |
 | Hunter | 0 (no key) |
 
