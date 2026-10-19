@@ -30,6 +30,20 @@ Go/no-go: **GO**, demo city Brooklyn. Contracts: `docs/qloo-contract.md`, `docs/
 
 Notes: LLM-03 (Ollama Cloud without local Ollama) verified in Phase 0 spike. DMO-04 is covered by the LLM cap (agent hands over to the deterministic plan, results kept); a Qloo per-run cap fails the phase closed, like the kill switch.
 
+## Phase 5: Frontend — done 2026-10-19
+
+All 11 routes in `08-frontend-spec.md` built on `DESIGN.md` (Anton/Inter/JetBrains Mono, canvas #e5e5e5, white 24–32 px cards, inverted black, mint tags, yellow emails, no shadows). Types come from `packages/contracts` (generated from the API's OpenAPI). `pnpm turbo lint check-types test --filter=web`: clean, 9 Vitest tests.
+
+| ID | Evidence |
+|---|---|
+| UI-01 | Visual review of every screen at 1440 px and 390 px against `DESIGN.md`; screenshots in `docs/screenshots/` |
+| UI-02 | All 11 states reachable: skeletons, SSE live steps with Qloo counter (live vs cached), warnings, Qloo error panel with retry and no partial table, LLM-unavailable banner and "template" drafts, unsupported-business panel, low-coverage notice, "No public business email found" with sources checked, empty filter with "Clear filters", offline banner with `Last-Event-ID` replay, 404 |
+| UI-03 | Fit, lift, confidence and every stat card have tooltips; reason markers render as "Qloo" / "Our inference" chips that link to the trace |
+| UI-04 | Lighthouse accessibility 95–100 on 7 pages (only remaining flag was `#979797` text, now darkened); skip link, visible focus, tooltips on focus; no horizontal scroll at 390 px |
+| UI-05 | `lib/copy.test.ts` greps all UI source for "will buy" / "demand" |
+
+Unit tests: progress reducer (replay ignored, failures), formatting, source-chip rendering, copy grep.
+
 ## Budget used
 
 | Service | Calls |
