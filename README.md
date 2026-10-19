@@ -10,9 +10,9 @@
 </p>
 
 <p align="center">
-  <img src="./docs/screenshots/results.png" width="100%" alt="Results for the Brooklyn sample run: 60 venues ranked, 19 high confidence, 11 Qloo calls, the taste signal brands, filters, and a table of venues with fit, lift, confidence, best product, reason and contact status.">
+  <img src="./docs/screenshots/results.png" width="100%" alt="Results for the Brooklyn sample run: 60 venues ranked, 19 high confidence, 11 Qloo calls, the taste signal brands, filters, a map with the top 10 numbered by rank, and a table of venues with fit, lift, confidence, best product, reason and contact status.">
 </p>
-<p align="center"><sub>The sample run: a fictional Brooklyn drinks maker (cold brew, kombucha, aperitivo), 60 cafés and bars ranked from 11 Qloo calls.</sub></p>
+<p align="center"><sub>The sample run: a fictional Brooklyn drinks maker (cold brew, kombucha, aperitivo), 60 cafés and bars ranked from 11 Qloo calls. "Take the tour" on the sample walks through every screen.</sub></p>
 
 ## What it is
 
@@ -47,19 +47,37 @@ Switch Qloo off and TasteRoute says it cannot rank venues and stops. It never fa
 3. **Rank.** For each venue type, a Qloo `/v2/insights` place query with your brands as the signal and `feature.explainability` gives the **taste** percentile and which of your brands drive it. The same query without a signal gives the **popularity** baseline. `lift = taste − popularity`, `fit = 0.7 × taste + 0.3 × max(lift, 0)`.
 4. **Evidence and product fit.** One insights query per product with `filter.results.entities` scores every ranked venue for that product. Audience tags (`filter.type=urn:tag`) and each venue's Qloo tags explain the match. Reasons label each claim as "Qloo" or "Our inference".
 5. **Contacts.** Only public business addresses: the venue's OpenStreetMap listing and its own website (Hunter domain search when a key is set). Every contact shows where it was published.
-6. **Drafts.** The LLM writes a short pitch from an evidence bundle. A grounding validator rejects any name, number or claim not in that bundle; after one repair attempt, a template that always passes takes over. Nothing is sent for you.
+6. **Drafts.** The LLM writes a short pitch from an evidence bundle. A grounding validator rejects any name or number that is not in that bundle, and any draft that cites unknown evidence, misnames the venue or drops the opt-out line. After one repair attempt, a template that always passes takes over. Nothing is sent for you.
 
 An AI agent (Gemma 4 31B on Ollama Cloud, native tool calls) runs these steps as tools. A plan guard checks every call's phase, order and arguments. After two invalid steps, an unavailable model or the step limit, a deterministic plan runs the same tools and produces identical scores.
+
+```mermaid
+flowchart LR
+  W[Next.js web app] -- HTTPS + SSE --> R[FastAPI routes]
+  R --> AG[Agent loop + plan guard]
+  AG --> LLM[Gemma 4 31B on Ollama Cloud]
+  AG --> T[Tools]
+  AG -. fallback .-> DP[Deterministic plan] --> T
+  T --> Q[Qloo client: cache, rate limit, budget] --> QL[(Qloo API)]
+  T --> S[Scoring: fit, lift, confidence, product fit]
+  T --> X[Contacts: OpenStreetMap, venue sites, Hunter]
+  T --> G[Grounding validator]
+  R --> DB[(Postgres, row-level security)]
+  T --> DB
+  W -. map tiles .-> OSM[(OpenStreetMap tiles)]
+```
+
+Keys stay on the API. The browser calls only FastAPI, plus public map tiles that need no key.
 
 ## See every step
 
 <table>
   <tr>
-    <td width="50%"><img src="./docs/screenshots/venue.png" alt="Venue detail for Oslo Coffee Roasters: fit 91, lift +85, taste percentile 94, popularity percentile 9, reason with Qloo source chips, per-product fit bars and the Qloo evidence list."></td>
+    <td width="50%"><img src="./docs/screenshots/venue.png" alt="Venue detail for Oslo Coffee Roasters: fit 91, lift +85, taste percentile 94, popularity percentile 9, reason with Qloo source chips, per-product fit bars, the Qloo evidence list and a map."></td>
     <td width="50%"><img src="./docs/screenshots/outreach.png" alt="Outreach page: contacts with sources checked, an AI draft citing one Qloo fact, and an export bar."></td>
   </tr>
   <tr>
-    <td><b>Venue detail.</b> Fit, lift and both percentiles, per-product fit, and each piece of Qloo evidence.</td>
+    <td><b>Venue detail.</b> Fit, lift and both percentiles, per-product fit, each piece of Qloo evidence, and where the venue is.</td>
     <td><b>Outreach.</b> Contacts with their sources, editable drafts, approve, open in mail app, CSV export.</td>
   </tr>
   <tr>
@@ -112,6 +130,8 @@ uv run python scripts/seed_demo.py   # optional: builds the sample run with live
 cd ../.. && pnpm dev                 # web on http://localhost:3000, API on http://localhost:8000
 ```
 
+Open http://localhost:3000/sample?tour=1 for the guided tour of the sample run.
+
 Set `LLM_PROVIDER=fake` to run without an LLM key. Ranking still needs Qloo.
 
 ### Tests
@@ -122,13 +142,15 @@ createdb tasteroute_test
 pnpm turbo lint check-types test
 ```
 
-103 API tests (pytest) and 9 web tests (Vitest). Tests never call Qloo, the LLM or OpenStreetMap: recorded fixtures, a fake model, and a network block stand in. CI runs the same checks on Postgres 15.
+110 API tests (pytest) and 10 web tests (Vitest). Tests never call Qloo, the LLM or OpenStreetMap: recorded fixtures, a fake model, and a network block stand in. CI runs the same checks on Postgres 15 and fails if `packages/contracts` drifts from the API.
+
+With the API running, `uv run python scripts/e2e_smoke.py` (in `apps/api`) walks the whole judge path over HTTP: intake, Qloo matches, run, ranking, rescore, contacts, drafts, approval, CSV export, do-not-contact, trace. It makes live calls (about 10 Qloo and 15–25 LLM) and prints what it spent.
 
 ## Project layout
 
 ```text
 apps/api            FastAPI: Qloo client, scoring, agent and plan guard, outreach, SSE progress
-apps/web            Next.js: wizard, live run, results, venue detail, outreach, trace
+apps/web            Next.js: wizard, live run, results and map, venue detail, outreach, trace, guided tour
 packages/contracts  TypeScript types generated from the API's OpenAPI schema
 supabase/migrations Postgres schema (row-level security on every table)
 docs/               Product brief, architecture, Qloo contract, evaluation, runbook
@@ -138,7 +160,9 @@ docs/               Product brief, architecture, Qloo contract, evaluation, runb
 
 - Ranking covers only places Qloo knows. A great venue missing from Qloo never appears.
 - One demo city (Brooklyn) and one category pack (food and drink) are tuned and tested.
-- Contacts cover about half of top venues in the sample (4 of 8), from public listings and venue sites.
+- Contacts depend on what venues publish: 4 of the top 8 in the sample, 1 of 6 and 0 of 5 in two later test runs (Brooklyn bars, Chicago). Ranking never depends on them.
+- The public demo allows 3 live runs per visitor per day (`PUBLIC_RUNS_PER_IP_PER_DAY`). The sample run is always free.
+- The map uses OpenStreetMap's public tiles, which allow light use only.
 - Taste fit is a starting list, not a sales forecast.
 
 ## Licence

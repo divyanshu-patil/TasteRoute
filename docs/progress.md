@@ -56,16 +56,20 @@ Unit tests: progress reducer (replay ignored, failures), formatting, source-chip
 
 Done: README (hero and drawn flow in `assets/readme/`, real screenshots), MIT `LICENSE`, `docs/devpost.md`, CI (`.github/workflows/ci.yml`), Render blueprint (`render.yaml`). Project renamed to TasteRoute (package `tasteroute_api`, local DBs `tasteroute` / `tasteroute_test`).
 
+Claims audit and end-to-end check: every judge-path step passes over HTTP (`scripts/e2e_smoke.py`, run 9c15f088). Passing: SEC-01 (secret scan clean), API-01 (contracts current; CI now fails on drift), QLO-07, LLM-06, REP-01, REP-02 (architecture diagram added to the README), REP-03 (clean clone). Fixed on the way: contact choice prefers the venue's own sales or main inbox and drops placeholder, script-embedded and other-domain emails (CON-03, CON-05); brand name read from the site's title (INT-01); a one-brand signal can reach high confidence (FIT-02, D-13a); comparables must fit the product, so "Bubbies" no longer matches "Bubbies Ice Cream" (ENT-03); city search returns 503 when Nominatim is down (REL-01); tests refuse non-loopback sockets (SEC-01). Docs corrected: the grounding validator checks names, numbers, evidence ids, the venue name and the opt-out line, not general claims.
+
+Added at the user's request: a venue map on results and venue detail (Leaflet, grey OSM tiles, numbered rank pins) and a guided tour of the sample run (`?tour=1`, results → venue → outreach → trace). 110 API and 10 web tests pass. Not built: DAT-04 (stretch cleanup script).
+
 Open: public deploy (needs accounts and a Supabase URL), demo video, a cited wholesale figure for the Devpost text, blind-pair judging (metric 3) and reason checks (metric 4).
 
 ## Budget used
 
 | Service | Calls |
 |---|---|
-| Qloo | 86 live: 44 Phase 0 spikes (7 × 400 while learning the `take` limit), 25 first seed, 9 re-seed, 8 evaluation (re-run fully cached); 0 in tests |
-| Ollama Cloud | ~84: ~20 spike, ~20 first seed, 20 re-seed, 12 + 12 evaluation |
-| Venue websites | 8 re-seed (first seed also read venue sites) |
-| Nominatim / Overpass | 1 / 1 |
+| Qloo | 128 live: 44 Phase 0 spikes (7 × 400 while learning the `take` limit), 25 first seed, 9 re-seed, 8 evaluation (re-run fully cached), 42 claims audit and end-to-end runs; 0 in tests |
+| Ollama Cloud | ~157: ~20 spike, ~20 first seed, 20 re-seed, 12 + 12 evaluation, 11 sample outreach refresh, 62 audit and end-to-end runs |
+| Venue websites | 27 live in the local DB (seed, contact fixes, end-to-end runs) |
+| Nominatim / Overpass | 2 / 5 live in the local DB |
 | Hunter | 0 (no key) |
 
 ## Blockers / needed from the user

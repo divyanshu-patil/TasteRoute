@@ -87,7 +87,7 @@ flowchart LR
   T --> DB
 ```
 
-The browser talks **only** to FastAPI. It never calls Supabase, Qloo, Hunter or Ollama directly, so no key ever reaches the browser.
+The browser talks **only** to FastAPI, plus public OpenStreetMap tiles for the map (no key). It never calls Supabase, Qloo, Hunter or Ollama directly, so no key ever reaches the browser.
 
 ## Run lifecycle
 

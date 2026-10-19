@@ -38,8 +38,9 @@ export function VenueMap({ pins, label, height = 380 }: { pins: Pin[]; label: st
     if (key === fitted.current) return; // selection changes recolour pins without moving the map
     fitted.current = key;
     m.invalidateSize();
-    if (pts.length > 1) m.fitBounds(pts.map((p) => [p.lat, p.lon] as [number, number]), { padding: [24, 24], maxZoom: 15 });
-    else if (pts[0]) m.setView([pts[0].lat, pts[0].lon], 15);
+    const focus = pts.some((p) => !p.dot) ? pts.filter((p) => !p.dot) : pts; // frame the numbered pins; dots may sit just outside
+    if (focus.length > 1) m.fitBounds(focus.map((p) => [p.lat, p.lon] as [number, number]), { padding: [32, 32], maxZoom: 15 });
+    else if (focus[0]) m.setView([focus[0].lat, focus[0].lon], 15);
   };
 
   useEffect(() => {
@@ -47,7 +48,7 @@ export function VenueMap({ pins, label, height = 380 }: { pins: Pin[]; label: st
     import("leaflet").then((mod) => {
       if (!alive || !el.current || map.current) return;
       L.current = mod;
-      map.current = mod.map(el.current, { scrollWheelZoom: false, zoomSnap: 0.25 });
+      map.current = mod.map(el.current, { scrollWheelZoom: false });
       mod.tileLayer(TILES, { attribution: ATTRIBUTION, maxZoom: 19 }).addTo(map.current);
       layer.current = mod.layerGroup().addTo(map.current);
       draw();
