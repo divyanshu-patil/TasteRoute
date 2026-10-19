@@ -69,7 +69,7 @@
 ## Supabase Auth and Gmail (F12)
 
 - Supabase project → Authentication → Providers → Google: enabled with the Google OAuth client. URL configuration: the site URL and redirect URLs must include the web app's origin (`http://localhost:3000/**` locally).
-- Google Cloud: the Gmail API enabled, and `https://www.googleapis.com/auth/gmail.send` added to the OAuth consent screen. While the app is unverified, only listed test users can grant it.
+- Google Cloud: the Gmail API enabled, and `https://www.googleapis.com/auth/gmail.send` added to the OAuth consent screen, with the app's privacy policy (`https://<web>/privacy`) and terms (`https://<web>/terms`) links. While the app is unverified, only listed test users can grant it.
 - Sign-in asks for `gmail.send` (send only, never read). The API checks a Supabase access token with `GET {SUPABASE_URL}/auth/v1/user` once per sign-in.
 - Sending: `POST https://gmail.googleapis.com/gmail/v1/users/me/messages/send` with `{raw}` (the RFC 2822 message, base64url). 401 or 403 means the token expired or the permission wasn't granted; the user reconnects. Google's client secret is not needed: there is no server-side refresh.
 

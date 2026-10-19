@@ -79,3 +79,11 @@ export function ContactSource({ contact }: { contact: { source: string; sources:
     ? <a className="link" href={uri} target="_blank" rel="noopener noreferrer">{label} ↗</a>
     : <>{label}</>;
 }
+
+/** Who to write to about privacy or the terms. Set NEXT_PUBLIC_CONTACT_EMAIL; until then, Google's sign-in screen shows it. */
+export function Contact() {
+  const email = process.env.NEXT_PUBLIC_CONTACT_EMAIL;
+  return email ? <a href={`mailto:${email}`}>{email}</a> : <>the support email shown on our Google sign-in screen</>;
+}
+
+export const UPDATED = "20 October 2026";
