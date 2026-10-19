@@ -1,5 +1,7 @@
 """LLM-04, AGT-02, AGT-03 (unit), SEC-02, INT-01, CON-01."""
 
+import socket
+
 import httpx
 import pytest
 import respx
@@ -115,3 +117,8 @@ async def test_fake_provider_plays_plan_then_finishes():
     done = [{"role": "tool", "tool_name": "find_contacts"}, {"role": "tool", "tool_name": "draft_pitches"}]
     r2 = await p.chat(done, tools=tools, temperature=0, max_tokens=1, timeout=1)
     assert r2.tool_calls[0].name == "finish_phase"
+
+
+def test_tests_cannot_reach_the_internet():
+    with pytest.raises(AssertionError, match="network access in tests"):
+        socket.create_connection(("1.1.1.1", 80), timeout=1)

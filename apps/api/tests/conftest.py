@@ -3,6 +3,7 @@
 import hashlib
 import json
 import os
+import socket
 from pathlib import Path
 from typing import Any
 from urllib.parse import parse_qsl
@@ -105,6 +106,19 @@ def fake_site(request: httpx.Request) -> httpx.Response:
     if request.url.path == "/robots.txt":
         return httpx.Response(404)
     return httpx.Response(200, html=SITE.format(host=host))
+
+
+@pytest.fixture(autouse=True)
+def no_internet(monkeypatch: pytest.MonkeyPatch) -> None:
+    """Only loopback (the test database) is reachable; anything else fails the test, even without respx."""
+    real = socket.socket.connect
+
+    def connect(self: socket.socket, address: Any) -> Any:
+        if self.family in (socket.AF_INET, socket.AF_INET6) and address[0] not in ("127.0.0.1", "::1", "localhost"):
+            raise AssertionError(f"network access in tests: {address[0]}")
+        return real(self, address)
+
+    monkeypatch.setattr(socket.socket, "connect", connect)
 
 
 @pytest.fixture
