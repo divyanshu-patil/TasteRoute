@@ -20,7 +20,7 @@ A small food or drink brand needs its first wholesale accounts. Lists of cafés 
 
 - **Which venues to pitch**, ranked by taste fit, not by how busy they are.
 - **Which product to lead with** at each one.
-- **Where they are**, on a map numbered by rank.
+- **Where they are**, on a map numbered by rank, and how far each one is from your business if you set its location.
 - **Why**, as a reason built from Qloo's explanation, with every source one click away.
 - **A first email** that cites only that evidence, for you to edit, approve and send from your own inbox.
 
@@ -87,7 +87,7 @@ Keys stay on the API. The browser calls only FastAPI, plus public map tiles that
   </tr>
   <tr>
     <td><b>Trace.</b> Every agent step, LLM call, Qloo call and web lookup, in order. Keys never appear.</td>
-    <td><b>Start.</b> Four steps: brand, profile, Qloo matches, city and venue types.</td>
+    <td><b>Start.</b> Four steps: brand, profile, Qloo matches, then city, your location (search or click the map, optional) and venue types.</td>
   </tr>
   <tr>
     <td><img src="./docs/screenshots/tour.png" alt="Guided tour, step 4 of 6: the results map is outlined and a black card explains that the top 10 venues are numbered by rank."></td>
@@ -151,7 +151,7 @@ createdb tasteroute_test
 pnpm turbo lint check-types test
 ```
 
-110 API tests (pytest) and 10 web tests (Vitest). Tests never call Qloo, the LLM or OpenStreetMap: recorded fixtures, a fake model, and a network block stand in. CI runs the same checks on Postgres 15 and fails if `packages/contracts` drifts from the API.
+114 API tests (pytest) and 13 web tests (Vitest). Tests never call Qloo, the LLM or OpenStreetMap: recorded fixtures, a fake model, and a network block stand in. CI runs the same checks on Postgres 15 and fails if `packages/contracts` drifts from the API.
 
 With the API running, `uv run python scripts/e2e_smoke.py` (in `apps/api`) walks the whole judge path over HTTP: intake, Qloo matches, run, ranking, rescore, contacts, drafts, approval, CSV export, do-not-contact, trace. It makes live calls (about 10 Qloo and 15–25 LLM) and prints what it spent.
 
@@ -171,7 +171,7 @@ docs/               Product brief, architecture, Qloo contract, evaluation, runb
 - One demo city (Brooklyn) and one category pack (food and drink) are tuned and tested.
 - Contacts depend on what venues publish: 4 of the top 8 in the sample, 1 of 6 and 0 of 5 in two later test runs (Brooklyn bars, Chicago). Ranking never depends on them.
 - The public demo allows 3 live runs per visitor per day (`PUBLIC_RUNS_PER_IP_PER_DAY`). The sample run is always free.
-- The map uses OpenStreetMap's public tiles, which allow light use only.
+- The map uses OpenStreetMap's public tiles, which allow light use only. Distances are straight lines, not travel routes, and your location never changes the ranking.
 - Taste fit is a starting list, not a sales forecast.
 
 ## Licence

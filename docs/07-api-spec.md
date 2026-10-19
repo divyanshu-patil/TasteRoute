@@ -16,8 +16,10 @@ Every request carries the signed workspace token in the `X-Workspace-Token` head
 | `GET /v1/brands/{id}` / `PATCH /v1/brands/{id}` | Read or edit a brand and products | F01 |
 | `POST /v1/brands/{id}/resolve` | Resolve products to Qloo entities (preview before a run) → per product: entities, dropped names | F02 |
 | `GET /v1/qloo/search?q=&type=` | Manual entity search for adding comparables (cached, counts to budget) | F02 |
-| `GET /v1/cities/search?q=` | City lookup via Nominatim (cached, 1 req/s) | F03 |
-| `POST /v1/runs` | `{brand_id, product_ids, entity_ids_by_product, city_id_or_query, venue_types}` → `202 {run_id}` | F09 |
+| `GET /v1/cities/search?q=` | City lookup via Nominatim (cached, 1 req/s); each hit has a plain-English `label` and `detail` | F03 |
+| `GET /v1/places/search?q=&bbox=s,w,n,e` | The brand's own location: Nominatim search bounded to the city's box → `[{label, detail, lat, lon}]` | F03 |
+| `GET /v1/places/reverse?lat=&lon=` | A dropped map pin → nearest address as `{label, detail, lat, lon}` ("Dropped pin" if Nominatim has none) | F03 |
+| `POST /v1/runs` | `{brand_id, product_ids, entity_ids_by_product, city_id_or_query, venue_types, base?}`; `base` is the brand's location, used only for distances, never for ranking → `202 {run_id}` | F09 |
 | `GET /v1/runs/{id}` | Run status, counters, orchestration, warnings | F09 |
 | `GET /v1/runs/{id}/events?token=` | SSE stream; supports `Last-Event-ID` | F09 |
 | `GET /v1/runs/{id}/venues?type=&confidence=&product_id=&limit=&offset=` | Ranked venues with fit, lift, confidence, best product, reason | F03–F05 |
@@ -80,4 +82,4 @@ Every request carries the signed workspace token in the `X-Workspace-Token` head
 
 - `POST /v1/runs`: `PUBLIC_RUNS_PER_IP_PER_DAY` per IP and per workspace.
 - `POST /v1/brands/intake`: 20 per hour per IP.
-- `GET /v1/qloo/search` and `/v1/cities/search`: 30 per minute per IP.
+- `GET /v1/qloo/search`, `/v1/cities/search` and `/v1/places/*`: 30 per minute per IP.

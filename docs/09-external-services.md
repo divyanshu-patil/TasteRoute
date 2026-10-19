@@ -6,7 +6,7 @@
 |---|---|---|---|---|
 | Ollama Cloud | Agent, profile, comparables, drafts | Bearer API key | Account limits (check your plan) | No |
 | Hunter API v2 | Business emails for venue domains | `X-API-KEY` header | Domain search 15 req/s, 500/min; verifier 10 req/s, 300/min; free plan 50 credits/month | 14 days per domain |
-| Nominatim | City geocoding | Identifying User-Agent | Max 1 req/s, cache, no autocomplete, no systematic queries | 30 days |
+| Nominatim | City and business-location geocoding, reverse lookup of a dropped pin | Identifying User-Agent | Max 1 req/s, cache, no autocomplete, no systematic queries | 30 days |
 | Overpass API | Venue website and email tags | Identifying User-Agent | No parallel queries, back off on 429/406, light daily use | 7 days per (city, venue type) |
 | Website reader | Brand intake pages | None | Robots.txt, timeouts, SSRF guard | 7 days per URL |
 | OpenStreetMap tiles | Map on results and venue pages (loaded by the browser, not the API) | None; attribution shown on the map | [Tile usage policy](https://operations.osmfoundation.org/policies/tiles/): light use only, no bulk download. Swap to a keyed or self-hosted tile service before real traffic | Browser cache |
@@ -24,9 +24,10 @@
 
 ## Nominatim
 
-- `GET {NOMINATIM_BASE_URL}/search?q=<city>&format=jsonv2&limit=5&addressdetails=1` with `User-Agent: OSM_USER_AGENT`.
+- `GET {NOMINATIM_BASE_URL}/search?q=<city>&format=jsonv2&limit=5&addressdetails=1&accept-language=en` with `User-Agent: OSM_USER_AGENT`.
+- Business location: the same `/search` with `viewbox=<city box>&bounded=1&limit=6`, and `/reverse?lat=&lon=&zoom=18` for a pin dropped on the map. Labels are built from `name` or house number and road; the detail line from neighbourhood, city, state and country.
 - One request per second maximum across the whole app (shared limiter), results cached 30 days.
-- Used only for explicit city searches the user types (debounced, minimum 3 characters, not keystroke autocomplete).
+- Called only on an explicit action: pressing Enter or Search (minimum 3 characters), or clicking the map. Never as you type.
 - Show "© OpenStreetMap contributors" attribution where OSM data appears.
 
 ## Overpass

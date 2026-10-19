@@ -175,6 +175,46 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/v1/places/reverse": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Reverse
+         * @description Names a pin dropped on the map.
+         */
+        get: operations["reverse_v1_places_reverse_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/places/search": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Places
+         * @description The brand's own address or business, searched on submit (Nominatim allows no autocomplete).
+         */
+        get: operations["places_v1_places_search_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/v1/products/{product_id}/entities": {
         parameters: {
             query?: never;
@@ -543,6 +583,27 @@ export interface components {
             /** Name */
             name: string;
         };
+        /** CityHit */
+        CityHit: {
+            /** Bbox */
+            bbox: number[];
+            /** Country */
+            country?: string | null;
+            /** Detail */
+            detail: string;
+            /** Display Name */
+            display_name?: string | null;
+            /** Id */
+            id?: string | null;
+            /** Label */
+            label: string;
+            /** Lat */
+            lat: number;
+            /** Lon */
+            lon: number;
+            /** Name */
+            name: string;
+        };
         /** ContactOut */
         ContactOut: {
             /** Confidence */
@@ -720,6 +781,23 @@ export interface components {
             /** Website Url */
             website_url?: string | null;
         };
+        /**
+         * Place
+         * @description A point with a plain-English name: the brand's own location (search result, map pin or a run's base).
+         */
+        Place: {
+            /**
+             * Detail
+             * @default
+             */
+            detail: string;
+            /** Label */
+            label: string;
+            /** Lat */
+            lat: number;
+            /** Lon */
+            lon: number;
+        };
         /** ProductIn */
         ProductIn: {
             /** Kind */
@@ -805,6 +883,7 @@ export interface components {
         };
         /** RunIn */
         RunIn: {
+            base?: components["schemas"]["Place"] | null;
             /** Brand Id */
             brand_id: string;
             city: components["schemas"]["City"];
@@ -819,6 +898,7 @@ export interface components {
         };
         /** RunOut */
         RunOut: {
+            base?: components["schemas"]["Place"] | null;
             /** Brand */
             brand: {
                 [key: string]: unknown;
@@ -957,6 +1037,7 @@ export interface components {
         VenueDetail: {
             /** Address */
             address: string | null;
+            base?: components["schemas"]["Place"] | null;
             /** Checked Sources */
             checked_sources: string[];
             /** Contacts */
@@ -1274,9 +1355,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": {
-                        [key: string]: unknown;
-                    }[];
+                    "application/json": components["schemas"]["CityHit"][];
                 };
             };
             /** @description Validation Error */
@@ -1363,6 +1442,71 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["Accepted"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    reverse_v1_places_reverse_get: {
+        parameters: {
+            query: {
+                lat: number;
+                lon: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Place"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    places_v1_places_search_get: {
+        parameters: {
+            query: {
+                q: string;
+                /** @description south,west,north,east */
+                bbox?: string | null;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Place"][];
                 };
             };
             /** @description Validation Error */

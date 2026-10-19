@@ -287,3 +287,53 @@ async def test_city_search_says_when_nominatim_is_down(client, ws, net, svc):
     net.route(url__startswith=svc.settings.nominatim_base_url).mock(side_effect=httpx.ConnectTimeout("down"))
     r = await client.get("/v1/cities/search", headers=ws, params={"q": "Atlantis"})
     assert r.status_code == 503 and r.json()["code"] == "city_search_unavailable"
+
+
+async def test_city_hits_read_in_plain_english(client, ws):
+    hit = (await client.get("/v1/cities/search", headers=ws, params={"q": "Brooklyn"})).json()[0]
+    assert (hit["label"], hit["detail"]) == ("Brooklyn", "New York, United States")
+
+
+async def test_place_search_is_bounded_to_the_city_and_plain_english(client, ws, net, svc):
+    hit = {"lat": "40.7290", "lon": "-73.9540", "name": "",
+           "address": {"house_number": "123", "road": "Franklin Street", "neighbourhood": "Greenpoint", "suburb": "Brooklyn",
+                       "city_district": "Kings County", "city": "New York", "state": "New York", "postcode": "11222",
+                       "country": "United States"}}
+    route = net.route(url__startswith=svc.settings.nominatim_base_url).mock(
+        return_value=httpx.Response(200, json=[hit, {**hit, "lat": "40.7291"}]))  # same street, another segment
+    r = await client.get("/v1/places/search", headers=ws,
+                         params={"q": "123 Franklin St", "bbox": ",".join(map(str, BROOKLYN["bbox"]))})
+    assert r.json() == [{"label": "123 Franklin Street", "detail": "Greenpoint, Brooklyn, New York, United States",
+                         "lat": 40.729, "lon": -73.954}]
+    sent = route.calls.last.request.url.params
+    assert (sent["bounded"], sent["accept-language"]) == ("1", "en")
+    assert sent["viewbox"] == "-74.056688,40.739434,-73.832945,40.550339"
+    bad = await client.get("/v1/places/search", headers=ws, params={"q": "Franklin", "bbox": "1,2,3"})
+    assert bad.status_code == 422
+
+
+async def test_dropped_pin_gets_a_name_or_says_dropped_pin(client, ws, net, svc):
+    net.route(url__startswith=svc.settings.nominatim_base_url).mock(side_effect=[
+        httpx.Response(200, json={"lat": "40.72911", "lon": "-73.95401", "name": "St. Agrestis",
+                                  "address": {"road": "Franklin Street", "neighbourhood": "Greenpoint", "city": "New York",
+                                              "country": "United States"}}),
+        httpx.Response(200, json={"error": "Unable to geocode"}),
+    ])
+    a = (await client.get("/v1/places/reverse", headers=ws, params={"lat": 40.729114, "lon": -73.954011})).json()
+    assert a == {"label": "St. Agrestis", "detail": "Franklin Street, Greenpoint, New York, United States",
+                 "lat": 40.72911, "lon": -73.95401}
+    b = (await client.get("/v1/places/reverse", headers=ws, params={"lat": 40.6, "lon": -73.9})).json()
+    assert b["label"] == "Dropped pin" and b["detail"] == "40.6000, -73.9000"
+
+
+async def test_run_keeps_the_business_location(client, ws, svc):
+    brand = await make_brand(client, ws, svc)
+    base = {"label": "St. Agrestis", "detail": "Greenpoint, New York, United States", "lat": 40.729, "lon": -73.954}
+    r = await client.post("/v1/runs", headers=ws, json={"brand_id": brand["brand_id"], "product_ids": brand["product_ids"],
+                                                       "city": BROOKLYN, "venue_types": ["cafe"], "base": base})
+    assert r.status_code == 202, r.text
+    await run_service.drain()
+    run_id = r.json()["run_id"]
+    assert (await client.get(f"/v1/runs/{run_id}", headers=ws)).json()["base"] == base
+    v = (await _venues(client, ws, run_id))[0]
+    assert (await client.get(f"/v1/runs/{run_id}/venues/{v['venue_id']}", headers=ws)).json()["base"] == base

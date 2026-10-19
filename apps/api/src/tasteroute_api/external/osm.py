@@ -1,4 +1,4 @@
-"""Nominatim city lookup (1 req/s, cached 30 days) and Overpass venue contact tags (single-flight, cached 7 days)."""
+"""Nominatim city and place lookup (1 req/s, cached 30 days) and Overpass venue contact tags (single-flight, cached 7 days)."""
 
 import asyncio
 import math
@@ -31,13 +31,32 @@ def _lock() -> asyncio.Lock:
     return _overpass_lock
 
 
-async def search_cities(pool: asyncpg.Pool, http: httpx.AsyncClient, base_url: str, user_agent: str, q: str) -> list[dict[str, Any]]:
+# Address parts that read well to a person, most local first. Counties, districts and postcodes are left out.
+_PLAIN_KEYS = ("road", "neighbourhood", "quarter", "suburb", "city", "town", "village", "state", "country")
+
+
+def plain(x: dict[str, Any]) -> tuple[str, str]:
+    """A Nominatim result as (label, detail) in plain English, e.g. ("Brooklyn", "New York, United States")."""
+    a = x.get("address") or {}
+    street = " ".join(str(a[k]) for k in ("house_number", "road") if a.get(k))
+    label = x.get("name") or street or (x.get("display_name") or "").split(",")[0]
+    parts: list[str] = []
+    for k in _PLAIN_KEYS:
+        v = a.get(k)
+        if v and v != label and v not in parts and not (k == "road" and street == label):
+            parts.append(str(v))
+    return label, ", ".join(parts)
+
+
+async def _nominatim(pool: asyncpg.Pool, http: httpx.AsyncClient, base_url: str, user_agent: str, path: str,
+                     params: dict[str, Any], key: dict[str, Any]) -> Any:
+    """One Nominatim request: 1 req/s, cached 30 days, English names. Only on an explicit user action (no autocomplete)."""
     async def fetch() -> tuple[int, Any]:
         await _bucket().acquire()
         try:
             r = await http.get(
-                f"{base_url}/search",
-                params={"q": q, "format": "jsonv2", "limit": 5, "addressdetails": 1},
+                f"{base_url}{path}",
+                params={**params, "format": "jsonv2", "addressdetails": 1, "accept-language": "en"},
                 headers={"User-Agent": user_agent},
                 timeout=15,
             )
@@ -45,10 +64,15 @@ async def search_cities(pool: asyncpg.Pool, http: httpx.AsyncClient, base_url: s
             return 503, None
         return r.status_code, r.json() if r.status_code == 200 else None
 
-    status, body, _, _ = await cached_call(pool, "nominatim", "/search", {"q": q.strip().lower()}, timedelta(days=30), fetch)
+    status, body, _, _ = await cached_call(pool, "nominatim", path, key, timedelta(days=30), fetch)
     if status != 200:
-        raise AppError("City search is unavailable right now. Try again in a moment.", code="city_search_unavailable",
+        raise AppError("Location search is unavailable right now. Try again in a moment.", code="city_search_unavailable",
                        status=503)
+    return body
+
+
+async def search_cities(pool: asyncpg.Pool, http: httpx.AsyncClient, base_url: str, user_agent: str, q: str) -> list[dict[str, Any]]:
+    body = await _nominatim(pool, http, base_url, user_agent, "/search", {"q": q, "limit": 5}, {"q": q.strip().lower()})
     if not isinstance(body, list):
         return []
     out = []
@@ -58,6 +82,7 @@ async def search_cities(pool: asyncpg.Pool, http: httpx.AsyncClient, base_url: s
         bb = [float(v) for v in x.get("boundingbox", [])]
         if len(bb) != 4:
             continue
+        label, detail = plain(x)
         out.append({
             "id": f"{x.get('osm_type', 'n')[0]}{x.get('osm_id')}",
             "name": name,
@@ -66,8 +91,40 @@ async def search_cities(pool: asyncpg.Pool, http: httpx.AsyncClient, base_url: s
             "lat": float(x["lat"]),
             "lon": float(x["lon"]),
             "bbox": [bb[0], bb[2], bb[1], bb[3]],  # nominatim: [s, n, w, e] -> ours: [s, w, n, e]
+            "label": label,
+            "detail": detail,
         })
     return out
+
+
+async def search_places(pool: asyncpg.Pool, http: httpx.AsyncClient, base_url: str, user_agent: str, q: str,
+                        bbox: list[float] | None) -> list[dict[str, Any]]:
+    """Addresses, businesses or neighbourhoods matching q, inside bbox [s, w, n, e] when given."""
+    params: dict[str, Any] = {"q": q, "limit": 6}
+    if bbox:
+        s, w, n, e = bbox
+        params |= {"viewbox": f"{w},{n},{e},{s}", "bounded": 1}
+    body = await _nominatim(pool, http, base_url, user_agent, "/search", params,
+                            {"place_q": q.strip().lower(), "bbox": [round(v, 3) for v in bbox] if bbox else None})
+    out, seen = [], set()
+    for x in body if isinstance(body, list) else []:
+        label, detail = plain(x)
+        if (label, detail) not in seen:  # a street comes back once per OSM segment; one suggestion is enough
+            seen.add((label, detail))
+            out.append({"label": label, "detail": detail, "lat": float(x["lat"]), "lon": float(x["lon"])})
+    return out
+
+
+async def reverse_place(pool: asyncpg.Pool, http: httpx.AsyncClient, base_url: str, user_agent: str,
+                        lat: float, lon: float) -> dict[str, Any]:
+    """The address at a map pin; a plain "Dropped pin" when Nominatim has none (open water, parks)."""
+    lat, lon = round(lat, 5), round(lon, 5)
+    body = await _nominatim(pool, http, base_url, user_agent, "/reverse", {"lat": lat, "lon": lon, "zoom": 18},
+                            {"lat": lat, "lon": lon})
+    if not isinstance(body, dict) or body.get("error") or "lat" not in body:
+        return {"label": "Dropped pin", "detail": f"{lat:.4f}, {lon:.4f}", "lat": lat, "lon": lon}
+    label, detail = plain(body)
+    return {"label": label, "detail": detail, "lat": lat, "lon": lon}
 
 
 def overpass_query(key: str, value: str, bbox: list[float]) -> str:

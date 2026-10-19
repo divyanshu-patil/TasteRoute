@@ -52,6 +52,20 @@ class City(In):
         return v
 
 
+class CityHit(City):
+    label: str
+    detail: str
+
+
+class Place(In):
+    """A point with a plain-English name: the brand's own location (search result, map pin or a run's base)."""
+
+    label: str = Field(min_length=1, max_length=160)
+    detail: str = Field(default="", max_length=300)
+    lat: float = Field(ge=-90, le=90)
+    lon: float = Field(ge=-180, le=180)
+
+
 # ---------------------------------------------------------------- brands (F01, F02)
 class IntakeIn(In):
     website_url: HttpUrl | None = None
@@ -157,6 +171,7 @@ class RunIn(In):
     entity_ids_by_product: dict[str, list[str]] | None = None
     city: City
     venue_types: list[str] = Field(min_length=1, max_length=6)
+    base: Place | None = None
 
 
 class RunCreated(BaseModel):
@@ -183,6 +198,7 @@ class RunOut(BaseModel):
     is_demo: bool
     created_at: datetime
     finished_at: datetime | None
+    base: Place | None = None
 
 
 class BestProduct(BaseModel):
@@ -253,6 +269,7 @@ class VenueDetail(BaseModel):
     evidence: list[EvidenceOut]
     contacts: list[ContactOut]
     checked_sources: list[str]
+    base: Place | None = None
 
 
 class Weights(In):

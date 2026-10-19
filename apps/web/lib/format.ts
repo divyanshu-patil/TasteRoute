@@ -44,6 +44,15 @@ export const OUTREACH_STEPS = ["find_contacts", "draft_pitches"];
 /** Venue types come from the category pack; the API only returns ids on rows. */
 export const venueTypeLabel = (id: string) => id.charAt(0).toUpperCase() + id.slice(1);
 
+type LatLon = { lat: number; lon: number };
+/** Straight-line kilometres between two points (haversine). */
+export function km(a: LatLon, b: LatLon): number {
+  const r = Math.PI / 180;
+  const h = Math.sin(((b.lat - a.lat) * r) / 2) ** 2 + Math.cos(a.lat * r) * Math.cos(b.lat * r) * Math.sin(((b.lon - a.lon) * r) / 2) ** 2;
+  return 12742 * Math.asin(Math.sqrt(h));
+}
+export const kmText = (d: number) => `${d < 10 ? d.toFixed(1) : Math.round(d)} km`;
+
 export function ago(iso: string): string {
   const s = Math.max(0, (Date.now() - new Date(iso).getTime()) / 1000);
   if (s < 60) return "just now";

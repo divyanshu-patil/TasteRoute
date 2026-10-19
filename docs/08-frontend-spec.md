@@ -10,7 +10,7 @@
 | `/start` | Intake wizard, step 1 | Website URL field, "describe instead" toggle, Continue |
 | `/start` (step 2) | Brand profile | Editable profile card, product rows (1–5), unsupported banner (Flow D) |
 | `/start` (step 3) | Products and comparables | Per product: "Qloo knows this" or "Using similar brands", entity chips, remove, Qloo search to add |
-| `/start` (step 4) | City and venue types | City search (debounced), venue type checkboxes from the pack, Start run |
+| `/start` (step 4) | City, your location, venue types | City search (on Enter or Search, suggestions in a dropdown), optional business location (search inside the city or click the map; shown as a mint "You" pin), venue type checkboxes from the pack, Start run. With a location, results show km per venue and a "Nearest to you" sort; ranking is unchanged |
 | `/runs/[id]` | Live run then results | Progress steps with Qloo call counter, then the ranked table, filters, select checkboxes, "Find contacts" action |
 | `/runs/[id]/venues/[venueId]` | Venue detail | Fit, lift, confidence explainer, per-product fit bars, evidence list with source chips, OSM facts |
 | `/runs/[id]/outreach` | Contacts and drafts | Contact status per venue with sources, draft editors, approve, regenerate, export bar |

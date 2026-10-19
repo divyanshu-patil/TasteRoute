@@ -73,7 +73,8 @@ async def create_run(body: RunIn, request: Request, ws: str = Depends(workspace_
         raise QlooBudgetExceeded("The monthly Qloo budget is nearly used. Please explore the sample run instead.")
     city = {**body.city.model_dump(), "qloo_query": body.city.name}
     settings = {"entity_ids_by_product": body.entity_ids_by_product or {},
-                "weights": {"target": rank.Weights().target, "lift": rank.Weights().lift}}
+                "weights": {"target": rank.Weights().target, "lift": rank.Weights().lift},
+                "base": body.base.model_dump() if body.base else None}
     async with s.pool.acquire() as con, con.transaction():
         rid = await con.fetchval(
             "insert into runs (workspace_id, brand_id, city, venue_types, scoring_version, settings, client_ip_hash) "
@@ -113,7 +114,7 @@ async def get_run_out(run_id: str, ws: str = Depends(workspace_id), s: Services 
         resolution=st.get("resolution") or {}, scoring_version=r["scoring_version"],
         weights=st.get("weights") or {"target": 0.7, "lift": 0.3}, error_code=r["error_code"],
         error_message=r["error_message"], is_demo=r["workspace_kind"] == "demo", created_at=r["created_at"],
-        finished_at=r["finished_at"],
+        finished_at=r["finished_at"], base=st.get("base"),
     )
 
 
@@ -234,6 +235,7 @@ async def venue_detail(run_id: str, venue_id: str, ws: str = Depends(workspace_i
         product_fit=[{**dict(f), "percentile": float(f["percentile"]),
                       "margin": float(f["margin"]) if f["margin"] is not None else None} for f in fits],
         evidence=evidence, contacts=[_contact(c, demo) for c in cs], checked_sources=list(v["checked_sources"] or []),
+        base=(r["settings"] or {}).get("base"),
     )
 
 

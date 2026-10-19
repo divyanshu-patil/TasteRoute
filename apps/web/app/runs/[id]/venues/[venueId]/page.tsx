@@ -7,9 +7,9 @@ import { ReasonText } from "../../../../../components/reason";
 import { NotFoundPanel } from "../../../../../components/run-shell";
 import { Tour, type TourStep } from "../../../../../components/tour";
 import { ConfidenceBadge, ErrorPanel, Skeleton, SourceChip, Tip } from "../../../../../components/ui";
-import { VenueMap } from "../../../../../components/venue-map";
+import { VenueMap, type Pin } from "../../../../../components/venue-map";
 import { ApiError, api, type S } from "../../../../../lib/api";
-import { CONFIDENCE, CONTACT_STATUS, FIT_LABEL, liftText, pct, venueTypeLabel } from "../../../../../lib/format";
+import { CONFIDENCE, CONTACT_STATUS, FIT_LABEL, km, kmText, liftText, pct, venueTypeLabel } from "../../../../../lib/format";
 
 const TOUR: TourStep[] = [
   { target: "venue-scores", title: "One venue, all its numbers", body: "Fit and lift, and the two Qloo percentiles behind them: taste for your brands' fans, and plain popularity." },
@@ -72,7 +72,9 @@ export default function VenuePage() {
   if (error) return <div className="wrap">{error.status === 404 ? <NotFoundPanel /> : <ErrorPanel code={error.code} title={error.title} />}</div>;
   if (!d) return <div className="wrap"><Skeleton rows={8} /></div>;
   const v = d.venue;
-  const pin = d.lat != null && d.lon != null ? [{ id: v.venue_id, lat: d.lat, lon: d.lon, label: String(v.rank), title: v.name, sub: d.address ?? undefined }] : [];
+  const here = d.lat != null && d.lon != null ? { lat: d.lat, lon: d.lon } : null;
+  const pin: Pin[] = here ? [{ id: v.venue_id, ...here, label: String(v.rank), title: v.name, sub: d.address ?? undefined }] : [];
+  if (here && d.base) pin.push({ id: "base", lat: d.base.lat, lon: d.base.lon, label: "You", title: d.base.label, sub: d.base.detail, base: true });
   const fits = d.product_fit as Fit[];
   const qloo = d.evidence.filter((e) => e.source_kind === "qloo");
   const other = d.evidence.filter((e) => e.source_kind !== "qloo");
@@ -90,6 +92,7 @@ export default function VenuePage() {
         <h1 className="display d-l">{v.name}</h1>
         <p className="muted">
           {d.address}
+          {here && d.base && <> · {kmText(km(d.base, here))} from your business</>}
           {d.website && <> · <a className="link-mint" href={d.website} target="_blank" rel="noreferrer">website ↗</a></>}
         </p>
       </header>

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { LiveProgress } from "../../../components/live-progress";
 import { ReasonText } from "../../../components/reason";
 import { RunShell } from "../../../components/run-shell";
@@ -10,7 +10,7 @@ import { Tour, type TourStep } from "../../../components/tour";
 import { Banner, ConfidenceBadge, EmptyState, ErrorPanel, Skeleton, Tip } from "../../../components/ui";
 import { VenueMap, type Pin } from "../../../components/venue-map";
 import { ApiError, api, type S } from "../../../lib/api";
-import { CONTACT_STATUS, FIT_LABEL, SCOUT_STEPS, liftText, pct, venueTypeLabel } from "../../../lib/format";
+import { CONTACT_STATUS, FIT_LABEL, SCOUT_STEPS, km, kmText, liftText, pct, venueTypeLabel } from "../../../lib/format";
 import { useRun } from "../../../lib/use-run";
 
 const PAGE = 20;
@@ -25,7 +25,7 @@ const TOUR: TourStep[] = [
   { target: "run-head", title: "A finished run", body: "The brand, its city and the venue types it covers. The sample is a fictional Brooklyn drinks maker; every number comes from real, stored Qloo calls." },
   { target: "stats", title: "What the run did", body: "How many venues Qloo scored, how many are high confidence, and the Qloo calls it took. Cached calls reuse a stored answer." },
   { target: "signal", title: "The taste signal", body: "Qloo matched each product to brands it knows, or to real comparable brands when a product is too new. Venues rank by how much their guests share these brands' fans' taste." },
-  { target: "map", title: "Where they are", body: "Every ranked venue. The top 10 are numbered by rank, and venues you select turn yellow. Open a pin for its scores." },
+  { target: "map", title: "Where they are", body: "Every ranked venue. The top 10 are numbered by rank, venues you select turn yellow, and the mint pin is your business, if you set one. Open a pin for its scores and distance." },
   { target: "table", title: "Fit and lift", body: "Fit is 70% taste (Qloo affinity percentile) and 30% lift. Lift is taste minus Qloo's popularity percentile, so a venue doesn't rank high just for being busy." },
   { target: "reason", title: "Why each venue", body: "Open a reason to see what Qloo said and what is our inference. Each label links to the call in the trace." },
   { target: "weights", title: "Re-weight for free", body: "Shift the balance between taste and lift. Scores are recomputed from stored answers, with no new Qloo calls." },
@@ -39,7 +39,7 @@ export default function RunPage() {
   const [type, setType] = useState("");
   const [conf, setConf] = useState("");
   const [product, setProduct] = useState("");
-  const [sort, setSort] = useState<"fit" | "lift">("fit");
+  const [sort, setSort] = useState<"fit" | "lift" | "near">("fit");
   const [shown, setShown] = useState(PAGE);
   const [selected, setSelected] = useState<string[]>([]);
   const [busy, setBusy] = useState(false);
@@ -55,6 +55,11 @@ export default function RunPage() {
     };
   }, [id, ready]);
 
+  const base = run?.base ?? null;
+  const away = useCallback(
+    (v: { lat?: number | null; lon?: number | null }) => (base && v.lat != null && v.lon != null ? km(base, { lat: v.lat, lon: v.lon }) : Infinity),
+    [base],
+  );
   const rows = useMemo(() => {
     const items = (page?.items ?? []).filter(
       (v) =>
@@ -62,8 +67,10 @@ export default function RunPage() {
         (!conf || (CONF_OK[conf] ?? []).includes(v.confidence)) &&
         (!product || v.best_product?.product_id === product),
     );
-    return sort === "lift" ? [...items].sort((a, b) => b.lift - a.lift || a.rank - b.rank) : items;
-  }, [page, type, conf, product, sort]);
+    if (sort === "lift") return [...items].sort((a, b) => b.lift - a.lift || a.rank - b.rank);
+    if (sort === "near" && base) return [...items].sort((a, b) => away(a) - away(b) || a.rank - b.rank);
+    return items;
+  }, [page, type, conf, product, sort, base, away]);
 
   const toggle = (vid: string) => setSelected((s) => (s.includes(vid) ? s.filter((x) => x !== vid) : s.length >= MAX_OUTREACH ? s : [...s, vid]));
 
@@ -106,12 +113,13 @@ export default function RunPage() {
   const hasFilters = !!(type || conf || product);
   const signal = Object.values((run?.resolution ?? {}) as Record<string, { entities: string[] }>).flatMap((r) => r.entities);
   const pins = useMemo<Pin[]>(
-    () => rows.filter((v) => v.lat != null && v.lon != null).map((v) => ({
+    () => rows.filter((v) => v.lat != null && v.lon != null).map((v): Pin => ({
       id: v.venue_id, lat: v.lat as number, lon: v.lon as number, label: String(v.rank), title: `${v.rank}. ${v.name}`,
       on: selected.includes(v.venue_id), dot: v.rank > 10 && !selected.includes(v.venue_id),
-      sub: `${venueTypeLabel(v.venue_type)} · fit ${pct(v.fit)} · ${liftText(v.lift)}`, href: `/runs/${id}/venues/${v.venue_id}`,
-    })),
-    [rows, selected, id],
+      sub: `${venueTypeLabel(v.venue_type)} · fit ${pct(v.fit)} · ${liftText(v.lift)}${base ? ` · ${kmText(away(v))} from you` : ""}`,
+      href: `/runs/${id}/venues/${v.venue_id}`,
+    })).concat(base ? [{ id: "base", lat: base.lat, lon: base.lon, label: "You", title: base.label, sub: base.detail, base: true }] : []),
+    [rows, selected, id, base, away],
   );
 
   return (
@@ -191,9 +199,10 @@ export default function RunPage() {
                 </label>
                 <label className="field" style={{ minWidth: 130 }}>
                   <span>Sort by</span>
-                  <select className="select" value={sort} onChange={(e) => setSort(e.target.value as "fit" | "lift")}>
+                  <select className="select" value={sort} onChange={(e) => setSort(e.target.value as "fit" | "lift" | "near")}>
                     <option value="fit">Fit</option>
                     <option value="lift">Lift</option>
+                    {base && <option value="near">Nearest to you</option>}
                   </select>
                 </label>
               </div>
@@ -217,7 +226,7 @@ export default function RunPage() {
             <section className="card stack-s" aria-labelledby="map-h" data-tour="map">
               <div className="row between">
                 <h2 id="map-h" className="label">Map</h2>
-                <span className="mono faint">{pins.length} venues · top 10 and your picks numbered</span>
+                <span className="mono faint">{pins.length - (base ? 1 : 0)} venues · top 10 and your picks numbered{base ? " · You = your business" : ""}</span>
               </div>
               <VenueMap pins={pins} label="Map of the ranked venues" height={480} />
             </section>
@@ -259,7 +268,7 @@ export default function RunPage() {
                         <td><span className="rank">{v.rank}</span></td>
                         <td className="cell-wide">
                           <Link className="venue-name" href={`/runs/${id}/venues/${v.venue_id}`}>{v.name}</Link>
-                          <div className="mono faint">{venueTypeLabel(v.venue_type)}{v.neighborhood ? ` · ${v.neighborhood}` : ""}</div>
+                          <div className="mono faint">{venueTypeLabel(v.venue_type)}{v.neighborhood ? ` · ${v.neighborhood}` : ""}{base && away(v) < Infinity ? ` · ${kmText(away(v))}` : ""}</div>
                         </td>
                         <td data-label="Fit" className="num">
                           <span className="score">{pct(v.fit)}</span>

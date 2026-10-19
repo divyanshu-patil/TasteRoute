@@ -315,6 +315,8 @@ table.t { width: 100%; border-collapse: collapse; font-size: 14px; }
 .leaflet-container a.leaflet-popup-close-button { color: var(--smoke); }
 .pin { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; background: var(--black); color: var(--white); border: 2px solid var(--white); font: 500 12px/1 var(--font-mono); letter-spacing: -0.03em; }
 .pin-on { background: var(--yellow); color: var(--black); border-color: var(--black); }
+.pin-base { width: auto; padding: 0 10px; border-radius: var(--r-btn); background: var(--mint); color: var(--black); border-color: var(--black); }
+.map-pick .leaflet-container, .map-pick.leaflet-container { cursor: crosshair; }
 .pin-dot { display: block; width: 12px; height: 12px; border-radius: 50%; background: var(--slate); border: 2px solid var(--white); }
 .leaflet-marker-icon:focus-visible { outline: none; }
 .leaflet-marker-icon:focus-visible .pin { outline: 3px solid var(--black); outline-offset: 2px; }
@@ -330,3 +332,13 @@ table.t { width: 100%; border-collapse: collapse; font-size: 14px; }
 .tour .tour-next { background: var(--mint); color: var(--black); }
 .tour-target { outline: 3px solid var(--black); outline-offset: 6px; scroll-margin: 140px; }
 @media (max-width: 640px) { .tour { left: 16px; right: 16px; width: auto; bottom: 84px; } }
+
+/* Place search: submit-only search with a flat dropdown of plain-English suggestions */
+.search { display: grid; gap: 8px; }
+.search-bar { position: relative; display: grid; grid-template-columns: 1fr auto; gap: 8px; align-items: end; }
+.search-bar .btn { min-height: 52px; }
+.suggest { position: absolute; left: 0; right: 0; top: calc(100% + 4px); z-index: 25; list-style: none; margin: 0; padding: 6px; background: var(--white); border: 1px solid var(--ash); border-radius: var(--r-card-sm); display: grid; gap: 2px; max-height: 320px; overflow-y: auto; }
+.suggest button { display: grid; gap: 2px; width: 100%; text-align: left; background: none; border: 0; border-radius: 16px; padding: 10px 14px; cursor: pointer; font: inherit; color: var(--black); }
+.suggest button:hover, .suggest button:focus-visible { background: var(--mist); outline: none; }
+.suggest button .mono { color: var(--slate); }
+.suggest-empty { padding: 10px 14px; color: var(--slate); font-size: 14px; }

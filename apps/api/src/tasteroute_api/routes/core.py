@@ -1,4 +1,4 @@
-"""Health, workspaces, categories, city search, manual Qloo search, demo."""
+"""Health, workspaces, categories, city and place search, manual Qloo search, demo."""
 
 import uuid
 
@@ -11,7 +11,17 @@ from ..errors import InvalidWorkspace, ValidationFailed
 from ..external import osm
 from ..qloo import api
 from ..qloo.client import Trace
-from ..schemas import CategoryOut, DemoOut, HealthOut, QlooSearchItem, SessionIn, SessionOut, VenueTypeOut
+from ..schemas import (
+    CategoryOut,
+    CityHit,
+    DemoOut,
+    HealthOut,
+    Place,
+    QlooSearchItem,
+    SessionIn,
+    SessionOut,
+    VenueTypeOut,
+)
 from ..security import sign, verify, workspace_id
 from .deps import rate, svc
 
@@ -63,12 +73,39 @@ async def categories(_: str = Depends(workspace_id)) -> list[CategoryOut]:
     ]
 
 
-@router.get("/v1/cities/search")
+@router.get("/v1/cities/search", response_model=list[CityHit])
 async def cities(request: Request, q: str = Query(min_length=3, max_length=120), _: str = Depends(workspace_id),
                  s: Services = Depends(svc)) -> list[dict[str, object]]:
     rate(request, "search", 30, 60)
     st = s.settings
     return await osm.search_cities(s.pool, s.http, st.nominatim_base_url, st.osm_user_agent, q)
+
+
+@router.get("/v1/places/search", response_model=list[Place])
+async def places(request: Request, q: str = Query(min_length=3, max_length=160),
+                 bbox: str | None = Query(default=None, description="south,west,north,east"),
+                 _: str = Depends(workspace_id), s: Services = Depends(svc)) -> list[dict[str, object]]:
+    """The brand's own address or business, searched on submit (Nominatim allows no autocomplete)."""
+    rate(request, "search", 30, 60)
+    box = None
+    if bbox:
+        try:
+            box = [float(v) for v in bbox.split(",")]
+        except ValueError:
+            box = []
+        if len(box) != 4 or not (-90 <= box[0] < box[2] <= 90 and -180 <= box[1] < box[3] <= 180):
+            raise ValidationFailed("bbox must be south,west,north,east")
+    st = s.settings
+    return await osm.search_places(s.pool, s.http, st.nominatim_base_url, st.osm_user_agent, q, box)
+
+
+@router.get("/v1/places/reverse", response_model=Place)
+async def reverse(request: Request, lat: float = Query(ge=-90, le=90), lon: float = Query(ge=-180, le=180),
+                  _: str = Depends(workspace_id), s: Services = Depends(svc)) -> dict[str, object]:
+    """Names a pin dropped on the map."""
+    rate(request, "search", 30, 60)
+    st = s.settings
+    return await osm.reverse_place(s.pool, s.http, st.nominatim_base_url, st.osm_user_agent, lat, lon)
 
 
 @router.get("/v1/qloo/search", response_model=list[QlooSearchItem])

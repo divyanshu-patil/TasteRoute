@@ -31,6 +31,8 @@ PRODUCTS = [
 CITY = {"name": "Brooklyn", "display_name": "Brooklyn, Kings County, New York, United States", "country": "us",
         "lat": 40.6526006, "lon": -73.9497211, "bbox": [40.5503390, -74.0566880, 40.7394340, -73.8329450],
         "qloo_query": "Brooklyn"}
+# The fictional brand's location: a neighbourhood point, not a real address. Shows distances; never changes ranking.
+BASE = {"label": "Greenpoint", "detail": "Brooklyn, New York, United States", "lat": 40.7304, "lon": -73.9515}
 TYPES = ["cafe", "bar"]
 
 
@@ -65,7 +67,7 @@ async def main(outreach: int) -> None:
         run_id = await pool.fetchval(
             "insert into runs (workspace_id, brand_id, city, venue_types, scoring_version, settings) "
             "values ($1,$2,$3,$4,$5,$6) returning id",
-            ws, brand_id, CITY, TYPES, SCORING_VERSION, {"weights": {"target": 0.7, "lift": 0.3}})
+            ws, brand_id, CITY, TYPES, SCORING_VERSION, {"weights": {"target": 0.7, "lift": 0.3}, "base": BASE})
         await pool.executemany("insert into run_products (run_id, product_id) values ($1,$2)", [(run_id, p) for p in pids])
         rid = str(run_id)
         await run_service.run_scout(svc, rid)

@@ -1,7 +1,8 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
+import { LocationPicker } from "../../components/location-picker";
 import { Banner, ErrorPanel } from "../../components/ui";
 import { ApiError, api, type S } from "../../lib/api";
 
@@ -23,7 +24,8 @@ type Intake = {
   unsupported_message: string | null;
   source_text: string;
 };
-type City = S["City"];
+type City = S["CityHit"];
+type Place = S["Place"];
 
 const STEP_NAMES = ["Your brand", "Profile", "Qloo matches", "City"];
 
@@ -61,10 +63,9 @@ export default function Start() {
   // step 4
   const [categories, setCategories] = useState<S["CategoryOut"][]>([]);
   const [types, setTypes] = useState<string[]>(["cafe", "bar"]);
-  const [cityQ, setCityQ] = useState("");
-  const [cities, setCities] = useState<City[]>([]);
   const [city, setCity] = useState<City | null>(null);
-  const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const [base, setBase] = useState<Place | null>(null);
+  const placeError = useCallback((e: unknown) => setError(message(e)), []);
 
   const run = async (fn: () => Promise<void>) => {
     setBusy(true);
@@ -154,18 +155,6 @@ export default function Start() {
       setStep(4);
     });
 
-  const onCity = (q: string) => {
-    setCityQ(q);
-    setCity(null);
-    if (timer.current) clearTimeout(timer.current);
-    if (q.trim().length < 3) return;
-    timer.current = setTimeout(() => {
-      api<City[]>(`/v1/cities/search?q=${encodeURIComponent(q.trim())}`)
-        .then(setCities)
-        .catch((e: unknown) => setError(message(e)));
-    }, 400);
-  };
-
   const startRun = () =>
     run(async () => {
       if (!brand || !city) return;
@@ -176,6 +165,7 @@ export default function Start() {
           product_ids: brand.products.map((p) => p.id),
           city: { name: city.name, display_name: city.display_name, country: city.country, lat: city.lat, lon: city.lon, bbox: city.bbox },
           venue_types: types,
+          base,
         },
       });
       router.push(`/runs/${out.run_id}`);
@@ -391,32 +381,7 @@ export default function Start() {
         <section className="grid-2" aria-labelledby="s4">
           <h2 id="s4" className="sr-only">City and venue types</h2>
           <div className="card stack">
-            <label className="field">
-              <span>City or neighbourhood</span>
-              <input className="input input-xl" value={cityQ} placeholder="Brooklyn" onChange={(e) => onCity(e.target.value)} aria-describedby="city-help" />
-            </label>
-            <p id="city-help" className="small faint">Qloo&apos;s place data is strongest in large cities. Brooklyn, NY is our tested demo city.</p>
-            {city ? (
-              <div className="banner banner-mint">
-                <span className="dot" aria-hidden="true" />
-                <div className="stack-s small">
-                  <strong>{city.display_name ?? city.name}</strong>
-                  <button className="link" onClick={() => setCity(null)}>Change</button>
-                </div>
-              </div>
-            ) : (
-              cityQ.trim().length >= 3 && (
-                <ul className="stack-s" style={{ listStyle: "none", padding: 0, margin: 0 }} aria-label="Matching places">
-                  {cities.map((c) => (
-                    <li key={c.id ?? c.display_name}>
-                      <button className="choice" style={{ width: "100%", textAlign: "left" }} onClick={() => setCity(c)}>
-                        <span>{c.display_name}</span>
-                      </button>
-                    </li>
-                  ))}
-                </ul>
-              )
-            )}
+            <LocationPicker city={city} base={base} onCity={setCity} onBase={setBase} onError={placeError} />
           </div>
           <div className="card stack">
             <fieldset className="stack-s" style={{ border: 0, padding: 0, margin: 0 }}>
