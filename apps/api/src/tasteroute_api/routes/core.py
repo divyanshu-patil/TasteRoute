@@ -6,7 +6,7 @@ from typing import Literal
 
 import asyncpg
 import httpx
-from fastapi import APIRouter, Depends, Query, Request
+from fastapi import APIRouter, Depends, Query, Request, Response
 
 from .. import __version__
 from ..agent.context import Services
@@ -114,6 +114,17 @@ async def login(body: LoginIn, request: Request, s: Services = Depends(svc)) -> 
             await absorb(con, [here], mine)
         await con.execute("update workspaces set user_id = $2, email = $3, last_seen_at = now() where id = $1", mine, uid, email)
     return AccountOut(workspace_token=sign(str(mine)), workspace_id=str(mine), email=email)
+
+
+@router.delete("/v1/workspaces/me", status_code=204)
+async def delete_workspace(ws: str = Depends(workspace_id), s: Services = Depends(svc)) -> Response:
+    """Deletes this workspace and everything in it (brands, runs, contacts, drafts, do-not-contact list) and, when signed
+    in, the Supabase account with its Google identity, at once (privacy policy). Can't be undone."""
+    async with s.pool.acquire() as con, con.transaction():
+        uid = await con.fetchval("delete from workspaces where id = $1 and kind = 'anon' returning user_id", uuid.UUID(ws))
+        if uid and await con.fetchval("select to_regclass('auth.users') is not null"):  # Supabase only
+            await con.execute("delete from auth.users where id = $1", uid)
+    return Response(status_code=204)
 
 
 @router.get("/v1/categories", response_model=list[CategoryOut])

@@ -55,12 +55,18 @@ export async function signIn(): Promise<void> {
   await supabase()?.auth.signInWithOAuth({ provider: "google", options: { redirectTo: window.location.href, scopes: GMAIL_SEND } });
 }
 
-export async function signOut(): Promise<void> {
-  await supabase()?.auth.signOut();
+export async function signOut(scope: "global" | "local" = "global"): Promise<void> {
+  await supabase()?.auth.signOut({ scope }).catch(() => undefined);
   write(GOOGLE, null);
   write(LINKED, null);
   setWorkspaceToken(null); // the next request starts a new anonymous workspace
   window.location.assign("/");
+}
+
+/** Deletes the account and all its work at once (privacy policy), then signs out. */
+export async function deleteAccount(): Promise<void> {
+  await api("/v1/workspaces/me", { method: "DELETE" });
+  await signOut("local"); // the Supabase user is already gone
 }
 
 let linking: Promise<void> | null = null;

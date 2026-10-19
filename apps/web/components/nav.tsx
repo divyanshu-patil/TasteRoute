@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { signIn, signOut, useAccount } from "../lib/account";
+import { deleteAccount, signIn, signOut, useAccount } from "../lib/account";
 
 const LINKS = [
   { href: "/", label: "Home" },
@@ -15,11 +15,12 @@ const LINKS = [
 function Account() {
   const { enabled, user, error } = useAccount();
   const [open, setOpen] = useState(false);
+  const [deleting, setDeleting] = useState<"ask" | "busy" | null>(null);
   const [broken, setBroken] = useState(false); // the picture didn't load: show the initial
   const box = useRef<HTMLDivElement>(null);
   const button = useRef<HTMLButtonElement>(null);
   useEffect(() => {
-    if (!open) return;
+    if (!open) return setDeleting(null);
     const away = (e: PointerEvent) => !box.current?.contains(e.target as Node) && setOpen(false);
     const esc = (e: KeyboardEvent) => {
       if (e.key !== "Escape") return;
@@ -50,6 +51,20 @@ function Account() {
               <span className="small">{user.email}</span>
             </div>
             <button role="menuitem" className="btn btn-light" onClick={() => void signOut()}>Log out</button>
+            {deleting ? (
+              <div className="stack-s" role="alert">
+                <span className="small">This deletes your account, runs, contacts, drafts and do-not-contact list for good.</span>
+                <div className="row" style={{ gap: 8 }}>
+                  <button className="btn btn-danger btn-sm" disabled={deleting === "busy"}
+                    onClick={() => { setDeleting("busy"); deleteAccount().catch(() => setDeleting("ask")); }}>
+                    {deleting === "busy" ? "Deleting…" : "Delete everything"}
+                  </button>
+                  <button className="btn-ghost btn-sm" onClick={() => setDeleting(null)}>Cancel</button>
+                </div>
+              </div>
+            ) : (
+              <button role="menuitem" className="link small" onClick={() => setDeleting("ask")}>Delete account and data</button>
+            )}
           </div>
         )}
       </div>

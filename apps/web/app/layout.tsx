@@ -10,6 +10,8 @@ const mono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-jetbrains", 
 
 export const metadata: Metadata = {
   title: { default: "TasteRoute — find venues whose guests share your taste", template: "%s · TasteRoute" },
+  // Google Search Console's HTML-tag check proves the site is yours (needed for Google's OAuth verification)
+  verification: process.env.GOOGLE_SITE_VERIFICATION ? { google: process.env.GOOGLE_SITE_VERIFICATION } : undefined,
   description:
     "TasteRoute uses Qloo taste data to rank the cafés and bars whose guests already like what you make, explains why, and drafts grounded pitches you approve and send yourself.",
 };

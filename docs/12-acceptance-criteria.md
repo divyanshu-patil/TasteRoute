@@ -99,6 +99,7 @@ Each criterion has an ID, a measurable statement, how it is checked, and a prior
 | ACC-01 | Signing in keeps this browser's work; signing in on a second device merges its work into the account | API test | Stretch |
 | ACC-02 | A forged or expired Supabase token is refused, and anonymous workspaces cannot send | API test | Stretch |
 | ACC-03 | "Send with Gmail" sends one draft once (never twice), honours the do-not-contact list, and asks to reconnect when Gmail refuses the token | API test | Stretch |
+| ACC-05 | "Delete account and data" removes the workspace, all its rows and the Supabase user at once; the old token stops working | API test | Stretch |
 | ACC-04 | "Send all" sends the unsent drafts one by one after a confirm step, reports failures, and stops on a Gmail reconnect so the next click sends the rest | Web unit test | Stretch |
 
 ## Demo and budget (F10)

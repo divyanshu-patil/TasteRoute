@@ -305,6 +305,11 @@ table.t { width: 100%; border-collapse: collapse; font-size: 14px; }
 .account-menu { position: absolute; top: calc(100% + 10px); right: 0; z-index: 50; display: grid; gap: 16px; padding: 20px;
   min-width: 240px; max-width: min(320px, calc(100vw - 32px)); background: var(--black); color: var(--white); border-radius: var(--r-card-sm); }
 .account-menu .small { color: var(--smoke); overflow-wrap: anywhere; }
+.account-menu .link { color: var(--smoke); justify-self: start; }
+.account-menu .link:hover { color: var(--white); }
+.account-menu .btn-ghost { color: var(--white); border-color: var(--smoke); }
+.btn-danger { background: var(--danger); color: var(--white); }
+.btn-danger:hover { background: var(--danger); opacity: 0.85; }
 
 /* ---------- landing ---------- */
 .hero { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 24px; align-items: center; padding-top: 16px; }

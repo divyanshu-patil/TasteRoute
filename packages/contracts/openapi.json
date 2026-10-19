@@ -2571,7 +2571,7 @@
     },
     "/v1/drafts/{draft_id}/send": {
       "post": {
-        "description": "One click sends the draft from the signed-in user's own Gmail (F10). Clicking send is the approval. The Google token\ncomes from the browser for this one request and is never stored or logged.",
+        "description": "One click sends the draft from the signed-in user's own Gmail (F12). Clicking send is the approval. The Google token\ncomes from the browser for this one request and is never stored or logged.",
         "operationId": "send_draft_v1_drafts__draft_id__send_post",
         "parameters": [
           {
@@ -3725,7 +3725,7 @@
     },
     "/v1/workspaces/login": {
       "post": {
-        "description": "Sign in (F10): checks the Supabase Auth token with Supabase once, then ties a workspace to the account. Work done\nin this browser before signing in stays: it becomes the account's workspace, or joins the one it already has.",
+        "description": "Sign in (F12): checks the Supabase Auth token with Supabase once, then ties a workspace to the account. Work done\nin this browser before signing in stays: it becomes the account's workspace, or joins the one it already has.",
         "operationId": "login_v1_workspaces_login_post",
         "requestBody": {
           "content": {
@@ -3760,6 +3760,18 @@
           }
         },
         "summary": "Login"
+      }
+    },
+    "/v1/workspaces/me": {
+      "delete": {
+        "description": "Deletes this workspace and everything in it (brands, runs, contacts, drafts, do-not-contact list) and, when signed\nin, the Supabase account with its Google identity, at once (privacy policy). Can't be undone.",
+        "operationId": "delete_workspace_v1_workspaces_me_delete",
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Delete Workspace"
       }
     },
     "/v1/workspaces/session": {

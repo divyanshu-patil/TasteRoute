@@ -22,7 +22,7 @@ This is engineering guidance, not legal advice. Check the email and data protect
 | Drafts | User's work | With the run |
 | Suppression list | Never contact again | With the workspace |
 | Client IP | Rate limiting | Stored only as a salted hash |
-| Account email and Supabase user id (signed-in users) | Keep the workspace across devices | With the workspace |
+| Account email and Supabase user id (signed-in users) | Keep the workspace across devices | Until the user deletes the account (account menu, immediate) or asks us (within 30 days) |
 | Google token for sending | Send the email the user clicked | Never stored: kept in the browser, used for one request |
 
 No passwords, no payment data, no consumer data.

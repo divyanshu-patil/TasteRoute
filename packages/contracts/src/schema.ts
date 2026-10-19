@@ -186,7 +186,7 @@ export interface paths {
         put?: never;
         /**
          * Send Draft
-         * @description One click sends the draft from the signed-in user's own Gmail (F10). Clicking send is the approval. The Google token
+         * @description One click sends the draft from the signed-in user's own Gmail (F12). Clicking send is the approval. The Google token
          *     comes from the browser for this one request and is never stored or logged.
          */
         post: operations["send_draft_v1_drafts__draft_id__send_post"];
@@ -535,11 +535,32 @@ export interface paths {
         put?: never;
         /**
          * Login
-         * @description Sign in (F10): checks the Supabase Auth token with Supabase once, then ties a workspace to the account. Work done
+         * @description Sign in (F12): checks the Supabase Auth token with Supabase once, then ties a workspace to the account. Work done
          *     in this browser before signing in stays: it becomes the account's workspace, or joins the one it already has.
          */
         post: operations["login_v1_workspaces_login_post"];
         delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/workspaces/me": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        /**
+         * Delete Workspace
+         * @description Deletes this workspace and everything in it (brands, runs, contacts, drafts, do-not-contact list) and, when signed
+         *     in, the Supabase account with its Google identity, at once (privacy policy). Can't be undone.
+         */
+        delete: operations["delete_workspace_v1_workspaces_me_delete"];
         options?: never;
         head?: never;
         patch?: never;
@@ -2343,6 +2364,24 @@ export interface operations {
                 content: {
                     "application/json": components["schemas"]["HTTPValidationError"];
                 };
+            };
+        };
+    };
+    delete_workspace_v1_workspaces_me_delete: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
             };
         };
     };

@@ -10,6 +10,7 @@ Every request carries the signed workspace token in the `X-Workspace-Token` head
 |---|---|---|
 | `GET /health` | `{status, db, qloo: ok/unconfigured/error, llm: {provider, model, tools_ok}, hunter: ok/unconfigured, version}` | — |
 | `POST /v1/workspaces/session` | Create an anonymous workspace, or validate an existing token → `{workspace_token}` | — |
+| `DELETE /v1/workspaces/me` | Deletes this workspace and everything in it, and the Supabase account (with its Google identity) when signed in → `204` | F12 |
 | `POST /v1/workspaces/login` | `{access_token, workspace_token?}` (Supabase Auth) → `{workspace_token, workspace_id, email}`: the account's workspace, with this browser's work merged in. `400 signin_failed`, `503 auth_unconfigured` | F12 |
 | `GET /v1/categories` | Enabled category packs and their venue types | F11 |
 | `POST /v1/brands/intake` | `{website_url?, description?}` → proposed profile (not saved yet) | F01 |

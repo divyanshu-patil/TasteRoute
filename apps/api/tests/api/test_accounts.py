@@ -85,3 +85,22 @@ async def test_send_from_gmail_once(client, ws, svc, net):
 
     await client.post("/v1/suppressions", headers=ws, json={"kind": "email", "value": d1["contact_email"]})
     assert (await client.post(f"/v1/drafts/{d1['id']}/send", headers=ws, json=send)).status_code in (404, 409)
+
+
+async def test_delete_account_removes_work_and_supabase_user(client, ws, svc, net):
+    net["supabase"].side_effect = supabase
+    await make_brand(client, ws, svc)
+    acct = (await login(client, ws)).json()
+    uid = uuid.UUID(USERS["Bearer token-ana-1"]["id"])
+    await svc.pool.execute("create schema if not exists auth; create table if not exists auth.users (id uuid primary key)")
+    try:
+        await svc.pool.execute("insert into auth.users (id) values ($1)", uid)  # Supabase's own copy of the account
+        r = await client.delete("/v1/workspaces/me", headers=ws)
+        assert r.status_code == 204
+        wid = uuid.UUID(acct["workspace_id"])
+        assert not await svc.pool.fetchval("select count(*) from brands where workspace_id = $1", wid)
+        assert not await svc.pool.fetchval("select count(*) from workspaces where id = $1", wid)
+        assert not await svc.pool.fetchval("select count(*) from auth.users where id = $1", uid)
+        assert (await client.get("/v1/runs", headers=ws)).status_code == 401  # the old token no longer works
+    finally:
+        await svc.pool.execute("drop schema auth cascade")
