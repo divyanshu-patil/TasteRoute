@@ -143,7 +143,7 @@ Open http://localhost:3000/sample?tour=1 for the guided tour of the sample run.
 
 Set `LLM_PROVIDER=fake` to run without an LLM key. Ranking still needs Qloo.
 
-Optional sign-in and Gmail sending (Supabase Auth with Google): set `SUPABASE_URL` and `SUPABASE_ANON_KEY` in `apps/api/.env`, and `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY` in `apps/web/.env.local`. Setup on the Supabase and Google side is in [docs/09](docs/09-external-services.md#supabase-auth-and-gmail-f12).
+Optional sign-in and Gmail sending (Supabase Auth with Google): set `SUPABASE_URL` and `SUPABASE_ANON_KEY` in `apps/api/.env`, and `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY` in `apps/web/.env.local` (copy `apps/web/.env.example`). Setup on the Supabase and Google side is in [docs/09](docs/09-external-services.md#supabase-auth-and-gmail-f12).
 
 ### Tests
 
