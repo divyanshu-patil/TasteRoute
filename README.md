@@ -151,7 +151,7 @@ createdb tasteroute_test
 pnpm turbo lint check-types test
 ```
 
-117 API tests (pytest) and 17 web tests (Vitest). Tests never call Qloo, the LLM, OpenStreetMap or Photon: recorded fixtures, a fake model, and a network block stand in. CI runs the same checks on Postgres 15 and fails if `packages/contracts` drifts from the API.
+120 API tests (pytest) and 17 web tests (Vitest). Tests never call Qloo, the LLM, OpenStreetMap or Photon: recorded fixtures, a fake model, and a network block stand in. CI runs the same checks on Postgres 15 and fails if `packages/contracts` drifts from the API.
 
 With the API running, `uv run python scripts/e2e_smoke.py` (in `apps/api`) walks the whole judge path over HTTP: intake, Qloo matches, run, ranking, rescore, contacts, drafts, approval, CSV export, do-not-contact, trace. It makes live calls (about 10 Qloo and 15–25 LLM) and prints what it spent.
 

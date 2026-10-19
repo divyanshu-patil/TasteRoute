@@ -7,7 +7,7 @@ import socket
 from collections.abc import Awaitable, Callable
 from dataclasses import dataclass, field
 from html import unescape
-from urllib.parse import urljoin, urlparse
+from urllib.parse import unquote, urljoin, urlparse
 from urllib.robotparser import RobotFileParser
 
 import httpx
@@ -19,10 +19,20 @@ MAX_BYTES = 1_500_000
 MAX_REDIRECTS = 3
 MAX_CHARS = 12_000
 PAGE_HINTS = re.compile(r"about|shop|product|menu|story|range|our-", re.I)
-CONTACT_HINTS = re.compile(r"contact|wholesale|trade|stockist|info", re.I)
+# Pages where a venue publishes its address, best first: contact pages, then trade and events, then about and visit.
+CONTACT_PAGES = [re.compile(p, re.I) for p in (r"contact|get-in-touch|reach-us|enquir|inquir",
+                                               r"wholesale|trade|stockist|catering|events?\b|private|press",
+                                               r"about|visit|find-us|location|info")]
 LINK = re.compile(r"<a\b[^>]*href=[\"']([^\"'#]+)[\"'][^>]*>(.*?)</a>", re.I | re.S)
-MAILTO = re.compile(r"mailto:([A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,})", re.I)
+MAILTO = re.compile(r"mailto:([^\"'?&\s>]+)", re.I)
 EMAIL = re.compile(r"\b[A-Za-z0-9._%+-]+@[A-Za-z0-9-]+(?:\.[A-Za-z0-9-]+)*\.[A-Za-z]{2,}\b")
+CFEMAIL = re.compile(r"(?:data-cfemail=[\"']|/cdn-cgi/l/email-protection#)([0-9a-fA-F]{6,})")  # Cloudflare's scrambled form
+JSON_EMAIL = re.compile(r"[\"']email[\"']\s*:\s*[\"'](?:mailto:)?([^\"'\s]+@[^\"'\s]+)[\"']", re.I)  # schema.org and site data
+# Spelled-out addresses: "hello [at] venue [dot] com", "hello(at)venue.com", "hello at venue dot com"
+AT = re.compile(r"\s*[\[({<]\s*at\s*[\])}>]\s*", re.I)
+DOT = re.compile(r"\s*[\[({<]\s*dot\s*[\])}>]\s*", re.I)
+SPELLED = re.compile(r"\b([A-Za-z0-9._%+-]+) at ([A-Za-z0-9-]+(?: dot [A-Za-z0-9-]+)+)\b", re.I)  # needs "dot" too
+GLUED = re.compile(r"(?:<[^>]+>)*@(?:<[^>]+>)*")  # info<span>@</span>venue.com (only tags touching the @)
 JUNK_EMAIL = re.compile(
     r"(^example@|example\.|mysite\.|yoursite|yourdomain|yourname|sentry|wixpress|godaddy|domain\.com|email\.com"
     r"|^no-?reply@|^donotreply@|\.(png|jpg|jpeg|gif|webp|svg)$)", re.I)
@@ -161,20 +171,31 @@ class WebsiteReader:
             raise WebsiteUnreadable("The site has too little readable text")
         return out
 
+    async def contact_pages(self, url: str) -> list[Page]:
+        """The venue's page plus up to 3 contact-like pages on the same site (just /contact when none is linked)."""
+        if "%3f" in url.lower():  # a query string percent-encoded into the path ("/%3Fss_source%3D...")
+            url = unquote(url)
+        try:
+            home = await self.fetch(url)
+        except WebsiteUnreadable as e:
+            root = f"{urlparse(url).scheme}://{urlparse(url).netloc}/"
+            if root == url or BLOCKED in e.detail:
+                raise
+            home = await self.fetch(root)  # a moved or broken deep link: try the homepage
+        pages = [home]
+        links: list[str] = []
+        for hints in CONTACT_PAGES:
+            links += [u for u in pick_links(home, hints, 3) if u not in links]
+        for link in links[:3] or [urljoin(home.url, "/contact")]:
+            try:
+                pages.append(await self.fetch(link))
+            except AppError:
+                continue
+        return pages
+
     async def find_emails(self, url: str) -> list[tuple[str, str]]:
         """Business emails published on the venue's own site: (email, page url). Never constructed (CON-05)."""
-        home = await self.fetch(url)
-        found = emails_in(home)
-        if not found:
-            for link in pick_links(home, CONTACT_HINTS, 2):
-                try:
-                    found += emails_in(await self.fetch(link))
-                except AppError:
-                    continue
-        first: dict[str, str] = {}
-        for e, u in found:
-            first.setdefault(e, u)
-        return list(first.items())
+        return page_emails(await self.contact_pages(url))
 
 
 def same_site(a: str, b: str) -> bool:
@@ -210,11 +231,40 @@ def clean_email(raw: str) -> str | None:
     return None
 
 
+def cf_decode(hexed: str) -> str:
+    """Cloudflare email protection: the first byte is a key XORed into the rest."""
+    key = int(hexed[:2], 16)
+    return "".join(chr(int(hexed[i:i + 2], 16) ^ key) for i in range(2, len(hexed) - 1, 2))
+
+
+def deobfuscate(text: str) -> str:
+    text = DOT.sub(".", AT.sub("@", text.replace("\uff20", "@")))
+    return SPELLED.sub(lambda m: f"{m[1]}@{re.sub(r' dot ', '.', m[2], flags=re.I)}", text)
+
+
+def visible_text(html: str) -> str:
+    """What a visitor reads, footer included (library credits live in scripts and styles, so those go)."""
+    html = re.sub(r"(?is)<(script|style|noscript)[^>]*>.*?</\1>", " ", html)
+    return re.sub(r"\s+", " ", unescape(re.sub(r"<[^>]+>", " ", GLUED.sub("@", html)))).strip()
+
+
 def emails_in(page: Page) -> list[tuple[str, str]]:
-    html = re.sub(r"(?is)<(script|style|noscript)[^>]*>.*?</\1>", " ", page.html)  # library credits live in scripts
-    raw = MAILTO.findall(html) + EMAIL.findall(re.sub(r"<[^>]+>", " ", unescape(html)))
+    """Every way a page shows an address: links, plain text, spelled out, split across tags, scrambled, or in its data."""
+    raw = [e for t in MAILTO.findall(page.html) for e in EMAIL.findall(unescape(unquote(t)))]
+    raw += [e for h in CFEMAIL.findall(page.html) for e in EMAIL.findall(cf_decode(h))]
+    raw += EMAIL.findall(deobfuscate(visible_text(page.html)))
+    raw += [e for j in JSON_EMAIL.findall(page.html) for e in EMAIL.findall(unescape(j))]
     cleaned = (clean_email(e) for e in raw)
     return [(e, page.url) for e in dict.fromkeys(c for c in cleaned if c)]
+
+
+def page_emails(pages: list[Page]) -> list[tuple[str, str]]:
+    """Each address once, with the first page that shows it."""
+    first: dict[str, str] = {}
+    for p in pages:
+        for e, u in emails_in(p):
+            first.setdefault(e, u)
+    return list(first.items())
 
 
 def site_name(html: str) -> str:

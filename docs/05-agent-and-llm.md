@@ -18,8 +18,9 @@
 | Comparable brand **names** (F02) | One structured call per unresolved product | No (Qloo resolves or drops them) |
 | Agent tool selection (F09) | Tool-calling loop | No (tools are deterministic, guard enforces order) |
 | Pitch emails (F07) | One structured call per venue, validated | No |
+| Finding a published email (F06) | One structured call per venue where no pattern found one; the model quotes the page and code checks the quote | No |
 
-The LLM never writes reasons (F05 uses templates), scores, venue lists or contacts.
+The LLM never writes reasons (F05 uses templates), scores or venue lists, and never makes up contacts: it may only point at an address written on the venue's own pages, and code checks that.
 
 ## Agent tools (JSON Schemas, simplified)
 

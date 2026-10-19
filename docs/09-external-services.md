@@ -58,6 +58,8 @@
 ## Website reader
 
 - httpx with the SSRF guard (block private, loopback, link-local, metadata IPs on every redirect), 3 redirects max, 1.5 MB cap, `text/html` only, robots.txt checked for fetched paths, `trafilatura` for main text.
+- Venue emails (F06): the venue's page plus up to 3 contact-like pages on the same site (contact, then wholesale, catering or events, then about or visit; `/contact` when none is linked). A dead deep link falls back to the homepage, and a query string percent-encoded into the path is repaired. Addresses are read from `mailto:` links (URL-encoded too), plain text, spelled-out forms ("hello [at] venue [dot] com", "hello at venue dot com"), text split across tags, Cloudflare's scrambled email protection, and `"email"` fields in the page's data (schema.org). Kept: the venue's own domain, free-mail inboxes, or another domain that carries the venue's name (cabinjuice@gravityhaus.com). Cached 7 days per URL.
+- If no pattern finds an address, one LLM call reads the same pages and must quote the words that show an address. Code checks the quote is on the page and spells that address out, so the AI can find an address but never invent one (CON-05). If the model is unavailable, the result is not cached.
 - A 403 or a Cloudflare challenge (`cf-mitigated`) means the owner blocks automated readers: we stop and say so ("That site blocks automated readers like ours") and use the description instead. We never work around bot checks.
 
 ## Apollo (optional, disabled by default)

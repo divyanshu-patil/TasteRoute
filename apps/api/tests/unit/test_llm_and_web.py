@@ -10,11 +10,14 @@ from pydantic import BaseModel
 from tasteroute_api.errors import LLMBadResponse
 from tasteroute_api.external import osm
 from tasteroute_api.external.website import (
+    Page,
     UrlNotAllowed,
     WebsiteReader,
     check_url,
+    emails_in,
     extract_text,
     ip_allowed,
+    page_emails,
     site_name,
 )
 from tasteroute_api.llm import LLMResult
@@ -100,9 +103,59 @@ async def test_find_emails_published_only():
             '<script>/* GSAP by jack@greensock.com */</script>')
     respx.get("https://cafe.test/robots.txt").mock(return_value=httpx.Response(404))
     respx.get("https://cafe.test/").mock(return_value=httpx.Response(200, html=html))
+    respx.get("https://cafe.test/contact").mock(return_value=httpx.Response(404))  # tried when no contact page is linked
     async with httpx.AsyncClient() as http:
         found = await WebsiteReader(http, public).find_emails("https://cafe.test/")
     assert [e for e, _ in found] == ["hello@cafe.test", "wholesale@cafe.test", "info@cafe.test"]
+
+
+def test_emails_in_every_published_form():
+    key = 0x42  # Cloudflare's email protection: a key byte, then each character XORed with it
+    scrambled = f"{key:02x}" + "".join(f"{ord(c) ^ key:02x}" for c in "cf@cafe.test")
+    html = (f'<a href="/cdn-cgi/l/email-protection#{scrambled}">[email&#160;protected]</a>'
+            "<p>Wholesale: trade [at] cafe [dot] test</p><p>hello(at)cafe.test</p>"
+            "<p>Write to events at cafe dot test</p><p>split<span>@</span>cafe.test</p>"
+            '<a href="mailto:orders%40cafe.test">Order</a>'
+            '<script type="application/ld+json">{"@type": "CafeOrCoffeeShop", "email": "mailto:info@cafe.test"}</script>'
+            "<p>Order at doordash.com, find us @ cafe.test or at the market.</p>")
+    got = {e for e, _ in emails_in(Page("https://cafe.test/", html, 200))}
+    assert got == {"cf@cafe.test", "trade@cafe.test", "hello@cafe.test", "events@cafe.test", "split@cafe.test",
+                   "orders@cafe.test", "info@cafe.test"}  # and no "order@doordash.com" or "us@cafe.test"
+
+
+@respx.mock
+async def test_contact_pages_follow_links_and_repair_urls():
+    respx.get("https://deli.test/robots.txt").mock(return_value=httpx.Response(404))
+    respx.get("https://deli.test/", params={"ss_source": "ads"}).mock(return_value=httpx.Response(200, html="<p>Hi</p>"))
+    home = '<a href="/menu">Menu</a><a href="/about-us">About</a><a href="/contact-us">Contact</a> reservations@deli.test'
+    respx.get("https://deli.test/").mock(return_value=httpx.Response(200, html=home))
+    respx.get("https://deli.test/contact-us").mock(return_value=httpx.Response(200, html="<p>Trade: trade [at] deli [dot] test</p>"))
+    respx.get("https://deli.test/about-us").mock(return_value=httpx.Response(200, html="<p>Since 1990</p>"))
+    respx.get("https://deli.test/contact").mock(return_value=httpx.Response(404))
+    respx.get("https://deli.test/old-page").mock(return_value=httpx.Response(404))
+    async with httpx.AsyncClient() as http:
+        r = WebsiteReader(http, public)
+        pages = await r.contact_pages("https://deli.test/old-page")  # a dead deep link falls back to the homepage
+        # the contact page is read even though the homepage already shows an address; the menu is not
+        assert [p.url for p in pages] == ["https://deli.test/", "https://deli.test/contact-us", "https://deli.test/about-us"]
+        assert page_emails(pages) == [("reservations@deli.test", "https://deli.test/"),
+                                      ("trade@deli.test", "https://deli.test/contact-us")]
+        mangled = await r.contact_pages("https://deli.test/%3Fss_source%3Dads")  # "?" percent-encoded into the path
+        assert mangled[0].url == "https://deli.test/?ss_source=ads"
+
+
+async def test_ai_email_must_quote_the_page():
+    from tasteroute_api.services.contacts import ai_email
+
+    page = Page("https://deli.test/contact", "<p>Wholesale enquiries: please write to orders, then the at sign, then deli.test</p>", 200)
+    quote = "orders, then the at sign, then deli.test"
+    ok = Recorder([LLMResult(f'{{"email": "orders@deli.test", "quote": "{quote}", "page": "https://deli.test/contact"}}')])
+    assert await ai_email(ok, None, "Deli", [page]) == ("orders@deli.test", "https://deli.test/contact")
+    made_up = Recorder([LLMResult('{"email": "info@deli.test", "quote": "info@deli.test", "page": "https://deli.test/contact"}')])
+    assert await ai_email(made_up, None, "Deli", [page]) is None  # not on the page: rejected
+    swapped = Recorder([LLMResult(f'{{"email": "sales@deli.test", "quote": "{quote}", "page": "https://deli.test/contact"}}')])
+    assert await ai_email(swapped, None, "Deli", [page]) is None  # the quote shows a different address
+    assert await ai_email(Recorder([LLMResult('{"email": null, "quote": null, "page": null}')]), None, "Deli", [page]) is None
 
 
 def test_extract_text_strips_scripts():

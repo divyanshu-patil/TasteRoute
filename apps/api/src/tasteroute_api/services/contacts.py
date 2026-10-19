@@ -9,11 +9,14 @@ from datetime import timedelta
 from typing import Any
 
 import asyncpg
+from pydantic import BaseModel
 
 from ..agent.context import RunContext
-from ..errors import AppError
+from ..errors import AppError, LLMBadResponse, LLMUnavailable
 from ..external import cached_call, hunter, osm
-from ..external.website import WebsiteReader, clean_email
+from ..external.website import Page, WebsiteReader, clean_email, page_emails, visible_text
+from ..llm.prompts import load
+from ..llm.structured import structured
 
 BAD_VERIFICATION = {"invalid", "disposable"}
 # A scraped address must be on the venue's own domain or a free-mail inbox; anything else is usually the web agency's or a widget's.
@@ -46,6 +49,55 @@ class Candidate:
 def venue_inbox(email: str, domain: str | None) -> bool:
     d = email.rsplit("@", 1)[-1]
     return not domain or d in FREEMAIL or d == domain or d.endswith("." + domain)
+
+
+def squash(t: str) -> str:
+    return re.sub(r"[^a-z0-9]", "", t.lower())
+
+
+def names_venue(email: str, name: str, domain: str | None) -> bool:
+    """An address on another domain that carries the venue's name, e.g. cabinjuice@gravityhaus.com (its owner's)."""
+    local, _, d = email.partition("@")
+    keys = {squash(name), *(squash(w) for w in name.split()), (domain or "").split(".")[0]}
+    return any(len(k) >= 6 and k in squash(local + d.split(".")[0]) for k in keys)
+
+
+class EmailOnPage(BaseModel):
+    email: str | None = None
+    quote: str | None = None
+    page: str | None = None
+
+
+def quoted(email: str, quote: str, text: str) -> bool:
+    """The model's quote is really on the page and spells this address out: local part, then each domain label."""
+    q, t = " ".join(quote.lower().split()), " ".join(text.lower().split())
+    if not q or q not in t:
+        return False
+    at = 0
+    local, _, domain = email.lower().partition("@")
+    for part in [local, *domain.split(".")]:
+        at = q.find(part, at)
+        if at < 0:
+            return False
+        at += len(part)
+    return True
+
+
+async def ai_email(llm: Any, run_id: str | None, venue: str, pages: list[Page]) -> tuple[str, str] | None:
+    """AI fallback when no pattern matched: the model reads the pages and must quote the address from one of them.
+    The quote is checked against the page text, so an address can be found this way but never made up (CON-05).
+    Raises LLMUnavailable or LLMBadResponse when the model can't answer."""
+    texts = {p.url: visible_text(p.html) for p in pages}
+    user = f"Venue: {venue}\n\n" + "\n\n".join(  # the start and the footer, where addresses usually are
+        f"<page url=\"{u}\">\n{t if len(t) <= 4000 else t[:2000] + ' … ' + t[-2000:]}\n</page>" for u, t in texts.items())
+    prompt, version = load("find_email")
+    out = await structured(llm, EmailOnPage, prompt, user, purpose="find_email", prompt_version=version, run_id=run_id,
+                           temperature=0, max_tokens=300)
+    email = clean_email(out.email or "")
+    page = out.page if out.page in texts else next((u for u, t in texts.items() if quoted(email or "", out.quote or "", t)), None)
+    if not email or not page or not quoted(email, out.quote or "", texts[page]):
+        return None
+    return email, page
 
 
 def purpose(email: str) -> tuple[int, str | None]:
@@ -161,18 +213,29 @@ async def find_contacts(ctx: RunContext, venue_ids: list[str]) -> dict[str, Any]
         elif website:
             # The venue's own site (D-08)
             checked.append("venue website")
-            async def read(url: str = website) -> tuple[int, Any]:
+            async def read(url: str = website, name: str = v["name"]) -> tuple[int, Any]:
                 try:
-                    return 200, [list(x) for x in await reader.find_emails(url)]
+                    pages = await reader.contact_pages(url)
                 except AppError as e:
                     return 422, {"error": e.detail}
+                found = [[e, u, "page"] for e, u in page_emails(pages)]
+                if found:
+                    return 200, {"emails": found, "ai_read": False}
+                try:
+                    ai = await ai_email(ctx.svc.llm, ctx.run_id, name, pages)
+                except (LLMUnavailable, LLMBadResponse):
+                    return 503, {"error": "The AI could not read the site"}  # not cached: tried again next run
+                return 200, {"emails": [[*ai, "ai"]] if ai else [], "ai_read": True}
 
-            code, found_emails, _, _ = await cached_call(ctx.pool, "website", "/emails", {"url": website}, timedelta(days=7),
-                                                         read, run_id=ctx.run_id, emit=ctx.emit)
-            for raw, page in found_emails if code == 200 else []:
-                email = clean_email(raw)  # also tidies results cached before clean_email existed
-                if email and venue_inbox(email, domain):
-                    cands.append(Candidate(email, "website", "generic", purpose(email)[1], sources=[{"uri": page}]))
+            code, body, _, _ = await cached_call(ctx.pool, "website", "/emails", {"url": website, "v": 2}, timedelta(days=7),
+                                                 read, run_id=ctx.run_id, emit=ctx.emit)
+            if code == 200 and body["ai_read"]:
+                checked.append("venue website (read by AI)")
+            for raw, page, how in body["emails"] if code == 200 else []:
+                email = clean_email(raw)
+                if email and (venue_inbox(email, domain) or names_venue(email, v["name"], domain)):
+                    src = {"uri": page, **({"found_by": "ai"} if how == "ai" else {})}
+                    cands.append(Candidate(email, "website", "generic", purpose(email)[1], sources=[src]))
             # Hunter domain search, capped per run (CON-02, CON-06)
             if hunter_key and domain:
                 if hunter_used >= s.hunter_max_calls_per_run:

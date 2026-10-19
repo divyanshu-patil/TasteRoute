@@ -10,7 +10,7 @@ from tasteroute_api.agent.plan_guard import PlanGuard
 from tasteroute_api.errors import AppError
 from tasteroute_api.external import hunter
 from tasteroute_api.grounding import Bundle, validate
-from tasteroute_api.services.contacts import Candidate, choose, is_suppressed, venue_inbox
+from tasteroute_api.services.contacts import Candidate, choose, is_suppressed, names_venue, venue_inbox
 from tasteroute_api.services.drafts import next_status, short_name, template_draft
 from tasteroute_api.services.export import CSV_COLUMNS, MAILTO_BODY_MAX, mailto, mask, to_csv
 
@@ -150,3 +150,6 @@ def test_scraped_email_must_be_the_venues_or_free_mail():
     assert venue_inbox("hi@ipsento.com", "ipsento.com") and venue_inbox("orders@shop.ipsento.com", "ipsento.com")
     assert venue_inbox("ipsento606@gmail.com", "ipsento.com")
     assert not venue_inbox("jack@greensock.com", "ipsento.com")
+    # On its owner's domain but named for the venue: kept. A web designer's address: still dropped.
+    assert names_venue("cabinjuice@gravityhaus.com", "Cabin Juice", "cabinjuice.com")
+    assert not names_venue("hello@studiodesign.com", "Cabin Juice", "cabinjuice.com")
