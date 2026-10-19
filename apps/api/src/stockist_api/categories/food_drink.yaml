@@ -1,0 +1,29 @@
+id: food_drink
+label: Food and drink
+status: full
+product_entity_types:
+  - urn:entity:brand
+venue_types:
+  - id: cafe
+    label: Cafés
+    qloo_tags: ["urn:tag:category:place:coffee_shop"]  # verified in Phase 0; multi-tag OR is unverified
+    osm: { key: amenity, value: cafe }
+  - id: bar
+    label: Bars
+    qloo_tags: ["urn:tag:category:place:bar"]
+    osm: { key: amenity, value: bar }
+  - id: restaurant
+    label: Restaurants
+    qloo_tags: ["urn:tag:category:place:restaurant"]
+    osm: { key: amenity, value: restaurant }
+  - id: deli
+    label: Delis and specialty food shops
+    qloo_tags: ["urn:tag:category:place:deli"]
+    osm: { key: shop, value: deli }
+baseline_signal: none
+baseline_entities: []
+reason_tag_kinds: [interests, customer_identity, beverage_offering, menu_highlight, culinary_style]
+pitch_style:
+  noun: stockist
+  ask_examples: ["send a free sample", "drop by for a 10-minute tasting"]
+  avoid: ["discount pressure", "health claims"]

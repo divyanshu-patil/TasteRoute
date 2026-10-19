@@ -1,0 +1,74 @@
+{
+ "request": {
+  "path": "/v2/insights",
+  "params": [
+   [
+    "filter.type",
+    "urn:tag"
+   ],
+   [
+    "signal.interests.entities",
+    "22B1BC87-CDFE-4340-86F8-8E0E6E1E6A7D,E6BC1B43-71EA-4CAD-9CF5-BCADD6951F31,D012BBB3-EA3F-45E6-BA69-1710C0947A7D"
+   ],
+   [
+    "filter.parents.types",
+    "urn:entity:place"
+   ],
+   [
+    "filter.tag.types",
+    "urn:tag:interests:qloo,urn:tag:menu_highlight:qloo,urn:tag:customer_identity:qloo,urn:tag:beverage_offering:qloo"
+   ],
+   [
+    "take",
+    "50"
+   ]
+  ]
+ },
+ "status": 200,
+ "body": {
+  "success": true,
+  "results": {
+   "tags": [
+    {
+     "tag_id": "urn:tag:customer_identity:qloo:health_conscious",
+     "name": "Health-Conscious",
+     "types": [
+      "urn:entity:place"
+     ],
+     "subtype": "urn:tag:customer_identity:qloo",
+     "tag_value": "urn:tag:customer_identity:qloo:health_conscious",
+     "popularity": 0.9997192883464764,
+     "query": {
+      "affinity": 0.8304785828296307
+     }
+    },
+    {
+     "tag_id": "urn:tag:customer_identity:qloo:art_enthusiasts",
+     "name": "Art Enthusiasts",
+     "types": [
+      "urn:entity:place"
+     ],
+     "subtype": "urn:tag:customer_identity:qloo",
+     "tag_value": "urn:tag:customer_identity:qloo:art_enthusiasts",
+     "popularity": 0.999339848503675,
+     "query": {
+      "affinity": 0.8013212570881099
+     }
+    },
+    {
+     "tag_id": "urn:tag:customer_identity:qloo:music_enthusiasts",
+     "name": "Music Enthusiasts",
+     "types": [
+      "urn:entity:place"
+     ],
+     "subtype": "urn:tag:customer_identity:qloo",
+     "tag_value": "urn:tag:customer_identity:qloo:music_enthusiasts",
+     "popularity": 0.9996997312111302,
+     "query": {
+      "affinity": 0.7377498837749884
+     }
+    }
+   ]
+  }
+ }
+}

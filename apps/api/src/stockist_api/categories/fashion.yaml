@@ -1,0 +1,17 @@
+id: fashion
+label: Fashion and accessories
+status: secondary
+product_entity_types:
+  - urn:entity:brand
+venue_types:
+  - id: boutique
+    label: Boutiques and concept stores
+    qloo_tags: ["urn:tag:category:place:boutique"]
+    osm: { key: shop, value: boutique }
+baseline_signal: none
+baseline_entities: []
+reason_tag_kinds: [interests, customer_identity, ambience, decor]
+pitch_style:
+  noun: stockist
+  ask_examples: ["send a lookbook", "a short showroom visit"]
+  avoid: ["discount pressure"]
