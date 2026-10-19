@@ -1,0 +1,119 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="648" viewBox="0 0 1200 648" role="img" aria-labelledby="title desc">
+  <title id="title">How TasteRoute works</title>
+  <desc id="desc">Four screens: paste your website, Qloo resolves your products or similar brands, venues are ranked by taste fit and lift over a popularity baseline, and you approve each grounded email. A black band explains the fit formula and the guardrails.</desc>
+
+  <defs>
+    <g id="arrow">
+      <circle r="18" fill="#000"/>
+      <path d="M-7 0H6M1 -6L7 0L1 6" stroke="#fff" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+  </defs>
+
+  <rect width="1200" height="648" rx="32" fill="#e5e5e5"/>
+
+  <g font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, Helvetica, Arial, sans-serif">
+    <!-- 01 brand -->
+    <g id="screen-brand" transform="translate(48 48)">
+      <rect width="258" height="300" rx="24" fill="#fff"/>
+      <text x="20" y="36" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="18">01 · YOUR BRAND</text>
+      <rect x="20" y="56" width="218" height="44" rx="10" fill="#f2f2f2"/>
+      <text x="34" y="84" font-size="17" fill="#666">yourbrand.com</text>
+      <rect x="20" y="120" width="186" height="10" rx="5" fill="#e5e5e5"/>
+      <rect x="20" y="140" width="150" height="10" rx="5" fill="#e5e5e5"/>
+      <g font-size="16">
+        <rect x="20" y="168" width="104" height="30" rx="15" fill="#f2f2f2"/><text x="72" y="188" text-anchor="middle">Cold Brew</text>
+        <rect x="132" y="168" width="102" height="30" rx="15" fill="#f2f2f2"/><text x="183" y="188" text-anchor="middle">Kombucha</text>
+        <rect x="20" y="206" width="100" height="30" rx="15" fill="#f2f2f2"/><text x="70" y="226" text-anchor="middle">Aperitivo</text>
+      </g>
+      <rect x="20" y="246" width="116" height="36" rx="8" fill="#000"/>
+      <text x="78" y="269" font-size="16" fill="#fff" text-anchor="middle">Continue</text>
+    </g>
+
+    <!-- 02 Qloo matches -->
+    <g id="screen-matches" transform="translate(330 48)">
+      <rect width="258" height="300" rx="24" fill="#fff"/>
+      <text x="20" y="36" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="18">02 · QLOO MATCHES</text>
+      <text x="20" y="76" font-size="18" font-weight="600">Nitro Cold Brew</text>
+      <text x="20" y="98" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="14" fill="#666">using similar brands</text>
+      <g font-size="16">
+        <rect x="20" y="112" width="108" height="30" rx="15" fill="#d1ffca"/><text x="74" y="132" text-anchor="middle">Stumptown</text>
+        <rect x="136" y="112" width="102" height="30" rx="15" fill="#d1ffca"/><text x="187" y="132" text-anchor="middle">Blue Bottle</text>
+        <rect x="20" y="150" width="106" height="30" rx="15" fill="#d1ffca"/><text x="73" y="170" text-anchor="middle">La Colombe</text>
+      </g>
+      <path d="M20 198H238" stroke="#f2f2f2" stroke-width="2"/>
+      <text x="20" y="228" font-size="18" font-weight="600">Ginger Kombucha</text>
+      <g font-size="16">
+        <rect x="20" y="244" width="110" height="30" rx="15" fill="#d1ffca"/><text x="75" y="264" text-anchor="middle">Health-Ade</text>
+        <rect x="138" y="244" width="86" height="30" rx="15" fill="#d1ffca"/><text x="181" y="264" text-anchor="middle">KeVita</text>
+      </g>
+    </g>
+
+    <!-- 03 ranked venues -->
+    <g id="screen-ranked" transform="translate(612 48)">
+      <rect width="258" height="300" rx="24" fill="#fff"/>
+      <text x="20" y="36" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="18">03 · RANKED VENUES</text>
+      <g font-family="Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif" font-size="30">
+        <text x="20" y="88">1</text><text x="166" y="88">91</text>
+        <text x="20" y="144">2</text><text x="166" y="144">88</text>
+        <text x="20" y="200">3</text><text x="166" y="200">87</text>
+      </g>
+      <g font-size="16" font-weight="600">
+        <text x="46" y="84">Oslo Coffee</text>
+        <text x="46" y="140">Vinegar Hill</text>
+        <text x="46" y="196">Absolute</text>
+      </g>
+      <g font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="14">
+        <rect x="200" y="64" width="42" height="26" rx="13" fill="#d1ffca"/><text x="221" y="82" text-anchor="middle">+85</text>
+        <rect x="200" y="120" width="42" height="26" rx="13" fill="#d1ffca"/><text x="221" y="138" text-anchor="middle">+61</text>
+        <rect x="200" y="176" width="42" height="26" rx="13" fill="#d1ffca"/><text x="221" y="194" text-anchor="middle">+67</text>
+      </g>
+      <path d="M20 104H238M20 160H238" stroke="#f2f2f2" stroke-width="2"/>
+      <rect x="20" y="246" width="218" height="36" rx="18" fill="#000"/>
+      <text x="129" y="269" font-size="15" fill="#fff" text-anchor="middle">3 selected → Find contacts</text>
+    </g>
+
+    <!-- 04 approve -->
+    <g id="screen-approve" transform="translate(894 48)">
+      <rect width="258" height="300" rx="24" fill="#fff"/>
+      <text x="20" y="36" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="18">04 · YOU APPROVE</text>
+      <rect x="20" y="54" width="206" height="28" rx="4" fill="#fff100"/>
+      <text x="30" y="73" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="15">s***@oslocoffee.com</text>
+      <rect x="20" y="102" width="218" height="9" rx="4.5" fill="#e5e5e5"/>
+      <rect x="20" y="120" width="196" height="9" rx="4.5" fill="#e5e5e5"/>
+      <rect x="20" y="138" width="208" height="9" rx="4.5" fill="#e5e5e5"/>
+      <rect x="20" y="156" width="132" height="9" rx="4.5" fill="#e5e5e5"/>
+      <rect x="20" y="184" width="158" height="28" rx="14" fill="#f2f2f2"/>
+      <text x="99" y="203" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="14" text-anchor="middle">1 Qloo fact cited</text>
+      <rect x="20.75" y="244.75" width="78.5" height="36.5" rx="4" fill="none" stroke="#444" stroke-width="1.5"/>
+      <text x="60" y="268" font-size="16" text-anchor="middle">Edit</text>
+      <rect x="110" y="244" width="128" height="38" rx="8" fill="#000"/>
+      <text x="174" y="268" font-size="16" fill="#fff" text-anchor="middle">Approve</text>
+    </g>
+
+    <use href="#arrow" x="318" y="198"/>
+    <use href="#arrow" x="600" y="198"/>
+    <use href="#arrow" x="882" y="198"/>
+
+    <g id="captions">
+      <g font-size="22" font-weight="700">
+        <text x="48" y="392">Paste your website</text>
+        <text x="330" y="392">Qloo resolves taste</text>
+        <text x="612" y="392">Rank by taste and lift</text>
+        <text x="894" y="392">Approve every email</text>
+      </g>
+      <g font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="18" fill="#444">
+        <text x="48" y="420">profile + products</text>
+        <text x="330" y="420">/search, comparables</text>
+        <text x="612" y="420">/v2/insights × baseline</text>
+        <text x="894" y="420">grounded, never sent</text>
+      </g>
+    </g>
+  </g>
+
+  <g id="mechanism" transform="translate(48 456)">
+    <rect width="1104" height="160" rx="28" fill="#000"/>
+    <text x="40" y="66" font-family="Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif" font-size="46" fill="#fff">FIT = 0.7 × TASTE + 0.3 × LIFT</text>
+    <text x="40" y="104" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, Helvetica, Arial, sans-serif" font-size="20" fill="#e5e5e5">Taste: Qloo affinity percentile for your brands' fans. Lift: taste minus popularity percentile, floored at 0.</text>
+    <text x="40" y="138" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="18" fill="#fff100">NO QLOO, NO RANKING · AGENT TOOL CALLS CHECKED BY A PLAN GUARD · YOU SEND EVERY EMAIL</text>
+  </g>
+</svg>

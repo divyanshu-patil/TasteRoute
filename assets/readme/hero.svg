@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="532" viewBox="0 0 1200 532" role="img" aria-labelledby="title desc">
+  <title id="title">TasteRoute</title>
+  <desc id="desc">TasteRoute ranks the cafés and bars in a city by how much their guests share a brand's taste, measured with Qloo and compared against a popularity baseline. The card shows the top three venues from the Brooklyn sample run with fit and lift.</desc>
+
+  <rect width="1200" height="532" rx="32" fill="#e5e5e5"/>
+
+  <g id="title-block" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace">
+    <rect x="56" y="56" width="164" height="34" rx="17" fill="#d1ffca"/>
+    <text x="138" y="79" font-size="17" text-anchor="middle" fill="#000">QLOO TASTE AI</text>
+    <rect x="230" y="56" width="262" height="34" rx="17" fill="#ffffff"/>
+    <text x="361" y="79" font-size="17" text-anchor="middle" fill="#000">AGENTS, BUT WITH TASTE</text>
+
+    <g font-family="Impact, Haettenschweiler, 'Arial Narrow Bold', 'Franklin Gothic Bold', sans-serif" font-size="136" fill="#000" letter-spacing="-1">
+      <text x="50" y="222">TASTE</text>
+      <text x="50" y="340">ROUTE</text>
+    </g>
+
+    <g font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, Helvetica, Arial, sans-serif" font-size="24" fill="#222">
+      <text x="56" y="392">Ranks the cafés and bars in your city by how</text>
+      <text x="56" y="424">much their guests share your brand's taste,</text>
+      <text x="56" y="456">then drafts the pitch you approve.</text>
+    </g>
+    <text x="56" y="500" font-size="17" fill="#444">QLOO INSIGHTS · AGENT WITH A PLAN GUARD</text>
+  </g>
+
+  <g id="project-proof" transform="translate(640 56)">
+    <rect width="504" height="430" rx="28" fill="#ffffff"/>
+    <g font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace">
+      <text x="28" y="44" font-size="18" fill="#444">BROOKLYN · CAFÉS + BARS</text>
+      <text x="476" y="44" font-size="18" fill="#444" text-anchor="end">60 RANKED</text>
+      <g font-size="16" fill="#666">
+        <text x="28" y="84">#</text>
+        <text x="76" y="84">VENUE</text>
+        <text x="352" y="84">FIT</text>
+        <text x="420" y="84">LIFT</text>
+      </g>
+    </g>
+    <path d="M28 98H476" stroke="#e5e5e5" stroke-width="2"/>
+
+    <g id="rows">
+      <g transform="translate(0 144)">
+        <text x="28" y="0" font-family="Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif" font-size="40">1</text>
+        <text x="76" y="-10" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, Helvetica, Arial, sans-serif" font-size="22" font-weight="600">Oslo Coffee Roasters</text>
+        <text x="76" y="16" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="16" fill="#666">Cafe · Williamsburg</text>
+        <text x="350" y="0" font-family="Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif" font-size="40">91</text>
+        <rect x="350" y="10" width="52" height="5" rx="2.5" fill="#e5e5e5"/><rect x="350" y="10" width="47" height="5" rx="2.5" fill="#000"/>
+        <rect x="418" y="-28" width="62" height="32" rx="16" fill="#d1ffca"/>
+        <text x="449" y="-6" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="18" text-anchor="middle">+85</text>
+      </g>
+      <path d="M28 174H476" stroke="#f2f2f2" stroke-width="2"/>
+      <g transform="translate(0 216)">
+        <text x="28" y="0" font-family="Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif" font-size="40">2</text>
+        <text x="76" y="-10" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, Helvetica, Arial, sans-serif" font-size="22" font-weight="600">Vinegar Hill House</text>
+        <text x="76" y="16" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="16" fill="#666">Bar</text>
+        <text x="350" y="0" font-family="Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif" font-size="40">88</text>
+        <rect x="350" y="10" width="52" height="5" rx="2.5" fill="#e5e5e5"/><rect x="350" y="10" width="46" height="5" rx="2.5" fill="#000"/>
+        <rect x="418" y="-28" width="62" height="32" rx="16" fill="#d1ffca"/>
+        <text x="449" y="-6" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="18" text-anchor="middle">+61</text>
+      </g>
+      <path d="M28 246H476" stroke="#f2f2f2" stroke-width="2"/>
+      <g transform="translate(0 288)">
+        <text x="28" y="0" font-family="Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif" font-size="40">3</text>
+        <text x="76" y="-10" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, Helvetica, Arial, sans-serif" font-size="22" font-weight="600">Absolute Coffee</text>
+        <text x="76" y="16" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="16" fill="#666">Cafe</text>
+        <text x="350" y="0" font-family="Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif" font-size="40">87</text>
+        <rect x="350" y="10" width="52" height="5" rx="2.5" fill="#e5e5e5"/><rect x="350" y="10" width="45" height="5" rx="2.5" fill="#000"/>
+        <rect x="418" y="-28" width="62" height="32" rx="16" fill="#d1ffca"/>
+        <text x="449" y="-6" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="18" text-anchor="middle">+67</text>
+      </g>
+    </g>
+
+    <g id="lift-explainer" transform="translate(16 318)">
+      <rect width="472" height="96" rx="20" fill="#f2f2f2"/>
+      <text x="20" y="30" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="16" fill="#444">#1 · LIFT = TASTE PERCENTILE − POPULARITY</text>
+      <g font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, Helvetica, Arial, sans-serif" font-size="18">
+        <text x="20" y="60">Taste</text>
+        <text x="20" y="84">Popularity</text>
+      </g>
+      <rect x="124" y="47" width="280" height="14" rx="7" fill="#ffffff"/><rect x="124" y="47" width="263" height="14" rx="7" fill="#000"/>
+      <rect x="124" y="71" width="280" height="14" rx="7" fill="#ffffff"/><rect x="124" y="71" width="25" height="14" rx="7" fill="#979797"/>
+      <g font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="18">
+        <text x="416" y="60">94</text>
+        <text x="416" y="84">9</text>
+      </g>
+    </g>
+  </g>
+</svg>

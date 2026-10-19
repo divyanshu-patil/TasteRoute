@@ -14,20 +14,16 @@
 pnpm install
 cd apps/api && uv sync && cd ../..
 
-# 2. Supabase
-supabase init                        # once, creates supabase/config.toml if missing
-supabase migration new init          # paste 0001 SQL from docs/06-data-model-supabase.md
-# Local:
-supabase start && supabase db reset
-# or cloud dev project:
-supabase link --project-ref <dev-ref> && supabase db push
+# 2. Database: local Postgres 15, or a Supabase project (put its URL in DATABASE_URL)
+createdb tasteroute                                        # local only
+cd apps/api && uv run python scripts/migrate.py && cd ../..  # applies supabase/migrations/*.sql in order
 
 # 3. Environment
 cp apps/api/.env.example apps/api/.env          # fill values (see docs/03-architecture.md)
 echo "NEXT_PUBLIC_API_URL=http://localhost:8000" > apps/web/.env.local
 
 # 4. Check health
-pnpm turbo dev                                   # runs web on :3000 and api on :8000
+pnpm dev                                         # runs web on :3000 and api on :8000
 curl -s localhost:8000/health
 ```
 
@@ -60,15 +56,16 @@ uv run python scripts/record_fixture.py overpass --city "<city>" --type cafe
 
 ```bash
 cd apps/api
-uv run python scripts/seed_demo.py --brand-url <demo-brand-url> --city "<demo city>" --types cafe,bar,restaurant,deli --outreach 10
-# prints DEMO_RUN_ID; put it in .env (and in the deployed API's environment)
+uv run python scripts/seed_demo.py [--outreach 8]   # fictional Fieldnote Drinks Co., Brooklyn, cafés and bars; spends live calls
+# prints DEMO_RUN_ID and the calls spent. /v1/demo serves the newest demo-workspace run;
+# set DEMO_RUN_ID only to pin a specific run (for example in production).
 ```
 
 ## Evaluation
 
 ```bash
-uv run python scripts/evaluate.py --brand <brand_id> --city <city> --types cafe,bar --out ../../docs/evaluation-results.md
-uv run python scripts/evaluate.py --score evaluation_pairs.csv
+uv run python scripts/evaluate.py            # setups A, B, C -> docs/evaluation-results.md and docs/evaluation_pairs.csv
+uv run python scripts/evaluate.py --score ../../docs/evaluation_pairs.csv   # after the judge fills better_fit
 ```
 
 ## Useful SQL
