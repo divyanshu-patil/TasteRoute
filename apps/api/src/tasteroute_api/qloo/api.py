@@ -1,9 +1,10 @@
 """The Qloo calls TasteRoute makes, with verified parameters (docs/qloo-contract.md)."""
 
 from .client import Params, QlooClient, Trace
-from .models import Brand, InsightsBody, SearchBody, TagAffinity, TagInsightsBody
+from .models import Brand, InsightsBody, Place, SearchBody, TagAffinity, TagInsightsBody
 
 PLACE = "urn:entity:place"
+ARTIST = "urn:entity:artist"
 MAX_TAKE = 50  # D-02: live API rejects take > 50
 
 
@@ -44,6 +45,16 @@ async def place_insights(
         params.append(("page", str(page)))
     r = await client.get("/v2/insights", params, trace)
     return InsightsBody.model_validate(r.body), r.call_id, r.cache_hit
+
+
+async def taste_entities(
+    client: QlooClient, signal_ids: list[str], *, entity_type: str = ARTIST, take: int = 5, trace: Trace | None = None
+) -> tuple[list[Place], str]:
+    """What fans of the signal over-index on in another domain, best first (verified for artists and podcasts; a venue
+    works as a signal too, QLO-11)."""
+    params: Params = [("filter.type", entity_type), ("signal.interests.entities", ",".join(signal_ids)), ("take", str(take))]
+    r = await client.get("/v2/insights", params, trace)
+    return InsightsBody.model_validate(r.body).results.entities[:take], r.call_id
 
 
 async def audience_tags(

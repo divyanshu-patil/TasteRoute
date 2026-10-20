@@ -48,6 +48,7 @@ def reason(
     runner_up: str | None,
     label: str,
     phrases: dict[str, str] | None = None,
+    music: list[str] | None = None,
 ) -> str:
     """Example: 'Known for brunch and Italian food, which fans of Stumptown over-index on (Qloo). Crowd: foodies and
     young professionals, into specialty coffee (Qloo). Lead with Cold Brew (Qloo, per product).'
@@ -68,6 +69,8 @@ def reason(
         parts.append(f"Guests here are into {_join(likes)} (Qloo).")
     if not parts:
         parts.append("Strong taste match for your products (Qloo).")
+    if music:  # cross-domain (EVD-06): artists your brands' fans like that drive this venue's score with their fans
+        parts.append(f"Scores high with fans of {_join(music)}, music your brands' fans like (Qloo).")
     if best_product:
         if label == "close" and runner_up:
             parts.append(f"Lead with {best_product}; {runner_up} also fits (Qloo).")

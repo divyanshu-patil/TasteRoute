@@ -132,6 +132,7 @@ export default function Evaluation() {
           <li>The LLM reads names (&ldquo;Whiskey&rdquo;, &ldquo;Wine House&rdquo;, &ldquo;Coffee&rdquo;) and knows famous venues, and ranks accounts higher on average.</li>
           <li>Our mass-market check counts Starbucks and Dunkin&apos;, which pushed real coffee accounts down for a coffee roaster. Qloo&apos;s taste score alone did better on this test.</li>
           <li>If Qloo doesn&apos;t know the brands you resemble (small natural-wine producers here), there is no taste signal to rank with.</li>
+          <li>Music taste did not help. Ranking also by the artists your comparables&apos; fans like found 4 test accounts in the top 30, against 8, so it only explains a match and never changes fit. We wrote that rule down before running it.</li>
         </ul>
       </section>
 

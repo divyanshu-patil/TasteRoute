@@ -138,6 +138,9 @@ def test_reasons_skip_sensitive_and_common_tags():
     text = reason(audience_overlap=["Natural wine"], crowd=["LGBTQ+ friendly", "Locals"], interests=["Specialty coffee"],
                   driver_names=["Blue Bottle Coffee"], best_product="Cold Brew", runner_up="Espresso", label="close")
     assert "lgbt" not in text.lower() and text.count("(Qloo)") == 3
+    with_music = reason(audience_overlap=[], crowd=[], interests=[], driver_names=[], best_product=None, runner_up=None,
+                        label="unscored", music=["Sylvan Esso", "Rhye"])
+    assert "Scores high with fans of Sylvan Esso and Rhye, music your brands' fans like (Qloo)." in with_music  # EVD-06
 
 
 def test_reasons_never_list_the_venue_type_and_read_plainly():

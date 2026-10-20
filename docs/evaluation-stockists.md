@@ -11,6 +11,8 @@ Each brand's Brooklyn accounts come from the brand's own public account list. Ev
 | POP | Qloo popularity only |
 | LLM | Gemma 4 31B from the description, the comparables and each venue's name, type and neighbourhood |
 | Q-fit+LLM | Exploratory (added after the dev run, before the test run): the mean of the Q-fit and LLM positions |
+| Q-cult | Qloo affinity with a music signal: the 5 artists the comparables' fans over-index on (added after the test run, pre-registered before it ran) |
+| Q-fit+C | The mean of the Q-fit and Q-cult positions; enters the app's fit only under the pre-registered rule |
 | RANDOM | Expected value |
 
 **Result: Q-fit beat the LLM on recall@30 in 1 of 3 scored test brands (1 tied). Target was 3 of 4: missed.**
@@ -19,28 +21,28 @@ Not scored: **Steven Graf Wine** (test): 0 of 6 comparables (Gut Oggau, Martha S
 
 ## Recall@30 by brand
 
-| Brand | Split | Accounts in the pool | Pool | Q-fit | Q-raw | POP | LLM | Q-fit+LLM | RANDOM |
-|---|---|---|---|---|---|---|---|---|---|
-| Kings County Distillery | dev | 10 of 120 | 875 | 20% (2) | 10% (1) | 10% (1) | 20% (2) | 10% (1) | 3% |
-| Wölffer Estate | dev | 7 of 21 | 875 | 0% (0) | 0% (0) | 0% (0) | 0% (0) | 0% (0) | 3% |
-| Parlor Coffee | test | 4 of 47 | 927 | 0% (0) | 25% (1) | 0% (0) | 25% (1) | 0% (0) | 3% |
-| St. Agrestis | test | 36 of 93 | 875 | 19% (7) | 22% (8) | 14% (5) | 19% (7) | 19% (7) | 3% |
-| Casamara Club | test | 7 of 30 | 1089 | 14% (1) | 14% (1) | 0% (0) | 0% (0) | 14% (1) | 3% |
+| Brand | Split | Accounts in the pool | Pool | Q-fit | Q-raw | POP | LLM | Q-fit+LLM | Q-cult | Q-fit+C | RANDOM |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| Kings County Distillery | dev | 10 of 120 | 875 | 20% (2) | 10% (1) | 10% (1) | 20% (2) | 10% (1) | 0% (0) | 10% (1) | 3% |
+| Wölffer Estate | dev | 7 of 21 | 875 | 0% (0) | 0% (0) | 0% (0) | 0% (0) | 0% (0) | 29% (2) | 14% (1) | 3% |
+| Parlor Coffee | test | 4 of 47 | 927 | 0% (0) | 25% (1) | 0% (0) | 25% (1) | 0% (0) | 0% (0) | 0% (0) | 3% |
+| St. Agrestis | test | 36 of 93 | 875 | 19% (7) | 22% (8) | 14% (5) | 19% (7) | 19% (7) | 8% (3) | 8% (3) | 3% |
+| Casamara Club | test | 7 of 30 | 1089 | 14% (1) | 14% (1) | 0% (0) | 0% (0) | 14% (1) | 0% (0) | 14% (1) | 3% |
 
 Cells: recall@30 (accounts found in the top 30).
 
 ## Kings County Distillery (dev)
 
-A small-batch distillery making bourbon, rye and moonshine. Venue types: bar, restaurant. Comparables: Woodford Reserve, Bulleit Frontier Whiskey, Maker's Mark.
+A small-batch distillery making bourbon, rye and moonshine. Venue types: bar, restaurant. Comparables: Woodford Reserve, Bulleit Frontier Whiskey, Maker's Mark. Their fans' top artists (Qloo): Montgomery Gentry, Jamey Johnson, Josh Thompson, Colt Ford, Brooks & Dunn.
 
 Accounts: 120 in Brooklyn; 10 are among Qloo's 500 best-known venues of each type (the pool); the rest are excluded for every method. Long tail (outside POP's top 50): 9 of 10.
 
-| Metric | Q-fit | Q-raw | POP | LLM | Q-fit+LLM | RANDOM |
-|---|---|---|---|---|---|---|
-| recall@15 | 0% | 0% | 10% | 20% | 10% | 2% |
-| recall@30 | 20% | 10% | 10% | 20% | 10% | 3% |
-| mean percentile rank | 59 | 63 | 55 | 87 | 80 | 50 |
-| long-tail recall@30 | 22% | 11% | 0% | 22% | 11% | 3% |
+| Metric | Q-fit | Q-raw | POP | LLM | Q-fit+LLM | Q-cult | Q-fit+C | RANDOM |
+|---|---|---|---|---|---|---|---|---|
+| recall@15 | 0% | 0% | 10% | 20% | 10% | 0% | 0% | 2% |
+| recall@30 | 20% | 10% | 10% | 20% | 10% | 0% | 10% | 3% |
+| mean percentile rank | 59 | 63 | 55 | 87 | 80 | 56 | 62 | 50 |
+| long-tail recall@30 | 22% | 11% | 0% | 22% | 11% | 0% | 0% | 3% |
 
 | Account | Type | Q-fit rank | LLM rank | POP rank | Taste pct | Mass-market pct | Qloo drivers |
 |---|---|---|---|---|---|---|---|
@@ -57,16 +59,16 @@ Accounts: 120 in Brooklyn; 10 are among Qloo's 500 best-known venues of each typ
 
 ## Wölffer Estate (dev)
 
-A Long Island estate making rosé wines and dry rosé cider. Venue types: bar, restaurant. Comparables: Whispering Angel, Kim Crawford Wines, Angry Orchard.
+A Long Island estate making rosé wines and dry rosé cider. Venue types: bar, restaurant. Comparables: Whispering Angel, Kim Crawford Wines, Angry Orchard. Their fans' top artists (Qloo): Faith Hill, Martina McBride, Gloriana, Keith Urban, Sara Evans.
 
 Accounts: 21 in Brooklyn; 7 are among Qloo's 500 best-known venues of each type (the pool); the rest are excluded for every method. Long tail (outside POP's top 50): 7 of 7.
 
-| Metric | Q-fit | Q-raw | POP | LLM | Q-fit+LLM | RANDOM |
-|---|---|---|---|---|---|---|
-| recall@15 | 0% | 0% | 0% | 0% | 0% | 2% |
-| recall@30 | 0% | 0% | 0% | 0% | 0% | 3% |
-| mean percentile rank | 51 | 56 | 54 | 72 | 65 | 50 |
-| long-tail recall@30 | 0% | 0% | 0% | 0% | 0% | 3% |
+| Metric | Q-fit | Q-raw | POP | LLM | Q-fit+LLM | Q-cult | Q-fit+C | RANDOM |
+|---|---|---|---|---|---|---|---|---|
+| recall@15 | 0% | 0% | 0% | 0% | 0% | 14% | 14% | 2% |
+| recall@30 | 0% | 0% | 0% | 0% | 0% | 29% | 14% | 3% |
+| mean percentile rank | 51 | 56 | 54 | 72 | 65 | 70 | 62 | 50 |
+| long-tail recall@30 | 0% | 0% | 0% | 0% | 0% | 29% | 14% | 3% |
 
 | Account | Type | Q-fit rank | LLM rank | POP rank | Taste pct | Mass-market pct | Qloo drivers |
 |---|---|---|---|---|---|---|---|
@@ -80,16 +82,16 @@ Accounts: 21 in Brooklyn; 7 are among Qloo's 500 best-known venues of each type 
 
 ## Parlor Coffee (test)
 
-A Brooklyn specialty coffee roaster supplying cafés and restaurants. Venue types: cafe, restaurant. Comparables: Stumptown Coffee Roasters, Blue Bottle Coffee, Counter Culture Coffee, Intelligentsia Coffee.
+A Brooklyn specialty coffee roaster supplying cafés and restaurants. Venue types: cafe, restaurant. Comparables: Stumptown Coffee Roasters, Blue Bottle Coffee, Counter Culture Coffee, Intelligentsia Coffee. Their fans' top artists (Qloo): Sylvan Esso, Rhye, Future Islands, Youth Lagoon, Poliça.
 
 Accounts: 47 in Brooklyn; 4 are among Qloo's 500 best-known venues of each type (the pool); the rest are excluded for every method. Long tail (outside POP's top 50): 4 of 4.
 
-| Metric | Q-fit | Q-raw | POP | LLM | Q-fit+LLM | RANDOM |
-|---|---|---|---|---|---|---|
-| recall@15 | 0% | 0% | 0% | 0% | 0% | 2% |
-| recall@30 | 0% | 25% | 0% | 25% | 0% | 3% |
-| mean percentile rank | 78 | 77 | 58 | 86 | 86 | 50 |
-| long-tail recall@30 | 0% | 25% | 0% | 25% | 0% | 3% |
+| Metric | Q-fit | Q-raw | POP | LLM | Q-fit+LLM | Q-cult | Q-fit+C | RANDOM |
+|---|---|---|---|---|---|---|---|---|
+| recall@15 | 0% | 0% | 0% | 0% | 0% | 0% | 0% | 2% |
+| recall@30 | 0% | 25% | 0% | 25% | 0% | 0% | 0% | 3% |
+| mean percentile rank | 78 | 77 | 58 | 86 | 86 | 66 | 74 | 50 |
+| long-tail recall@30 | 0% | 25% | 0% | 25% | 0% | 0% | 0% | 3% |
 
 | Account | Type | Q-fit rank | LLM rank | POP rank | Taste pct | Mass-market pct | Qloo drivers |
 |---|---|---|---|---|---|---|---|
@@ -100,16 +102,16 @@ Accounts: 47 in Brooklyn; 4 are among Qloo's 500 best-known venues of each type 
 
 ## St. Agrestis (test)
 
-Non-alcoholic bottled aperitivo cocktails and a booze-free amaro. Venue types: bar, restaurant. Comparables: Ghia, Seedlip, Campari.
+Non-alcoholic bottled aperitivo cocktails and a booze-free amaro. Venue types: bar, restaurant. Comparables: Ghia, Seedlip, Campari. Their fans' top artists (Qloo): Silvana Estrada, La Isla Centeno, Leon Bridges, Simon Grossmann, Rostam.
 
 Accounts: 93 in Brooklyn; 36 are among Qloo's 500 best-known venues of each type (the pool); the rest are excluded for every method. Long tail (outside POP's top 50): 28 of 36.
 
-| Metric | Q-fit | Q-raw | POP | LLM | Q-fit+LLM | RANDOM |
-|---|---|---|---|---|---|---|
-| recall@15 | 11% | 19% | 6% | 11% | 14% | 2% |
-| recall@30 | 19% | 22% | 14% | 19% | 19% | 3% |
-| mean percentile rank | 66 | 69 | 66 | 73 | 72 | 50 |
-| long-tail recall@30 | 14% | 18% | 0% | 11% | 14% | 3% |
+| Metric | Q-fit | Q-raw | POP | LLM | Q-fit+LLM | Q-cult | Q-fit+C | RANDOM |
+|---|---|---|---|---|---|---|---|---|
+| recall@15 | 11% | 19% | 6% | 11% | 14% | 6% | 6% | 2% |
+| recall@30 | 19% | 22% | 14% | 19% | 19% | 8% | 8% | 3% |
+| mean percentile rank | 66 | 69 | 66 | 73 | 72 | 61 | 69 | 50 |
+| long-tail recall@30 | 14% | 18% | 0% | 11% | 14% | 11% | 11% | 3% |
 
 | Account | Type | Q-fit rank | LLM rank | POP rank | Taste pct | Mass-market pct | Qloo drivers |
 |---|---|---|---|---|---|---|---|
@@ -152,16 +154,16 @@ Accounts: 93 in Brooklyn; 36 are among Qloo's 500 best-known venues of each type
 
 ## Casamara Club (test)
 
-Non-alcoholic botanical sodas inspired by Italian amari. Venue types: bar, restaurant, deli. Comparables: Fever-Tree, Spindrift Sparkling Water, Ghia.
+Non-alcoholic botanical sodas inspired by Italian amari. Venue types: bar, restaurant, deli. Comparables: Fever-Tree, Spindrift Sparkling Water, Ghia. Their fans' top artists (Qloo): Maggie Rogers, Phoebe Bridgers, Laura Marling, Tiny Habits, Julia Jacklin.
 
 Accounts: 30 in Brooklyn; 7 are among Qloo's 500 best-known venues of each type (the pool); the rest are excluded for every method. Long tail (outside POP's top 50): 7 of 7.
 
-| Metric | Q-fit | Q-raw | POP | LLM | Q-fit+LLM | RANDOM |
-|---|---|---|---|---|---|---|
-| recall@15 | 14% | 14% | 0% | 0% | 14% | 1% |
-| recall@30 | 14% | 14% | 0% | 0% | 14% | 3% |
-| mean percentile rank | 69 | 72 | 35 | 70 | 72 | 50 |
-| long-tail recall@30 | 14% | 14% | 0% | 0% | 14% | 3% |
+| Metric | Q-fit | Q-raw | POP | LLM | Q-fit+LLM | Q-cult | Q-fit+C | RANDOM |
+|---|---|---|---|---|---|---|---|---|
+| recall@15 | 14% | 14% | 0% | 0% | 14% | 0% | 0% | 1% |
+| recall@30 | 14% | 14% | 0% | 0% | 14% | 0% | 14% | 3% |
+| mean percentile rank | 69 | 72 | 35 | 70 | 72 | 60 | 67 | 50 |
+| long-tail recall@30 | 14% | 14% | 0% | 0% | 14% | 0% | 14% | 3% |
 
 | Account | Type | Q-fit rank | LLM rank | POP rank | Taste pct | Mass-market pct | Qloo drivers |
 |---|---|---|---|---|---|---|---|
@@ -182,6 +184,7 @@ Written after the test run; every number is in the tables above or in `docs/eval
 - **Lift did not help on this test.** Q-raw matched or beat Q-fit on recall@30 for every scored test brand (Parlor 25% vs 0%, St. Agrestis 22% vs 19%, Casamara Club 14% vs 14%).
 - **The LLM reads names and knows famous venues.** Its mean percentile rank beats Q-fit on all three scored test brands (86 vs 78, 73 vs 66, 70 vs 69) and both dev brands. Its top picks carry the category in the name ("Coffee Project", "The Whiskey Annex", "Black Mountain Wine House") or are famous (Lilia, The Four Horsemen).
 - **Where Qloo was ahead: the top of the list for taste-led brands.** St. Agrestis recall@15: Q-raw 19% (7 of 36), Q-fit 11%, LLM 11%. Accounts Qloo ranks high and the LLM does not: Grand Army (Q-fit 9th, LLM 284th), June (2nd vs 101st), Madeline's (22nd vs 283rd), all driven by fans of Ghia and Campari. For Casamara Club the LLM has no account in its top 30; Q-fit has Glasserie at 10th.
+- **Music taste did not help ranking (checked under a rule written before it ran).** With the 5 artists the comparables' fans over-index on as the signal, Q-fit+C put 4 test accounts in its top 30 against Q-fit's 8, and 1 Kings County Distillery account against 2, so cultural fit stays an explanation and does not change fit. The artists are national tastes (country singers for both whiskey and rosé fans), which say little about which Brooklyn bar a brand belongs in. Q-cult alone put 2 of 7 Wölffer Estate accounts in its top 30, where every other method found none; one dev brand is not evidence.
 
 **What it means.** On these brands Qloo's taste signal finds about as many real accounts as an LLM that reads venue names: 8 of 47 in the top 30 for Q-fit, 8 for the LLM, 10 for Q-raw, about 1.5 by chance. They find different ones (Grand Army and June for Qloo, Lilia and Cecconi's for the LLM), so the app shows both (the LLM column on the results page) instead of claiming Qloo wins. The mass-market set should not contain the brand's own category (no coffee chains for a coffee brand); that change needs new brands to test it on, so it is logged, not made.
 
@@ -195,4 +198,4 @@ Written after the test run; every number is in the tables above or in `docs/eval
 
 ## Calls spent
 
-Qloo live 0 (cached 328), LLM 0.
+Qloo live 0 (cached 428), LLM 0.

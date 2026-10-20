@@ -1,0 +1,1569 @@
+{
+ "request": {
+  "path": "/v2/insights",
+  "params": [
+   [
+    "filter.type",
+    "urn:entity:podcast"
+   ],
+   [
+    "signal.interests.entities",
+    "05998F13-D609-4FA6-99A2-6104F88AA941,19A4EBE0-9354-4918-A62C-E17A46580283,22B1BC87-CDFE-4340-86F8-8E0E6E1E6A7D,4F96173F-D444-4570-A9C3-E833C7790BB6,836A1A09-06AB-4462-B22D-CE56FB5BFC4A,A5EB07F2-F0FA-4E19-9791-89E340CB8A73,D012BBB3-EA3F-45E6-BA69-1710C0947A7D,E6BC1B43-71EA-4CAD-9CF5-BCADD6951F31,E95AEC3D-1FB3-49E4-AEF2-EF75A86F29CB"
+   ],
+   [
+    "take",
+    "20"
+   ]
+  ]
+ },
+ "status": 200,
+ "body": {
+  "success": true,
+  "results": {
+   "entities": [
+    {
+     "name": "Almost 30",
+     "entity_id": "ECC50A2F-C412-419E-87F0-15EE5C523526",
+     "type": "urn:entity",
+     "subtype": "urn:entity:podcast",
+     "properties": {
+      "akas": [],
+      "image": {
+       "url": "https://images.qloo.com/i/ECC50A2F-C412-419E-87F0-15EE5C523526-420x-auto.jpg"
+      },
+      "rating": 4.5,
+      "channel": "Almost 30",
+      "description": "Welcome to Almost 30 - a supportive space to fuel your conscious evolution. Join us, LA-based best friends Krista Williams and Lindsey Simcik, for heart-centered, hilarious conversations and real, raw, impactful interviews with brilliant guests. We dive deep into topics like modern spirituality to health and wellness, aliens to entrepreneurship, social justice, and self development.\u00a0With every episode, our mission is to empower you, expand what you think is possible and,\u00a0make you laugh - a lot. We are honest, open, and above all, human. We are committed to learning right alongside you in real time so we can all find growth in every moment together.\u00a0With millions of listeners around the world, Almost 30 has grown from a pioneering leader in the podcast space to a highly engaged global community. #Almost30Nation is full of purposeful dreamers who are curious, passionate, and constantly seeking growth in every aspect of our lives.\u00a0Join us for new episodes every Tuesday + Thursday! This podcast uses the following third-party services for analysis: Chartable - https://chartable.com/privacy Podsights - https://podsights.com/privacy",
+      "release_date": "2024-07-09",
+      "episode_count": "15",
+      "content_rating": "Explicit",
+      "short_description": "Heart-centered conversations and impactful interviews exploring spirituality, health, entrepreneurship, and personal growth.",
+      "short_descriptions": [
+       {
+        "value": "Herzliche Gespr\u00e4che und eindrucksvolle Interviews zu Spiritualit\u00e4t, Gesundheit, Unternehmertum und pers\u00f6nlichem Wachstum.",
+        "languages": [
+         "de"
+        ]
+       },
+       {
+        "value": "Conversaciones sinceras y entrevistas impactantes sobre espiritualidad, salud, emprendimiento y crecimiento personal.",
+        "languages": [
+         "es"
+        ]
+       },
+       {
+        "value": "Conversations sinc\u00e8res et interviews marquantes explorant la spiritualit\u00e9, la sant\u00e9, l'entrepreneuriat et le d\u00e9veloppement personnel.",
+        "languages": [
+         "fr"
+        ]
+       },
+       {
+        "value": "Heart-centered conversations and impactful interviews exploring spirituality, health, entrepreneurship, and personal growth.",
+        "languages": [
+         "en"
+        ]
+       }
+      ]
+     },
+     "popularity": 0.9883135080344633,
+     "tags": [
+      {
+       "id": "urn:tag:genre:media:health_fitness",
+       "name": "Health & Fitness",
+       "type": "urn:tag:genre:media"
+      },
+      {
+       "id": "urn:tag:genre:media:education",
+       "name": "Education",
+       "type": "urn:tag:genre:media"
+      },
+      {
+       "id": "urn:tag:genre:media:self_improvement",
+       "name": "Self-Improvement",
+       "type": "urn:tag:genre:media"
+      },
+      {
+       "id": "urn:tag:genre:media:alternative_health",
+       "name": "Alternative Health",
+       "type": "urn:tag:genre:media"
+      },
+      {
+       "id": "urn:tag:genre:media:podcasts",
+       "name": "Podcasts",
+       "type": "urn:tag:genre:media"
+      }
+     ],
+     "query": {
+      "affinity": 0.926234357866073,
+      "measurements": {
+       "audience_growth": 0
+      }
+     },
+     "disambiguation": "",
+     "external": {
+      "itunes": [
+       {
+        "id": "1148183612",
+        "user_rating": 4
+       }
+      ]
+     }
+    },
+    {
+     "name": "From the Heart with Rachel Brathen",
+     "entity_id": "BB2D6FD1-9D5B-44C7-AFC0-F82EFE1675F6",
+     "type": "urn:entity",
+     "subtype": "urn:entity:podcast",
+     "properties": {
+      "akas": [],
+      "image": {
+       "url": "https://images.qloo.com/i/BB2D6FD1-9D5B-44C7-AFC0-F82EFE1675F6-420x-auto.jpg"
+      },
+      "rating": 4.7,
+      "channel": "From the Heart with Rachel Brathen",
+      "description": "Rachel Brathen is a bestselling author, podcast host, and serial entrepreneur who inspires millions every day. Now \u2013 Rachel offers an even more intimate look into her life and the inspiring journey. Weekly episodes of storytelling and talks from Rachel (sometimes alongside special guests!) dive into topics such as love, trust, finding balance, overcoming adversity and well-being. The light you are seeking is within your own heart. Join Rachel as she helps you uncover it, from her heart to yours.",
+      "release_date": "2024-07-05",
+      "episode_count": "15",
+      "content_rating": "Clean",
+      "short_description": "Rachel Brathen shares personal stories and insights on love, trust, balance, and well-being, inspiring listeners to uncover their inner light.",
+      "short_descriptions": [
+       {
+        "value": "Rachel Brathen teilt pers\u00f6nliche Geschichten und Einsichten \u00fcber Liebe, Vertrauen, Balance und Wohlbefinden und inspiriert dazu, das innere Licht zu entdecken.",
+        "languages": [
+         "de"
+        ]
+       },
+       {
+        "value": "Rachel Brathen comparte historias personales y reflexiones sobre el amor, la confianza, el equilibrio y el bienestar, inspirando a descubrir la luz interior.",
+        "languages": [
+         "es"
+        ]
+       },
+       {
+        "value": "Rachel Brathen partage des histoires personnelles et des r\u00e9flexions sur l'amour, la confiance, l'\u00e9quilibre et le bien-\u00eatre, inspirant \u00e0 d\u00e9couvrir sa lumi\u00e8re int\u00e9rieure.",
+        "languages": [
+         "fr"
+        ]
+       },
+       {
+        "value": "Rachel Brathen shares personal stories and insights on love, trust, balance, and well-being, inspiring listeners to uncover their inner light.",
+        "languages": [
+         "en"
+        ]
+       }
+      ]
+     },
+     "popularity": 0.9760009539993442,
+     "tags": [
+      {
+       "id": "urn:tag:genre:media:society_culture",
+       "name": "Society & Culture",
+       "type": "urn:tag:genre:media"
+      },
+      {
+       "id": "urn:tag:genre:media:podcasts",
+       "name": "Podcasts",
+       "type": "urn:tag:genre:media"
+      }
+     ],
+     "query": {
+      "affinity": 0.9150793749553267,
+      "measurements": {
+       "audience_growth": 0
+      }
+     },
+     "disambiguation": "",
+     "external": {
+      "itunes": [
+       {
+        "id": "1219728105",
+        "user_rating": 4
+       }
+      ]
+     }
+    },
+    {
+     "name": "IGNTD",
+     "entity_id": "71DE1A5B-D385-41F6-B6B5-04BEE5486F84",
+     "type": "urn:entity",
+     "subtype": "urn:entity:podcast",
+     "properties": {
+      "akas": [],
+      "image": {
+       "url": "https://images.qloo.com/i/71DE1A5B-D385-41F6-B6B5-04BEE5486F84-420x-auto.jpg"
+      },
+      "rating": 4.7,
+      "channel": "IGNTD",
+      "description": "IGNTD is a podcast channel focused on relationships and addiction, produced by Dr. Adi Jaffe and Sophie Jaffe. New episodes every Monday, Wednesday, and Friday. \n\nFollowing the principles of radical transparency and F-Shame, IGNTD offers an honest exploration of life in the areas of relationships, mental health, and success. \n\nDr. Adi and Sophie Jaffe go deep, exploring topics that others usually shy away from. From intimacy and sex, to cheating and trust, all the way to death, drugs, spirituality, work, nutrition, the brain and success... they're talking about it all!\n\nIf you've been looking for a place that merges science, spirituality and storytelling, then you'll love going deep with us on the IGNTD channel.",
+      "release_date": "2024-01-31",
+      "episode_count": "15",
+      "content_rating": "Explicit",
+      "short_description": "A podcast exploring relationships and addiction through radical transparency, covering topics from intimacy to mental health and success.",
+      "short_descriptions": [
+       {
+        "value": "Ein Podcast, der Beziehungen und Sucht durch radikale Transparenz erforscht und Themen von Intimit\u00e4t bis psychische Gesundheit und Erfolg behandelt.",
+        "languages": [
+         "de"
+        ]
+       },
+       {
+        "value": "Un podcast que explora las relaciones y la adicci\u00f3n mediante la transparencia radical, abordando temas desde la intimidad hasta la salud mental y el \u00e9xito.",
+        "languages": [
+         "es"
+        ]
+       },
+       {
+        "value": "Un podcast explorant les relations et la d\u00e9pendance par la transparence radicale, couvrant des sujets de l'intimit\u00e9 \u00e0 la sant\u00e9 mentale et au succ\u00e8s.",
+        "languages": [
+         "fr"
+        ]
+       },
+       {
+        "value": "A podcast exploring relationships and addiction through radical transparency, covering topics from intimacy to mental health and success.",
+        "languages": [
+         "en"
+        ]
+       }
+      ]
+     },
+     "popularity": 0.8800942074352324,
+     "tags": [
+      {
+       "id": "urn:tag:genre:media:mental_health",
+       "name": "Mental Health",
+       "type": "urn:tag:genre:media"
+      },
+      {
+       "id": "urn:tag:genre:media:podcasts",
+       "name": "Podcasts",
+       "type": "urn:tag:genre:media"
+      },
+      {
+       "id": "urn:tag:genre:media:health_fitness",
+       "name": "Health & Fitness",
+       "type": "urn:tag:genre:media"
+      },
+      {
+       "id": "urn:tag:genre:media:alternative_health",
+       "name": "Alternative Health",
+       "type": "urn:tag:genre:media"
+      }
+     ],
+     "query": {
+      "affinity": 0.9110131583735942,
+      "measurements": {
+       "audience_growth": 0
+      }
+     },
+     "disambiguation": "",
+     "external": {
+      "itunes": [
+       {
+        "id": "1316762420",
+        "user_rating": 4
+       }
+      ]
+     }
+    },
+    {
+     "name": "The goop Podcast",
+     "entity_id": "80C4D787-76A0-45DD-A323-10769B63FAD6",
+     "type": "urn:entity",
+     "subtype": "urn:entity:podcast",
+     "properties": {
+      "akas": [],
+      "image": {
+       "url": "https://images.qloo.com/i/80C4D787-76A0-45DD-A323-10769B63FAD6-420x-auto.jpg"
+      },
+      "rating": 4.3,
+      "channel": "The goop Podcast",
+      "description": "goop CEO and founder Gwyneth Paltrow and author Cleo Wade take turns hosting the brightest thinkers and culture changers.",
+      "release_date": "2024-07-02",
+      "episode_count": "15",
+      "content_rating": "Clean",
+      "short_description": "Gwyneth Paltrow and Cleo Wade host discussions with influential thinkers and culture changers on various topics.",
+      "short_descriptions": [
+       {
+        "value": "Gwyneth Paltrow und Cleo Wade f\u00fchren Gespr\u00e4che mit einflussreichen Denkern und Kulturver\u00e4nderern zu verschiedenen Themen.",
+        "languages": [
+         "de"
+        ]
+       },
+       {
+        "value": "Gwyneth Paltrow y Cleo Wade presentan conversaciones con pensadores influyentes y agentes de cambio cultural sobre diversos temas.",
+        "languages": [
+         "es"
+        ]
+       },
+       {
+        "value": "Gwyneth Paltrow et Cleo Wade animent des discussions avec des penseurs influents et des acteurs du changement culturel sur divers sujets.",
+        "languages": [
+         "fr"
+        ]
+       },
+       {
+        "value": "Gwyneth Paltrow and Cleo Wade host discussions with influential thinkers and culture changers on various topics.",
+        "languages": [
+         "en"
+        ]
+       }
+      ]
+     },
+     "popularity": 0.9514950958471216,
+     "tags": [
+      {
+       "id": "urn:tag:genre:media:society_culture",
+       "name": "Society & Culture",
+       "type": "urn:tag:genre:media"
+      },
+      {
+       "id": "urn:tag:genre:media:health_fitness",
+       "name": "Health & Fitness",
+       "type": "urn:tag:genre:media"
+      },
+      {
+       "id": "urn:tag:genre:media:podcasts",
+       "name": "Podcasts",
+       "type": "urn:tag:genre:media"
+      }
+     ],
+     "query": {
+      "affinity": 0.9082906861076566,
+      "measurements": {
+       "audience_growth": 0
+      }
+     },
+     "disambiguation": "",
+     "external": {
+      "itunes": [
+       {
+        "id": "1352546554",
+        "user_rating": 4
+       }
+      ]
+     }
+    },
+    {
+     "name": "Press Send with Chinae Alexander",
+     "entity_id": "BD540280-3A3B-453F-8987-6DCCA008F140",
+     "type": "urn:entity",
+     "subtype": "urn:entity:podcast",
+     "properties": {
+      "akas": [],
+      "image": {
+       "url": "https://images.qloo.com/i/BD540280-3A3B-453F-8987-6DCCA008F140-420x-auto.jpg"
+      },
+      "rating": 4.9,
+      "channel": "Press Send with Chinae Alexander",
+      "description": "Chinae Alexander, an entrepreneur and lifestyle personality, wants to hear about your problems. On Press Send, she\u2019s fielding your questions and bringing her trademark honesty to the issues, big and small, that we all actually care about. Join Chinae each week as she dishes out advice on everything from relationships to careers to wellness. No question is too intimate, and no topic is off limits \u2014 just press send.\n\nNeed advice? Email hello@presssendpodcast.com to be a featured guest on Press Send.",
+      "release_date": "2022-12-14",
+      "episode_count": "15",
+      "content_rating": "Explicit",
+      "short_description": "Chinae Alexander offers honest advice on personal issues, from relationships to wellness, addressing listener questions each week.",
+      "short_descriptions": [
+       {
+        "value": "Chinae Alexander gibt ehrliche Ratschl\u00e4ge zu pers\u00f6nlichen Themen, von Beziehungen bis Wellness, und beantwortet jede Woche Zuh\u00f6rerfragen.",
+        "languages": [
+         "de"
+        ]
+       },
+       {
+        "value": "Chinae Alexander ofrece consejos sinceros sobre temas personales, desde relaciones hasta bienestar, respondiendo preguntas de los oyentes cada semana.",
+        "languages": [
+         "es"
+        ]
+       },
+       {
+        "value": "Chinae Alexander offre des conseils honn\u00eates sur des questions personnelles, des relations au bien-\u00eatre, r\u00e9pondant aux questions des auditeurs chaque semaine.",
+        "languages": [
+         "fr"
+        ]
+       },
+       {
+        "value": "Chinae Alexander offers honest advice on personal issues, from relationships to wellness, addressing listener questions each week.",
+        "languages": [
+         "en"
+        ]
+       }
+      ]
+     },
+     "popularity": 0.9308350475509048,
+     "tags": [
+      {
+       "id": "urn:tag:genre:media:relationships",
+       "name": "Relationships",
+       "type": "urn:tag:genre:media"
+      },
+      {
+       "id": "urn:tag:genre:media:podcasts",
+       "name": "Podcasts",
+       "type": "urn:tag:genre:media"
+      },
+      {
+       "id": "urn:tag:genre:media:mental_health",
+       "name": "Mental Health",
+       "type": "urn:tag:genre:media"
+      },
+      {
+       "id": "urn:tag:genre:media:society_culture",
+       "name": "Society & Culture",
+       "type": "urn:tag:genre:media"
+      },
+      {
+       "id": "urn:tag:genre:media:health_fitness",
+       "name": "Health & Fitness",
+       "type": "urn:tag:genre:media"
+      }
+     ],
+     "query": {
+      "affinity": 0.9025207108317548,
+      "measurements": {
+       "audience_growth": 0
+      }
+     },
+     "disambiguation": "",
+     "external": {
+      "itunes": [
+       {
+        "id": "1450698554",
+        "user_rating": 4
+       }
+      ]
+     }
+    },
+    {
+     "name": "Girls Gotta Eat",
+     "entity_id": "0F2BB3D0-3235-49F9-9C58-4E4756681274",
+     "type": "urn:entity",
+     "subtype": "urn:entity:podcast",
+     "properties": {
+      "akas": [],
+      "image": {
+       "url": "https://images.qloo.com/i/0F2BB3D0-3235-49F9-9C58-4E4756681274-420x-auto.jpg"
+      },
+      "rating": 4.6,
+      "channel": "Girls Gotta Eat",
+      "description": "Consider this your (comedic) education in dating, sex, and relationships. Girls Gotta Eat is a top podcast since 2018 co-hosted by Ashley Hesseltine and Rayna Greenberg and covering everything from breakups to bl**jobs, finances to fetishes. New episodes drop every Monday so you can start your week EATING, then dive into The Snack (a lighter episode about pop culture) on Thursdays!",
+      "release_date": "2024-07-11",
+      "episode_count": "15",
+      "content_rating": "Explicit",
+      "short_description": "A comedic podcast offering dating, sex, and relationship advice, featuring candid discussions and listener interactions.",
+      "short_descriptions": [
+       {
+        "value": "Ein humorvoller Podcast mit Ratschl\u00e4gen zu Dating, Sex und Beziehungen, mit offenen Gespr\u00e4chen und Zuh\u00f6rerinteraktionen.",
+        "languages": [
+         "de"
+        ]
+       },
+       {
+        "value": "Un podcast c\u00f3mico que ofrece consejos sobre citas, sexo y relaciones, con discusiones sinceras e interacciones con los oyentes.",
+        "languages": [
+         "es"
+        ]
+       },
+       {
+        "value": "Un podcast comique offrant des conseils sur les rencontres, le sexe et les relations, avec des discussions franches et des interactions avec les auditeurs.",
+        "languages": [
+         "fr"
+        ]
+       },
+       {
+        "value": "A comedic podcast offering dating, sex, and relationship advice, featuring candid discussions and listener interactions.",
+        "languages": [
+         "en"
+        ]
+       }
+      ]
+     },
+     "popularity": 0.9929940673165787,
+     "tags": [
+      {
+       "id": "urn:tag:genre:media:comedy",
+       "name": "Comedy",
+       "type": "urn:tag:genre:media"
+      },
+      {
+       "id": "urn:tag:genre:media:society_culture",
+       "name": "Society & Culture",
+       "type": "urn:tag:genre:media"
+      },
+      {
+       "id": "urn:tag:genre:media:podcasts",
+       "name": "Podcasts",
+       "type": "urn:tag:genre:media"
+      }
+     ],
+     "query": {
+      "affinity": 0.9020605186340775,
+      "measurements": {
+       "audience_growth": 0
+      }
+     },
+     "disambiguation": "",
+     "external": {
+      "itunes": [
+       {
+        "id": "1348777092",
+        "user_rating": 4
+       }
+      ],
+      "wikidata": [
+       {
+        "id": "q109892478"
+       }
+      ]
+     }
+    },
+    {
+     "name": "That's So Retrograde",
+     "entity_id": "80DD807F-822C-43D2-BA91-6336293B1140",
+     "type": "urn:entity",
+     "subtype": "urn:entity:podcast",
+     "properties": {
+      "akas": [],
+      "image": {
+       "url": "https://images.qloo.com/i/80DD807F-822C-43D2-BA91-6336293B1140-420x-auto.jpg"
+      },
+      "rating": 4.7,
+      "channel": "That's So Retrograde",
+      "description": "That\u2019s So Retrograde began the conversation when they pioneered merging wellness and pop culture back in 2015.  Coined the \u201cthe Ab Fab of the new age\u201d, hosts Elizabeth Kott and Stephanie Simbari highlight wellness trends before they hit the zeitgeist. Through speaking with thought leaders in health, beauty, astrology, cannabis and beyond, they offer their listeners a \u2018choose their own adventure\u2019  type experience on the path to building their own toolkit and finding the guru within. @soretrograde / thatssoretrograde.com",
+      "release_date": "2021-09-23",
+      "episode_count": "15",
+      "short_description": "Hosts explore wellness trends and pop culture through conversations with thought leaders in various fields.",
+      "short_descriptions": [
+       {
+        "value": "Die Moderatoren erkunden Wellness-Trends und Popkultur durch Gespr\u00e4che mit Vordenkern aus verschiedenen Bereichen.",
+        "languages": [
+         "de"
+        ]
+       },
+       {
+        "value": "Los anfitriones exploran tendencias de bienestar y cultura pop mediante conversaciones con l\u00edderes de opini\u00f3n en diversos campos.",
+        "languages": [
+         "es"
+        ]
+       },
+       {
+        "value": "Les animateurs explorent les tendances du bien-\u00eatre et la culture pop \u00e0 travers des conversations avec des leaders d'opinion dans divers domaines.",
+        "languages": [
+         "fr"
+        ]
+       },
+       {
+        "value": "Hosts explore wellness trends and pop culture through conversations with thought leaders in various fields.",
+        "languages": [
+         "en"
+        ]
+       }
+      ]
+     },
+     "popularity": 0.9641057746772799,
+     "tags": [
+      {
+       "id": "urn:tag:genre:media:podcasts",
+       "name": "Podcasts",
+       "type": "urn:tag:genre:media"
+      },
+      {
+       "id": "urn:tag:genre:media:society_culture",
+       "name": "Society & Culture",
+       "type": "urn:tag:genre:media"
+      },
+      {
+       "id": "urn:tag:genre:media:health_fitness",
+       "name": "Health & Fitness",
+       "type": "urn:tag:genre:media"
+      }
+     ],
+     "query": {
+      "affinity": 0.9004749957206256,
+      "measurements": {
+       "audience_growth": 0
+      }
+     },
+     "disambiguation": "",
+     "external": {
+      "itunes": [
+       {
+        "id": "966362392",
+        "user_rating": 4
+       }
+      ]
+     }
+    },
+    {
+     "name": "LET IT OUT",
+     "entity_id": "25410D91-8972-4CED-9C52-557A2625883D",
+     "type": "urn:entity",
+     "subtype": "urn:entity:podcast",
+     "properties": {
+      "akas": [],
+      "image": {
+       "url": "https://images.qloo.com/i/25410D91-8972-4CED-9C52-557A2625883D-420x-auto.jpg"
+      },
+      "rating": 4.8,
+      "channel": "LET IT OUT",
+      "description": "Long-form conversations with a variety friends and strangers. Guests include musicians, writers, chefs, parents, painters, designers, herbalists, therapists, comedians, and actors. Here they candidly discuss how they spend their days. We cover connection, creativity, productivity, well-being, sex, love, body image, transitions, and more.  Sometimes things get deep and philosophical  and sometimes they are funny and light because life is both.",
+      "release_date": "2024-07-11",
+      "episode_count": "15",
+      "content_rating": "Explicit",
+      "short_description": "Candid long-form conversations with diverse guests exploring creativity, well-being, and the complexities of life.",
+      "short_descriptions": [
+       {
+        "value": "Offene, ausf\u00fchrliche Gespr\u00e4che mit vielf\u00e4ltigen G\u00e4sten \u00fcber Kreativit\u00e4t, Wohlbefinden und die Komplexit\u00e4t des Lebens.",
+        "languages": [
+         "de"
+        ]
+       },
+       {
+        "value": "Conversaciones sinceras y extensas con invitados diversos sobre creatividad, bienestar y las complejidades de la vida.",
+        "languages": [
+         "es"
+        ]
+       },
+       {
+        "value": "Conversations franches et approfondies avec des invit\u00e9s vari\u00e9s explorant la cr\u00e9ativit\u00e9, le bien-\u00eatre et les complexit\u00e9s de la vie.",
+        "languages": [
+         "fr"
+        ]
+       },
+       {
+        "value": "Candid long-form conversations with diverse guests exploring creativity, well-being, and the complexities of life.",
+        "languages": [
+         "en"
+        ]
+       }
+      ]
+     },
+     "popularity": 0.9500342843514296,
+     "tags": [
+      {
+       "id": "urn:tag:genre:media:podcasts",
+       "name": "Podcasts",
+       "type": "urn:tag:genre:media"
+      },
+      {
+       "id": "urn:tag:genre:media:mental_health",
+       "name": "Mental Health",
+       "type": "urn:tag:genre:media"
+      },
+      {
+       "id": "urn:tag:genre:media:society_culture",
+       "name": "Society & Culture",
+       "type": "urn:tag:genre:media"
+      },
+      {
+       "id": "urn:tag:genre:media:health_fitness",
+       "name": "Health & Fitness",
+       "type": "urn:tag:genre:media"
+      }
+     ],
+     "query": {
+      "affinity": 0.8985545288092461,
+      "measurements": {
+       "audience_growth": 0
+      }
+     },
+     "disambiguation": "",
+     "external": {
+      "itunes": [
+       {
+        "id": "669216566",
+        "user_rating": 4
+       }
+      ]
+     }
+    },
+    {
+     "name": "The Liz Moody Podcast",
+     "entity_id": "1C17B124-2FEF-403C-A2A7-B862E52E3905",
+     "type": "urn:entity",
+     "subtype": "urn:entity:podcast",
+     "properties": {
+      "akas": [],
+      "image": {
+       "url": "https://images.qloo.com/i/1C17B124-2FEF-403C-A2A7-B862E52E3905-420x-auto.jpg"
+      },
+      "rating": 4.9,
+      "channel": "The Liz Moody Podcast",
+      "description": "The Liz Moody Podcast, hosted by bestselling author and longtime journalist Liz Moody, is a\u00a0research-backed\u00a0wellness podcast all about helping you live your healthiest, happiest life. Each week, Liz sits down with some of the\u00a0world's best\u00a0functional doctors,\u00a0researchers,\u00a0authors, journalists and various other\u00a0leaders\u00a0in their field\u00a0to answer all\u00a0of\u00a0health and wellness questions you want to know. In a world where wellness information is everywhere, this podcast aims at cutting through the noise and finding out what actually works.\u00a0Come along with Liz as she uncovers the unknown hacks, tips, and tricks you need to know for making a healthier life easier\u2014topics include what to eat to fight disease,\u00a0how to take control of your finances,\u00a0tips for fighting anxiety and depression, productivity and career advice,\u00a0advice for making friends as an adult,\u00a0the best skincare routine\u00a0elements, healthy cooking secrets, and so much more. To get even more info, head to\u00a0lizmoody.com\u00a0and come hang out on Instagram @lizmoody to enter\u00a0giveaways!",
+      "release_date": "2024-06-19",
+      "episode_count": "15",
+      "content_rating": "Clean",
+      "short_description": "A research-backed wellness podcast exploring health tips, hacks, and expert advice for a healthier, happier life.",
+      "short_descriptions": [
+       {
+        "value": "Ein forschungsbasierter Wellness-Podcast, der Gesundheitstipps, Hacks und Expertenrat f\u00fcr ein ges\u00fcnderes, gl\u00fccklicheres Leben bietet.",
+        "languages": [
+         "de"
+        ]
+       },
+       {
+        "value": "Un podcast de bienestar basado en investigaciones que explora consejos de salud, trucos y asesoramiento experto para una vida m\u00e1s sana y feliz.",
+        "languages": [
+         "es"
+        ]
+       },
+       {
+        "value": "Un podcast bien-\u00eatre bas\u00e9 sur la recherche, explorant des conseils sant\u00e9, astuces et avis d'experts pour une vie plus saine et heureuse.",
+        "languages": [
+         "fr"
+        ]
+       },
+       {
+        "value": "A research-backed wellness podcast exploring health tips, hacks, and expert advice for a healthier, happier life.",
+        "languages": [
+         "en"
+        ]
+       }
+      ]
+     },
+     "popularity": 0.986554571743732,
+     "tags": [
+      {
+       "id": "urn:tag:genre:media:podcasts",
+       "name": "Podcasts",
+       "type": "urn:tag:genre:media"
+      },
+      {
+       "id": "urn:tag:genre:media:self_improvement",
+       "name": "Self-Improvement",
+       "type": "urn:tag:genre:media"
+      },
+      {
+       "id": "urn:tag:genre:media:education",
+       "name": "Education",
+       "type": "urn:tag:genre:media"
+      },
+      {
+       "id": "urn:tag:genre:media:mental_health",
+       "name": "Mental Health",
+       "type": "urn:tag:genre:media"
+      },
+      {
+       "id": "urn:tag:genre:media:health_fitness",
+       "name": "Health & Fitness",
+       "type": "urn:tag:genre:media"
+      }
+     ],
+     "query": {
+      "affinity": 0.8963679123627412,
+      "measurements": {
+       "audience_growth": 0
+      }
+     },
+     "disambiguation": "",
+     "external": {
+      "itunes": [
+       {
+        "id": "1398442165",
+        "user_rating": 4
+       }
+      ]
+     }
+    },
+    {
+     "name": "The Balanced Blonde // Soul On Fire",
+     "entity_id": "E211A258-5C61-4C3E-BC92-F4C5DE500088",
+     "type": "urn:entity",
+     "subtype": "urn:entity:podcast",
+     "properties": {
+      "akas": [],
+      "image": {
+       "url": "https://images.qloo.com/i/E211A258-5C61-4C3E-BC92-F4C5DE500088-420x-auto.jpg"
+      },
+      "rating": 4.6,
+      "channel": "The Balanced Blonde // Soul On Fire",
+      "description": "Jordan Younger is the entrepreneur & creator behind The Balanced Blonde, a blog, brand, podcast, & loyal community that reaches millions of listeners worldwide looking to live more high vibrational lives. She started this podcast in 2016 to interview dear friends, healers, practitioners, & some of the most successful people on the planet to hear more about how they find balance, joy, success, and spirituality in a fast-paced world. What to expect? Completely raw and unfiltered conversations about spiritual awakening, wellness, nutrition, healing, astrology, channeling, angels & aliens, and realms beyond. Prepare to have your mind expanded in every way. Jordan\u2019s unique interview style will make you feel like you are sitting in the room, talking to an old friend. We are so happy you're here, and can\u2019t wait for your soul to be set on fire. New episodes every Wednesday. Produced by Dear Media",
+      "release_date": "2024-07-10",
+      "episode_count": "15",
+      "short_description": "Raw and unfiltered conversations exploring spirituality, wellness, and personal growth with inspiring guests.",
+      "short_descriptions": [
+       {
+        "value": "Ehrliche und ungefilterte Gespr\u00e4che \u00fcber Spiritualit\u00e4t, Wellness und pers\u00f6nliches Wachstum mit inspirierenden G\u00e4sten.",
+        "languages": [
+         "de"
+        ]
+       },
+       {
+        "value": "Conversaciones sinceras y sin filtros que exploran la espiritualidad, el bienestar y el crecimiento personal con invitados inspiradores.",
+        "languages": [
+         "es"
+        ]
+       },
+       {
+        "value": "Conversations brutes et sans filtre explorant la spiritualit\u00e9, le bien-\u00eatre et la croissance personnelle avec des invit\u00e9s inspirants.",
+        "languages": [
+         "fr"
+        ]
+       },
+       {
+        "value": "Raw and unfiltered conversations exploring spirituality, wellness, and personal growth with inspiring guests.",
+        "languages": [
+         "en"
+        ]
+       }
+      ]
+     },
+     "popularity": 0.9819336374206242,
+     "tags": [
+      {
+       "id": "urn:tag:genre:media:health_fitness",
+       "name": "Health & Fitness",
+       "type": "urn:tag:genre:media"
+      },
+      {
+       "id": "urn:tag:genre:media:podcasts",
+       "name": "Podcasts",
+       "type": "urn:tag:genre:media"
+      }
+     ],
+     "query": {
+      "affinity": 0.8950750474255956,
+      "measurements": {
+       "audience_growth": 0
+      }
+     },
+     "disambiguation": "",
+     "external": {
+      "itunes": [
+       {
+        "id": "1169052792",
+        "user_rating": 4
+       }
+      ]
+     }
+    },
+    {
+     "name": "Wabi Sabi - The Perfectly Imperfect Podcast with Candice Kumai",
+     "entity_id": "9DAB712D-3818-47AE-BA59-B04BAEADE89A",
+     "type": "urn:entity",
+     "subtype": "urn:entity:podcast",
+     "properties": {
+      "akas": [],
+      "image": {
+       "url": "https://images.qloo.com/i/9DAB712D-3818-47AE-BA59-B04BAEADE89A-420x-auto.jpg"
+      },
+      "rating": 4.9,
+      "channel": "Wabi Sabi - The Perfectly Imperfect Podcast with Candice Kumai",
+      "description": "Coined \"the golden girl of wellness\" by ELLE & FORBES, Candice Kumai, 6x bestselling author, chef, wellness writer and model shares with us her painfully-imperfect life lessons and experiences that have shaped her 17 year career in media, publishing, wellness, food, modeling and content creation. \n\nArianna Huffington named Candice \"Top 20 NEW role model\"+ Kumai is proud to share with you how to transform your life, accept the beauty of imperfection and mend what feels broken --- with Japanese repair. In short, you'll learn to shine from the inside out. Please welcome one of the most \"real\" girls in media crushing the wellness game. Candice has penned 6 best-selling books, sits on the Well + Good council, is a regular contributor to Goop, Cosmo, Bon Appetit, Men's Health, E! Daily Pop, Vogue, Forbes + Byrdie...and she can't wait to share how to transform all of our perfectly imperfect lives. Welcome wabi sabi and all the life lessons your perfectly imperfect heart desires. Subscribe now! \n\nSign up for Candice\u2019s newsletter asap: http://eepurl.com/wMCN5\n\nLEARN MORE: CandiceKumai.com \n\nPick up my new game-changing book, Kintsugi Wellness: https://www.amazon.com/Kintsugi-Wellness-Japanese-Nourishing-Spirit/dp/0062669850\n\nVisit my new web shoppe, like asap: https://thematchashoppe.com/",
+      "release_date": "2024-07-08",
+      "episode_count": "15",
+      "content_rating": "Clean",
+      "short_description": "Candice Kumai shares life lessons on embracing imperfection and wellness through her experiences in media and food.",
+      "short_descriptions": [
+       {
+        "value": "Candice Kumai teilt Lebenslektionen \u00fcber das Annehmen von Unvollkommenheit und Wohlbefinden durch ihre Erfahrungen in Medien und Ern\u00e4hrung.",
+        "languages": [
+         "de"
+        ]
+       },
+       {
+        "value": "Candice Kumai comparte lecciones de vida sobre aceptar la imperfecci\u00f3n y el bienestar a trav\u00e9s de sus experiencias en medios y gastronom\u00eda.",
+        "languages": [
+         "es"
+        ]
+       },
+       {
+        "value": "Candice Kumai partage des le\u00e7ons de vie sur l'acceptation de l'imperfection et le bien-\u00eatre \u00e0 travers ses exp\u00e9riences dans les m\u00e9dias et la gastronomie.",
+        "languages": [
+         "fr"
+        ]
+       },
+       {
+        "value": "Candice Kumai shares life lessons on embracing imperfection and wellness through her experiences in media and food.",
+        "languages": [
+         "en"
+        ]
+       }
+      ]
+     },
+     "popularity": 0.8964314462033808,
+     "tags": [
+      {
+       "id": "urn:tag:genre:media:mental_health",
+       "name": "Mental Health",
+       "type": "urn:tag:genre:media"
+      },
+      {
+       "id": "urn:tag:genre:media:how_to",
+       "name": "How To",
+       "type": "urn:tag:genre:media"
+      },
+      {
+       "id": "urn:tag:genre:media:health_fitness",
+       "name": "Health & Fitness",
+       "type": "urn:tag:genre:media"
+      },
+      {
+       "id": "urn:tag:genre:media:education",
+       "name": "Education",
+       "type": "urn:tag:genre:media"
+      },
+      {
+       "id": "urn:tag:genre:media:podcasts",
+       "name": "Podcasts",
+       "type": "urn:tag:genre:media"
+      }
+     ],
+     "query": {
+      "affinity": 0.8943810122430861,
+      "measurements": {
+       "audience_growth": 0
+      }
+     },
+     "disambiguation": "",
+     "external": {
+      "itunes": [
+       {
+        "id": "1388130977",
+        "user_rating": 4
+       }
+      ]
+     }
+    },
+    {
+     "name": "The Skinny Confidential Him & Her Podcast",
+     "entity_id": "8C4AB191-04D6-47AE-A63A-C6E8D51DE75C",
+     "type": "urn:entity",
+     "subtype": "urn:entity:podcast",
+     "properties": {
+      "akas": [],
+      "image": {
+       "url": "https://images.qloo.com/i/8C4AB191-04D6-47AE-A63A-C6E8D51DE75C-420x-auto.jpg"
+      },
+      "rating": 4.4,
+      "channel": "The Skinny Confidential Him & Her Podcast",
+      "description": "Lauryn Evarts Bosstick & Michael Bosstick, the entrepreneurial duo behind Dear Media & The Skinny Confidential have been interviewing the world\u2019s most accomplished individuals for close to a decade. Think world class leaders, entrepreneurs, doctors, celebrities, athletes, executives, bestselling authors, experts, & more. Every episode offers unfiltered conversations with tangible takeaways, advice, & actionable practices the listener or viewer can apply immediately to enhance their own lives. Tune in every week as the couple explore some of the most impressive minds this world has to offer while asking the questions you care about. New episodes every Monday, Wednesday, Friday.",
+      "release_date": "2024-07-10",
+      "episode_count": "15",
+      "content_rating": "Explicit",
+      "short_description": "Unfiltered conversations with accomplished individuals offering actionable advice and insights for personal enhancement.",
+      "short_descriptions": [
+       {
+        "value": "Ungefilterte Gespr\u00e4che mit erfolgreichen Pers\u00f6nlichkeiten, die umsetzbare Ratschl\u00e4ge und Einblicke zur pers\u00f6nlichen Weiterentwicklung bieten.",
+        "languages": [
+         "de"
+        ]
+       },
+       {
+        "value": "Conversaciones sin filtros con personas exitosas que ofrecen consejos pr\u00e1cticos y perspectivas para el crecimiento personal.",
+        "languages": [
+         "es"
+        ]
+       },
+       {
+        "value": "Conversations sans filtre avec des personnes accomplies offrant des conseils pratiques et des id\u00e9es pour l'am\u00e9lioration personnelle.",
+        "languages": [
+         "fr"
+        ]
+       },
+       {
+        "value": "Unfiltered conversations with accomplished individuals offering actionable advice and insights for personal enhancement.",
+        "languages": [
+         "en"
+        ]
+       }
+      ]
+     },
+     "popularity": 0.9950809408818532,
+     "tags": [
+      {
+       "id": "urn:tag:genre:media:podcasts",
+       "name": "Podcasts",
+       "type": "urn:tag:genre:media"
+      },
+      {
+       "id": "urn:tag:genre:media:business",
+       "name": "Business",
+       "type": "urn:tag:genre:media"
+      },
+      {
+       "id": "urn:tag:genre:media:education",
+       "name": "Education",
+       "type": "urn:tag:genre:media"
+      }
+     ],
+     "query": {
+      "affinity": 0.8933222711539933,
+      "measurements": {
+       "audience_growth": 0
+      }
+     },
+     "disambiguation": "",
+     "external": {
+      "itunes": [
+       {
+        "id": "1093028505",
+        "user_rating": 4
+       }
+      ]
+     }
+    },
+    {
+     "name": "Lady Lovin'",
+     "entity_id": "868E39B9-4BE0-4E9A-A9B5-6D02781EA0B9",
+     "type": "urn:entity",
+     "subtype": "urn:entity:podcast",
+     "properties": {
+      "akas": [],
+      "image": {}
+     },
+     "popularity": 0.7960826401931849,
+     "query": {
+      "affinity": 0.8931714832436061,
+      "measurements": {
+       "audience_growth": 0
+      }
+     },
+     "disambiguation": "",
+     "external": {}
+    },
+    {
+     "name": "Girlboss Radio",
+     "entity_id": "3904702F-9A83-4ED6-B5D6-32BDE6AFECD1",
+     "type": "urn:entity",
+     "subtype": "urn:entity:podcast",
+     "properties": {
+      "akas": [],
+      "image": {
+       "url": "https://images.qloo.com/i/3904702F-9A83-4ED6-B5D6-32BDE6AFECD1-420x-auto.jpg"
+      },
+      "rating": 4.4,
+      "channel": "Girlboss Radio",
+      "description": "Girlboss Radio is back with a new host and a renewed mission to help women achieve success on their own terms. Meet our host, Avery Francis! Francis is a veteran HR thought leader who specializes in implementing diversity, equity and inclusion practices in as many workplaces as possible through her consultancy, Bloom. Francis has been featured in Forbes and named a Top 40 Woman in Tech by Betakit. Her ethos? Work should work for all of us. The podcast features weekly chats with inspiring executives, founders and A-listers including filmmaker Domee Shi, mega-influencer Matilda Djerf, Knix founder Joanna Griffiths, and Netflix star Maitreyi Ramakrishnan, among others. Girlboss Radio is your destination for no-BS career advice\u2014each episode, you'll walk away with tangible takeaways and success stories that'll help you level-up in your career *and* your life.",
+      "release_date": "2024-06-18",
+      "episode_count": "15",
+      "content_rating": "Explicit",
+      "short_description": "Avery Francis hosts inspiring conversations with executives and founders, offering no-BS career advice and tangible takeaways for women.",
+      "short_descriptions": [
+       {
+        "value": "Avery Francis f\u00fchrt inspirierende Gespr\u00e4che mit F\u00fchrungskr\u00e4ften und Gr\u00fcnderinnen und bietet klare Karriere-Tipps und praktische Erkenntnisse f\u00fcr Frauen.",
+        "languages": [
+         "de"
+        ]
+       },
+       {
+        "value": "Avery Francis presenta conversaciones inspiradoras con ejecutivas y fundadoras, ofreciendo consejos profesionales directos y pr\u00e1cticos para mujeres.",
+        "languages": [
+         "es"
+        ]
+       },
+       {
+        "value": "Avery Francis anime des conversations inspirantes avec des dirigeantes et fondatrices, offrant des conseils de carri\u00e8re directs et des enseignements concrets pour les femmes.",
+        "languages": [
+         "fr"
+        ]
+       },
+       {
+        "value": "Avery Francis hosts inspiring conversations with executives and founders, offering no-BS career advice and tangible takeaways for women.",
+        "languages": [
+         "en"
+        ]
+       }
+      ]
+     },
+     "popularity": 0.9319381092925498,
+     "tags": [
+      {
+       "id": "urn:tag:genre:media:entrepreneurship",
+       "name": "Entrepreneurship",
+       "type": "urn:tag:genre:media"
+      },
+      {
+       "id": "urn:tag:genre:media:careers",
+       "name": "Careers",
+       "type": "urn:tag:genre:media"
+      },
+      {
+       "id": "urn:tag:genre:media:business",
+       "name": "Business",
+       "type": "urn:tag:genre:media"
+      },
+      {
+       "id": "urn:tag:genre:media:podcasts",
+       "name": "Podcasts",
+       "type": "urn:tag:genre:media"
+      }
+     ],
+     "query": {
+      "affinity": 0.892049173189708,
+      "measurements": {
+       "audience_growth": 0
+      }
+     },
+     "disambiguation": "",
+     "external": {
+      "itunes": [
+       {
+        "id": "1041122387",
+        "user_rating": 4
+       }
+      ]
+     }
+    },
+    {
+     "name": "The mindbodygreen Podcast",
+     "entity_id": "2A9EDB6B-AFD0-4E6C-BCB7-CB3F8A79F3AF",
+     "type": "urn:entity",
+     "subtype": "urn:entity:podcast",
+     "properties": {
+      "akas": [],
+      "image": {
+       "url": "https://images.qloo.com/i/2A9EDB6B-AFD0-4E6C-BCB7-CB3F8A79F3AF-420x-auto.jpg"
+      },
+      "rating": 4.5,
+      "channel": "The mindbodygreen Podcast",
+      "description": "The mindbodygreen podcast explores the infinite possibilities of health & well-being. Hosted by founder and co-CEO Jason Wachob, each episode features a thought-provoking interview with a leader in the health space. Whether you\u2019re thinking about changing what\u2019s on your plate, how you move, or how you think, these conversations are sure to offer solutions in whole-body health.",
+      "release_date": "2024-07-07",
+      "episode_count": "15",
+      "content_rating": "Clean",
+      "short_description": "Exploring health and well-being through thought-provoking interviews with leaders in the health space.",
+      "short_descriptions": [
+       {
+        "value": "Erkundung von Gesundheit und Wohlbefinden durch aufschlussreiche Interviews mit f\u00fchrenden Experten im Gesundheitsbereich.",
+        "languages": [
+         "de"
+        ]
+       },
+       {
+        "value": "Explorando la salud y el bienestar mediante entrevistas estimulantes con l\u00edderes del \u00e1mbito de la salud.",
+        "languages": [
+         "es"
+        ]
+       },
+       {
+        "value": "Explorer la sant\u00e9 et le bien-\u00eatre \u00e0 travers des interviews stimulantes avec des leaders du domaine de la sant\u00e9.",
+        "languages": [
+         "fr"
+        ]
+       },
+       {
+        "value": "Exploring health and well-being through thought-provoking interviews with leaders in the health space.",
+        "languages": [
+         "en"
+        ]
+       }
+      ]
+     },
+     "popularity": 0.876874459648809,
+     "tags": [
+      {
+       "id": "urn:tag:genre:media:alternative_health",
+       "name": "Alternative Health",
+       "type": "urn:tag:genre:media"
+      },
+      {
+       "id": "urn:tag:genre:media:health_fitness",
+       "name": "Health & Fitness",
+       "type": "urn:tag:genre:media"
+      },
+      {
+       "id": "urn:tag:genre:media:podcasts",
+       "name": "Podcasts",
+       "type": "urn:tag:genre:media"
+      }
+     ],
+     "query": {
+      "affinity": 0.8908851261446841,
+      "measurements": {
+       "audience_growth": 0
+      }
+     },
+     "disambiguation": "",
+     "external": {
+      "itunes": [
+       {
+        "id": "1246494475",
+        "user_rating": 4
+       }
+      ]
+     }
+    },
+    {
+     "name": "Highest Self Podcast\u00ae",
+     "entity_id": "CF1725FA-03C0-49A6-9EE9-B5A71335D2D1",
+     "type": "urn:entity",
+     "subtype": "urn:entity:podcast",
+     "properties": {
+      "akas": [],
+      "image": {
+       "url": "https://images.qloo.com/i/CF1725FA-03C0-49A6-9EE9-B5A71335D2D1-420x-auto.jpg"
+      },
+      "rating": 4.8,
+      "channel": "Highest Self Podcast\u00ae",
+      "description": "Highest Self Podcast has consistently been the #1 spirituality podcast for the past 7 years for a reason- Sahara Rose makes it modern, relatable and fun! Sahara Rose is the spiritual best friend you wish you had, ready to dive deep into all the topics you wish you had someone to talk to about, from finding your soul purpose, to tuning into your sacred sensuality to rising like a phoenix from the ashes. If you\u2019re ready to blossom into your fullest expression, this podcast is for you.\n\nTry her free Daily Embodiment Practice: https://dharmacoachinginstitute.com/dci/embodiment-practice/\nDive into her latest book Discover Your Dharma at www.iamsahararose.com/dharma \nJoin her divine feminine mystery school at www.rosegoldgoddesses.com\nFollow her on Instagram: www.instagram.com/iamsahararose",
+      "release_date": "2024-07-02",
+      "episode_count": "15",
+      "content_rating": "Explicit",
+      "short_description": "Sahara Rose explores modern spirituality, guiding listeners on topics like soul purpose and sacred sensuality.",
+      "short_descriptions": [
+       {
+        "value": "Sahara Rose erkundet moderne Spiritualit\u00e4t und f\u00fchrt die Zuh\u00f6rer zu Themen wie Seelenzweck und heiliger Sinnlichkeit.",
+        "languages": [
+         "de"
+        ]
+       },
+       {
+        "value": "Sahara Rose explora la espiritualidad moderna, guiando a los oyentes en temas como el prop\u00f3sito del alma y la sensualidad sagrada.",
+        "languages": [
+         "es"
+        ]
+       },
+       {
+        "value": "Sahara Rose explore la spiritualit\u00e9 moderne, guidant les auditeurs sur des sujets comme le but de l'\u00e2me et la sensualit\u00e9 sacr\u00e9e.",
+        "languages": [
+         "fr"
+        ]
+       },
+       {
+        "value": "Sahara Rose explores modern spirituality, guiding listeners on topics like soul purpose and sacred sensuality.",
+        "languages": [
+         "en"
+        ]
+       }
+      ]
+     },
+     "popularity": 0.9962436275825061,
+     "tags": [
+      {
+       "id": "urn:tag:genre:media:health_fitness",
+       "name": "Health & Fitness",
+       "type": "urn:tag:genre:media"
+      },
+      {
+       "id": "urn:tag:genre:media:spirituality",
+       "name": "Spirituality",
+       "type": "urn:tag:genre:media"
+      },
+      {
+       "id": "urn:tag:genre:media:religion_spirituality",
+       "name": "Religion & Spirituality",
+       "type": "urn:tag:genre:media"
+      },
+      {
+       "id": "urn:tag:genre:media:mental_health",
+       "name": "Mental Health",
+       "type": "urn:tag:genre:media"
+      },
+      {
+       "id": "urn:tag:genre:media:podcasts",
+       "name": "Podcasts",
+       "type": "urn:tag:genre:media"
+      }
+     ],
+     "query": {
+      "affinity": 0.8904778547209347,
+      "measurements": {
+       "audience_growth": 0
+      }
+     },
+     "disambiguation": "",
+     "external": {
+      "itunes": [
+       {
+        "id": "1244644906",
+        "user_rating": 4
+       }
+      ]
+     }
+    },
+    {
+     "name": "The Mark Groves Podcast",
+     "entity_id": "78BC83D3-08A1-477F-B731-4EDCA947BBCF",
+     "type": "urn:entity",
+     "subtype": "urn:entity:podcast",
+     "properties": {
+      "akas": [],
+      "image": {
+       "url": "https://images.qloo.com/i/78BC83D3-08A1-477F-B731-4EDCA947BBCF-420x-auto.jpg"
+      },
+      "rating": 4.9,
+      "channel": "The Mark Groves Podcast",
+      "description": "The Mark Groves Podcast is for heart-led humans eager to expand perspectives, explore HARD truths, and break old patterns while cultivating deeper, more honest connections with self, our relationships, community, and the world. Tune in twice a week for powerful guest interviews and solo episodes that deliver real talk, fresh insights, and practical tools to transform (y)our relationships \u2014 because relationships are how we truly connect \u2014 and supercharge (y)our personal growth.",
+      "release_date": "2024-07-11",
+      "episode_count": "15",
+      "content_rating": "Explicit",
+      "short_description": "Exploring hard truths and cultivating honest connections through powerful interviews and insights on personal growth and relationships.",
+      "short_descriptions": [
+       {
+        "value": "Erforscht harte Wahrheiten und f\u00f6rdert ehrliche Verbindungen durch kraftvolle Interviews und Einsichten zu pers\u00f6nlichem Wachstum und Beziehungen.",
+        "languages": [
+         "de"
+        ]
+       },
+       {
+        "value": "Explora verdades dif\u00edciles y fomenta conexiones honestas mediante entrevistas poderosas e ideas sobre crecimiento personal y relaciones.",
+        "languages": [
+         "es"
+        ]
+       },
+       {
+        "value": "Explore des v\u00e9rit\u00e9s difficiles et cultive des liens honn\u00eates \u00e0 travers des interviews puissantes et des r\u00e9flexions sur la croissance personnelle et les relations.",
+        "languages": [
+         "fr"
+        ]
+       },
+       {
+        "value": "Exploring hard truths and cultivating honest connections through powerful interviews and insights on personal growth and relationships.",
+        "languages": [
+         "en"
+        ]
+       }
+      ]
+     },
+     "popularity": 0.9729004561309365,
+     "tags": [
+      {
+       "id": "urn:tag:genre:media:society_culture",
+       "name": "Society & Culture",
+       "type": "urn:tag:genre:media"
+      },
+      {
+       "id": "urn:tag:genre:media:podcasts",
+       "name": "Podcasts",
+       "type": "urn:tag:genre:media"
+      },
+      {
+       "id": "urn:tag:genre:media:self_improvement",
+       "name": "Self-Improvement",
+       "type": "urn:tag:genre:media"
+      },
+      {
+       "id": "urn:tag:genre:media:relationships",
+       "name": "Relationships",
+       "type": "urn:tag:genre:media"
+      },
+      {
+       "id": "urn:tag:genre:media:education",
+       "name": "Education",
+       "type": "urn:tag:genre:media"
+      }
+     ],
+     "query": {
+      "affinity": 0.8901411231877739,
+      "measurements": {
+       "audience_growth": 0
+      }
+     },
+     "disambiguation": "",
+     "external": {
+      "itunes": [
+       {
+        "id": "1282044290",
+        "user_rating": 4
+       }
+      ]
+     }
+    },
+    {
+     "name": "Liz Talks",
+     "entity_id": "F320F4D2-A186-4588-936B-C545D8A0B351",
+     "type": "urn:entity",
+     "subtype": "urn:entity:podcast",
+     "properties": {
+      "akas": [],
+      "image": {
+       "url": "https://images.qloo.com/i/F320F4D2-A186-4588-936B-C545D8A0B351-420x-auto.jpg"
+      },
+      "rating": 4.9,
+      "channel": "Liz Talks",
+      "description": "She\u2019s 0% professional & 100% mom, spouse, friend, over-analyzer and verbal processor! Liz Wolfe returns to the podcasting world to talk food, beauty, family, fitness, mental health, friendship, marriage, and everything in-between!",
+      "release_date": "2023-02-23",
+      "episode_count": "15",
+      "content_rating": "Clean"
+     },
+     "popularity": 0.4355603255522762,
+     "tags": [
+      {
+       "id": "urn:tag:genre:media:podcasts",
+       "name": "Podcasts",
+       "type": "urn:tag:genre:media"
+      },
+      {
+       "id": "urn:tag:genre:media:health_fitness",
+       "name": "Health & Fitness",
+       "type": "urn:tag:genre:media"
+      }
+     ],
+     "query": {
+      "affinity": 0.8896466253819336,
+      "measurements": {
+       "audience_growth": 0
+      }
+     },
+     "disambiguation": "",
+     "external": {
+      "itunes": [
+       {
+        "id": "1596657471",
+        "user_rating": 5
+       }
+      ]
+     }
+    },
+    {
+     "name": "One Part Podcast's Should I Be...?",
+     "entity_id": "9809762E-8DB6-4604-B3A4-DCB02B13EB39",
+     "type": "urn:entity",
+     "subtype": "urn:entity:podcast",
+     "properties": {
+      "akas": [],
+      "image": {
+       "url": "https://images.qloo.com/i/9809762E-8DB6-4604-B3A4-DCB02B13EB39-420x-auto.jpg"
+      },
+      "rating": 4.9,
+      "channel": "One Part Podcast's Should I Be...?",
+      "description": "Right now, a lot of us are asking some pretty deep questions about our careers and how we make our money.  \n\nIs this the job I really want to be doing? \n\nIs there something more \"me\" out there? \n\nShould my job be changing the world? Or can I just get my check and go watch more TV.\n\nHost Jessica Murnane also has these questions. And in this new limited series, you'll get to the bottom of them together. She'll be asking all the questions to all the people whose jobs we think we want. So we can figure out if we want them, too.",
+      "release_date": "2021-11-23",
+      "episode_count": "15",
+      "content_rating": "Explicit",
+      "short_description": "Exploring deep career questions and desires, as host Jessica Murnane interviews people about their jobs and aspirations.",
+      "short_descriptions": [
+       {
+        "value": "Tiefgehende Karrierefragen und W\u00fcnsche werden erkundet, w\u00e4hrend Gastgeberin Jessica Murnane Menschen zu ihren Jobs und Zielen interviewt.",
+        "languages": [
+         "de"
+        ]
+       },
+       {
+        "value": "Explorando profundas preguntas y deseos profesionales, la presentadora Jessica Murnane entrevista a personas sobre sus trabajos y aspiraciones.",
+        "languages": [
+         "es"
+        ]
+       },
+       {
+        "value": "Exploration des questions profondes de carri\u00e8re et des aspirations, avec l'animatrice Jessica Murnane qui interviewe des personnes sur leurs emplois et ambitions.",
+        "languages": [
+         "fr"
+        ]
+       },
+       {
+        "value": "Exploring deep career questions and desires, as host Jessica Murnane interviews people about their jobs and aspirations.",
+        "languages": [
+         "en"
+        ]
+       }
+      ]
+     },
+     "popularity": 0.8866827654055988,
+     "tags": [
+      {
+       "id": "urn:tag:genre:media:business",
+       "name": "Business",
+       "type": "urn:tag:genre:media"
+      },
+      {
+       "id": "urn:tag:genre:media:careers",
+       "name": "Careers",
+       "type": "urn:tag:genre:media"
+      },
+      {
+       "id": "urn:tag:genre:media:podcasts",
+       "name": "Podcasts",
+       "type": "urn:tag:genre:media"
+      },
+      {
+       "id": "urn:tag:genre:media:entrepreneurship",
+       "name": "Entrepreneurship",
+       "type": "urn:tag:genre:media"
+      }
+     ],
+     "query": {
+      "affinity": 0.8895680732442909,
+      "measurements": {
+       "audience_growth": 0
+      }
+     },
+     "disambiguation": "",
+     "external": {
+      "itunes": [
+       {
+        "id": "896508609",
+        "user_rating": 4
+       }
+      ]
+     }
+    },
+    {
+     "name": "Call Your Girlfriend",
+     "entity_id": "8D332C91-AF61-42C4-9B69-26F0435CE69A",
+     "type": "urn:entity",
+     "subtype": "urn:entity:podcast",
+     "properties": {
+      "akas": [],
+      "image": {
+       "url": "https://images.qloo.com/i/8D332C91-AF61-42C4-9B69-26F0435CE69A-420x-auto.jpg"
+      },
+      "rating": 4.6,
+      "channel": "Call Your Girlfriend",
+      "description": "A podcast for long distance besties everywhere. Co-hosted by BFFs Ann Friedman and Aminatou Sow. Produced by Gina Delvac. Brand new every Friday.",
+      "release_date": "2022-02-11",
+      "episode_count": "15",
+      "content_rating": "Explicit",
+      "short_description": "A podcast for long distance best friends, featuring discussions on friendship, life, and culture.",
+      "short_descriptions": [
+       {
+        "value": "Ein Podcast f\u00fcr beste Freundinnen auf Distanz mit Gespr\u00e4chen \u00fcber Freundschaft, Leben und Kultur.",
+        "languages": [
+         "de"
+        ]
+       },
+       {
+        "value": "Un podcast para mejores amigas a distancia, con charlas sobre amistad, vida y cultura.",
+        "languages": [
+         "es"
+        ]
+       },
+       {
+        "value": "Un podcast pour meilleures amies \u00e0 distance, avec des discussions sur l'amiti\u00e9, la vie et la culture.",
+        "languages": [
+         "fr"
+        ]
+       },
+       {
+        "value": "A podcast for long distance best friends, featuring discussions on friendship, life, and culture.",
+        "languages": [
+         "en"
+        ]
+       }
+      ]
+     },
+     "popularity": 0.978654264675193,
+     "tags": [
+      {
+       "id": "urn:tag:genre:media:society_culture",
+       "name": "Society & Culture",
+       "type": "urn:tag:genre:media"
+      },
+      {
+       "id": "urn:tag:genre:media:podcasts",
+       "name": "Podcasts",
+       "type": "urn:tag:genre:media"
+      }
+     ],
+     "query": {
+      "affinity": 0.8891915805384126,
+      "measurements": {
+       "audience_growth": 0
+      }
+     },
+     "disambiguation": "",
+     "external": {
+      "itunes": [
+       {
+        "id": "881487725",
+        "user_rating": 4
+       }
+      ],
+      "wikidata": [
+       {
+        "id": "q109484169"
+       }
+      ]
+     }
+    }
+   ]
+  }
+ }
+}

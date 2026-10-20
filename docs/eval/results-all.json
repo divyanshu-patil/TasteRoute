@@ -1,8 +1,8 @@
 {
- "generated": "2026-10-20T06:26:55.170586+00:00",
+ "generated": "2026-10-20T06:42:11.796115+00:00",
  "spent": {
   "qloo": 0,
-  "qloo_cached": 328,
+  "qloo_cached": 428,
   "llm": 0
  },
  "brands": [
@@ -24,6 +24,13 @@
     "accounts": 120,
     "in_pool": 10
    },
+   "artists": [
+    "Montgomery Gentry",
+    "Jamey Johnson",
+    "Josh Thompson",
+    "Colt Ford",
+    "Brooks & Dunn"
+   ],
    "metrics": {
     "Q-fit": {
      "recall15": 0.0,
@@ -53,12 +60,26 @@
      "mpr": 86.9,
      "tail30": 0.222
     },
+    "Q-cult": {
+     "recall15": 0.0,
+     "recall30": 0.0,
+     "found30": 0,
+     "mpr": 56.5,
+     "tail30": 0.0
+    },
     "Q-fit+LLM": {
      "recall15": 0.1,
      "recall30": 0.1,
      "found30": 1,
      "mpr": 80.1,
      "tail30": 0.111
+    },
+    "Q-fit+C": {
+     "recall15": 0.0,
+     "recall30": 0.1,
+     "found30": 1,
+     "mpr": 62.5,
+     "tail30": 0.0
     },
     "RANDOM": {
      "recall15": 0.017,
@@ -81,6 +102,8 @@
      "POP": 112,
      "LLM": 415,
      "Q-fit+LLM": 117,
+     "Q-cult": 356,
+     "Q-fit+C": 67,
      "taste_pct": 0.9707,
      "mass_pct": 0.2053,
      "drivers": [
@@ -97,6 +120,8 @@
      "POP": 106,
      "LLM": 35,
      "Q-fit+LLM": 4,
+     "Q-cult": 576,
+     "Q-fit+C": 213,
      "taste_pct": 0.97,
      "mass_pct": 0.206,
      "drivers": [
@@ -113,6 +138,8 @@
      "POP": 335,
      "LLM": 108,
      "Q-fit+LLM": 48,
+     "Q-cult": 532,
+     "Q-fit+C": 291,
      "taste_pct": 0.758,
      "mass_pct": 0.042,
      "drivers": [
@@ -129,6 +156,8 @@
      "POP": 15,
      "LLM": 82,
      "Q-fit+LLM": 65,
+     "Q-cult": 41,
+     "Q-fit+C": 28,
      "taste_pct": 0.794,
      "mass_pct": 0.984,
      "drivers": [
@@ -145,6 +174,8 @@
      "POP": 223,
      "LLM": 279,
      "Q-fit+LLM": 247,
+     "Q-cult": 550,
+     "Q-fit+C": 475,
      "taste_pct": 0.566,
      "mass_pct": 0.38,
      "drivers": [
@@ -161,6 +192,8 @@
      "POP": 520,
      "LLM": 102,
      "Q-fit+LLM": 132,
+     "Q-cult": 235,
+     "Q-fit+C": 215,
      "taste_pct": 0.6,
      "mass_pct": 0.68,
      "drivers": [
@@ -177,6 +210,8 @@
      "POP": 629,
      "LLM": 62,
      "Q-fit+LLM": 169,
+     "Q-cult": 283,
+     "Q-fit+C": 344,
      "taste_pct": 0.49,
      "mass_pct": 0.642,
      "drivers": [
@@ -193,6 +228,8 @@
      "POP": 822,
      "LLM": 10,
      "Q-fit+LLM": 160,
+     "Q-cult": 128,
+     "Q-fit+C": 240,
      "taste_pct": 0.328,
      "mass_pct": 0.058,
      "drivers": [
@@ -209,6 +246,8 @@
      "POP": 373,
      "LLM": 56,
      "Q-fit+LLM": 353,
+     "Q-cult": 277,
+     "Q-fit+C": 556,
      "taste_pct": 0.224,
      "mass_pct": 0.772,
      "drivers": [
@@ -225,6 +264,8 @@
      "POP": 835,
      "LLM": 6,
      "Q-fit+LLM": 458,
+     "Q-cult": 837,
+     "Q-fit+C": 855,
      "taste_pct": 0.028,
      "mass_pct": 0.028,
      "drivers": []
@@ -892,6 +933,30 @@
      "The Hoxton, Williamsburg",
      "Horses and Divorces",
      "The Whiskey Annex"
+    ],
+    "Q-cult": [
+     "Freak Bar",
+     "Grimm Artisanal Ales",
+     "Tamaqua Bar & Marina",
+     "Jalopy Theatre and School of Music",
+     "TALEA Beer Co - Williamsburg",
+     "Wild East Brewing Co.",
+     "The Grumpy Cat Bar",
+     "Tom's",
+     "Three Jolly Pigeons",
+     "Irish Haven"
+    ],
+    "Q-fit+C": [
+     "The Armory",
+     "Horses and Divorces",
+     "La Palina",
+     "The Richardson",
+     "Gargiulo's",
+     "Hometown Bar-B-Que",
+     "EastVille Comedy Club",
+     "Madeline's",
+     "Kick Axe Throwing BROOKLYN",
+     "The Whiskey Annex"
     ]
    }
   },
@@ -913,6 +978,13 @@
     "accounts": 21,
     "in_pool": 7
    },
+   "artists": [
+    "Faith Hill",
+    "Martina McBride",
+    "Gloriana",
+    "Keith Urban",
+    "Sara Evans"
+   ],
    "metrics": {
     "Q-fit": {
      "recall15": 0.0,
@@ -942,12 +1014,26 @@
      "mpr": 72.3,
      "tail30": 0.0
     },
+    "Q-cult": {
+     "recall15": 0.143,
+     "recall30": 0.286,
+     "found30": 2,
+     "mpr": 70.3,
+     "tail30": 0.286
+    },
     "Q-fit+LLM": {
      "recall15": 0.0,
      "recall30": 0.0,
      "found30": 0,
      "mpr": 65.3,
      "tail30": 0.0
+    },
+    "Q-fit+C": {
+     "recall15": 0.143,
+     "recall30": 0.143,
+     "found30": 1,
+     "mpr": 62.1,
+     "tail30": 0.143
     },
     "RANDOM": {
      "recall15": 0.017,
@@ -970,6 +1056,8 @@
      "POP": 135,
      "LLM": 543,
      "Q-fit+LLM": 312,
+     "Q-cult": 6,
+     "Q-fit+C": 14,
      "taste_pct": 0.782,
      "mass_pct": 0.106,
      "drivers": [
@@ -986,6 +1074,8 @@
      "POP": 455,
      "LLM": 110,
      "Q-fit+LLM": 118,
+     "Q-cult": 88,
+     "Q-fit+C": 70,
      "taste_pct": 0.772,
      "mass_pct": 0.992,
      "drivers": [
@@ -1002,6 +1092,8 @@
      "POP": 579,
      "LLM": 134,
      "Q-fit+LLM": 192,
+     "Q-cult": 29,
+     "Q-fit+C": 94,
      "taste_pct": 0.616,
      "mass_pct": 0.8747,
      "drivers": [
@@ -1018,6 +1110,8 @@
      "POP": 223,
      "LLM": 115,
      "Q-fit+LLM": 195,
+     "Q-cult": 549,
+     "Q-fit+C": 530,
      "taste_pct": 0.516,
      "mass_pct": 0.38,
      "drivers": [
@@ -1034,6 +1128,8 @@
      "POP": 788,
      "LLM": 208,
      "Q-fit+LLM": 355,
+     "Q-cult": 745,
+     "Q-fit+C": 743,
      "taste_pct": 0.352,
      "mass_pct": 0.324,
      "drivers": [
@@ -1050,6 +1146,8 @@
      "POP": 246,
      "LLM": 412,
      "Q-fit+LLM": 551,
+     "Q-cult": 297,
+     "Q-fit+C": 497,
      "taste_pct": 0.308,
      "mass_pct": 0.848,
      "drivers": [
@@ -1066,6 +1164,8 @@
      "POP": 404,
      "LLM": 181,
      "Q-fit+LLM": 410,
+     "Q-cult": 111,
+     "Q-fit+C": 378,
      "taste_pct": 0.248,
      "mass_pct": 0.808,
      "drivers": [
@@ -1241,6 +1341,30 @@
      "Hotel Delmano",
      "Vinegar Hill House",
      "St. Anselm"
+    ],
+    "Q-cult": [
+     "Freak Bar",
+     "The Armory",
+     "Jalopy Theatre and School of Music",
+     "Brooklyn Art Haus",
+     "TALEA Beer Co - Williamsburg",
+     "Grimm Artisanal Ales",
+     "McCarren Parkhouse",
+     "Wild East Brewing Co.",
+     "Tom's",
+     "Windy City Ale House"
+    ],
+    "Q-fit+C": [
+     "Vis-a-Vis Restaurant",
+     "Ume",
+     "The Armory",
+     "Baku Palace Restaurant",
+     "Madeline's",
+     "Kick Axe Throwing BROOKLYN",
+     "Aska",
+     "Gargiulo's",
+     "Hotel Indigo Williamsburg - Brooklyn by IHG",
+     "La Palina"
     ]
    }
   },
@@ -1278,6 +1402,13 @@
     "accounts": 47,
     "in_pool": 4
    },
+   "artists": [
+    "Sylvan Esso",
+    "Rhye",
+    "Future Islands",
+    "Youth Lagoon",
+    "Poliça"
+   ],
    "metrics": {
     "Q-fit": {
      "recall15": 0.0,
@@ -1307,11 +1438,25 @@
      "mpr": 86.0,
      "tail30": 0.25
     },
+    "Q-cult": {
+     "recall15": 0.0,
+     "recall30": 0.0,
+     "found30": 0,
+     "mpr": 66.3,
+     "tail30": 0.0
+    },
     "Q-fit+LLM": {
      "recall15": 0.0,
      "recall30": 0.0,
      "found30": 0,
      "mpr": 86.4,
+     "tail30": 0.0
+    },
+    "Q-fit+C": {
+     "recall15": 0.0,
+     "recall30": 0.0,
+     "found30": 0,
+     "mpr": 74.1,
      "tail30": 0.0
     },
     "RANDOM": {
@@ -1335,6 +1480,8 @@
      "POP": 554,
      "LLM": 67,
      "Q-fit+LLM": 34,
+     "Q-cult": 92,
+     "Q-fit+C": 55,
      "taste_pct": 0.958,
      "mass_pct": 0.868,
      "drivers": [
@@ -1351,6 +1498,8 @@
      "POP": 79,
      "LLM": 149,
      "Q-fit+LLM": 87,
+     "Q-cult": 666,
+     "Q-fit+C": 397,
      "taste_pct": 0.7096,
      "mass_pct": 0.1429,
      "drivers": [
@@ -1367,6 +1516,8 @@
      "POP": 373,
      "LLM": 23,
      "Q-fit+LLM": 37,
+     "Q-cult": 169,
+     "Q-fit+C": 134,
      "taste_pct": 0.9,
      "mass_pct": 0.834,
      "drivers": [
@@ -1383,6 +1534,8 @@
      "POP": 543,
      "LLM": 282,
      "Q-fit+LLM": 349,
+     "Q-cult": 325,
+     "Q-fit+C": 377,
      "taste_pct": 0.4941,
      "mass_pct": 0.3138,
      "drivers": [
@@ -1688,6 +1841,30 @@
      "Allswell",
      "Hungry Ghost",
      "Hungry Ghost"
+    ],
+    "Q-cult": [
+     "Land to Sea",
+     "Molasses Books",
+     "Baby's All Right",
+     "Tea Bar",
+     "JANE Motorcycles",
+     "Sleepwalk",
+     "ALPHAVILLE",
+     "Black Brick Coffee",
+     "McCarren Parkhouse",
+     "Principles GI Coffee House"
+    ],
+    "Q-fit+C": [
+     "JANE Motorcycles",
+     "Maison Premiere",
+     "Wythe Hotel",
+     "COTTER BARBER",
+     "The Black Flamingo",
+     "The Richardson",
+     "Black Brick Coffee",
+     "The Four Horsemen",
+     "Tea Bar",
+     "Five Leaves"
     ]
    }
   },
@@ -1709,6 +1886,13 @@
     "accounts": 93,
     "in_pool": 36
    },
+   "artists": [
+    "Silvana Estrada",
+    "La Isla Centeno",
+    "Leon Bridges",
+    "Simon Grossmann",
+    "Rostam"
+   ],
    "metrics": {
     "Q-fit": {
      "recall15": 0.111,
@@ -1738,12 +1922,26 @@
      "mpr": 72.9,
      "tail30": 0.107
     },
+    "Q-cult": {
+     "recall15": 0.056,
+     "recall30": 0.083,
+     "found30": 3,
+     "mpr": 61.2,
+     "tail30": 0.107
+    },
     "Q-fit+LLM": {
      "recall15": 0.139,
      "recall30": 0.194,
      "found30": 7,
      "mpr": 72.0,
      "tail30": 0.143
+    },
+    "Q-fit+C": {
+     "recall15": 0.056,
+     "recall30": 0.083,
+     "found30": 3,
+     "mpr": 69.3,
+     "tail30": 0.107
     },
     "RANDOM": {
      "recall15": 0.017,
@@ -1766,6 +1964,8 @@
      "POP": 210,
      "LLM": 101,
      "Q-fit+LLM": 24,
+     "Q-cult": 235,
+     "Q-fit+C": 21,
      "taste_pct": 0.992,
      "mass_pct": 0.1973,
      "drivers": [
@@ -1782,6 +1982,8 @@
      "POP": 106,
      "LLM": 46,
      "Q-fit+LLM": 9,
+     "Q-cult": 270,
+     "Q-fit+C": 33,
      "taste_pct": 0.994,
      "mass_pct": 0.206,
      "drivers": [
@@ -1798,6 +2000,8 @@
      "POP": 19,
      "LLM": 1,
      "Q-fit+LLM": 1,
+     "Q-cult": 399,
+     "Q-fit+C": 87,
      "taste_pct": 1.0,
      "mass_pct": 0.2347,
      "drivers": [
@@ -1814,6 +2018,8 @@
      "POP": 107,
      "LLM": 284,
      "Q-fit+LLM": 91,
+     "Q-cult": 129,
+     "Q-fit+C": 2,
      "taste_pct": 0.996,
      "mass_pct": 0.248,
      "drivers": [
@@ -1830,6 +2036,8 @@
      "POP": 6,
      "LLM": 22,
      "Q-fit+LLM": 7,
+     "Q-cult": 307,
+     "Q-fit+C": 46,
      "taste_pct": 0.9867,
      "mass_pct": 0.2587,
      "drivers": [
@@ -1846,6 +2054,8 @@
      "POP": 814,
      "LLM": 283,
      "Q-fit+LLM": 96,
+     "Q-cult": 75,
+     "Q-fit+C": 1,
      "taste_pct": 0.992,
      "mass_pct": 0.284,
      "drivers": [
@@ -1862,6 +2072,8 @@
      "POP": 10,
      "LLM": 2,
      "Q-fit+LLM": 4,
+     "Q-cult": 503,
+     "Q-fit+C": 168,
      "taste_pct": 0.9813,
      "mass_pct": 0.256,
      "drivers": [
@@ -1878,6 +2090,8 @@
      "POP": 175,
      "LLM": 7,
      "Q-fit+LLM": 12,
+     "Q-cult": 396,
+     "Q-fit+C": 122,
      "taste_pct": 0.872,
      "mass_pct": 0.17,
      "drivers": [
@@ -1894,6 +2108,8 @@
      "POP": 605,
      "LLM": 317,
      "Q-fit+LLM": 138,
+     "Q-cult": 786,
+     "Q-fit+C": 461,
      "taste_pct": 0.832,
      "mass_pct": 0.122,
      "drivers": [
@@ -1910,6 +2126,8 @@
      "POP": 305,
      "LLM": 326,
      "Q-fit+LLM": 143,
+     "Q-cult": 688,
+     "Q-fit+C": 379,
      "taste_pct": 0.826,
      "mass_pct": 0.144,
      "drivers": [
@@ -1926,6 +2144,8 @@
      "POP": 340,
      "LLM": 12,
      "Q-fit+LLM": 20,
+     "Q-cult": 780,
+     "Q-fit+C": 462,
      "taste_pct": 0.822,
      "mass_pct": 0.138,
      "drivers": [
@@ -1942,6 +2162,8 @@
      "POP": 18,
      "LLM": 71,
      "Q-fit+LLM": 42,
+     "Q-cult": 367,
+     "Q-fit+C": 121,
      "taste_pct": 0.866,
      "mass_pct": 0.288,
      "drivers": [
@@ -1958,6 +2180,8 @@
      "POP": 125,
      "LLM": 30,
      "Q-fit+LLM": 43,
+     "Q-cult": 403,
+     "Q-fit+C": 175,
      "taste_pct": 0.7227,
      "mass_pct": 0.1013,
      "drivers": [
@@ -1974,6 +2198,8 @@
      "POP": 74,
      "LLM": 183,
      "Q-fit+LLM": 103,
+     "Q-cult": 529,
+     "Q-fit+C": 288,
      "taste_pct": 0.982,
      "mass_pct": 0.988,
      "drivers": [
@@ -1990,6 +2216,8 @@
      "POP": 357,
      "LLM": 324,
      "Q-fit+LLM": 168,
+     "Q-cult": 519,
+     "Q-fit+C": 303,
      "taste_pct": 0.712,
      "mass_pct": 0.132,
      "drivers": [
@@ -2006,6 +2234,8 @@
      "POP": 408,
      "LLM": 133,
      "Q-fit+LLM": 101,
+     "Q-cult": 218,
+     "Q-fit+C": 84,
      "taste_pct": 0.92,
      "mass_pct": 0.9787,
      "drivers": [
@@ -2022,6 +2252,8 @@
      "POP": 72,
      "LLM": 162,
      "Q-fit+LLM": 137,
+     "Q-cult": 337,
+     "Q-fit+C": 198,
      "taste_pct": 0.818,
      "mass_pct": 0.77,
      "drivers": [
@@ -2038,6 +2270,8 @@
      "POP": 185,
      "LLM": 472,
      "Q-fit+LLM": 362,
+     "Q-cult": 174,
+     "Q-fit+C": 141,
      "taste_pct": 0.6853,
      "mass_pct": 0.944,
      "drivers": [
@@ -2054,6 +2288,8 @@
      "POP": 270,
      "LLM": 199,
      "Q-fit+LLM": 190,
+     "Q-cult": 372,
+     "Q-fit+C": 319,
      "taste_pct": 0.6667,
      "mass_pct": 0.712,
      "drivers": [
@@ -2070,6 +2306,8 @@
      "POP": 629,
      "LLM": 157,
      "Q-fit+LLM": 180,
+     "Q-cult": 96,
+     "Q-fit+C": 107,
      "taste_pct": 0.622,
      "mass_pct": 0.642,
      "drivers": [
@@ -2086,6 +2324,8 @@
      "POP": 38,
      "LLM": 28,
      "Q-fit+LLM": 129,
+     "Q-cult": 480,
+     "Q-fit+C": 428,
      "taste_pct": 0.582,
      "mass_pct": 0.504,
      "drivers": [
@@ -2102,6 +2342,8 @@
      "POP": 671,
      "LLM": 244,
      "Q-fit+LLM": 250,
+     "Q-cult": 3,
+     "Q-fit+C": 67,
      "taste_pct": 0.586,
      "mass_pct": 0.788,
      "drivers": [
@@ -2118,6 +2360,8 @@
      "POP": 237,
      "LLM": 636,
      "Q-fit+LLM": 546,
+     "Q-cult": 11,
+     "Q-fit+C": 78,
      "taste_pct": 0.578,
      "mass_pct": 0.69,
      "drivers": [
@@ -2134,6 +2378,8 @@
      "POP": 163,
      "LLM": 232,
      "Q-fit+LLM": 279,
+     "Q-cult": 17,
+     "Q-fit+C": 105,
      "taste_pct": 0.532,
      "mass_pct": 0.878,
      "drivers": [
@@ -2150,6 +2396,8 @@
      "POP": 16,
      "LLM": 556,
      "Q-fit+LLM": 539,
+     "Q-cult": 90,
+     "Q-fit+C": 185,
      "taste_pct": 0.49,
      "mass_pct": 0.952,
      "drivers": [
@@ -2166,6 +2414,8 @@
      "POP": 292,
      "LLM": 367,
      "Q-fit+LLM": 402,
+     "Q-cult": 117,
+     "Q-fit+C": 214,
      "taste_pct": 0.484,
      "mass_pct": 0.574,
      "drivers": [
@@ -2182,6 +2432,8 @@
      "POP": 265,
      "LLM": 174,
      "Q-fit+LLM": 265,
+     "Q-cult": 116,
+     "Q-fit+C": 224,
      "taste_pct": 0.474,
      "mass_pct": 0.678,
      "drivers": [
@@ -2198,6 +2450,8 @@
      "POP": 349,
      "LLM": 366,
      "Q-fit+LLM": 414,
+     "Q-cult": 80,
+     "Q-fit+C": 197,
      "taste_pct": 0.454,
      "mass_pct": 0.71,
      "drivers": [
@@ -2214,6 +2468,8 @@
      "POP": 44,
      "LLM": 639,
      "Q-fit+LLM": 628,
+     "Q-cult": 185,
+     "Q-fit+C": 322,
      "taste_pct": 0.426,
      "mass_pct": 0.706,
      "drivers": [
@@ -2230,6 +2486,8 @@
      "POP": 42,
      "LLM": 181,
      "Q-fit+LLM": 328,
+     "Q-cult": 45,
+     "Q-fit+C": 245,
      "taste_pct": 0.366,
      "mass_pct": 0.866,
      "drivers": [
@@ -2246,6 +2504,8 @@
      "POP": 167,
      "LLM": 401,
      "Q-fit+LLM": 518,
+     "Q-cult": 112,
+     "Q-fit+C": 313,
      "taste_pct": 0.35,
      "mass_pct": 0.872,
      "drivers": [
@@ -2262,6 +2522,8 @@
      "POP": 839,
      "LLM": 69,
      "Q-fit+LLM": 313,
+     "Q-cult": 669,
+     "Q-fit+C": 731,
      "taste_pct": 0.27,
      "mass_pct": 0.37,
      "drivers": [
@@ -2278,6 +2540,8 @@
      "POP": 872,
      "LLM": 414,
      "Q-fit+LLM": 578,
+     "Q-cult": 355,
+     "Q-fit+C": 590,
      "taste_pct": 0.26,
      "mass_pct": 0.358,
      "drivers": [
@@ -2294,6 +2558,8 @@
      "POP": 820,
      "LLM": 561,
      "Q-fit+LLM": 685,
+     "Q-cult": 820,
+     "Q-fit+C": 814,
      "taste_pct": 0.16,
      "mass_pct": 0.032,
      "drivers": [
@@ -2310,6 +2576,8 @@
      "POP": 255,
      "LLM": 80,
      "Q-fit+LLM": 364,
+     "Q-cult": 717,
+     "Q-fit+C": 779,
      "taste_pct": 0.198,
      "mass_pct": 0.406,
      "drivers": [
@@ -2326,6 +2594,8 @@
      "POP": 857,
      "LLM": 486,
      "Q-fit+LLM": 732,
+     "Q-cult": 859,
+     "Q-fit+C": 870,
      "taste_pct": 0.028,
      "mass_pct": 0.028,
      "drivers": []
@@ -2858,6 +3128,30 @@
      "Have & Meyer",
      "Vinegar Hill House",
      "Sweetwater"
+    ],
+    "Q-cult": [
+     "Jalopy Theatre and School of Music",
+     "Littlefield",
+     "ORE BAR",
+     "Barbès",
+     "Baby's All Right",
+     "Molasses Books",
+     "Purgatory",
+     "Dynaco",
+     "Sleepwalk",
+     "The Emerson"
+    ],
+    "Q-fit+C": [
+     "Madeline's",
+     "Grand Army",
+     "Horses and Divorces",
+     "Hotel Delmano",
+     "Dick and Jane’s",
+     "Dynaco",
+     "The Narrows",
+     "Chavela's",
+     "F&F Restaurant and Bar",
+     "Petite Crevette"
     ]
    }
   },
@@ -2880,6 +3174,13 @@
     "accounts": 30,
     "in_pool": 7
    },
+   "artists": [
+    "Maggie Rogers",
+    "Phoebe Bridgers",
+    "Laura Marling",
+    "Tiny Habits",
+    "Julia Jacklin"
+   ],
    "metrics": {
     "Q-fit": {
      "recall15": 0.143,
@@ -2909,11 +3210,25 @@
      "mpr": 70.2,
      "tail30": 0.0
     },
+    "Q-cult": {
+     "recall15": 0.0,
+     "recall30": 0.0,
+     "found30": 0,
+     "mpr": 60.2,
+     "tail30": 0.0
+    },
     "Q-fit+LLM": {
      "recall15": 0.143,
      "recall30": 0.143,
      "found30": 1,
      "mpr": 72.5,
+     "tail30": 0.143
+    },
+    "Q-fit+C": {
+     "recall15": 0.0,
+     "recall30": 0.143,
+     "found30": 1,
+     "mpr": 66.7,
      "tail30": 0.143
     },
     "RANDOM": {
@@ -2937,6 +3252,8 @@
      "POP": 87,
      "LLM": 37,
      "Q-fit+LLM": 13,
+     "Q-cult": 159,
+     "Q-fit+C": 20,
      "taste_pct": 0.998,
      "mass_pct": 0.24,
      "drivers": [
@@ -2953,6 +3270,8 @@
      "POP": 925,
      "LLM": 235,
      "Q-fit+LLM": 152,
+     "Q-cult": 304,
+     "Q-fit+C": 196,
      "taste_pct": 0.932,
      "mass_pct": 0.958,
      "drivers": [
@@ -2969,6 +3288,8 @@
      "POP": 835,
      "LLM": 592,
      "Q-fit+LLM": 359,
+     "Q-cult": 187,
+     "Q-fit+C": 127,
      "taste_pct": 0.862,
      "mass_pct": 0.752,
      "drivers": [
@@ -2985,6 +3306,8 @@
      "POP": 941,
      "LLM": 184,
      "Q-fit+LLM": 194,
+     "Q-cult": 534,
+     "Q-fit+C": 418,
      "taste_pct": 0.644,
      "mass_pct": 0.358,
      "drivers": [
@@ -3001,6 +3324,8 @@
      "POP": 299,
      "LLM": 251,
      "Q-fit+LLM": 243,
+     "Q-cult": 201,
+     "Q-fit+C": 239,
      "taste_pct": 0.73,
      "mass_pct": 0.74,
      "drivers": [
@@ -3017,6 +3342,8 @@
      "POP": 943,
      "LLM": 409,
      "Q-fit+LLM": 398,
+     "Q-cult": 599,
+     "Q-fit+C": 537,
      "taste_pct": 0.448,
      "mass_pct": 0.036,
      "drivers": [
@@ -3033,6 +3360,8 @@
      "POP": 957,
      "LLM": 572,
      "Q-fit+LLM": 743,
+     "Q-cult": 1053,
+     "Q-fit+C": 1003,
      "taste_pct": 0.2477,
      "mass_pct": 0.2477,
      "drivers": []
@@ -3250,6 +3579,30 @@
      "Hotel Delmano",
      "Aita",
      "Cecconi's DUMBO"
+    ],
+    "Q-cult": [
+     "Baby's All Right",
+     "Molasses Books",
+     "Jalopy Theatre and School of Music",
+     "House of Yes",
+     "Purgatory",
+     "Nightmoves",
+     "Public Records",
+     "Théâtre XIV by Company XIV",
+     "Brooklyn's Natural",
+     "Extra Fancy"
+    ],
+    "Q-fit+C": [
+     "Nightmoves",
+     "Wythe Hotel",
+     "Madeline's",
+     "Extra Fancy",
+     "Hotel Indigo Williamsburg - Brooklyn by IHG",
+     "Public Records",
+     "Maison Premiere",
+     "Hotel Delmano",
+     "Pokito",
+     "Ume"
     ]
    }
   }

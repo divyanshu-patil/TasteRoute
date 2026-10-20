@@ -78,7 +78,8 @@ export default function VenuePage() {
   const pin: Pin[] = here ? [{ id: v.venue_id, ...here, label: String(v.rank), title: v.name, sub: d.address ?? undefined }] : [];
   if (here && d.base) pin.push({ id: "base", lat: d.base.lat, lon: d.base.lon, label: "You", title: d.base.label, sub: d.base.detail, base: true });
   const fits = d.product_fit as Fit[];
-  const qloo = d.evidence.filter((e) => e.source_kind === "qloo");
+  const music = d.evidence.find((e) => e.type === "qloo_cross_domain")?.value as { artists: string[]; fans_like: string[]; pct: number } | undefined;
+  const qloo = d.evidence.filter((e) => e.source_kind === "qloo" && e.type !== "qloo_cross_domain");
   const other = d.evidence.filter((e) => e.source_kind !== "qloo");
 
   return (
@@ -135,6 +136,27 @@ export default function VenuePage() {
           <p className="small faint">Each score (0–100) is this venue&apos;s percentile for one product among its type, from a separate Qloo query using only that product&apos;s brands. The lead product is the one this venue stands out most for{fits.some((f) => f.affinity != null) ? ", by standardised Qloo affinity" : ""}.</p>
         </div>
       </section>
+
+      {music && (
+        <section className="card stack-s" aria-labelledby="music-h">
+          <div className="row between">
+            <h2 id="music-h" className="h2">Shared tastes beyond food and drink</h2>
+            <SourceChip kind="qloo" />
+          </div>
+          <p>Fans of the brands you resemble over-index on these artists:</p>
+          <div className="chips">
+            {music.fans_like.map((a) => <span key={a} className={music.artists.includes(a) ? "tag" : "tag tag-line"}>{a}</span>)}
+          </div>
+          <p>
+            With those artists&apos; fans, this venue&apos;s percentile is {pct(music.pct)} among the {venueTypeLabel(v.venue_type).toLowerCase()} venues
+            ranked here (100 is the highest){music.artists.length > 0 ? `, mostly through fans of ${music.artists.join(" and ")}` : ""}.
+          </p>
+          <p className="small faint">
+            Context for a pitch, not part of fit: in our backtest, ranking by music taste did not find more real accounts.{" "}
+            <Link className="link" href="/evaluation">See the backtest</Link>
+          </p>
+        </section>
+      )}
 
       <section className="stack" data-tour="evidence">
         <div className="row between">

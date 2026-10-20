@@ -38,7 +38,7 @@ CSV, POOLS, LLM_CACHE = ROOT / "docs/eval/stockists.csv", ROOT / "docs/eval/pool
 REPORT, WEB = ROOT / "docs/evaluation-stockists.md", ROOT / "apps/web/public/evaluation.json"
 CITY = {"query": "Brooklyn", "lat": 40.6526, "lon": -73.9497, "bbox": [40.5503390, -74.0566880, 40.7394340, -73.8329450]}
 PAGES, BATCH, POP_TOP = 10, 50, 50
-METHODS = ["Q-fit", "Q-raw", "POP", "LLM", "Q-fit+LLM"]
+METHODS = ["Q-fit", "Q-raw", "POP", "LLM", "Q-fit+LLM", "Q-cult", "Q-fit+C"]
 
 
 class Score(BaseModel):
@@ -153,7 +153,7 @@ async def llm_scores(svc: Any, b: dict[str, Any], comps: list[str], pool: list[d
 
 
 def rankings(b: dict[str, Any], pool: dict[str, dict[str, Any]], target: dict[str, float], generic: dict[str, float],
-             llm: dict[str, int]) -> tuple[dict[str, list[str]], dict[str, rank.Scored]]:
+             llm: dict[str, int], cult: dict[str, float]) -> tuple[dict[str, list[str]], dict[str, rank.Scored]]:
     tie = {v: i for i, v in enumerate(hash_order(list(pool), b["key"]))}
     per_type = []
     for vt in b["types"]:
@@ -165,10 +165,13 @@ def rankings(b: dict[str, Any], pool: dict[str, dict[str, Any]], target: dict[st
         "Q-raw": sorted(pool, key=lambda i: (-target.get(i, -1.0), tie[i])),
         "POP": sorted(pool, key=lambda i: (-pool[i]["popularity"], tie[i])),
         "LLM": sorted(pool, key=lambda i: (-llm.get(i, -1), tie[i])),
+        "Q-cult": sorted(pool, key=lambda i: (-cult.get(i, -1.0), tie[i])),
     }
     # Exploratory, not TasteRoute's ranking (added after the dev run): the mean of the Q-fit and LLM positions.
-    pos = {k: {v: r for r, v in enumerate(out[k])} for k in ("Q-fit", "LLM")}
+    pos = {k: {v: r for r, v in enumerate(out[k])} for k in ("Q-fit", "LLM", "Q-cult")}
     out["Q-fit+LLM"] = sorted(pool, key=lambda i: (pos["Q-fit"][i] + pos["LLM"][i], tie[i]))
+    # Cultural fit (pre-registered for score plan E2): the mean of the Q-fit and Q-cult positions.
+    out["Q-fit+C"] = sorted(pool, key=lambda i: (pos["Q-fit"][i] + pos["Q-cult"][i], tie[i]))
     return out, fit
 
 
@@ -197,7 +200,9 @@ async def run_brand(svc: Any, pack: Any, b: dict[str, Any], rows: list[dict[str,
     target, drivers = await affinities(svc, ids, signal, trace, explain=True)
     generic, _ = await affinities(svc, ids, pack.baseline_entities, trace)
     llm = await llm_scores(svc, b, [n for _, n in comps], list(pool.values()))
-    order, fit = rankings(b, pool, target, generic, llm)
+    artists, _ = await api.taste_entities(svc.qloo, signal, take=5, trace=trace)
+    cult, _ = await affinities(svc, ids, [a.entity_id for a in artists], trace)
+    order, fit = rankings(b, pool, target, generic, llm, cult)
     POOLS.mkdir(parents=True, exist_ok=True)
     (POOLS / f"{b['key']}.json").write_text(json.dumps(
         [{"id": i, "name": pool[i]["name"], "type": pool[i]["type"], "neighborhood": pool[i]["neighborhood"],
@@ -211,7 +216,7 @@ async def run_brand(svc: Any, pack: Any, b: dict[str, Any], rows: list[dict[str,
          for i in truth), key=lambda x: x["Q-fit"])
     return {"brand": b["brand"], "key": b["key"], "split": b["split"], "description": b["description"],
             "types": b["types"], "comparables": [n for _, n in comps], "counts": counts,
-            "metrics": metrics(order, truth, len(pool)), "stockists": stockists, "resolution": log,
+            "artists": [a.name for a in artists], "metrics": metrics(order, truth, len(pool)), "stockists": stockists, "resolution": log,
             "top10": {k: [pool[i]["name"] for i in order[k][:10]] for k in METHODS}}
 
 
@@ -238,6 +243,12 @@ accounts are among Qloo's best-known venues, so this brand says little either wa
 11%, LLM 11%. Accounts Qloo ranks high and the LLM does not: Grand Army (Q-fit 9th, LLM 284th), June (2nd vs 101st), \
 Madeline's (22nd vs 283rd), all driven by fans of Ghia and Campari. For Casamara Club the LLM has no account in its \
 top 30; Q-fit has Glasserie at 10th.
+- **Music taste did not help ranking (checked under a rule written before it ran).** With the 5 artists the \
+comparables' fans over-index on as the signal, Q-fit+C put 4 test accounts in its top 30 against Q-fit's 8, and 1 Kings \
+County Distillery account against 2, so cultural fit stays an explanation and does not change fit. The artists are \
+national tastes (country singers for both whiskey and rosé fans), which say little about which Brooklyn bar a brand \
+belongs in. Q-cult alone put 2 of 7 Wölffer Estate accounts in its top 30, where every other method found none; one \
+dev brand is not evidence.
 
 **What it means.** On these brands Qloo's taste signal finds about as many real accounts as an LLM that reads venue \
 names: 8 of 47 in the top 30 for Q-fit, 8 for the LLM, 10 for Q-raw, about 1.5 by chance. They find different ones \
@@ -275,6 +286,9 @@ def report(res: list[dict[str, Any]], spent: dict[str, Any]) -> str:
         "| POP | Qloo popularity only |",
         "| LLM | Gemma 4 31B from the description, the comparables and each venue's name, type and neighbourhood |",
         "| Q-fit+LLM | Exploratory (added after the dev run, before the test run): the mean of the Q-fit and LLM positions |",
+        "| Q-cult | Qloo affinity with a music signal: the 5 artists the comparables' fans over-index on (added after the "
+        "test run, pre-registered before it ran) |",
+        "| Q-fit+C | The mean of the Q-fit and Q-cult positions; enters the app's fit only under the pre-registered rule |",
         "| RANDOM | Expected value |",
         "",
     ]
@@ -295,7 +309,8 @@ def report(res: list[dict[str, Any]], spent: dict[str, Any]) -> str:
     for r in res:
         m, c = r["metrics"], r["counts"]
         out += [f"## {r['brand']} ({r['split']})", "",
-                f"{r['description']}. Venue types: {', '.join(r['types'])}. Comparables: {', '.join(r['comparables'])}.", "",
+                f"{r['description']}. Venue types: {', '.join(r['types'])}. Comparables: {', '.join(r['comparables'])}. "
+                f"Their fans' top artists (Qloo): {', '.join(r.get('artists', []))}.", "",
                 f"Accounts: {c['accounts']} in Brooklyn; {c['in_pool']} are among Qloo's {PAGES * 50} best-known venues of "
                 f"each type (the pool); the rest are excluded for every method. "
                 f"Long tail (outside POP's top {POP_TOP}): {m['tail']} of {m['truth']}.", "",

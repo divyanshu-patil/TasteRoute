@@ -56,6 +56,11 @@ async def test_scout_run_end_to_end(client, ws, svc, fake_qloo):
     pf = next(e for e in detail["evidence"] if e["type"] == "qloo_product_fit")  # FIT-04: from Qloo per-product calls
     assert pf["source_kind"] == "qloo" and len(pf["value"]["affinities"]) == 2
     assert all(f["affinity"] is not None for f in detail["product_fit"])
+    music = [e for v in venues[:10] for e in (await client.get(f"/v1/runs/{run_id}/venues/{v['venue_id']}", headers=ws)
+                                               ).json()["evidence"] if e["type"] == "qloo_cross_domain"]
+    assert music and all(e["source_kind"] == "qloo" and e["source_call_id"] for e in music)  # EVD-06
+    assert all(len(e["value"]["fans_like"]) == 5 and 0 <= e["value"]["pct"] <= 1 for e in music)
+    assert any("music your brands' fans like" in v["reason"] for v in venues)
 
     trace = (await client.get(f"/v1/runs/{run_id}/trace", headers=ws)).json()
     qloo = [t for t in trace if t["kind"] == "qloo"]

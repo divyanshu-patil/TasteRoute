@@ -55,6 +55,7 @@ Each criterion has an ID, a measurable statement, how it is checked, and a prior
 | EVD-03 | Inferences are labelled as inferences in API and UI | Unit test + UI check | MVP |
 | EVD-04 | OpenStreetMap and contact-source evidence carry the `external_calls` id they came from; a second outreach pass leaves one row per evidence item | API test `test_outreach_evidence_links_its_call_and_never_duplicates` | MVP |
 | EVD-05 | Reasons never list the venue's own type as a match and read in plain English | Unit test `test_reasons_never_list_the_venue_type_and_read_plainly` | MVP |
+| EVD-06 | Each ranked venue carries a `qloo_cross_domain` music item (the comparables' fans' top artists, the venue's percentile with those artists' fans and the artists driving it) linked to its call; the reason adds a music clause for the top quarter of a type; it never changes fit | API test `test_scout_run_end_to_end`, unit test `test_reasons_skip_sensitive_and_common_tags` | MVP |
 
 ## Contacts (F06)
 
@@ -145,6 +146,7 @@ Each criterion has an ID, a measurable statement, how it is checked, and a prior
 | QLO-07 | `docs/qloo-contract.md` exists with verified parameters and fixtures for every endpoint used | Review | MVP |
 | QLO-08 | The per-run live-call cap holds under parallel calls (10 parallel calls, cap 5 → at most 5 live) | `test_parallel_calls_never_exceed_the_run_cap` | MVP |
 | QLO-10 | Insights paging (`page=2` with `take=50`) is verified and recorded | Probe + `docs/qloo-contract.md` | Stretch |
+| QLO-09 | Cross-domain insights (artists, podcasts, a venue as signal, venues scored by artist fans) are probed and recorded | Probe + `docs/qloo-contract.md` | MVP |
 
 ## LLM (cross-cutting)
 

@@ -65,6 +65,8 @@ def evidence_text(e: dict[str, Any]) -> str:
         return "Fans of " + ", ".join(d["name"] for d in v.get("drivers", [])) + " like this venue"
     if e["type"] == "qloo_venue_profile":
         return "Crowd: " + ", ".join(v.get("crowd", [])) + ". Interests: " + ", ".join(v.get("interests", []))
+    if e["type"] == "qloo_cross_domain":
+        return "Scores high with fans of " + ", ".join(v.get("artists", [])) + ", music your brands' fans like"
     return str(e["label"])
 
 
@@ -77,6 +79,8 @@ def evidence_values(e: dict[str, Any]) -> list[str]:
         return [d["name"] for d in v.get("drivers", []) if d.get("name")]
     if e["type"] == "qloo_venue_profile":
         return quotable(v.get("interests", []) + v.get("crowd", []))
+    if e["type"] == "qloo_cross_domain":
+        return [a for a in v.get("artists", []) if a]
     return []
 
 
@@ -97,7 +101,8 @@ def signature(b: Bundle) -> str:
 async def build_bundle(ctx: RunContext, venue: dict[str, Any], contact: dict[str, Any]) -> Bundle:
     ev = await ctx.pool.fetch(
         "select id, type, label, value from venue_evidence where run_id = $1 and venue_id = $2 "
-        "and type in ('qloo_tag_overlap','qloo_explanation','qloo_venue_profile','qloo_product_fit','inference') order by type",
+        "and type in ('qloo_tag_overlap','qloo_explanation','qloo_venue_profile','qloo_product_fit','qloo_cross_domain',"
+        "'inference') order by type",
         ctx.rid, venue["venue_id"],
     )
     best = await ctx.pool.fetchrow(

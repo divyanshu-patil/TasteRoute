@@ -93,6 +93,15 @@ Same number of calls per type as before (target, then generic). A venue missing 
 
 `filter.type=urn:tag`, `signal.interests.entities=<ids>`, `filter.parents.types=urn:entity:place`, `take=50` → `results.tags[]` with `id`, `name`, `subtype`, `query.affinity`. Gives the place tags the brand's audience over-indexes on (e.g. Blue Bottle/Stumptown/La Colombe fans → coffee shop, espresso bar, avocado toast, women-owned). Intersected with each venue's tags to write reasons.
 
+## `GET /v2/insights` across domains (music, EVD-06, QLO-09)
+
+Probed 2026-10-20 with the sample run's 9 comparables (4 calls, fixtures `insights_artists_for_signal`, `insights_podcasts_for_signal`, `insights_artists_for_place`, `insights_bk_bar_cultural_fit`).
+
+- `filter.type=urn:entity:artist&signal.interests.entities=<brand ids>&take=20` returns artists ranked by affinity (Sylvan Esso, Rhye, Phantogram, Chet Faker, Future Islands…; affinity 0.90–0.94). `urn:entity:podcast` works the same way (wellness podcasts for this signal). Entities have the place shape (`entity_id`, `name`, `popularity`, `query.affinity`).
+- A venue works as a signal (`signal.interests.entities=<place id>`): its artists differ from the brand fans' (Free Nationals, KAYTRANADA for Oslo Coffee Roasters), with no overlap in the top 20. Not used: shared names would need a call per venue and are often empty.
+- Place insights with `filter.results.entities=<ranked venues>`, `signal.interests.entities=<top 5 artists>` and `feature.explainability=true` score 29 of 30 bars (affinity 0.78–0.85) and say which artists drive each. The artists' explainability scores are close together (0.18–0.23), so per-venue names vary little.
+- For the stockist brands, the top artists are national tastes: country singers for both a whiskey and a rosé (Montgomery Gentry, Faith Hill). The stockist backtest found that ranking by them does not find more accounts (D-30).
+
 ## Phase 0 measurements (Brooklyn)
 
 | Spike | Result | Pass? |

@@ -333,6 +333,42 @@ async def match_products(ctx: RunContext) -> dict[str, Any]:
 
 
 # ---------------------------------------------------------------- attach_evidence (F05)
+MUSIC_REASON_PCT = 0.75  # the music clause appears for the top quarter of a venue type
+
+
+async def _music(ctx: RunContext, ranked: list[dict[str, Any]], signal_ids: list[str]) -> dict[str, dict[str, Any]]:
+    """Cross-domain taste (EVD-06): the artists your brands' fans over-index on, then how each ranked venue scores with
+    those artists' fans, per venue type. An explanation only; it never changes fit (D-30, the stockist backtest)."""
+    trace = ctx.trace("attach_evidence")
+    try:
+        artists, _ = await api.taste_entities(ctx.svc.qloo, signal_ids, take=5, trace=trace)
+        art = {a.entity_id: a.name for a in artists}
+        if not art:
+            return {}
+        by_type: dict[str, list[dict[str, Any]]] = defaultdict(list)
+        for r in ranked:
+            by_type[r["venue_type"]].append(r)
+        out: dict[str, dict[str, Any]] = {}
+        for rows in by_type.values():
+            got: dict[str, tuple[Place, str]] = {}
+            for i in range(0, len(rows), api.MAX_TAKE):
+                body, call_id, _ = await api.place_insights(
+                    ctx.svc.qloo, results_ids=[r["qloo_entity_id"] for r in rows[i:i + api.MAX_TAKE]],
+                    signal_ids=list(art), explain=True, trace=trace)
+                got |= {p.entity_id: (p, call_id) for p in body.results.entities if p.affinity is not None}
+            pct = rank.percentiles({q: p.affinity or 0.0 for q, (p, _) in got.items()})
+            for q, (p, call_id) in got.items():
+                top = [art[d.entity_id] for d in sorted(p.explain(), key=lambda d: -d.score) if d.entity_id in art][:2]
+                out[q] = {"artists": top, "fans_like": list(art.values()), "affinity": p.affinity, "pct": round(pct[q], 4),
+                          "call": call_id}
+        return out
+    except QlooError as e:
+        if e.code in FATAL_QLOO:
+            raise
+        await ctx.warn("music_unavailable", f"Music taste could not be read from Qloo ({e.code}); reasons leave it out.")
+        return {}
+
+
 async def attach_evidence(ctx: RunContext, top_n: int = 30) -> dict[str, Any]:
     """Evidence and a template reason for every ranked venue (EVD-01); top_n only bounds the summary."""
     ranked = await _ranked(ctx)
@@ -340,6 +376,7 @@ async def attach_evidence(ctx: RunContext, top_n: int = 30) -> dict[str, Any]:
     names = {s["entity_id"]: s["name"] for s in signal}
     tags, tag_call = await api.audience_tags(ctx.svc.qloo, list(names), ctx.trace("attach_evidence"))
     aud = {t.key: t for t in tags if tag_kind(t.key) not in ("category", "cost_description", "inclusivity")}
+    music = await _music(ctx, ranked, list(names))
 
     places: dict[str, Place] = {}
     target_call: dict[str, str] = {}
@@ -396,6 +433,11 @@ async def attach_evidence(ctx: RunContext, top_n: int = 30) -> dict[str, Any]:
         evidence.append((vid, "qloo_venue_profile", "Who goes here (Qloo place data)", {
             "crowd": crowd[:6], "interests": interests[:8],
             "description": p.properties.get("customer_demographics_description")}, "qloo", tc))
+        m = music.get(qid)
+        if m:
+            evidence.append((vid, "qloo_cross_domain", "Music your brands' fans like, and how this venue scores with its fans",
+                             {k: m[k] for k in ("artists", "fans_like", "affinity", "pct")} | {"domain": "music"},
+                             "qloo", _uuid(m["call"])))
         vf = fit_by_venue.get(str(vid), [])
         best = next((f for f in vf if f["is_best"]), None)
         runner = sorted((f for f in vf if not f["is_best"]), key=lambda f: -float(f["percentile"]))
@@ -413,6 +455,7 @@ async def attach_evidence(ctx: RunContext, top_n: int = 30) -> dict[str, Any]:
             runner_up=runner[0]["product_name"] if runner else None,
             label=best["label"] if best else "unscored",
             phrases=ctx.pack.reasons.phrases,
+            music=m["artists"] if m and m["pct"] >= MUSIC_REASON_PCT else None,
         )
         reasons.append((ctx.rid, vid, text))
     async with ctx.pool.acquire() as con, con.transaction():
@@ -425,7 +468,7 @@ async def attach_evidence(ctx: RunContext, top_n: int = 30) -> dict[str, Any]:
         await con.executemany("update venue_scores set reason = $3 where run_id = $1 and venue_id = $2", reasons)
     top_aud = [t.name for t in sorted(aud.values(), key=lambda t: -t.affinity)[:5]]
     return {"venues_with_evidence": len(reasons), "evidence_items": len(evidence), "audience_tags": top_aud,
-            "top_n": min(top_n, len(reasons))}
+            "music_fans_like": next((m["fans_like"] for m in music.values()), []), "top_n": min(top_n, len(reasons))}
 
 
 async def finish_phase(ctx: RunContext, summary: str = "") -> dict[str, Any]:

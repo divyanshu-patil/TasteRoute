@@ -50,9 +50,10 @@ def norm(params: list[tuple[str, str]]) -> tuple[tuple[str, str], ...]:
 
 
 class FakeQloo:
-    """Serves recorded fixtures by normalised params. Two documented synthetic cases:
+    """Serves recorded fixtures by normalised params. Three documented synthetic cases:
     /search for a name with no fixture returns no results; filter.results.entities (per-product fit) returns the
-    requested recorded places with a deterministic affinity per (signal, venue). Anything else fails the test."""
+    requested recorded places with a deterministic affinity per (signal, venue), and explainability when asked;
+    an artist query returns the recorded artists for any signal. Anything else fails the test."""
 
     def __init__(self) -> None:
         self.exact: dict[Any, Any] = {}
@@ -93,8 +94,15 @@ class FakeQloo:
             for vid in p["filter.results.entities"].split(","):
                 if vid in self.places:
                     aff = int(hashlib.sha256(f"{signal}:{vid}".encode()).hexdigest()[:6], 16) / 0xFFFFFF
-                    out.append({**self.places[vid], "query": {"affinity": aff}})
+                    q: dict[str, Any] = {"affinity": aff}
+                    if p.get("feature.explainability") == "true":
+                        q["explainability"] = {"signal.interests.entities": [
+                            {"entity_id": s, "score": int(hashlib.sha256(f"{s}:{vid}".encode()).hexdigest()[:4], 16) / 0xFFFF}
+                            for s in signal.split(",")]}
+                    out.append({**self.places[vid], "query": q})
             return httpx.Response(200, json={"success": True, "results": {"entities": out}})
+        if path == "/v2/insights" and p.get("filter.type") == "urn:entity:artist":
+            return httpx.Response(200, json=json.loads((FIX / "qloo/insights_artists_for_signal.json").read_text())["body"])
         raise AssertionError(f"No Qloo fixture for {path} {sorted(params)}")
 
 
