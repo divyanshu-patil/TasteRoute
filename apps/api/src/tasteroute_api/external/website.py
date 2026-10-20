@@ -2,6 +2,7 @@
 
 import asyncio
 import ipaddress
+import logging
 import re
 import socket
 from collections.abc import Awaitable, Callable
@@ -19,6 +20,7 @@ from ..errors import AppError
 
 MAX_BYTES = 1_500_000
 MAX_REDIRECTS = 3
+log = logging.getLogger("tasteroute.website")
 DEADLINE_S = 20.0  # a whole fetch (redirects, robots.txt and body), on top of each read's timeout
 MAX_CHARS = 12_000
 PAGE_HINTS = re.compile(r"about|shop|product|menu|story|range|our-", re.I)
@@ -207,8 +209,8 @@ class WebsiteReader:
         for link in pick_links(home, PAGE_HINTS, 2):
             try:
                 pages.append(await self.fetch(link))
-            except AppError:
-                continue
+            except AppError as e:  # e.g. a shop that refuses a server's IP on inner pages: read what we have
+                log.info("skipped %s: %s", link, getattr(e, "detail", e))
         out = SiteText(pages=[p.url for p in pages])
         out.text = "\n\n".join([site_name(home.html)] + [extract_text(p.html) for p in pages]).strip()[:MAX_CHARS]
         if len(out.text.strip()) < 40:

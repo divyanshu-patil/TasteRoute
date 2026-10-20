@@ -291,7 +291,7 @@ export default function Start() {
                 </label>
                 <label className="field">
                   <span>Sign emails as</span>
-                  <input className="input" value={sender} maxLength={80} placeholder="Sam at Fieldnote" onChange={(e) => setSender(e.target.value)} />
+                  <input className="input" value={sender} maxLength={80} placeholder={`Your name at ${name || "your brand"}`} onChange={(e) => setSender(e.target.value)} />
                 </label>
               </div>
               <label className="field">

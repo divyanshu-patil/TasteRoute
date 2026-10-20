@@ -15,6 +15,8 @@ Paste the website into step 1. If the site can't be read, use "Describe instead"
 | Raaka Chocolate | https://www.raakachocolate.com | Similar brands | Café, deli | Brooklyn |
 | Devoción | https://www.devocion.com | Similar brands | Café | Brooklyn |
 
+On the hosted demo the reader may get only a Shopify site's home page (the shop refuses the server's address on inner pages; each skip is logged as `skipped <url>`). Step 2 then names products from the home page, e.g. "N° 004 Supercharged Phony Negroni" rather than "Phony Espresso Negroni". Check with `uv run python scripts/intake_check.py <url>` and edit the names in step 2 if needed.
+
 Locations: only Greenpoint (St. Agrestis) and the Navy Yard (Kings County) are confirmed from the brands' own sites. For the others, search the brand name or a street in the location box, or click the map.
 
 ## Descriptions to paste

@@ -51,6 +51,12 @@ UNSUPPORTED_MESSAGE = (
 )
 
 
+async def draft_profile(svc: Services, text: str, tag: str = "website") -> BrandProfile:
+    prompt, version = load("brand_profile")
+    return await structured(svc.llm, BrandProfile, prompt, f"<{tag}>\n{text}\n</{tag}>", purpose="brand_profile",
+                            prompt_version=version, max_tokens=900)
+
+
 async def propose(svc: Services, website_url: str | None, description: str | None) -> dict[str, Any]:
     text, pages, notice = "", [], None
     if website_url:
@@ -74,13 +80,11 @@ async def propose(svc: Services, website_url: str | None, description: str | Non
             notice = f"{BLOCKED}, so we used your description." if blocked else "We couldn't read that site, so we used your description."
     if description:
         text = (text + "\n\n" if text else "") + description[:1500]
-    prompt, version = load("brand_profile")
     tag = "website" if website_url and pages else "description"
     profile: BrandProfile
     source = "llm"
     try:
-        profile = await structured(svc.llm, BrandProfile, prompt, f"<{tag}>\n{text}\n</{tag}>", purpose="brand_profile",
-                                   prompt_version=version, max_tokens=900)
+        profile = await draft_profile(svc, text, tag)
     except (LLMUnavailable, LLMBadResponse):
         profile, source = BrandProfile(), "empty"
         notice = "We couldn't draft a profile automatically. Fill in the form below."
