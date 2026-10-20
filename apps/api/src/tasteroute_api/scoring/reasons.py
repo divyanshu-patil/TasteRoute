@@ -23,7 +23,7 @@ def plain_tags(tags: list[str], drop: list[str]) -> list[str]:
     return [t for t in tags if t.lower() not in gone]
 
 
-def _phrase(tag: str, phrases: dict[str, str]) -> str:
+def phrase(tag: str, phrases: dict[str, str]) -> str:
     return phrases.get(tag.lower(), tag.lower())
 
 
@@ -56,13 +56,13 @@ def reason(
     ph = phrases or {}
     parts: list[str] = []
     fans = _join(driver_names[:2])
-    overlap = [_phrase(t, ph) for t in quotable(audience_overlap)[:2]]
+    overlap = [phrase(t, ph) for t in quotable(audience_overlap)[:2]]
     if overlap:
         parts.append(f"Known for {_join(overlap)}, which fans of {fans or 'your brands'} over-index on (Qloo).")
     elif fans:
         parts.append(f"Strong taste overlap with fans of {fans} (Qloo).")
-    who = [_phrase(c, ph) for c in quotable(crowd)[:2]]
-    likes = [_phrase(i, ph) for i in quotable(interests)[:2]]
+    who = [phrase(c, ph) for c in quotable(crowd)[:2]]
+    likes = [phrase(i, ph) for i in quotable(interests)[:2]]
     if who:
         parts.append("Crowd: " + _join(who) + (f", into {_join(likes)}" if likes else "") + " (Qloo).")
     elif likes:

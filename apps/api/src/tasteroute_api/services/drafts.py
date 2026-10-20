@@ -16,7 +16,7 @@ from ..errors import AppError, LLMBadResponse, LLMUnavailable
 from ..grounding import Bundle, validate
 from ..llm.prompts import load
 from ..llm.structured import parse, structured
-from ..scoring.reasons import quotable
+from ..scoring.reasons import phrase, quotable
 from .contacts import is_suppressed, suppression_sets
 
 log = logging.getLogger("tasteroute.drafts")
@@ -57,28 +57,30 @@ def short_name(name: str) -> str:
     return re.split(r" [-|–] ", name, maxsplit=1)[0].strip() or name
 
 
-def evidence_text(e: dict[str, Any]) -> str:
-    v = e["value"]
+def evidence_text(e: dict[str, Any], phrases: dict[str, str] | None = None) -> str:
+    v, ph = e["value"], phrases or {}
     if e["type"] == "qloo_tag_overlap":
-        return "Known for " + ", ".join(v.get("tags", [])) + ", which fans of your brands over-index on"
+        return "Known for " + ", ".join(phrase(t, ph) for t in v.get("tags", [])) + ", which fans of your brands over-index on"
     if e["type"] == "qloo_explanation":
-        return "Fans of " + ", ".join(d["name"] for d in v.get("drivers", [])) + " like this venue"
+        return "Fans of brands like " + ", ".join(d["name"] for d in v.get("drivers", [])) + " over-index here"
     if e["type"] == "qloo_venue_profile":
-        return "Crowd: " + ", ".join(v.get("crowd", [])) + ". Interests: " + ", ".join(v.get("interests", []))
+        return ("Crowd: " + ", ".join(phrase(c, ph) for c in v.get("crowd", [])) + ". Interests: "
+                + ", ".join(phrase(i, ph) for i in v.get("interests", [])))
     if e["type"] == "qloo_cross_domain":
         return "Scores high with fans of " + ", ".join(v.get("artists", [])) + ", music your brands' fans like"
     return str(e["label"])
 
 
-def evidence_values(e: dict[str, Any]) -> list[str]:
-    """The quotable values in an evidence row: what a taste sentence must cite word for word (DRF-08)."""
-    v = e["value"]
+def evidence_values(e: dict[str, Any], phrases: dict[str, str] | None = None) -> list[str]:
+    """The quotable values in an evidence row: what a taste sentence must cite word for word (DRF-08). Tags read as
+    the reasons write them ("cultural cuisine", "French food"), not as Qloo capitalises them ("Cultural cuisine")."""
+    v, ph = e["value"], phrases or {}
     if e["type"] == "qloo_tag_overlap":
-        return quotable(v.get("tags", []))
+        return [phrase(t, ph) for t in quotable(v.get("tags", []))]
     if e["type"] == "qloo_explanation":
         return [d["name"] for d in v.get("drivers", []) if d.get("name")]
     if e["type"] == "qloo_venue_profile":
-        return quotable(v.get("interests", []) + v.get("crowd", []))
+        return [phrase(t, ph) for t in quotable(v.get("interests", []) + v.get("crowd", []))]
     if e["type"] == "qloo_cross_domain":
         return [a for a in v.get("artists", []) if a]
     return []
@@ -128,8 +130,8 @@ async def build_bundle(ctx: RunContext, venue: dict[str, Any], contact: dict[str
         best_product_kind=kind_unless_named(lead["name"], lead.get("kind") or ""),
         brand_one_liner=profile.get("one_liner") or "",
         reason=venue.get("reason") or "",
-        evidence={str(e["id"]): evidence_text(dict(e)) for e in ev},
-        evidence_values={str(e["id"]): evidence_values(dict(e)) for e in ev},
+        evidence={str(e["id"]): evidence_text(dict(e), ctx.pack.reasons.phrases) for e in ev},
+        evidence_values={str(e["id"]): evidence_values(dict(e), ctx.pack.reasons.phrases) for e in ev},
         forbidden_claims=ctx.pack.pitch_style.forbidden_claims,
         postal_address=(profile.get("postal_address") or "").strip(),
         contact_role=contact.get("role"),
@@ -154,11 +156,11 @@ def template_draft(b: Bundle) -> PitchOut:
         values = b.evidence_values[cite[0]][:2]
         text = b.evidence[cite[0]]
         if text.startswith("Fans of"):
-            taste_line = f" Qloo's taste data shows fans of {_join(values)} like {b.venue_name}."
+            taste_line = f" Qloo's taste data shows fans of brands like {_join(values)} over-index on {b.venue_name}."
         elif text.startswith("Crowd"):
-            taste_line = f" Qloo's taste data on guests at {b.venue_name} mentions {_join([v.lower() for v in values])}."
+            taste_line = f" Qloo's taste data on guests at {b.venue_name} mentions {_join(values)}."
         else:
-            taste_line = (f" {b.venue_name} is known for {_join([v.lower() for v in values])}, which Qloo's taste data "
+            taste_line = (f" {b.venue_name} is known for {_join(values)}, which Qloo's taste data "
                           "shows fans of brands like ours over-index on.")
     body = (
         f"Hi {b.venue_name} team,\n\n"

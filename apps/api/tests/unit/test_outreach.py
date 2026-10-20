@@ -261,3 +261,17 @@ def test_web_results_keep_only_this_venues_address():
     # Its own domain and a Gmail inbox carrying its name; neighbours' and agencies' addresses are dropped.
     got = venue_addresses(found, "Yampa Sandwich Co.", "yampasandwichco.com")
     assert got == [("catering@yampasandwichco.com", "https://dir.test/yampa"), ("yampasandwichco@gmail.com", "https://dir.test/list")]
+
+
+def test_draft_evidence_reads_like_the_reasons():
+    from tasteroute_api.services.drafts import evidence_text, evidence_values
+
+    ph = {"french": "French food"}
+    tags = {"type": "qloo_tag_overlap", "value": {"tags": ["Cultural cuisine", "French"]}}
+    crowd = {"type": "qloo_venue_profile", "value": {"crowd": ["Foodies"], "interests": ["Vintage decor"]}}
+    fans = {"type": "qloo_explanation", "value": {"drivers": [{"name": "Philadelphia"}]}}
+    assert evidence_values(tags, ph) == ["cultural cuisine", "French food"]
+    assert evidence_values(crowd, ph) == ["vintage decor", "foodies"]
+    assert evidence_text(fans).startswith("Fans of brands like Philadelphia")  # a brand, not the city
+    b = bundle(evidence={"e2": evidence_text(fans)}, evidence_values={"e2": evidence_values(fans)})
+    assert "fans of brands like Philadelphia" in template_draft(b).body
