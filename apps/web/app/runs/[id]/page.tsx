@@ -28,6 +28,7 @@ const TOUR: TourStep[] = [
   { target: "signal", title: "The taste signal", body: "Qloo matched each product to brands it knows, or to real comparable brands when a product is too new. Venues rank by how much their guests share these brands' fans' taste." },
   { target: "map", title: "Where they are", body: "Every ranked venue. The top 10 are numbered by rank, venues you select turn yellow, and the mint pin is your business, if you set one. Open a pin for its scores and distance." },
   { target: "table", title: "Fit and lift", body: "Fit is 70% taste (Qloo affinity percentile for your brands) and 30% lift. Lift compares the same venues under mass-market brands like Coca-Cola and Starbucks, so a venue doesn't rank high just because everyone likes it. Chains are hidden unless you show them." },
+  { target: "llm", title: "Next to an LLM", body: "An LLM ranked the same venues from their names, types and neighbourhoods only. \"Only TasteRoute ranks this high\" marks venues in our top 15 that the LLM put below 30. On real stockists the two tied; the link shows the test." },
   { target: "reason", title: "Why each venue", body: "Open a reason to see what Qloo said and what is our inference. Each label links to the call in the trace." },
   { target: "weights", title: "Re-weight for free", body: "Shift the balance between taste and lift. Scores are recomputed from stored answers, with no new Qloo calls." },
 ];
@@ -270,7 +271,7 @@ export default function RunPage() {
           )}
 
           {llm && (
-            <p className="small muted">
+            <p className="small muted" data-tour="llm">
               LLM rank: an LLM&apos;s ranking from names, types and neighbourhoods only, for comparison. It never changes
               fit. <Link className="link" href="/evaluation">How the two did on real accounts</Link>
             </p>

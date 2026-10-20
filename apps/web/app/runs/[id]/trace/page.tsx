@@ -89,7 +89,7 @@ export default function Trace() {
           </table>
         </div>
       )}
-      <Tour steps={TOUR} ready={!!rows} next={{ href: "/start", label: "Start your own run" }} />
+      <Tour steps={TOUR} ready={!!rows} next={{ href: "/evaluation", label: "See how it was tested" }} />
     </RunShell>
   );
 }

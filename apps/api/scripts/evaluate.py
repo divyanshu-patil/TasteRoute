@@ -3,7 +3,7 @@
 uv run python scripts/evaluate.py                                  # setups A, B, C -> docs/evaluation-results.md + pairs CSV
 uv run python scripts/evaluate.py --score ../../docs/evaluation_pairs.csv   # after the judge fills `better_fit`
 
-A = the app's ranking (target, baseline, lift, fit). B = Qloo popularity baseline only. C = no Qloo: OpenStreetMap venues
+A = the app's ranking (taste, mass-market lift, fit). B = Qloo popularity baseline only. C = no Qloo: OpenStreetMap venues
 ranked by the LLM from name, type and website. The blind-pair key is stored in the `evaluations` table, not in the CSV.
 """
 
@@ -11,6 +11,7 @@ import argparse
 import asyncio
 import csv
 import hashlib
+import re
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
@@ -84,7 +85,11 @@ async def qloo_lists(svc: Any, pack: Any, b: dict[str, Any], trace: Trace) -> tu
         gb = guard_places(bl.results.entities, required_tags=tags, bbox=CITY["bbox"])
         cands = [rank.Candidate(p.entity_id, p.affinity, p.popularity, rank.support([(x.entity_id, x.score) for x in p.explain()]))
                  for p in gt.kept]
-        per_type.append(rank.score_type(vt, cands, [p.entity_id for p in gb.kept], {p.entity_id: p.popularity for p in gb.kept}))
+        # the same venues under mass-market brands, as rank_venues does (D-23)
+        g, _, _ = await api.place_insights(svc.qloo, results_ids=[p.entity_id for p in t.results.entities],
+                                           signal_ids=pack.baseline_entities, trace=trace)
+        aff = {p.entity_id: p.affinity for p in g.results.entities if p.affinity is not None}
+        per_type.append(rank.score_against_generic(vt, cands, aff))
         pct = rank.percentiles({p.entity_id: p.popularity for p in gb.kept})
         base += [(pct[p.entity_id], vt, p) for p in gb.kept]
         for p in gt.kept + gb.kept:
@@ -196,7 +201,11 @@ async def evaluate(c_pool: int) -> None:
         await pool.execute("insert into evaluations (run_id, method, results) values ($1, $2, $3)",
                            demo, METHOD, {"summary": summary, "key": key,
                                           "lists": {k: {s_: [x["id"] for x in v[s_]] for s_ in "ABC"} for k, v in res.items()}})
-        REPORT.write_text(report(res, brand_a, brand_c, len(pool_c), len(pairs), reasons, dict(spent)))
+        text = report(res, brand_a, brand_c, len(pool_c), len(pairs), reasons, dict(spent))
+        kept = re.search(r"## Does lift change the list\?.*?(?=\n## )", REPORT.read_text() if REPORT.exists() else "", re.S)
+        if kept:  # written by scripts/lift_effect.py; keep it across reruns
+            text = text.replace("## Where Qloo did not help", kept.group(0).rstrip() + "\n\n## Where Qloo did not help", 1)
+        REPORT.write_text(text)
         print(f"wrote {REPORT.relative_to(ROOT)} and {PAIRS.relative_to(ROOT)}; live calls spent: {dict(spent)}")
     finally:
         await close_services(svc)
@@ -214,7 +223,8 @@ def report(res: dict[str, Any], brand_a: float, brand_c: float, c_pool: int, n_p
         "",
         "| Setup | How venues are ranked |",
         "|---|---|",
-        "| A. Qloo on | The app: Qloo taste affinity for the brand's comparables, minus a popularity baseline (fit = 0.7·target + 0.3·lift) |",
+        "| A. Qloo on | The app: Qloo taste percentile for the brand's comparables; lift = taste minus the same venues' taste for "
+        "mass-market brands (fit = 0.7·taste + 0.3·max(lift, 0)) |",
         "| B. Popularity only | Qloo's popularity baseline for the same city and types, no taste signal |",
         f"| C. No Qloo | {c_pool} OpenStreetMap cafés and bars (with a website or email, fixed hash sample), scored 0–100 by the LLM from name, type and website |",
         "",

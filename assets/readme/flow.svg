@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="648" viewBox="0 0 1200 648" role="img" aria-labelledby="title desc">
   <title id="title">How TasteRoute works</title>
-  <desc id="desc">Four screens: paste your website, Qloo resolves your products or similar brands, venues are ranked by taste fit and lift over a popularity baseline, and you approve each grounded email. A black band explains the fit formula and the guardrails.</desc>
+  <desc id="desc">Four screens: paste your website, Qloo resolves your products or similar brands, venues are ranked by taste fit and lift over mass-market taste, and you approve each grounded email. A black band explains the fit formula and the guardrails.</desc>
 
   <defs>
     <g id="arrow">
@@ -53,19 +53,19 @@
       <rect width="258" height="300" rx="24" fill="#fff"/>
       <text x="20" y="36" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="18">03 · RANKED VENUES</text>
       <g font-family="Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif" font-size="30">
-        <text x="20" y="88">1</text><text x="166" y="88">91</text>
-        <text x="20" y="144">2</text><text x="166" y="144">88</text>
-        <text x="20" y="200">3</text><text x="166" y="200">87</text>
+        <text x="20" y="88">1</text><text x="166" y="88">98</text>
+        <text x="20" y="144">2</text><text x="166" y="144">92</text>
+        <text x="20" y="200">3</text><text x="166" y="200">80</text>
       </g>
       <g font-size="16" font-weight="600">
-        <text x="46" y="84">Oslo Coffee</text>
-        <text x="46" y="140">Vinegar Hill</text>
-        <text x="46" y="196">Absolute</text>
+        <text x="46" y="84">Vinegar Hill</text>
+        <text x="46" y="140">Glasserie</text>
+        <text x="46" y="196">Bar Bruno</text>
       </g>
       <g font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="14">
-        <rect x="200" y="64" width="42" height="26" rx="13" fill="#d1ffca"/><text x="221" y="82" text-anchor="middle">+85</text>
-        <rect x="200" y="120" width="42" height="26" rx="13" fill="#d1ffca"/><text x="221" y="138" text-anchor="middle">+61</text>
-        <rect x="200" y="176" width="42" height="26" rx="13" fill="#d1ffca"/><text x="221" y="194" text-anchor="middle">+67</text>
+        <rect x="200" y="64" width="42" height="26" rx="13" fill="#d1ffca"/><text x="221" y="82" text-anchor="middle">+94</text>
+        <rect x="200" y="120" width="42" height="26" rx="13" fill="#d1ffca"/><text x="221" y="138" text-anchor="middle">+78</text>
+        <rect x="200" y="176" width="42" height="26" rx="13" fill="#d1ffca"/><text x="221" y="194" text-anchor="middle">+60</text>
       </g>
       <path d="M20 104H238M20 160H238" stroke="#f2f2f2" stroke-width="2"/>
       <rect x="20" y="246" width="218" height="36" rx="18" fill="#000"/>
@@ -77,7 +77,7 @@
       <rect width="258" height="300" rx="24" fill="#fff"/>
       <text x="20" y="36" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="18">04 · YOU APPROVE</text>
       <rect x="20" y="54" width="206" height="28" rx="4" fill="#fff100"/>
-      <text x="30" y="73" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="15">s***@oslocoffee.com</text>
+      <text x="30" y="73" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="15">i***@barbruno.nyc</text>
       <rect x="20" y="102" width="218" height="9" rx="4.5" fill="#e5e5e5"/>
       <rect x="20" y="120" width="196" height="9" rx="4.5" fill="#e5e5e5"/>
       <rect x="20" y="138" width="208" height="9" rx="4.5" fill="#e5e5e5"/>
@@ -105,7 +105,7 @@
         <text x="48" y="420">profile + products</text>
         <text x="330" y="420">/search, comparables</text>
         <text x="612" y="420">/v2/insights × baseline</text>
-        <text x="894" y="420">grounded, never sent</text>
+        <text x="894" y="420">grounded, you send it</text>
       </g>
     </g>
   </g>
@@ -113,7 +113,7 @@
   <g id="mechanism" transform="translate(48 456)">
     <rect width="1104" height="160" rx="28" fill="#000"/>
     <text x="40" y="66" font-family="Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif" font-size="46" fill="#fff">FIT = 0.7 × TASTE + 0.3 × LIFT</text>
-    <text x="40" y="104" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, Helvetica, Arial, sans-serif" font-size="20" fill="#e5e5e5">Taste: Qloo affinity percentile for your brands' fans. Lift: taste minus popularity percentile, floored at 0.</text>
-    <text x="40" y="138" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="18" fill="#fff100">NO QLOO, NO RANKING · AGENT TOOL CALLS CHECKED BY A PLAN GUARD · YOU SEND EVERY EMAIL</text>
+    <text x="40" y="104" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, Helvetica, Arial, sans-serif" font-size="20" fill="#e5e5e5">Taste: Qloo percentile for your brands' fans. Lift: taste minus the venue's mass-market taste, floored at 0.</text>
+    <text x="40" y="138" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="18" fill="#fff100">NO QLOO, NO RANKING · AN AGENT DECIDES, A RULE CHECKER APPROVES · YOU SEND EVERY EMAIL</text>
   </g>
 </svg>

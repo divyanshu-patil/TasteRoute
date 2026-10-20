@@ -1,0 +1,71 @@
+[
+ {
+  "city": "Brooklyn",
+  "status": "scouted",
+  "orchestration": "agent",
+  "error": null,
+  "run_id": "1e31aee5-b399-4ab6-9923-86e96678b5aa",
+  "venues": 60,
+  "high_confidence": 12,
+  "top10": [
+   "Vinegar Hill House",
+   "Glasserie",
+   "Bar Bruno",
+   "F&F Restaurant and Bar",
+   "French Louie",
+   "Absolute Coffee",
+   "One Girl Cookies",
+   "Bien Cuit",
+   "St. Mazie Bar & Supper Club",
+   "L'imprimerie"
+  ],
+  "top10_with_contact": 9,
+  "qloo_live": 0
+ },
+ {
+  "city": "Chicago",
+  "status": "scouted",
+  "orchestration": "agent",
+  "error": null,
+  "run_id": "4fb9610d-8477-4463-b790-7bd0fd9bc505",
+  "venues": 60,
+  "high_confidence": 15,
+  "top10": [
+   "Freehand Chicago",
+   "The Publican",
+   "Homestead On The Roof",
+   "Parachute",
+   "MONEYGUN",
+   "Cindy's Rooftop",
+   "Foxtrot Market",
+   "Floriole Cafe & Bakery",
+   "Ipsento 606",
+   "Estereo"
+  ],
+  "top10_with_contact": 8,
+  "qloo_live": 12
+ },
+ {
+  "city": "Los Angeles",
+  "status": "scouted",
+  "orchestration": "agent",
+  "error": null,
+  "run_id": "31eb03d7-404b-48be-9b08-0050962158d6",
+  "venues": 60,
+  "high_confidence": 14,
+  "top10": [
+   "Bar Bandini",
+   "Crossroads Kitchen",
+   "Nic's On Beverly",
+   "Hotel Normandie LA",
+   "Osteria La Buca",
+   "Woodcat Coffee",
+   "Erin McKenna's Bakery LA",
+   "Green Table Cafe",
+   "Melrose Umbrella Co.",
+   "Clark Street Echo Park"
+  ],
+  "top10_with_contact": 8,
+  "qloo_live": 12
+ }
+]

@@ -15,6 +15,7 @@ const TOUR: TourStep[] = [
   { target: "venue-scores", title: "One venue, all its numbers", body: "Fit and lift, and the Qloo percentiles behind them: taste for your brands' fans, the same venues' taste for mass-market brands, and plain popularity." },
   { target: "why", title: "The reason", body: "Built from Qloo's explanation: which of your brands' fans drive the match and who goes here. Labels show what came from Qloo." },
   { target: "product-fit", title: "Which product to lead with", body: "A separate Qloo query per product. The lead product is the one this venue stands out most for among its type; \"close call\" means the gap is small." },
+  { target: "shared-tastes", title: "Shared tastes beyond food and drink", body: "Qloo's cross-domain data: the artists your brands' fans like, and how this venue's guests score with those artists' fans. It explains the match and can open a pitch; it never changes fit." },
   { target: "evidence", title: "Every source", body: "Each item says whether it came from Qloo, the public web or our inference, and the map shows where the venue is." },
 ];
 
@@ -147,7 +148,7 @@ export default function VenuePage() {
       </section>
 
       {music && (
-        <section className="card stack-s" aria-labelledby="music-h">
+        <section className="card stack-s" aria-labelledby="music-h" data-tour="shared-tastes">
           <div className="row between">
             <h2 id="music-h" className="h2">Shared tastes beyond food and drink</h2>
             <SourceChip kind="qloo" />

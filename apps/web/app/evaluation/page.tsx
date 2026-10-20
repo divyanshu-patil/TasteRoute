@@ -149,9 +149,10 @@ export default function Evaluation() {
         </a>
       </section>
 
-      <Link href="/sample" className="btn-ghost" style={{ alignSelf: "flex-start" }}>
-        See a sample run
-      </Link>
+      <div className="row">
+        <Link href="/start" className="btn">Start your own run</Link>
+        <Link href="/sample" className="btn-ghost">See a sample run</Link>
+      </div>
     </div>
   );
 }
