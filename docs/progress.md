@@ -97,6 +97,10 @@ H3: Devpost: cited figures (Eightx, June 2026; ACSA and Park Street, October 6, 
 
 Probed first (3 calls, `docs/qloo-contract.md`): the heatmap needs a signal; the brand and mass-market heatmaps differ (Spearman 0.14). `POST /v1/runs/{id}/route` makes two heatmap calls, groups the top 15 into walkable areas, orders them by heatmap lift and stores the result (`runs.route`, new migration); `GET` returns it without calls. Results page: a "Taste route" card with the areas and their walks, a heatmap layer and per-area dashed walks on the map, a tour step; "Plan a taste route" on live runs. Sample: 7 areas, Bushwick first (+80), Carroll Gardens 8 venues on a 3.5 km walk; 2 Qloo calls. QLO-11 passes (D-34). Lighthouse rerun on the new sample: accessibility 100 on all 7 pages, performance 87–96.
 
+## Hosted demo — 2026-10-20
+
+https://taste-route.vercel.app with the API at tasteroute.onrender.com. Main pushed (`6a79362`); both redeployed. The hosted database already had the new columns; the sample run `7892878f` was copied there (`copy_demo_run.py`, no Qloo or LLM calls), and `/v1/demo` serves it (`DEMO_RUN_ID` is empty, so the newest demo run wins). `/sample`, `/evaluation`, results with the taste route and heatmap, venue, outreach and trace load. G6 on hosted: accessibility 100 on all 7 pages, performance 65 (results) to 98 (`docs/lighthouse/`). Still open: G7 timing (3 live hosted runs), H4 hosted e2e and one live run, and the uptime workflow (repository variables, the owner's call); the API is on Render's free plan, which sleeps after 15 idle minutes.
+
 ## Budget used
 
 | Service | Calls |
