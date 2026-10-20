@@ -91,6 +91,21 @@ from qloo_calls group by run_id order by max(created_at) desc limit 10;
 
 After deploy: run `seed_demo.py` against production (or copy the demo rows), set `DEMO_RUN_ID`, open `/sample` in a private window, then run one live run.
 
+### Client IP (SEC-05)
+
+Per-IP limits use the `X-Forwarded-For` entry `TRUSTED_PROXY_HOPS` from the right; anything to its left was sent by the client. Confirm the value once per host:
+
+1. Set `LOG_LEVEL=debug` and redeploy.
+2. `curl -s -H "X-Forwarded-For: 1.2.3.4" https://<api>/v1/categories -o /dev/null` (any route works).
+3. In the log, find `x-forwarded-for shape: [...]`. `1.2.3.4` hashes to `python3 -c "import hashlib;print(hashlib.sha256(b'1.2.3.4').hexdigest()[:6])"`. `TRUSTED_PROXY_HOPS` = the number of entries to the right of that hash (1 when the host appends only your real IP; 2 when it also appends its own proxy).
+4. Set it, set `LOG_LEVEL=info`, redeploy, and remove the debug line in `security.py`.
+
+Other demo limits: `PUBLIC_RUNS_PER_IP_PER_DAY` (3) and `PUBLIC_RUNS_PER_DAY_GLOBAL` (40 live runs by everyone per 24 h; the sample run is never limited). Runs a restart interrupted are closed on the next start (`error_code=interrupted`).
+
+### Uptime (REL-08)
+
+`.github/workflows/uptime.yml` curls `/health`, `/v1/demo` and the web `/sample` every 10 minutes until 2026-11-17; a failure emails the repo owner and the requests keep a free instance awake. It stays off until the repo variables `UPTIME_ENABLED=true`, `API_URL` and `WEB_URL` are set (Settings → Secrets and variables → Actions → Variables).
+
 ## Troubleshooting
 
 | Symptom | Likely cause | Fix |
@@ -103,6 +118,7 @@ After deploy: run `seed_demo.py` against production (or copy the demo rows), set
 | Overpass 429/504 | Public instance overloaded | Wait; use cached results; retry later |
 | Nominatim blocked | Missing or generic User-Agent, too many requests | Set `OSM_USER_AGENT` with contact; keep 1 req/s |
 | No suggestions while typing | Photon down or throttling | Nothing to fix in the app: Enter still searches through Nominatim. Point `PHOTON_BASE_URL` at another Photon instance if it lasts |
+| "The public demo has used today's live runs" | `PUBLIC_RUNS_PER_DAY_GLOBAL` reached (all visitors, rolling 24 h) | Wait, or raise it; the sample run still works |
 | "Live runs are limited to N per day" | `PUBLIC_RUNS_PER_IP_PER_DAY` reached (rolling 24 h, per IP or workspace) | Wait, or raise it in `apps/api/.env` and restart the API; `0` = no limit (local only) |
 | Hunter 429 or credits out | Limits | Back off; use cached demo; upgrade one month if needed |
 | Browser shows CORS error | Web origin missing | Add it to `CORS_ORIGINS` |

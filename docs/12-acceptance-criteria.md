@@ -131,6 +131,7 @@ Each criterion has an ID, a measurable statement, how it is checked, and a prior
 | QLO-05 | The client never exceeds `QLOO_RPS` | Unit test with fake clock | MVP |
 | QLO-06 | Responses are cached by normalised key and reused within TTL | Integration test | MVP |
 | QLO-07 | `docs/qloo-contract.md` exists with verified parameters and fixtures for every endpoint used | Review | MVP |
+| QLO-08 | The per-run live-call cap holds under parallel calls (10 parallel calls, cap 5 → at most 5 live) | `test_parallel_calls_never_exceed_the_run_cap` | MVP |
 
 ## LLM (cross-cutting)
 
@@ -165,6 +166,17 @@ Each criterion has an ID, a measurable statement, how it is checked, and a prior
 | REL-01 | Retries with backoff on 429/5xx/timeouts for Qloo, Hunter, Overpass | Integration tests | MVP |
 | REL-02 | Every external call has a timeout | Code review + unit test | MVP |
 | REL-03 | Draft generation is idempotent per (run, venue, contact) | Integration test | MVP |
+| SEC-05 | The client IP is the `X-Forwarded-For` entry `TRUSTED_PROXY_HOPS` from the right (the socket peer when 0); a spoofed leftmost entry doesn't change `ip_hash` | `test_spoofed_forwarded_for_does_not_change_the_client` | MVP |
+| SEC-06 | At most `PUBLIC_RUNS_PER_DAY_GLOBAL` (40) live runs by everyone per 24 h, demo runs excluded; then `429 daily_capacity` and the web links to `/sample` | `test_global_daily_cap` | MVP |
+| SEC-07 | Every route that can call Qloo (runs, resolve, manual search) has the monthly gate and a per-IP limit | `test_resolve_and_search_respect_the_monthly_budget`, `test_resolve_is_rate_limited_per_ip` | MVP |
+| SEC-08 | Production refuses to start with the default `SESSION_SECRET` | `test_production_refuses_the_default_secret` | MVP |
+| SEC-09 | Fetches of user-supplied URLs connect only to the public IP they checked (no DNS rebind), read `robots.txt` with the same hop checks and size cap, and stop at a 20 s deadline | `test_fetcher_refuses_a_rebind_to_a_private_address`, `test_slow_drip_server_is_cut_off_at_the_deadline`, `test_robots_redirect_to_a_private_address_is_refused` | MVP |
+| SEC-10 | The SSE stream takes only a 10-minute token for that run (`POST /v1/runs/{id}/events-token`); the workspace token never goes in a URL | `test_sse_takes_only_a_short_lived_run_token` | MVP |
+| REL-04 | `/health` reports Qloo `configured`, `ok` or `auth_failed` from the latest live call, never making one | `test_health_reports_qloo_from_the_latest_live_call` | MVP |
+| REL-05 | On start, runs idle for 15 minutes in `queued`/`running`/`outreach_running` are closed with `interrupted` (an outreach keeps its ranking) | `test_startup_closes_interrupted_runs` | MVP |
+| REL-06 | The Qloo client waits out `Retry-After` (capped at 30 s) on 429/5xx | `test_qloo_429_honours_retry_after` | MVP |
+| REL-07 | The in-memory rate limiter drops idle keys | `test_limiter_drops_idle_keys` | MVP |
+| REL-08 | An opt-in GitHub Actions check curls `/health`, `/v1/demo` and `/sample` every 10 minutes until 2026-11-17 | `.github/workflows/uptime.yml` | Stretch |
 
 ## Frontend
 

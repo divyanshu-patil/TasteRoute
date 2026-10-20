@@ -1,0 +1,19 @@
+# Keep-alive and uptime alert for the hosted demo until judging ends (REL-08). A failed run emails the repo owner.
+# Off until the owner sets the repository variables UPTIME_ENABLED=true, API_URL and WEB_URL (it uses Actions minutes).
+name: uptime
+on:
+  schedule:
+    - cron: "*/10 * * * *"
+  workflow_dispatch:
+jobs:
+  check:
+    if: vars.UPTIME_ENABLED == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: API health, sample run, web sample page (until 2026-11-17)
+        run: |
+          [ "$(date -u +%Y%m%d)" -le 20261117 ] || { echo "judging is over"; exit 0; }
+          curl -fsS --retry 2 --max-time 60 "${{ vars.API_URL }}/health"
+          curl -fsS --retry 2 --max-time 30 "${{ vars.API_URL }}/v1/demo" | grep -q '"available":true'
+          curl -fsS --retry 2 --max-time 30 -o /dev/null "${{ vars.WEB_URL }}/sample"

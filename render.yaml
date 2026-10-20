@@ -19,6 +19,10 @@ services:
       - { key: DEMO_MODE_ENABLED, value: "true" }
       - { key: SESSION_SECRET, generateValue: true }
       - { key: CORS_ORIGINS, value: https://taste-route.vercel.app }
+      # Client IP = the X-Forwarded-For entry this many from the right (SEC-05). Confirm on the host: runbook "Client IP".
+      - { key: TRUSTED_PROXY_HOPS, value: "1" }
+      - { key: PUBLIC_RUNS_PER_IP_PER_DAY, value: "3" }
+      - { key: PUBLIC_RUNS_PER_DAY_GLOBAL, value: "40" }
       # The Supabase transaction pooler (port 6543) can't keep prepared statements.
       - { key: DB_STATEMENT_CACHE_SIZE, value: "0" }
       # Entered in the Render dashboard, never committed:
