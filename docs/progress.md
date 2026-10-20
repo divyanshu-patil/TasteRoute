@@ -97,6 +97,10 @@ H3: Devpost: cited figures (Eightx, June 2026; ACSA and Park Street, October 6, 
 
 Probed first (3 calls, `docs/qloo-contract.md`): the heatmap needs a signal; the brand and mass-market heatmaps differ (Spearman 0.14). `POST /v1/runs/{id}/route` makes two heatmap calls, groups the top 15 into walkable areas, orders them by heatmap lift and stores the result (`runs.route`, new migration); `GET` returns it without calls. Results page: a "Taste route" card with the areas and their walks, a heatmap layer and per-area dashed walks on the map, a tour step; "Plan a taste route" on live runs. Sample: 7 areas, Bushwick first (+80), Carroll Gardens 8 venues on a 3.5 km walk; 2 Qloo calls. QLO-11 passes (D-34). Lighthouse rerun on the new sample: accessibility 100 on all 7 pages, performance 87–96.
 
+## Step 2 product names — 2026-10-21
+
+The hosted server read only St. Agrestis's home page, which lists its drinks by code ("N° 004"), so step 2 showed codes or names that couldn't tell the drinks apart. The official names (Phony Espresso Negroni, Amaro Falso) are only on the shop pages, which a local read gets. Prompt `brand_profile` v3: a name keeps the code and adds the text's own flavour or style words. On the hosted home-page text, 3 runs gave the same 5 distinct names. Step 2 gives each name a full-width line. Skipped inner pages are now logged. `scripts/intake_check.py` checks a brand's step 2 before a demo. Calls: 6 LLM, one read of the site. One full test run had 1 failure that three reruns didn't reproduce (167 passed each); which test was lost, so watch for a flaky test.
+
 ## Hosted timing and end-to-end check (G7, H4) — 2026-10-20
 
 `scripts/e2e_smoke.py` now prints the machine time from the description to ranked results, and has `--scout-only`. Against the hosted API:
