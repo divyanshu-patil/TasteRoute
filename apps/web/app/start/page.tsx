@@ -310,12 +310,12 @@ export default function Start() {
                 <span className="mono faint">{products.length}/5</span>
               </div>
               {products.map((p, i) => (
-                <div key={i} className="row" style={{ alignItems: "flex-end", flexWrap: "nowrap" }}>
-                  <label className="field" style={{ flex: 2 }}>
+                <div key={i} className="row" style={{ alignItems: "flex-end", flexWrap: "wrap" }}>
+                  <label className="field" style={{ flex: "1 1 100%" }}>
                     <span>Name</span>
                     <input className="input" value={p.name} maxLength={120} onChange={(e) => setProducts(products.map((x, j) => (j === i ? { ...x, name: e.target.value } : x)))} />
                   </label>
-                  <label className="field" style={{ flex: 1.4 }}>
+                  <label className="field" style={{ flex: 1 }}>
                     <span>Kind</span>
                     <input className="input" value={p.kind} maxLength={120} placeholder="cold brew" onChange={(e) => setProducts(products.map((x, j) => (j === i ? { ...x, kind: e.target.value } : x)))} />
                   </label>
