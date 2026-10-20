@@ -95,6 +95,12 @@ def test_template_always_passes_validator():
             assert validate(t.subject, t.body, t.cited_evidence_ids, b) == [], t.body
 
 
+def test_team_name_is_not_doubled():
+    from tasteroute_api.services.drafts import team_name
+
+    assert team_name("Fieldnote") == "The Fieldnote team" and team_name("The Finnish Long Drink") == "The Finnish Long Drink team"
+
+
 def test_short_name():
     assert short_name("White Noise Coffee - Coffee Shop & Roastery") == "White Noise Coffee"
     assert short_name("Café Grumpy") == "Café Grumpy"

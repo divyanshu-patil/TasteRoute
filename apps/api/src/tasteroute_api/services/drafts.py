@@ -80,6 +80,15 @@ def evidence_values(e: dict[str, Any]) -> list[str]:
     return []
 
 
+def team_name(brand: str) -> str:
+    """"The Fieldnote team"; a brand already starting with "The" isn't doubled."""
+    return f"{brand} team" if brand.lower().startswith("the ") else f"The {brand} team"
+
+
+def intro(b: Bundle) -> str:
+    return f"We're {b.brand_name}" if b.sender_name.endswith(" team") else f"I'm {b.sender_name} from {b.brand_name}"
+
+
 def signature(b: Bundle) -> str:
     """The sender, then the business postal address when set (CAN-SPAM, DRF-09)."""
     return b.sender_name + (f"\n{b.postal_address}" if b.postal_address else "")
@@ -102,7 +111,7 @@ async def build_bundle(ctx: RunContext, venue: dict[str, Any], contact: dict[str
         venue_name=short_name(venue["name"]),
         venue_type=vt.label if vt else venue["venue_type"],
         brand_name=ctx.brand["name"],
-        sender_name=profile.get("sender_name") or f"The {ctx.brand['name']} team",
+        sender_name=profile.get("sender_name") or team_name(ctx.brand["name"]),
         product_names=[p["name"] for p in ctx.products.values()],
         best_product=lead["name"],
         best_product_kind=lead.get("kind") or "",
@@ -141,7 +150,7 @@ def template_draft(b: Bundle) -> PitchOut:
             taste_line = f" Qloo's taste data shows guests here over-index on {_join([v.lower() for v in values])}."
     body = (
         f"Hi {b.venue_name} team,\n\n"
-        f"I'm {b.sender_name} from {b.brand_name}.{taste_line}\n\n"
+        f"{intro(b)}.{taste_line}\n\n"
         f"I think {b.best_product} would suit {b.venue_name}. Could I {b.ask_examples[0]}?\n\n"
         f"Thanks,\n{signature(b)}\n\n{b.opt_out_line}"
     )
@@ -172,7 +181,7 @@ async def write_pitch(ctx: RunContext, b: Bundle) -> tuple[PitchOut, str, str | 
                 {"role": "assistant", "content": out.model_dump_json()},
                 {"role": "user", "content": "Fix these problems and return the corrected JSON only: " + "; ".join(errors)},
             ]
-            r = await ctx.svc.llm.chat(msgs, **kwargs)
+            r = await ctx.svc.llm.chat(msgs, **{**kwargs, "purpose": "repair"})
             log.info("pitch for %s failed grounding, repairing: %s", b.venue_name, errors)
             out = parse(r.content, PitchOut)
             errors = validate(out.subject, out.body, out.cited_evidence_ids, b)

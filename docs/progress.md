@@ -66,12 +66,17 @@ Production sample fix (2026-10-20): the Vercel build had `NEXT_PUBLIC_API_URL` s
 
 Open: public deploy of the API (Render; Supabase database is ready), demo video, a cited wholesale figure for the Devpost text, blind-pair judging (metric 3) and reason checks (metric 4).
 
+## Score plan Phases A–B — done 2026-10-20
+
+Phase A (demo safety): client IP from the trusted proxy hop, global daily run cap with a link to `/sample`, Qloo budget gate and per-IP limit on resolve and search, atomic per-run Qloo cap, Retry-After, interrupted runs closed on start, no production boot with the default secret, fetches pinned to the checked IP with one deadline, 10-minute per-run SSE token, opt-in uptime workflow. SEC-05..SEC-10, QLO-08, REL-04..REL-08 pass.
+Phase B (every claim true): sending needs an approved draft (DRF-07, ACC-06); the validator checks whole-number tokens, a claim blocklist and evidence quotes in taste sentences (DRF-08); addresses only when the parser reads them on a fetched page, free-mail only when labelled and ranked lower (CON-08); outreach evidence links its external call, no duplicates (EVD-04); deletion removes run logs (REP-06); optional postal address in the signature (DRF-09). Pitch pass rate after the stricter validator (`scripts/draft_pass_rate.py`, run 386c7d86, 8 venues, three prompt rounds): 8/8 first pass every round, 0 repairs, 0 templates.
+
 ## Budget used
 
 | Service | Calls |
 |---|---|
 | Qloo | 128 live: 44 Phase 0 spikes (7 × 400 while learning the `take` limit), 25 first seed, 9 re-seed, 8 evaluation (re-run fully cached), 42 claims audit and end-to-end runs; 0 in tests |
-| Ollama Cloud | ~157: ~20 spike, ~20 first seed, 20 re-seed, 12 + 12 evaluation, 11 sample outreach refresh, 62 audit and end-to-end runs |
+| Ollama Cloud | ~181: ~20 spike, ~20 first seed, 20 re-seed, 12 + 12 evaluation, 11 sample outreach refresh, 62 audit and end-to-end runs, 24 draft pass-rate (score plan B2) |
 | Venue websites | 27 live in the local DB (seed, contact fixes, end-to-end runs) |
 | Nominatim / Overpass | 7 / 5 live in the local DB (5 for the location picker: 4 via `scripts/place_probe.py`, 1 from a step 1 screenshot check) |
 | Photon | 4 live, all via `scripts/place_probe.py`; screenshot checks hit the cache |
