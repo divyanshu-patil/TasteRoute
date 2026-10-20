@@ -97,9 +97,14 @@ export default function Home() {
             Honest limits: taste fit is a starting list, not a sales forecast. Coverage depends on Qloo&apos;s
             place data in your city. {NOTHING_SENT}
           </p>
-          <Link href="/sample" className="link-mint">
-            Explore the sample →
-          </Link>
+          <div className="row">
+            <Link href="/evaluation" className="link-mint">
+              Tested on real accounts →
+            </Link>
+            <Link href="/sample" className="link-mint">
+              Explore the sample →
+            </Link>
+          </div>
         </div>
       </section>
     </>

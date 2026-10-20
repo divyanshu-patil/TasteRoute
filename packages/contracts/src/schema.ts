@@ -438,6 +438,27 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/v1/runs/{run_id}/llm-ranking": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Llm Ranking
+         * @description For comparison (EVL-06): one LLM call ranks this run's venues from their names, types and neighbourhoods; it never
+         *     changes a score. Stored on the run and counted in its LLM budget; the sample run serves its stored ranking.
+         */
+        post: operations["llm_ranking_v1_runs__run_id__llm_ranking_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/v1/runs/{run_id}/rescore": {
         parameters: {
             query?: never;
@@ -1273,6 +1294,11 @@ export interface components {
             lat?: number | null;
             /** Lift */
             lift: number;
+            /**
+             * Llm Rank
+             * @description An LLM's rank for this venue from its name, type and neighbourhood only, for comparison; never part of fit (EVL-06)
+             */
+            llm_rank?: number | null;
             /** Lon */
             lon?: number | null;
             /** Name */
@@ -2173,6 +2199,37 @@ export interface operations {
                 };
                 content: {
                     "application/json": unknown;
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    llm_ranking_v1_runs__run_id__llm_ranking_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                run_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["VenuePage"];
                 };
             };
             /** @description Validation Error */

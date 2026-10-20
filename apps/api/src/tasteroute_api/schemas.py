@@ -248,6 +248,8 @@ class VenueRow(BaseModel):
     reason: str | None
     evidence_count: int
     contact_status: str
+    llm_rank: int | None = Field(default=None, description="An LLM's rank for this venue from its name, type and "
+                                 "neighbourhood only, for comparison; never part of fit (EVL-06)")
 
 
 class VenuePage(BaseModel):

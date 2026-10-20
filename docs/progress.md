@@ -71,10 +71,17 @@ Open: public deploy of the API (Render; Supabase database is ready), demo video,
 Phase A (demo safety): client IP from the trusted proxy hop, global daily run cap with a link to `/sample`, Qloo budget gate and per-IP limit on resolve and search, atomic per-run Qloo cap, Retry-After, interrupted runs closed on start, no production boot with the default secret, fetches pinned to the checked IP with one deadline, 10-minute per-run SSE token, opt-in uptime workflow. SEC-05..SEC-10, QLO-08, REL-04..REL-08 pass.
 Phase B (every claim true): sending needs an approved draft (DRF-07, ACC-06); the validator checks whole-number tokens, a claim blocklist and evidence quotes in taste sentences (DRF-08); addresses only when the parser reads them on a fetched page, free-mail only when labelled and ranked lower (CON-08); outreach evidence links its external call, no duplicates (EVD-04); deletion removes run logs (REP-06); optional postal address in the signature (DRF-09). Pitch pass rate after the stricter validator (`scripts/draft_pass_rate.py`, run 386c7d86, 8 venues, three prompt rounds): 8/8 first pass every round, 0 repairs, 0 templates.
 
+## Score plan Phases C–D — done 2026-10-20
+
+Phase C (ranking that means what it says): lift against the same venues' taste for mass-market brands (D-23; old runs keep their numbers), best product by standardised affinity (D-24), chains and venues of brands you resemble hidden and counted, maker and licence flags, a café leads with a non-alcoholic product (D-25), Rising (Qloo) (D-26), plain reasons (D-27), insights paging verified to page 10. Measured: lift changes a third to half of the top 15 vs taste alone (`scripts/lift_effect.py`). RNK-07..10, FIT-04, EVD-05, QLO-10 pass.
+Phase D (stockist backtest): pre-registered, then six real brands' published Brooklyn accounts (`scripts/fetch_stockists.py`, `docs/eval/stockists.csv`), one pool per brand from Qloo's 500 best-known venues per type, Q-fit / Q-raw / POP / LLM rank the same pool (`scripts/evaluate_stockists.py`). The dev run caught a pool biased against Qloo; fixed and recorded before the test run (D-28). **Result: target missed.** Q-fit beat the LLM on recall@30 in 1 of 3 scored test brands, tied 1, lost 1; Steven Graf Wine not scored (Qloo knows none of its comparables). Top 30 over 47 accounts: Q-fit 8, LLM 8, Q-raw 10, chance 1.5. Published in `docs/evaluation-stockists.md`, `/evaluation`, README and Devpost. "Compare with an LLM" on results (`POST /v1/runs/{id}/llm-ranking`, LLM rank column, "Only TasteRoute ranks this high" badge; precomputed in `seed_demo.py`). EVL-02..06, UI-06 pass. Blind pairs (`docs/evaluation_pairs.csv`) still need a human judge.
+
 ## Budget used
 
 | Service | Calls |
 |---|---|
+| Qloo (score plan C–D) | 445 live: 5 probes (place search, page 5, page 10), 6 lift measurement, 4 baseline-brand searches and 1 paging probe, 429 stockist backtest (dev runs 170 + 64 + 35, test 150, re-runs cached) |
+| Ollama Cloud (score plan D) | 178: 177 backtest LLM rankings (cached in `docs/eval/llm/` for re-runs), 1 sample LLM ranking |
 | Qloo | 128 live: 44 Phase 0 spikes (7 × 400 while learning the `take` limit), 25 first seed, 9 re-seed, 8 evaluation (re-run fully cached), 42 claims audit and end-to-end runs; 0 in tests |
 | Ollama Cloud | ~181: ~20 spike, ~20 first seed, 20 re-seed, 12 + 12 evaluation, 11 sample outreach refresh, 62 audit and end-to-end runs, 24 draft pass-rate (score plan B2) |
 | Venue websites | 27 live in the local DB (seed, contact fixes, end-to-end runs) |

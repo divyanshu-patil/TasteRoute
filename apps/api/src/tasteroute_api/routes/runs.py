@@ -39,12 +39,13 @@ from ..schemas import (
 )
 from ..scoring import SCORING_VERSION, buyability, rank
 from ..security import EVENTS_TTL_S, ip_hash, sign_events, verify_events, workspace_id
+from ..services import compare
 from ..services import runs as run_service
 from ..services.contacts import is_suppressed, suppression_sets
 from ..services.drafts import DraftLocked, next_status
 from ..services.export import mailto, mask, to_csv
 from ..services.intake import UnsupportedBusiness
-from .deps import as_uuid, daily_capacity, get_run, qloo_gate, svc
+from .deps import as_uuid, daily_capacity, get_run, qloo_gate, rate, svc
 
 router = APIRouter(prefix="/v1")
 TERMINAL = {"scouted", "done", "failed"}
@@ -164,8 +165,9 @@ VENUE_SQL = """
 select vs.*, v.name, v.properties->>'neighborhood' as neighborhood, v.address, v.website, v.lat, v.lon, v.properties,
   (select count(*) from venue_evidence e where e.run_id = vs.run_id and e.venue_id = vs.venue_id) as evidence_count,
   coalesce(cc.status, 'not_checked') as contact_status, cc.checked_sources,
-  bp.product_id as best_product_id, p.name as best_product_name, bp.label as best_label, bp.margin as best_margin
-from venue_scores vs join venues v on v.id = vs.venue_id
+  bp.product_id as best_product_id, p.name as best_product_name, bp.label as best_label, bp.margin as best_margin,
+  (rr.llm_ranking->'ranks'->>vs.venue_id::text)::int as llm_rank
+from venue_scores vs join venues v on v.id = vs.venue_id join runs rr on rr.id = vs.run_id
 left join contact_checks cc on cc.run_id = vs.run_id and cc.venue_id = vs.venue_id
 left join venue_product_fit bp on bp.run_id = vs.run_id and bp.venue_id = vs.venue_id and bp.is_best
 left join products p on p.id = bp.product_id
@@ -182,7 +184,7 @@ def _row(r: Any) -> VenueRow:
         best_product=BestProduct(product_id=str(r["best_product_id"]), name=r["best_product_name"], label=r["best_label"],
                                  margin=float(r["best_margin"]) if r["best_margin"] is not None else None)
         if r["best_product_id"] else None,
-        reason=r["reason"], evidence_count=r["evidence_count"], contact_status=r["contact_status"],
+        reason=r["reason"], evidence_count=r["evidence_count"], contact_status=r["contact_status"], llm_rank=r["llm_rank"],
     )
 
 
@@ -273,6 +275,20 @@ async def rescore(run_id: str, body: Weights, ws: str = Depends(workspace_id), s
                               [(r["id"], vid, f, i) for i, (vid, f, _) in enumerate(scored, 1)])
         await con.execute("update runs set settings = settings || $2::jsonb where id = $1", r["id"],
                           {"weights": {"target": w.target, "lift": w.lift}})
+    return await venues(run_id, None, None, None, "fit", 100, 0, False, ws, s)
+
+
+@router.post("/runs/{run_id}/llm-ranking", response_model=VenuePage)
+async def llm_ranking(run_id: str, request: Request, ws: str = Depends(workspace_id), s: Services = Depends(svc)) -> VenuePage:
+    """For comparison (EVL-06): one LLM call ranks this run's venues from their names, types and neighbourhoods; it never
+    changes a score. Stored on the run and counted in its LLM budget; the sample run serves its stored ranking."""
+    r = await get_run(s, ws, run_id)
+    if not r["llm_ranking"]:
+        r = await get_run(s, ws, run_id, write=True)
+        if r["status"] not in ("scouted", "done"):
+            raise Conflict(f"Run is {r['status']}.")
+        rate(request, "llm_ranking", 10, 3600)
+        await compare.llm_ranking(s, run_id)
     return await venues(run_id, None, None, None, "fit", 100, 0, False, ws, s)
 
 

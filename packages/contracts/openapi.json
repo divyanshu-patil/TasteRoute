@@ -2089,6 +2089,18 @@
             "title": "Lift",
             "type": "number"
           },
+          "llm_rank": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "An LLM's rank for this venue from its name, type and neighbourhood only, for comparison; never part of fit (EVL-06)",
+            "title": "Llm Rank"
+          },
           "lon": {
             "anyOf": [
               {
@@ -3426,6 +3438,46 @@
           }
         },
         "summary": "Export Csv"
+      }
+    },
+    "/v1/runs/{run_id}/llm-ranking": {
+      "post": {
+        "description": "For comparison (EVL-06): one LLM call ranks this run's venues from their names, types and neighbourhoods; it never\nchanges a score. Stored on the run and counted in its LLM budget; the sample run serves its stored ranking.",
+        "operationId": "llm_ranking_v1_runs__run_id__llm_ranking_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "run_id",
+            "required": true,
+            "schema": {
+              "title": "Run Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VenuePage"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Llm Ranking"
       }
     },
     "/v1/runs/{run_id}/rescore": {

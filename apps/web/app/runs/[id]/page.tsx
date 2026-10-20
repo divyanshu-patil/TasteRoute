@@ -45,6 +45,7 @@ export default function RunPage() {
   const [selected, setSelected] = useState<string[]>([]);
   const [actionError, setActionError] = useState<string | null>(null);
   const [showHidden, setShowHidden] = useState(false);
+  const [llmBusy, setLlmBusy] = useState(false);
 
   const ready = run && ["scouted", "done", "outreach_running"].includes(run.status);
   useEffect(() => {
@@ -100,6 +101,18 @@ export default function RunPage() {
     }
   };
 
+  const compareLlm = async () => {
+    setLlmBusy(true);
+    try {
+      setPage(await api<S["VenuePage"]>(`/v1/runs/${id}/llm-ranking`, { method: "POST" }));
+      setShowHidden(false);
+    } catch (e) {
+      setActionError(e instanceof ApiError ? e.detail || e.title : "Could not get the LLM ranking");
+    } finally {
+      setLlmBusy(false);
+    }
+  };
+
   const retry = async () => {
     if (!run) return;
     try {
@@ -118,6 +131,7 @@ export default function RunPage() {
   const mass = items.some((v) => v.popularity_pct != null);
   const hidden = page?.hidden ?? {};
   const nHidden = (hidden.chain ?? 0) + (hidden.signal_brand_venue ?? 0);
+  const llm = items.some((v) => v.llm_rank != null);
   const hasFilters = !!(type || conf || product);
   const signal = Object.values((run?.resolution ?? {}) as Record<string, { entities: string[] }>).flatMap((r) => r.entities);
   const pins = useMemo<Pin[]>(
@@ -218,6 +232,11 @@ export default function RunPage() {
                     {showHidden ? "Hide chains" : `Show chains (${hidden.chain ?? 0})${hidden.signal_brand_venue ? ` and brands you resemble (${hidden.signal_brand_venue})` : ""}`}
                   </button>
                 )}
+                {!llm && !run.is_demo && (
+                  <button className="btn-ghost btn-sm" onClick={compareLlm} disabled={llmBusy} aria-busy={llmBusy}>
+                    {llmBusy ? "Asking the LLM…" : "Compare with an LLM"}
+                  </button>
+                )}
               </div>
               {!run.is_demo && (
                 <div className="stack-s" data-tour="weights">
@@ -243,6 +262,13 @@ export default function RunPage() {
               </div>
               <VenueMap pins={pins} label="Map of the ranked venues" height={480} />
             </section>
+          )}
+
+          {llm && (
+            <p className="small muted">
+              LLM rank: an LLM&apos;s ranking from names, types and neighbourhoods only, for comparison. It never changes
+              fit. <Link className="link" href="/evaluation">How the two did on real accounts</Link>
+            </p>
           )}
 
           {!page ? (
@@ -279,6 +305,7 @@ export default function RunPage() {
                     <th scope="col">Best product</th>
                     <th scope="col">Why</th>
                     <th scope="col">Contact</th>
+                    {llm && <th scope="col" className="num"><Tip label="LLM rank">An LLM ranked the same venues from their names, types and neighbourhoods only, with your products and reference brands. For comparison; it never changes fit.</Tip></th>}
                   </tr>
                 </thead>
                 <tbody>
@@ -298,6 +325,11 @@ export default function RunPage() {
                           {v.flags.some((f) => FLAG_CHIP[f]) && (
                             <div className="row" style={{ gap: 4, marginTop: 4 }}>
                               {v.flags.filter((f) => FLAG_CHIP[f]).map((f) => <span key={f} className="tag tag-line">{FLAG_CHIP[f]}</span>)}
+                            </div>
+                          )}
+                          {v.rank <= 15 && (v.llm_rank ?? 0) > 30 && (
+                            <div className="row" style={{ gap: 4, marginTop: 4 }}>
+                              <span className="tag">Only TasteRoute ranks this high</span>
                             </div>
                           )}
                         </td>
@@ -329,6 +361,7 @@ export default function RunPage() {
                           </details>
                         </td>
                         <td data-label="Contact" className="small muted">{CONTACT_STATUS[v.contact_status] ?? v.contact_status}</td>
+                        {llm && <td data-label="LLM rank" className="num">{v.llm_rank ?? "–"}</td>}
                       </tr>
                     );
                   })}

@@ -1,0 +1,186 @@
+{
+ "generated": "2026-10-20",
+ "city": "Brooklyn",
+ "test_brands_scored": 3,
+ "accounts": 47,
+ "found_top30": {
+  "Q-fit": 8,
+  "Q-raw": 10,
+  "POP": 5,
+  "LLM": 8,
+  "Q-fit+LLM": 8,
+  "RANDOM": 1.5
+ },
+ "wins": {
+  "q_fit": 1,
+  "llm": 1,
+  "ties": 1
+ },
+ "target": "TasteRoute beats the LLM on recall@30 in 3 of 4 test brands",
+ "target_met": false,
+ "brands": [
+  {
+   "brand": "Kings County Distillery",
+   "split": "dev",
+   "what": "A small-batch distillery making bourbon, rye and moonshine",
+   "comparables": [
+    "Woodford Reserve",
+    "Bulleit Frontier Whiskey",
+    "Maker's Mark"
+   ],
+   "accounts": 10,
+   "pool": 875,
+   "recall30": {
+    "Q-fit": 0.2,
+    "Q-raw": 0.1,
+    "POP": 0.1,
+    "LLM": 0.2,
+    "Q-fit+LLM": 0.1,
+    "RANDOM": 0.034
+   },
+   "mpr": {
+    "Q-fit": 58.7,
+    "Q-raw": 62.7,
+    "POP": 54.7,
+    "LLM": 86.9,
+    "Q-fit+LLM": 80.1,
+    "RANDOM": 50.0
+   }
+  },
+  {
+   "brand": "Wölffer Estate",
+   "split": "dev",
+   "what": "A Long Island estate making rosé wines and dry rosé cider",
+   "comparables": [
+    "Whispering Angel",
+    "Kim Crawford Wines",
+    "Angry Orchard"
+   ],
+   "accounts": 7,
+   "pool": 875,
+   "recall30": {
+    "Q-fit": 0.0,
+    "Q-raw": 0.0,
+    "POP": 0.0,
+    "LLM": 0.0,
+    "Q-fit+LLM": 0.0,
+    "RANDOM": 0.034
+   },
+   "mpr": {
+    "Q-fit": 51.0,
+    "Q-raw": 56.3,
+    "POP": 53.9,
+    "LLM": 72.3,
+    "Q-fit+LLM": 65.3,
+    "RANDOM": 50.0
+   }
+  },
+  {
+   "brand": "Steven Graf Wine",
+   "split": "test",
+   "what": "An importer of low-intervention wines from small European and American growers",
+   "comparables": [],
+   "not_scored": "0 of 6 comparables (Gut Oggau, Martha Stoumen, Broc Cellars, Kermit Lynch Wine Merchant, Scribe Winery, Donkey & Goat) are known to Qloo; the minimum is 3"
+  },
+  {
+   "brand": "Parlor Coffee",
+   "split": "test",
+   "what": "A Brooklyn specialty coffee roaster supplying cafés and restaurants",
+   "comparables": [
+    "Stumptown Coffee Roasters",
+    "Blue Bottle Coffee",
+    "Counter Culture Coffee",
+    "Intelligentsia Coffee"
+   ],
+   "accounts": 4,
+   "pool": 927,
+   "recall30": {
+    "Q-fit": 0.0,
+    "Q-raw": 0.25,
+    "POP": 0.0,
+    "LLM": 0.25,
+    "Q-fit+LLM": 0.0,
+    "RANDOM": 0.032
+   },
+   "mpr": {
+    "Q-fit": 77.7,
+    "Q-raw": 76.7,
+    "POP": 58.3,
+    "LLM": 86.0,
+    "Q-fit+LLM": 86.4,
+    "RANDOM": 50.0
+   }
+  },
+  {
+   "brand": "St. Agrestis",
+   "split": "test",
+   "what": "Non-alcoholic bottled aperitivo cocktails and a booze-free amaro",
+   "comparables": [
+    "Ghia",
+    "Seedlip",
+    "Campari"
+   ],
+   "accounts": 36,
+   "pool": 875,
+   "recall30": {
+    "Q-fit": 0.194,
+    "Q-raw": 0.222,
+    "POP": 0.139,
+    "LLM": 0.194,
+    "Q-fit+LLM": 0.194,
+    "RANDOM": 0.034
+   },
+   "mpr": {
+    "Q-fit": 65.6,
+    "Q-raw": 68.9,
+    "POP": 65.9,
+    "LLM": 72.9,
+    "Q-fit+LLM": 72.0,
+    "RANDOM": 50.0
+   }
+  },
+  {
+   "brand": "Casamara Club",
+   "split": "test",
+   "what": "Non-alcoholic botanical sodas inspired by Italian amari",
+   "comparables": [
+    "Fever-Tree",
+    "Spindrift Sparkling Water",
+    "Ghia"
+   ],
+   "accounts": 7,
+   "pool": 1089,
+   "recall30": {
+    "Q-fit": 0.143,
+    "Q-raw": 0.143,
+    "POP": 0.0,
+    "LLM": 0.0,
+    "Q-fit+LLM": 0.143,
+    "RANDOM": 0.028
+   },
+   "mpr": {
+    "Q-fit": 68.8,
+    "Q-raw": 72.4,
+    "POP": 34.6,
+    "LLM": 70.2,
+    "Q-fit+LLM": 72.5,
+    "RANDOM": 50.0
+   }
+  }
+ ],
+ "featured": {
+  "brand": "St. Agrestis",
+  "what": "Non-alcoholic bottled aperitivo cocktails and a booze-free amaro",
+  "venue": "Grand Army",
+  "type": "bar",
+  "neighborhood": "",
+  "q_fit_rank": 9,
+  "llm_rank": 284,
+  "pool": 875,
+  "drivers": [
+   "Ghia",
+   "Campari"
+  ]
+ },
+ "doc": "https://github.com/divyanshu-patil/TasteRoute/blob/main/docs/evaluation-stockists.md"
+}

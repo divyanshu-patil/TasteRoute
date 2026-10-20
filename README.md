@@ -103,6 +103,23 @@ Keys stay on the API. The browser calls only FastAPI, plus public map tiles that
   <img src="./docs/screenshots/mobile.png" width="100%" alt="At phone width: the landing page, the results map with the guided tour open, and venue detail for Oslo Coffee Roasters.">
 </p>
 
+## Does it find real accounts?
+
+A backtest with an answer key, pre-registered in [`docs/15-evaluation.md`](./docs/15-evaluation.md): six real brands' published Brooklyn accounts, two brands to fix the method and four run once. Every method ranks the same pool (Qloo's 500 best-known venues per venue type) and none sees the brand's name. Full tables, every account and the code: [`docs/evaluation-stockists.md`](./docs/evaluation-stockists.md); summary page: `/evaluation`.
+
+| Test brand | Accounts in the pool | TasteRoute (Q-fit) | Qloo taste only | LLM (names, types, neighbourhoods) | Chance |
+|---|---|---|---|---|---|
+| Parlor Coffee (specialty coffee) | 4 | 0 | 1 | 1 | 0.1 |
+| St. Agrestis (non-alcoholic aperitivo) | 36 | 7 | 8 | 7 | 1.2 |
+| Casamara Club (botanical sodas) | 7 | 1 | 1 | 0 | 0.2 |
+| Steven Graf Wine (natural wine) | not scored: Qloo knows none of its 6 comparables | | | | |
+
+Cells: accounts in each method's top 30.
+
+- **A tie, not a win.** The pre-registered target was TasteRoute beating the LLM on recall@30 in 3 of 4 test brands. It won 1, tied 1, lost 1; the fourth couldn't be scored. The LLM also ranks accounts higher on average (mean percentile rank) on every scored brand.
+- **They find different accounts.** Qloo puts Grand Army 9th of 875 for St. Agrestis (fans of Ghia and Campari over-index there); the LLM puts it 284th. The LLM finds venues with the category in their name. So the results page shows both.
+- **Lift didn't help here.** Qloo's taste score alone found 10 accounts to Q-fit's 8: the mass-market brands include Starbucks and Dunkin', which pushes real café accounts down for a coffee roaster. Logged as an open decision, not changed after seeing the test.
+
 ## Does Qloo change the answer?
 
 `apps/api/scripts/evaluate.py` compares three setups for two fictional brands with different tastes, a specialty coffee roaster and a mainstream cola, in Brooklyn (top 15 cafés and bars each). Full tables: [`docs/evaluation-results.md`](./docs/evaluation-results.md).

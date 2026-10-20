@@ -11,6 +11,7 @@ import httpx
 from pydantic import SecretStr
 
 from tasteroute_api.errors import LLMUnavailable
+from tasteroute_api.llm.base import LLMResult
 from tasteroute_api.services import runs as run_service
 
 from .. import conftest
@@ -171,6 +172,28 @@ async def test_rescore_keeps_the_popularity_baseline_for_old_runs(client, ws, sv
     got = {x["qloo_entity_id"]: float(x["fit"]) for x in await svc.pool.fetch(
         "select v.qloo_entity_id, vs.fit from venue_scores vs join venues v on v.id = vs.venue_id where vs.run_id = $1", rid)}
     assert got and all(got[k] == want[k] for k in got)
+
+
+async def test_llm_ranking_is_stored_and_never_changes_fit(client, ws, svc):
+    """EVL-06: one LLM call ranks the run's venues from names, types and neighbourhoods, without the brand's name. It is
+    stored (a second request makes no call) and fit and rank are unchanged."""
+    brand = await make_brand(client, ws, svc)
+    run_id = await scout(client, ws, brand)
+    n = await svc.pool.fetchval("select count(*) from venue_scores where run_id = $1", uuid.UUID(run_id))
+    before = (await client.get(f"/v1/runs/{run_id}/venues", headers=ws)).json()
+    assert all(v["llm_rank"] is None for v in before["items"])
+    reply = json.dumps({"scores": [{"id": f"v{j}", "score": j % 100} for j in range(n)]})
+    svc.llm.provider.script = [LLMResult(content=reply, model="fake-1", provider="fake")]
+    after = (await client.post(f"/v1/runs/{run_id}/llm-ranking", headers=ws)).json()
+    calls = len(svc.llm.provider.calls)
+    prompt = svc.llm.provider.calls[-1]["messages"][-1]["content"]
+    assert BRAND["name"] not in prompt and "Venues:" in prompt
+    assert [(v["venue_id"], v["fit"], v["rank"]) for v in after["items"]] == \
+        [(v["venue_id"], v["fit"], v["rank"]) for v in before["items"]]
+    ranks = [v["llm_rank"] for v in after["items"]]
+    assert all(isinstance(x, int) for x in ranks) and len(set(ranks)) == len(ranks)
+    again = (await client.post(f"/v1/runs/{run_id}/llm-ranking", headers=ws)).json()
+    assert len(svc.llm.provider.calls) == calls and [v["llm_rank"] for v in again["items"]] == ranks
 
 
 async def test_chains_are_hidden_and_counted_and_cafes_lead_with_a_dry_product(client, ws, svc):

@@ -12,6 +12,7 @@ from tasteroute_api.categories import pack_for
 from tasteroute_api.main import build_services, close_services
 from tasteroute_api.qloo.client import Trace
 from tasteroute_api.scoring import SCORING_VERSION
+from tasteroute_api.services import compare
 from tasteroute_api.services import runs as run_service
 from tasteroute_api.services.intake import propose
 from tasteroute_api.services.resolve import resolve_product
@@ -73,6 +74,9 @@ async def main(outreach: int) -> None:
         await run_service.run_scout(svc, rid)
         run = await pool.fetchrow("select status, orchestration, orchestration_reason, error_code from runs where id = $1", run_id)
         print("scout:", dict(run))
+        if run["status"] in ("scouted", "done"):  # the sample shows the LLM column without a click (EVL-06)
+            ranks = await compare.llm_ranking(svc, rid)
+            print(f"llm ranking: {len(ranks)} venues")
         if run["status"] == "scouted" and outreach:
             top = [str(r["venue_id"]) for r in await pool.fetch(
                 "select venue_id from venue_scores where run_id = $1 order by rank limit $2", run_id, outreach)]

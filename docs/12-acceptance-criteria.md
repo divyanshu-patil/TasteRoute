@@ -200,12 +200,18 @@ Each criterion has an ID, a measurable statement, how it is checked, and a prior
 | UI-03 | Every number has a tooltip; every reason has source chips linking to the trace | Manual | MVP |
 | UI-04 | Keyboard-only completion of Flow A; Lighthouse accessibility ≥ 90; works at 360 px | Lighthouse + manual | MVP |
 | UI-05 | Copy never says "will buy" or "demand"; inferences labelled | Text search | MVP |
+| UI-06 | `/evaluation` shows the backtest (totals, per-brand table, an account only Qloo ranked high, method and limits) and is linked from the landing page and footer | Manual check | MVP |
 
 ## Evaluation, repo and submission
 
 | ID | Criterion | Check | Priority |
 |---|---|---|---|
 | EVL-01 | Qloo-on vs Qloo-off evaluation run and reported in `docs/evaluation-results.md`, including where Qloo did not help | Review | MVP |
+| EVL-02 | The stockist backtest is pre-registered (brands, split, comparables, metrics, target) before any test brand runs | Git history of `docs/15-evaluation.md` | MVP |
+| EVL-03 | Ground truth is each brand's published account list, extracted to `docs/eval/stockists.csv` with source and date | `scripts/fetch_stockists.py` + spot check | MVP |
+| EVL-04 | Every method ranks the same pool; recall@k, mean percentile rank and long-tail recall are pure functions with tests | Unit test `test_stockist_metrics` | MVP |
+| EVL-05 | The result is published whatever it is, with where Qloo lost | `docs/evaluation-stockists.md`, `/evaluation` | MVP |
+| EVL-06 | An LLM's ranking from names, types and neighbourhoods can be shown next to Qloo's; it is stored and never changes fit | API test `test_llm_ranking_is_stored_and_never_changes_fit` | MVP |
 | REP-01 | Public repo with an open-source `LICENSE` file | Review | MVP |
 | REP-02 | README with setup, architecture diagram, Qloo call chain, kill switch, limits | Review | MVP |
 | REP-03 | Clean clone runs with the documented commands | Clean-machine run | MVP |

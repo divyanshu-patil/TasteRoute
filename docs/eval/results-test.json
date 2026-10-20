@@ -1,0 +1,2607 @@
+{
+ "generated": "2026-10-20T06:24:04.590604+00:00",
+ "spent": {
+  "qloo": 150,
+  "qloo_cached": 113,
+  "llm": 77
+ },
+ "brands": [
+  {
+   "brand": "Steven Graf Wine",
+   "key": "steven_graf",
+   "split": "test",
+   "description": "An importer of low-intervention wines from small European and American growers",
+   "types": [
+    "bar",
+    "restaurant"
+   ],
+   "comparables": [],
+   "counts": {
+    "accounts": 56,
+    "in_pool": 15
+   },
+   "metrics": {
+    "Q-fit": {
+     "recall15": 0.0,
+     "recall30": 0.0,
+     "found30": 0,
+     "mpr": 72.3,
+     "tail30": 0.0
+    },
+    "Q-raw": {
+     "recall15": 0.0,
+     "recall30": 0.0,
+     "found30": 0,
+     "mpr": 49.0,
+     "tail30": 0.0
+    },
+    "POP": {
+     "recall15": 0.067,
+     "recall30": 0.067,
+     "found30": 1,
+     "mpr": 71.4,
+     "tail30": 0.0
+    },
+    "LLM": {
+     "recall15": 0.067,
+     "recall30": 0.2,
+     "found30": 3,
+     "mpr": 86.5,
+     "tail30": 0.214
+    },
+    "Q-fit+LLM": {
+     "recall15": 0.133,
+     "recall30": 0.267,
+     "found30": 4,
+     "mpr": 86.9,
+     "tail30": 0.214
+    },
+    "RANDOM": {
+     "recall15": 0.017,
+     "recall30": 0.034,
+     "found30": 0.5,
+     "mpr": 50.0,
+     "tail30": 0.034
+    },
+    "truth": 15,
+    "tail": 14,
+    "pool": 875
+   },
+   "stockists": [
+    {
+     "name": "Place des Fêtes",
+     "type": "restaurant",
+     "neighborhood": "Clinton Hill",
+     "Q-fit": 65,
+     "Q-raw": 820,
+     "POP": 740,
+     "LLM": 20,
+     "Q-fit+LLM": 8,
+     "taste_pct": 1.0,
+     "mass_pct": 0.0773,
+     "drivers": []
+    },
+    {
+     "name": "The Four Horsemen",
+     "type": "restaurant",
+     "neighborhood": "Williamsburg",
+     "Q-fit": 79,
+     "Q-raw": 330,
+     "POP": 101,
+     "LLM": 1,
+     "Q-fit+LLM": 5,
+     "taste_pct": 1.0,
+     "mass_pct": 0.0907,
+     "drivers": []
+    },
+    {
+     "name": "Cafe Spaghetti",
+     "type": "bar",
+     "neighborhood": "Columbia Street Waterfront District",
+     "Q-fit": 106,
+     "Q-raw": 796,
+     "POP": 606,
+     "LLM": 422,
+     "Q-fit+LLM": 172,
+     "taste_pct": 1.0,
+     "mass_pct": 0.122,
+     "drivers": []
+    },
+    {
+     "name": "Leland Eating and Drinking House",
+     "type": "bar",
+     "neighborhood": "Prospect Heights",
+     "Q-fit": 140,
+     "Q-raw": 385,
+     "POP": 363,
+     "LLM": 81,
+     "Q-fit+LLM": 35,
+     "taste_pct": 1.0,
+     "mass_pct": 0.16,
+     "drivers": []
+    },
+    {
+     "name": "Aita",
+     "type": "restaurant",
+     "neighborhood": "Clinton Hill",
+     "Q-fit": 151,
+     "Q-raw": 721,
+     "POP": 192,
+     "LLM": 93,
+     "Q-fit+LLM": 43,
+     "taste_pct": 1.0,
+     "mass_pct": 0.1733,
+     "drivers": []
+    },
+    {
+     "name": "Hart's",
+     "type": "restaurant",
+     "neighborhood": "Bedford-Stuyvesant",
+     "Q-fit": 156,
+     "Q-raw": 207,
+     "POP": 336,
+     "LLM": 265,
+     "Q-fit+LLM": 124,
+     "taste_pct": 1.0,
+     "mass_pct": 0.1787,
+     "drivers": []
+    },
+    {
+     "name": "Wythe Hotel",
+     "type": "bar",
+     "neighborhood": "Williamsburg",
+     "Q-fit": 167,
+     "Q-raw": 97,
+     "POP": 3,
+     "LLM": 32,
+     "Q-fit+LLM": 23,
+     "taste_pct": 1.0,
+     "mass_pct": 0.192,
+     "drivers": []
+    },
+    {
+     "name": "Ops",
+     "type": "bar",
+     "neighborhood": "Bushwick",
+     "Q-fit": 171,
+     "Q-raw": 483,
+     "POP": 154,
+     "LLM": 47,
+     "Q-fit+LLM": 32,
+     "taste_pct": 1.0,
+     "mass_pct": 0.196,
+     "drivers": []
+    },
+    {
+     "name": "Colonia Verde",
+     "type": "restaurant",
+     "neighborhood": "Fort Greene",
+     "Q-fit": 179,
+     "Q-raw": 146,
+     "POP": 112,
+     "LLM": 71,
+     "Q-fit+LLM": 45,
+     "taste_pct": 1.0,
+     "mass_pct": 0.2053,
+     "drivers": []
+    },
+    {
+     "name": "Chez Ma Tante",
+     "type": "restaurant",
+     "neighborhood": "Greenpoint",
+     "Q-fit": 184,
+     "Q-raw": 164,
+     "POP": 222,
+     "LLM": 23,
+     "Q-fit+LLM": 28,
+     "taste_pct": 1.0,
+     "mass_pct": 0.2107,
+     "drivers": []
+    },
+    {
+     "name": "Sweetwater",
+     "type": "bar",
+     "neighborhood": "Williamsburg",
+     "Q-fit": 202,
+     "Q-raw": 388,
+     "POP": 115,
+     "LLM": 124,
+     "Q-fit+LLM": 80,
+     "taste_pct": 1.0,
+     "mass_pct": 0.232,
+     "drivers": []
+    },
+    {
+     "name": "Hotel Delmano",
+     "type": "bar",
+     "neighborhood": "Williamsburg",
+     "Q-fit": 224,
+     "Q-raw": 687,
+     "POP": 96,
+     "LLM": 56,
+     "Q-fit+LLM": 62,
+     "taste_pct": 1.0,
+     "mass_pct": 0.256,
+     "drivers": []
+    },
+    {
+     "name": "Walter's",
+     "type": "bar",
+     "neighborhood": "Fort Greene",
+     "Q-fit": 405,
+     "Q-raw": 71,
+     "POP": 95,
+     "LLM": 156,
+     "Q-fit+LLM": 194,
+     "taste_pct": 1.0,
+     "mass_pct": 0.464,
+     "drivers": []
+    },
+    {
+     "name": "Sunrise/Sunset",
+     "type": "bar",
+     "neighborhood": "Bushwick",
+     "Q-fit": 664,
+     "Q-raw": 821,
+     "POP": 219,
+     "LLM": 99,
+     "Q-fit+LLM": 312,
+     "taste_pct": 1.0,
+     "mass_pct": 0.76,
+     "drivers": []
+    },
+    {
+     "name": "Pokito",
+     "type": "bar",
+     "neighborhood": "Williamsburg",
+     "Q-fit": 749,
+     "Q-raw": 590,
+     "POP": 414,
+     "LLM": 300,
+     "Q-fit+LLM": 568,
+     "taste_pct": 1.0,
+     "mass_pct": 0.856,
+     "drivers": []
+    }
+   ],
+   "resolution": [
+    {
+     "name": "1 or 8",
+     "address": "229 Dekalb Ave, Brooklyn, NY 11205",
+     "qloo": ""
+    },
+    {
+     "name": "Achilles Heel",
+     "address": "180 West St, Brooklyn, NY 11222",
+     "qloo": ""
+    },
+    {
+     "name": "Adelina’s",
+     "address": "159 Greenpoint Ave, Brooklyn, NY 11222",
+     "qloo": ""
+    },
+    {
+     "name": "Aita",
+     "address": "132 Greene Ave, Brooklyn, NY 11238",
+     "qloo": "Aita"
+    },
+    {
+     "name": "Bar Meridian",
+     "address": "406 Prospect Pl, Brooklyn, NY 11238",
+     "qloo": ""
+    },
+    {
+     "name": "Bathhouse",
+     "address": "103 N 10th St, Brooklyn, NY 11249",
+     "qloo": ""
+    },
+    {
+     "name": "Big Tiny",
+     "address": "244 Smith St, Brooklyn, NY 11231",
+     "qloo": ""
+    },
+    {
+     "name": "Bin Bin Sake",
+     "address": "29 Norman Ave #100, Brooklyn, NY 11222",
+     "qloo": ""
+    },
+    {
+     "name": "Cafe Paulette",
+     "address": "1 S Elliott Pl, Brooklyn, NY 11217",
+     "qloo": ""
+    },
+    {
+     "name": "Cafe Spaghetti",
+     "address": "126 Union St, Brooklyn, NY 11231",
+     "qloo": "Cafe Spaghetti"
+    },
+    {
+     "name": "Cherry on Top",
+     "address": "379 Suydam St #3B, Brooklyn, NY 11237",
+     "qloo": ""
+    },
+    {
+     "name": "Chez Ma Tante",
+     "address": "90 Calyer St, Brooklyn, NY 11222",
+     "qloo": "Chez Ma Tante"
+    },
+    {
+     "name": "Colonia Verde",
+     "address": "219 Dekalb Ave, Brooklyn, NY 11205",
+     "qloo": "Colonia Verde"
+    },
+    {
+     "name": "Daughter",
+     "address": "1090 St Johns Pl, Brooklyn, NY 11213",
+     "qloo": ""
+    },
+    {
+     "name": "Diner Williamsburg",
+     "address": "85 Broadway, Brooklyn, NY 11249",
+     "qloo": ""
+    },
+    {
+     "name": "Fulgurances",
+     "address": "132 Franklin St, Brooklyn, NY 11222",
+     "qloo": ""
+    },
+    {
+     "name": "Glou",
+     "address": "406 Rogers Ave, Brooklyn, NY 11225",
+     "qloo": ""
+    },
+    {
+     "name": "Hart’s",
+     "address": "506 Franklin Ave, Brooklyn, NY 11238",
+     "qloo": "Hart's"
+    },
+    {
+     "name": "Hotel Delmano",
+     "address": "82 Berry St, Brooklyn, NY 11211",
+     "qloo": "Hotel Delmano"
+    },
+    {
+     "name": "Inga’s",
+     "address": "66 Hicks St, Brooklyn, NY 11201",
+     "qloo": ""
+    },
+    {
+     "name": "Jolie Cantina",
+     "address": "241 Smith St, Brooklyn, NY 11231",
+     "qloo": ""
+    },
+    {
+     "name": "June Wine Bar",
+     "address": "231 Court St, Brooklyn, NY 11201",
+     "qloo": ""
+    },
+    {
+     "name": "Kiki & Romeo",
+     "address": "558 Halsey St, Brooklyn, NY 11233",
+     "qloo": ""
+    },
+    {
+     "name": "Lalou",
+     "address": "581 Vanderbilt Ave, Brooklyn, NY 11238",
+     "qloo": ""
+    },
+    {
+     "name": "Larina Pastificio & Vino",
+     "address": "387 Myrtle Ave, Brooklyn, NY 11205",
+     "qloo": ""
+    },
+    {
+     "name": "Le Garage",
+     "address": "157 Suydam St, Brooklyn, NY 11221",
+     "qloo": ""
+    },
+    {
+     "name": "Leland Eating and Drinking House",
+     "address": "755 Dean St, Brooklyn, NY 11238",
+     "qloo": "Leland Eating and Drinking House"
+    },
+    {
+     "name": "Leo",
+     "address": "123 Havemeyer St, Brooklyn, NY 11211",
+     "qloo": ""
+    },
+    {
+     "name": "Lilia Ristorante",
+     "address": "567 Union Ave, Brooklyn, NY 11211",
+     "qloo": ""
+    },
+    {
+     "name": "Marlow and Sons",
+     "address": "81 Broadway, Brooklyn, NY 11249",
+     "qloo": ""
+    },
+    {
+     "name": "Meme’s Diner",
+     "address": "657 Washington Ave, Brooklyn, NY 11238",
+     "qloo": ""
+    },
+    {
+     "name": "Miss Ada",
+     "address": "184 Dekalb Ave, Brooklyn, NY 11205",
+     "qloo": ""
+    },
+    {
+     "name": "National Sawdust",
+     "address": "80 N 6th St, Brooklyn, NY 11249",
+     "qloo": ""
+    },
+    {
+     "name": "Oddfellows Ice Cream Company",
+     "address": "44 Water St, Brooklyn, NY 11201",
+     "qloo": ""
+    },
+    {
+     "name": "Oddly Enough",
+     "address": "397 Tompkins Ave, Brooklyn, NY 11216",
+     "qloo": ""
+    },
+    {
+     "name": "Olmstead",
+     "address": "659 Vanderbilt Ave, Brooklyn, NY 11238",
+     "qloo": ""
+    },
+    {
+     "name": "Ops",
+     "address": "346 Himrod St, Brooklyn, NY 11237",
+     "qloo": "Ops"
+    },
+    {
+     "name": "Oxalis",
+     "address": "791 Washington Ave, Brooklyn, NY 11238",
+     "qloo": ""
+    },
+    {
+     "name": "Pheasant",
+     "address": "445 Graham Avenue, Brooklyn, NY 11211",
+     "qloo": ""
+    },
+    {
+     "name": "Place des Fêtes",
+     "address": "212 Greene Ave, Brooklyn, NY 11238",
+     "qloo": "Place des Fêtes"
+    },
+    {
+     "name": "Pokito",
+     "address": "155 S 4th St, Brooklyn, NY 11211",
+     "qloo": "Pokito"
+    },
+    {
+     "name": "Rhodora",
+     "address": "197 Adelphi St, Brooklyn, NY 11205",
+     "qloo": ""
+    },
+    {
+     "name": "Roberta’s Pizza",
+     "address": "261 Moore St, Brooklyn, NY 11206",
+     "qloo": ""
+    },
+    {
+     "name": "Roman’s",
+     "address": "243 Dekalb Ave, Brooklyn, NY 11205",
+     "qloo": ""
+    },
+    {
+     "name": "Rule of Thirds",
+     "address": "171 Banker St, Brooklyn, NY 11222",
+     "qloo": ""
+    },
+    {
+     "name": "Sauced",
+     "address": "331 Bedford Ave, Brooklyn, NY 11211",
+     "qloo": ""
+    },
+    {
+     "name": "Stowaway",
+     "address": "159 Greenpoint Ave, Brooklyn, NY 11222",
+     "qloo": ""
+    },
+    {
+     "name": "Strange Ways",
+     "address": "237 Dekalb Ave, Brooklyn, NY 11205",
+     "qloo": ""
+    },
+    {
+     "name": "Sunrise Sunset",
+     "address": "351 Evergreen Ave, Brooklyn, NY 11221",
+     "qloo": "Sunrise/Sunset"
+    },
+    {
+     "name": "Sweet Water",
+     "address": "105 N 6th St, Brooklyn, NY 11211",
+     "qloo": "Sweetwater"
+    },
+    {
+     "name": "The Fly",
+     "address": "549 Classon Ave, Brooklyn, NY 11238",
+     "qloo": ""
+    },
+    {
+     "name": "The Four Horsemen",
+     "address": "295 Grand St, Brooklyn, NY 11211",
+     "qloo": "The Four Horsemen"
+    },
+    {
+     "name": "Victor",
+     "address": "285 Nevins Street, Brooklyn, NY 11217",
+     "qloo": ""
+    },
+    {
+     "name": "Walter’s",
+     "address": "166 Dekalb Ave, Brooklyn, NY 11217",
+     "qloo": "Walter's"
+    },
+    {
+     "name": "Winona’s",
+     "address": "676 Flushing Ave, Brooklyn, NY 11206",
+     "qloo": ""
+    },
+    {
+     "name": "Wythe Hotel",
+     "address": "80 Wythe Ave, Brooklyn, NY 11249",
+     "qloo": "Wythe Hotel"
+    }
+   ],
+   "top10": {
+    "Q-fit": [
+     "The Long Island Bar",
+     "The Double Windsor",
+     "Gourmet Grill",
+     "Capri Social Club",
+     "Michelle's Cocktail Lounge",
+     "Buckley's",
+     "Bijan's",
+     "Honore Club",
+     "Nargis Cafe",
+     "D'Amore , Italian Restaurant, Bar ,Dining & Pizzeria - Mill Basin , Brooklyn, NY"
+    ],
+    "Q-raw": [
+     "Bass & Bourbon",
+     "Oak & Iron",
+     "Fedoroff's Roast Pork",
+     "Ange Noir Cafe",
+     "The Charleston",
+     "McDonald's",
+     "Ogliastro Pizza Bar",
+     "Bareburger",
+     "Montesacro",
+     "Mesa Coyoacan"
+    ],
+    "POP": [
+     "House of Yes",
+     "Baby's All Right",
+     "Wythe Hotel",
+     "Roberta's",
+     "Kings Plaza Shopping Center",
+     "Five Leaves",
+     "The Bell House",
+     "Royal Palms Shuffleboard Club Brooklyn",
+     "Maison Premiere",
+     "Cecconi's DUMBO"
+    ],
+    "LLM": [
+     "The Four Horsemen",
+     "TØRST",
+     "Krupa Grocery",
+     "Black Mountain Wine House",
+     "Aska",
+     "Commune Cafe + Wine Bar",
+     "Our Wicked Lady",
+     "Lilia",
+     "Fandi Mata",
+     "Eris"
+    ],
+    "Q-fit+LLM": [
+     "Maison Premiere",
+     "Francie",
+     "wild birds",
+     "Chimu bistro",
+     "The Four Horsemen",
+     "baba cool",
+     "Sunshine Laundromat",
+     "Place des Fêtes",
+     "Milk & Roses",
+     "Molasses Books"
+    ]
+   }
+  },
+  {
+   "brand": "Parlor Coffee",
+   "key": "parlor",
+   "split": "test",
+   "description": "A Brooklyn specialty coffee roaster supplying cafés and restaurants",
+   "types": [
+    "cafe",
+    "restaurant"
+   ],
+   "comparables": [
+    "Stumptown Coffee Roasters",
+    "Blue Bottle Coffee",
+    "Counter Culture Coffee",
+    "Intelligentsia Coffee"
+   ],
+   "counts": {
+    "accounts": 47,
+    "in_pool": 4
+   },
+   "metrics": {
+    "Q-fit": {
+     "recall15": 0.0,
+     "recall30": 0.0,
+     "found30": 0,
+     "mpr": 77.7,
+     "tail30": 0.0
+    },
+    "Q-raw": {
+     "recall15": 0.0,
+     "recall30": 0.25,
+     "found30": 1,
+     "mpr": 76.7,
+     "tail30": 0.25
+    },
+    "POP": {
+     "recall15": 0.0,
+     "recall30": 0.0,
+     "found30": 0,
+     "mpr": 58.3,
+     "tail30": 0.0
+    },
+    "LLM": {
+     "recall15": 0.0,
+     "recall30": 0.25,
+     "found30": 1,
+     "mpr": 86.0,
+     "tail30": 0.25
+    },
+    "Q-fit+LLM": {
+     "recall15": 0.0,
+     "recall30": 0.0,
+     "found30": 0,
+     "mpr": 86.4,
+     "tail30": 0.0
+    },
+    "RANDOM": {
+     "recall15": 0.016,
+     "recall30": 0.032,
+     "found30": 0.1,
+     "mpr": 50.0,
+     "tail30": 0.032
+    },
+    "truth": 4,
+    "tail": 4,
+    "pool": 927
+   },
+   "stockists": [
+    {
+     "name": "Odd Fox Coffee",
+     "type": "cafe",
+     "neighborhood": "Greenpoint",
+     "Q-fit": 99,
+     "Q-raw": 27,
+     "POP": 554,
+     "LLM": 67,
+     "Q-fit+LLM": 34,
+     "taste_pct": 0.958,
+     "mass_pct": 0.868,
+     "drivers": [
+      "Counter Culture Coffee",
+      "Intelligentsia Coffee"
+     ]
+    },
+    {
+     "name": "Frankies 457 Spuntino",
+     "type": "restaurant",
+     "neighborhood": "Carroll Gardens",
+     "Q-fit": 139,
+     "Q-raw": 295,
+     "POP": 79,
+     "LLM": 149,
+     "Q-fit+LLM": 87,
+     "taste_pct": 0.7096,
+     "mass_pct": 0.1429,
+     "drivers": [
+      "Counter Culture Coffee",
+      "Blue Bottle Coffee"
+     ]
+    },
+    {
+     "name": "Petee's Café",
+     "type": "cafe",
+     "neighborhood": "Clinton Hill",
+     "Q-fit": 157,
+     "Q-raw": 75,
+     "POP": 373,
+     "LLM": 23,
+     "Q-fit+LLM": 37,
+     "taste_pct": 0.9,
+     "mass_pct": 0.834,
+     "drivers": [
+      "Counter Culture Coffee",
+      "Blue Bottle Coffee"
+     ]
+    },
+    {
+     "name": "For All Things Good",
+     "type": "restaurant",
+     "neighborhood": "Bedford-Stuyvesant",
+     "Q-fit": 435,
+     "Q-raw": 471,
+     "POP": 543,
+     "LLM": 282,
+     "Q-fit+LLM": 349,
+     "taste_pct": 0.4941,
+     "mass_pct": 0.3138,
+     "drivers": [
+      "Counter Culture Coffee",
+      "Stumptown Coffee Roasters"
+     ]
+    }
+   ],
+   "resolution": [
+    {
+     "name": "Apollo Bagels",
+     "address": "133 N 7th St, Brooklyn, NY 11249",
+     "qloo": ""
+    },
+    {
+     "name": "Apollo Bagels",
+     "address": "268 36th Street, Brooklyn, NY 11232, USA",
+     "qloo": ""
+    },
+    {
+     "name": "Artshack Cafe",
+     "address": "1129 Bedford Ave, Brooklyn, NY 11216, USA",
+     "qloo": ""
+    },
+    {
+     "name": "Bakeri",
+     "address": "105 Freeman Street, Brooklyn, NY 11222",
+     "qloo": ""
+    },
+    {
+     "name": "Bakeri",
+     "address": "150 Wythe Avenue, Brooklyn, NY 11211",
+     "qloo": ""
+    },
+    {
+     "name": "Before Coffee",
+     "address": "9 Meserole St, Brooklyn NY 11206",
+     "qloo": ""
+    },
+    {
+     "name": "Cafe Mado",
+     "address": "791 Washington Ave, Brooklyn, NY 11238",
+     "qloo": ""
+    },
+    {
+     "name": "Cafe Mars",
+     "address": "272 3rd Ave, Brooklyn, NY 11215, USA",
+     "qloo": ""
+    },
+    {
+     "name": "Coffee Noah",
+     "address": "135 Woodpoint Rd, Brooklyn, NY 11211, USA",
+     "qloo": ""
+    },
+    {
+     "name": "Cotton Bean",
+     "address": "372 Sackett St, Brooklyn, NY 11231",
+     "qloo": ""
+    },
+    {
+     "name": "Cotton Bean",
+     "address": "1077 Bergen Street, Brooklyn, NY 11216",
+     "qloo": ""
+    },
+    {
+     "name": "Focaccia Romana",
+     "address": "499 Van Brunt St, Brooklyn, NY 11231, USA",
+     "qloo": ""
+    },
+    {
+     "name": "For All Things Good",
+     "address": "343 Franklin Avenue, Brooklyn, NY 11238",
+     "qloo": "For All Things Good"
+    },
+    {
+     "name": "Foster Sundry",
+     "address": "215 Knickerbocker Avenue, Brooklyn, NY 11237",
+     "qloo": ""
+    },
+    {
+     "name": "Frankies 457",
+     "address": "457 Court St, Brooklyn, NY 11231, USA",
+     "qloo": "Frankies 457 Spuntino"
+    },
+    {
+     "name": "Gertie",
+     "address": "602 Vanderbilt Avenue, Brooklyn, NY 11238, USA",
+     "qloo": ""
+    },
+    {
+     "name": "Gertrude's",
+     "address": "605 Carlton Ave, Brooklyn, NY 11238",
+     "qloo": ""
+    },
+    {
+     "name": "Glory Days",
+     "address": "544 Union Ave, Brooklyn, NY 11211, USA",
+     "qloo": ""
+    },
+    {
+     "name": "H-Bond",
+     "address": "479-b 72nd street, Brooklyn, NY 11209",
+     "qloo": ""
+    },
+    {
+     "name": "Habana Outpost",
+     "address": "757 Fulton St, Brooklyn, NY 11217, USA",
+     "qloo": ""
+    },
+    {
+     "name": "Haenyeo",
+     "address": "239 5th Avenue, Brooklyn, NY 11215",
+     "qloo": ""
+    },
+    {
+     "name": "Head Hi",
+     "address": "146 Flushing Ave, Brooklyn, NY, USA",
+     "qloo": ""
+    },
+    {
+     "name": "Last Crumb",
+     "address": "144 N 8th St, Brooklyn, NY 11249, USA",
+     "qloo": ""
+    },
+    {
+     "name": "Little Egg",
+     "address": "657 Washington Ave, Brooklyn, NY 11238",
+     "qloo": ""
+    },
+    {
+     "name": "Los Burritos Juarez",
+     "address": "354 Myrtle Avenue, Brooklyn, NY 11205, USA",
+     "qloo": ""
+    },
+    {
+     "name": "Mister Cheeks",
+     "address": "347 Court St, Brooklyn, NY 11231, USA",
+     "qloo": ""
+    },
+    {
+     "name": "Nick + Sons",
+     "address": "892 Lorimer St, Brooklyn NY, 11222",
+     "qloo": ""
+    },
+    {
+     "name": "Odd Fox",
+     "address": "525A Throop Avenue, Brooklyn, NY 11221",
+     "qloo": ""
+    },
+    {
+     "name": "Odd Fox",
+     "address": "984 Manhattan Avenue, Brooklyn, NY, USA",
+     "qloo": "Odd Fox Coffee"
+    },
+    {
+     "name": "Olmsted",
+     "address": "659 Vanderbilt Avenue, Brooklyn, NY 11238",
+     "qloo": ""
+    },
+    {
+     "name": "Park Slope Food Coop",
+     "address": "782 Union Street, Brooklyn, NY 11215",
+     "qloo": ""
+    },
+    {
+     "name": "Petee's Cafe",
+     "address": "505 Myrtle Avenue, Brooklyn, NY 11205",
+     "qloo": "Petee's Café"
+    },
+    {
+     "name": "RadioStar",
+     "address": "13 Greenpoint Ave, Brooklyn, NY 11222",
+     "qloo": ""
+    },
+    {
+     "name": "Rat Rock Repair",
+     "address": "63 Sackett St, Brooklyn, NY 11231, USA",
+     "qloo": ""
+    },
+    {
+     "name": "Rita & Maria",
+     "address": "558 Halsey St, Brooklyn, NY 11233",
+     "qloo": ""
+    },
+    {
+     "name": "Rite",
+     "address": "185 Broadway, Brooklyn, NY 11211",
+     "qloo": ""
+    },
+    {
+     "name": "Rule of Thirds",
+     "address": "171 Banker Street, Brooklyn, NY 11211",
+     "qloo": ""
+    },
+    {
+     "name": "Sailor",
+     "address": "228 Dekalb Ave, Brooklyn, NY 11205, USA",
+     "qloo": ""
+    },
+    {
+     "name": "Saison",
+     "address": "434 Hancock Street, Brooklyn, NY 11233, USA",
+     "qloo": ""
+    },
+    {
+     "name": "Sela V",
+     "address": "29 Ryerson St, Brooklyn, NY 11205, USA",
+     "qloo": ""
+    },
+    {
+     "name": "Strange Delight",
+     "address": "63 Lafayette Ave, Brooklyn, NY 11217",
+     "qloo": ""
+    },
+    {
+     "name": "Sunday in Brooklyn",
+     "address": "348 Wythe Avenue, Brooklyn, NY 11249",
+     "qloo": ""
+    },
+    {
+     "name": "Taku Sando",
+     "address": "29 Greenpoint Ave, Brooklyn, NY, 11222",
+     "qloo": ""
+    },
+    {
+     "name": "The Malin",
+     "address": "109 N. 12th St, 9th Floor, Brooklyn, NY 11249",
+     "qloo": ""
+    },
+    {
+     "name": "Trudie's Tavern",
+     "address": "524 Court St, Brooklyn, NY 11231, USA",
+     "qloo": ""
+    },
+    {
+     "name": "Vagante",
+     "address": "238 Franklin Street, Brooklyn, NY 11222, USA",
+     "qloo": ""
+    },
+    {
+     "name": "Yellow Rose",
+     "address": "524 Lorimer St, Brooklyn, NY 11211, USA",
+     "qloo": ""
+    }
+   ],
+   "top10": {
+    "Q-fit": [
+     "Wythe Hotel",
+     "Vinegar Hill House",
+     "The Hoxton, Williamsburg",
+     "The Four Horsemen",
+     "Five Leaves",
+     "Chez Ma Tante",
+     "Diner",
+     "June",
+     "Greenpoint Fish & Lobster Co.",
+     "Maison Premiere"
+    ],
+    "Q-raw": [
+     "One Girl Cookies",
+     "SEY Coffee",
+     "Blue Bottle Coffee",
+     "Stonefruit Espresso + Kitchen",
+     "Black Brick Coffee",
+     "Absolute Coffee",
+     "Five Leaves",
+     "Brooklyn Ball Factory",
+     "Dépanneur",
+     "Bien Cuit"
+    ],
+    "POP": [
+     "Baby's All Right",
+     "Wythe Hotel",
+     "Roberta's",
+     "Kings Plaza Shopping Center",
+     "Five Leaves",
+     "Maison Premiere",
+     "Cecconi's DUMBO",
+     "Gold Sounds Bar",
+     "Dekalb Market Hall",
+     "The Lot Radio"
+    ],
+    "LLM": [
+     "HEADREST COFFEE",
+     "Coffee Project New York | Fort Greene",
+     "Milk & Pull",
+     "Dépanneur",
+     "Octavia Coffee",
+     "Five Leaves",
+     "Butler",
+     "The Four Horsemen",
+     "The Butcher's Daughter",
+     "Black Brick Coffee"
+    ],
+    "Q-fit+LLM": [
+     "Five Leaves",
+     "The Four Horsemen",
+     "Dépanneur",
+     "Wythe Hotel",
+     "Corto",
+     "Black Brick Coffee",
+     "Alita Cafe",
+     "Allswell",
+     "Hungry Ghost",
+     "Hungry Ghost"
+    ]
+   }
+  },
+  {
+   "brand": "St. Agrestis",
+   "key": "st_agrestis",
+   "split": "test",
+   "description": "Non-alcoholic bottled aperitivo cocktails and a booze-free amaro",
+   "types": [
+    "bar",
+    "restaurant"
+   ],
+   "comparables": [
+    "Ghia",
+    "Seedlip",
+    "Campari"
+   ],
+   "counts": {
+    "accounts": 93,
+    "in_pool": 36
+   },
+   "metrics": {
+    "Q-fit": {
+     "recall15": 0.111,
+     "recall30": 0.194,
+     "found30": 7,
+     "mpr": 65.6,
+     "tail30": 0.143
+    },
+    "Q-raw": {
+     "recall15": 0.194,
+     "recall30": 0.222,
+     "found30": 8,
+     "mpr": 68.9,
+     "tail30": 0.179
+    },
+    "POP": {
+     "recall15": 0.056,
+     "recall30": 0.139,
+     "found30": 5,
+     "mpr": 65.9,
+     "tail30": 0.0
+    },
+    "LLM": {
+     "recall15": 0.111,
+     "recall30": 0.194,
+     "found30": 7,
+     "mpr": 72.9,
+     "tail30": 0.107
+    },
+    "Q-fit+LLM": {
+     "recall15": 0.139,
+     "recall30": 0.194,
+     "found30": 7,
+     "mpr": 72.0,
+     "tail30": 0.143
+    },
+    "RANDOM": {
+     "recall15": 0.017,
+     "recall30": 0.034,
+     "found30": 1.2,
+     "mpr": 50.0,
+     "tail30": 0.034
+    },
+    "truth": 36,
+    "tail": 28,
+    "pool": 875
+   },
+   "stockists": [
+    {
+     "name": "June",
+     "type": "restaurant",
+     "neighborhood": "Carroll Gardens",
+     "Q-fit": 2,
+     "Q-raw": 9,
+     "POP": 210,
+     "LLM": 101,
+     "Q-fit+LLM": 24,
+     "taste_pct": 0.992,
+     "mass_pct": 0.1973,
+     "drivers": [
+      "Ghia",
+      "Campari"
+     ]
+    },
+    {
+     "name": "Vinegar Hill House",
+     "type": "bar",
+     "neighborhood": "",
+     "Q-fit": 3,
+     "Q-raw": 7,
+     "POP": 106,
+     "LLM": 46,
+     "Q-fit+LLM": 9,
+     "taste_pct": 0.994,
+     "mass_pct": 0.206,
+     "drivers": [
+      "Ghia",
+      "Seedlip"
+     ]
+    },
+    {
+     "name": "Lilia",
+     "type": "restaurant",
+     "neighborhood": "Williamsburg",
+     "Q-fit": 5,
+     "Q-raw": 1,
+     "POP": 19,
+     "LLM": 1,
+     "Q-fit+LLM": 1,
+     "taste_pct": 1.0,
+     "mass_pct": 0.2347,
+     "drivers": [
+      "Ghia",
+      "Campari"
+     ]
+    },
+    {
+     "name": "Grand Army",
+     "type": "bar",
+     "neighborhood": "",
+     "Q-fit": 9,
+     "Q-raw": 5,
+     "POP": 107,
+     "LLM": 284,
+     "Q-fit+LLM": 91,
+     "taste_pct": 0.996,
+     "mass_pct": 0.248,
+     "drivers": [
+      "Ghia",
+      "Campari"
+     ]
+    },
+    {
+     "name": "Five Leaves",
+     "type": "restaurant",
+     "neighborhood": "Greenpoint",
+     "Q-fit": 20,
+     "Q-raw": 13,
+     "POP": 6,
+     "LLM": 22,
+     "Q-fit+LLM": 7,
+     "taste_pct": 0.9867,
+     "mass_pct": 0.2587,
+     "drivers": [
+      "Ghia",
+      "Seedlip"
+     ]
+    },
+    {
+     "name": "Madeline's",
+     "type": "bar",
+     "neighborhood": "Greenpoint",
+     "Q-fit": 22,
+     "Q-raw": 8,
+     "POP": 814,
+     "LLM": 283,
+     "Q-fit+LLM": 96,
+     "taste_pct": 0.992,
+     "mass_pct": 0.284,
+     "drivers": [
+      "Ghia",
+      "Campari"
+     ]
+    },
+    {
+     "name": "Cecconi's DUMBO",
+     "type": "restaurant",
+     "neighborhood": "",
+     "Q-fit": 23,
+     "Q-raw": 15,
+     "POP": 10,
+     "LLM": 2,
+     "Q-fit+LLM": 4,
+     "taste_pct": 0.9813,
+     "mass_pct": 0.256,
+     "drivers": [
+      "Ghia",
+      "Campari"
+     ]
+    },
+    {
+     "name": "Locanda Vini & Olii",
+     "type": "bar",
+     "neighborhood": "Clinton Hill",
+     "Q-fit": 62,
+     "Q-raw": 93,
+     "POP": 175,
+     "LLM": 7,
+     "Q-fit+LLM": 12,
+     "taste_pct": 0.872,
+     "mass_pct": 0.17,
+     "drivers": [
+      "Ghia",
+      "Campari"
+     ]
+    },
+    {
+     "name": "Cafe Spaghetti",
+     "type": "bar",
+     "neighborhood": "Columbia Street Waterfront District",
+     "Q-fit": 75,
+     "Q-raw": 121,
+     "POP": 605,
+     "LLM": 317,
+     "Q-fit+LLM": 138,
+     "taste_pct": 0.832,
+     "mass_pct": 0.122,
+     "drivers": [
+      "Ghia",
+      "Campari"
+     ]
+    },
+    {
+     "name": "Lighthouse",
+     "type": "bar",
+     "neighborhood": "Williamsburg",
+     "Q-fit": 82,
+     "Q-raw": 124,
+     "POP": 305,
+     "LLM": 326,
+     "Q-fit+LLM": 143,
+     "taste_pct": 0.826,
+     "mass_pct": 0.144,
+     "drivers": [
+      "Ghia",
+      "Campari"
+     ]
+    },
+    {
+     "name": "Montesacro",
+     "type": "bar",
+     "neighborhood": "Williamsburg",
+     "Q-fit": 84,
+     "Q-raw": 129,
+     "POP": 340,
+     "LLM": 12,
+     "Q-fit+LLM": 20,
+     "taste_pct": 0.822,
+     "mass_pct": 0.138,
+     "drivers": [
+      "Ghia",
+      "Campari"
+     ]
+    },
+    {
+     "name": "Berry Park",
+     "type": "bar",
+     "neighborhood": "Williamsburg",
+     "Q-fit": 85,
+     "Q-raw": 97,
+     "POP": 18,
+     "LLM": 71,
+     "Q-fit+LLM": 42,
+     "taste_pct": 0.866,
+     "mass_pct": 0.288,
+     "drivers": [
+      "Ghia",
+      "Campari"
+     ]
+    },
+    {
+     "name": "La Vara",
+     "type": "restaurant",
+     "neighborhood": "Cobble Hill",
+     "Q-fit": 127,
+     "Q-raw": 290,
+     "POP": 125,
+     "LLM": 30,
+     "Q-fit+LLM": 43,
+     "taste_pct": 0.7227,
+     "mass_pct": 0.1013,
+     "drivers": [
+      "Ghia",
+      "Campari"
+     ]
+    },
+    {
+     "name": "Aurora Brooklyn",
+     "type": "bar",
+     "neighborhood": "Williamsburg",
+     "Q-fit": 134,
+     "Q-raw": 20,
+     "POP": 74,
+     "LLM": 183,
+     "Q-fit+LLM": 103,
+     "taste_pct": 0.982,
+     "mass_pct": 0.988,
+     "drivers": [
+      "Ghia",
+      "Campari"
+     ]
+    },
+    {
+     "name": "Risbo",
+     "type": "bar",
+     "neighborhood": "",
+     "Q-fit": 155,
+     "Q-raw": 216,
+     "POP": 357,
+     "LLM": 324,
+     "Q-fit+LLM": 168,
+     "taste_pct": 0.712,
+     "mass_pct": 0.132,
+     "drivers": [
+      "Ghia",
+      "Campari"
+     ]
+    },
+    {
+     "name": "Ringolevio",
+     "type": "restaurant",
+     "neighborhood": "Williamsburg",
+     "Q-fit": 183,
+     "Q-raw": 103,
+     "POP": 408,
+     "LLM": 133,
+     "Q-fit+LLM": 101,
+     "taste_pct": 0.92,
+     "mass_pct": 0.9787,
+     "drivers": [
+      "Ghia",
+      "Seedlip"
+     ]
+    },
+    {
+     "name": "Black Forest Brooklyn",
+     "type": "bar",
+     "neighborhood": "Fort Greene",
+     "Q-fit": 227,
+     "Q-raw": 133,
+     "POP": 72,
+     "LLM": 162,
+     "Q-fit+LLM": 137,
+     "taste_pct": 0.818,
+     "mass_pct": 0.77,
+     "drivers": [
+      "Ghia",
+      "Seedlip"
+     ]
+    },
+    {
+     "name": "Teddy's Bar & Grill",
+     "type": "restaurant",
+     "neighborhood": "Williamsburg",
+     "Q-fit": 308,
+     "Q-raw": 336,
+     "POP": 185,
+     "LLM": 472,
+     "Q-fit+LLM": 362,
+     "taste_pct": 0.6853,
+     "mass_pct": 0.944,
+     "drivers": [
+      "Ghia",
+      "Seedlip"
+     ]
+    },
+    {
+     "name": "Fornino",
+     "type": "restaurant",
+     "neighborhood": "Greenpoint",
+     "Q-fit": 319,
+     "Q-raw": 362,
+     "POP": 270,
+     "LLM": 199,
+     "Q-fit+LLM": 190,
+     "taste_pct": 0.6667,
+     "mass_pct": 0.712,
+     "drivers": [
+      "Ghia",
+      "Campari"
+     ]
+    },
+    {
+     "name": "Brooklyn Social",
+     "type": "bar",
+     "neighborhood": "Carroll Gardens",
+     "Q-fit": 342,
+     "Q-raw": 297,
+     "POP": 629,
+     "LLM": 157,
+     "Q-fit+LLM": 180,
+     "taste_pct": 0.622,
+     "mass_pct": 0.642,
+     "drivers": [
+      "Ghia",
+      "Campari"
+     ]
+    },
+    {
+     "name": "Cafe Colette",
+     "type": "bar",
+     "neighborhood": "Williamsburg",
+     "Q-fit": 349,
+     "Q-raw": 327,
+     "POP": 38,
+     "LLM": 28,
+     "Q-fit+LLM": 129,
+     "taste_pct": 0.582,
+     "mass_pct": 0.504,
+     "drivers": [
+      "Ghia",
+      "Campari"
+     ]
+    },
+    {
+     "name": "ORE BAR",
+     "type": "bar",
+     "neighborhood": "Williamsburg",
+     "Q-fit": 372,
+     "Q-raw": 325,
+     "POP": 671,
+     "LLM": 244,
+     "Q-fit+LLM": 250,
+     "taste_pct": 0.586,
+     "mass_pct": 0.788,
+     "drivers": [
+      "Ghia",
+      "Seedlip"
+     ]
+    },
+    {
+     "name": "King Tai",
+     "type": "bar",
+     "neighborhood": "Crown Heights",
+     "Q-fit": 380,
+     "Q-raw": 329,
+     "POP": 237,
+     "LLM": 636,
+     "Q-fit+LLM": 546,
+     "taste_pct": 0.578,
+     "mass_pct": 0.69,
+     "drivers": [
+      "Ghia",
+      "Seedlip"
+     ]
+    },
+    {
+     "name": "Sycamore Bar + Flower Shop",
+     "type": "bar",
+     "neighborhood": "Flatbush",
+     "Q-fit": 420,
+     "Q-raw": 360,
+     "POP": 163,
+     "LLM": 232,
+     "Q-fit+LLM": 279,
+     "taste_pct": 0.532,
+     "mass_pct": 0.878,
+     "drivers": [
+      "Ghia",
+      "Seedlip"
+     ]
+    },
+    {
+     "name": "Barcade",
+     "type": "bar",
+     "neighborhood": "Williamsburg",
+     "Q-fit": 453,
+     "Q-raw": 387,
+     "POP": 16,
+     "LLM": 556,
+     "Q-fit+LLM": 539,
+     "taste_pct": 0.49,
+     "mass_pct": 0.952,
+     "drivers": [
+      "Ghia",
+      "Seedlip"
+     ]
+    },
+    {
+     "name": "The Crown Inn",
+     "type": "bar",
+     "neighborhood": "Crown Heights",
+     "Q-fit": 459,
+     "Q-raw": 390,
+     "POP": 292,
+     "LLM": 367,
+     "Q-fit+LLM": 402,
+     "taste_pct": 0.484,
+     "mass_pct": 0.574,
+     "drivers": [
+      "Ghia",
+      "Seedlip"
+     ]
+    },
+    {
+     "name": "Sea Witch",
+     "type": "bar",
+     "neighborhood": "Greenwood Heights",
+     "Q-fit": 467,
+     "Q-raw": 395,
+     "POP": 265,
+     "LLM": 174,
+     "Q-fit+LLM": 265,
+     "taste_pct": 0.474,
+     "mass_pct": 0.678,
+     "drivers": [
+      "Ghia",
+      "Seedlip"
+     ]
+    },
+    {
+     "name": "Brooklyn Public House",
+     "type": "bar",
+     "neighborhood": "Fort Greene",
+     "Q-fit": 483,
+     "Q-raw": 410,
+     "POP": 349,
+     "LLM": 366,
+     "Q-fit+LLM": 414,
+     "taste_pct": 0.454,
+     "mass_pct": 0.71,
+     "drivers": [
+      "Ghia",
+      "Seedlip"
+     ]
+    },
+    {
+     "name": "Kellogg’s Diner",
+     "type": "bar",
+     "neighborhood": "Williamsburg",
+     "Q-fit": 508,
+     "Q-raw": 426,
+     "POP": 44,
+     "LLM": 639,
+     "Q-fit+LLM": 628,
+     "taste_pct": 0.426,
+     "mass_pct": 0.706,
+     "drivers": [
+      "Ghia",
+      "Campari"
+     ]
+    },
+    {
+     "name": "The Cobra Club",
+     "type": "bar",
+     "neighborhood": "Bushwick",
+     "Q-fit": 559,
+     "Q-raw": 465,
+     "POP": 42,
+     "LLM": 181,
+     "Q-fit+LLM": 328,
+     "taste_pct": 0.366,
+     "mass_pct": 0.866,
+     "drivers": [
+      "Ghia",
+      "Seedlip"
+     ]
+    },
+    {
+     "name": "Carmelo’s",
+     "type": "bar",
+     "neighborhood": "Bushwick",
+     "Q-fit": 572,
+     "Q-raw": 475,
+     "POP": 167,
+     "LLM": 401,
+     "Q-fit+LLM": 518,
+     "taste_pct": 0.35,
+     "mass_pct": 0.872,
+     "drivers": [
+      "Ghia",
+      "Seedlip"
+     ]
+    },
+    {
+     "name": "MIDNIGHTS",
+     "type": "bar",
+     "neighborhood": "Williamsburg",
+     "Q-fit": 642,
+     "Q-raw": 528,
+     "POP": 839,
+     "LLM": 69,
+     "Q-fit+LLM": 313,
+     "taste_pct": 0.27,
+     "mass_pct": 0.37,
+     "drivers": [
+      "Ghia",
+      "Campari"
+     ]
+    },
+    {
+     "name": "Doris",
+     "type": "bar",
+     "neighborhood": "Bedford-Stuyvesant",
+     "Q-fit": 651,
+     "Q-raw": 538,
+     "POP": 872,
+     "LLM": 414,
+     "Q-fit+LLM": 578,
+     "taste_pct": 0.26,
+     "mass_pct": 0.358,
+     "drivers": [
+      "Ghia",
+      "Campari"
+     ]
+    },
+    {
+     "name": "Level Restaurant & Bar",
+     "type": "bar",
+     "neighborhood": "Sheepshead Bay",
+     "Q-fit": 690,
+     "Q-raw": 642,
+     "POP": 820,
+     "LLM": 561,
+     "Q-fit+LLM": 685,
+     "taste_pct": 0.16,
+     "mass_pct": 0.032,
+     "drivers": [
+      "Ghia",
+      "Campari"
+     ]
+    },
+    {
+     "name": "Time Out Market New York",
+     "type": "bar",
+     "neighborhood": "",
+     "Q-fit": 704,
+     "Q-raw": 598,
+     "POP": 255,
+     "LLM": 80,
+     "Q-fit+LLM": 364,
+     "taste_pct": 0.198,
+     "mass_pct": 0.406,
+     "drivers": [
+      "Ghia",
+      "Campari"
+     ]
+    },
+    {
+     "name": "Honore Club",
+     "type": "bar",
+     "neighborhood": "Bushwick",
+     "Q-fit": 870,
+     "Q-raw": 859,
+     "POP": 857,
+     "LLM": 486,
+     "Q-fit+LLM": 732,
+     "taste_pct": 0.028,
+     "mass_pct": 0.028,
+     "drivers": []
+    }
+   ],
+   "resolution": [
+    {
+     "name": "Abes Pagoda",
+     "address": "108 Wyckoff Ave, Brooklyn, NY, 11237",
+     "qloo": ""
+    },
+    {
+     "name": "Ace Hotel",
+     "address": "252 Schermerhorn St, Brooklyn, NY, 11217",
+     "qloo": ""
+    },
+    {
+     "name": "Aurora",
+     "address": "70 Grand St, Brooklyn, NY, 11249",
+     "qloo": "Aurora Brooklyn"
+    },
+    {
+     "name": "Barcade",
+     "address": "388 Union Ave, Brooklyn, NY, 11211",
+     "qloo": "Barcade"
+    },
+    {
+     "name": "Berry Park",
+     "address": "4 Berry St, Brooklyn, NY, 11249",
+     "qloo": "Berry Park"
+    },
+    {
+     "name": "Black Forest",
+     "address": "733 Fulton St, Brooklyn, NY, 11217",
+     "qloo": "Black Forest Brooklyn"
+    },
+    {
+     "name": "Book Club Bar",
+     "address": "380 Troutman St, Brooklyn, NY, 11237",
+     "qloo": ""
+    },
+    {
+     "name": "Brooklyn Crab",
+     "address": "24 Reed St, Brooklyn, NY, 11231",
+     "qloo": ""
+    },
+    {
+     "name": "Brooklyn Farm & The Binc",
+     "address": "60 Henry St Ste 3, Brooklyn, NY, 11201",
+     "qloo": ""
+    },
+    {
+     "name": "Brooklyn Public House",
+     "address": "247 Dekalb Ave, Brooklyn, NY, 11205",
+     "qloo": "Brooklyn Public House"
+    },
+    {
+     "name": "Brooklyn Social",
+     "address": "335 Smith St, Brooklyn, NY, 11231",
+     "qloo": "Brooklyn Social"
+    },
+    {
+     "name": "Cafe Colette",
+     "address": "79 Berry St, Brooklyn, NY, 11249",
+     "qloo": "Cafe Colette"
+    },
+    {
+     "name": "Cafe Spaghetti",
+     "address": "126 Union St, Brooklyn, NY, 11231",
+     "qloo": "Cafe Spaghetti"
+    },
+    {
+     "name": "Campbell and Co - Williamsburg",
+     "address": "502 Lorimer St, Brooklyn, 11211, NY",
+     "qloo": ""
+    },
+    {
+     "name": "Carmelos",
+     "address": "1544 Dekalb Ave Ste 2, Brooklyn, NY, 11237",
+     "qloo": "Carmelo’s"
+    },
+    {
+     "name": "Carousel",
+     "address": "36 Wyckoff Ave, Brooklyn, NY, 11237",
+     "qloo": ""
+    },
+    {
+     "name": "Cecconis",
+     "address": "55 Water St, Brooklyn, NY, 11201",
+     "qloo": "Cecconi's DUMBO"
+    },
+    {
+     "name": "Chez Oskar",
+     "address": "310 Malcolm X Blvd, Brooklyn, NY, 11233",
+     "qloo": ""
+    },
+    {
+     "name": "Cobra Club",
+     "address": "6 Wyckoff Ave, Brooklyn, NY, 11237",
+     "qloo": "The Cobra Club"
+    },
+    {
+     "name": "Congress",
+     "address": "208 Court St, Brooklyn, NY, 11201",
+     "qloo": ""
+    },
+    {
+     "name": "Crown Inn",
+     "address": "724 Franklin Ave, Brooklyn, NY, 11238",
+     "qloo": "The Crown Inn"
+    },
+    {
+     "name": "Daphnes",
+     "address": "299 Halsey St, Brooklyn, NY, 11216",
+     "qloo": ""
+    },
+    {
+     "name": "Dino",
+     "address": "222 Dekalb Ave, Brooklyn, NY, 11205",
+     "qloo": ""
+    },
+    {
+     "name": "Doris",
+     "address": "1088 Fulton St, Brooklyn, NY, 11238",
+     "qloo": "Doris"
+    },
+    {
+     "name": "Dumbo House",
+     "address": "55 Water St, Brooklyn, NY, 11201",
+     "qloo": ""
+    },
+    {
+     "name": "Dutch Boy",
+     "address": "766 Franklin Ave, Brooklyn, NY, 11238",
+     "qloo": ""
+    },
+    {
+     "name": "Fish Cheeks",
+     "address": "661 Driggs Ave, Brooklyn, NY, 11211",
+     "qloo": ""
+    },
+    {
+     "name": "Five Leaves",
+     "address": "18 Bedford Ave, Brooklyn, NY, 11222",
+     "qloo": "Five Leaves"
+    },
+    {
+     "name": "Fornino",
+     "address": "Brooklyn Bridge Park Pier 6, Brooklyn, NY, 11201",
+     "qloo": "Fornino"
+    },
+    {
+     "name": "Francie",
+     "address": "134 Broadway, Brooklyn, NY, 11249",
+     "qloo": ""
+    },
+    {
+     "name": "Fulton Hall",
+     "address": "250 Ashland Pl, Brooklyn, NY, 11217",
+     "qloo": ""
+    },
+    {
+     "name": "Gage & Tollner",
+     "address": "372 Fulton St Fl 1, Brooklyn, NY, 11201",
+     "qloo": ""
+    },
+    {
+     "name": "Gair",
+     "address": "41 Washington St, Brooklyn, NY, 11201",
+     "qloo": ""
+    },
+    {
+     "name": "Good Fork Pub",
+     "address": "391 393 Van Brunt St, Brooklyn, NY, 11231",
+     "qloo": ""
+    },
+    {
+     "name": "Grand Army",
+     "address": "336 State St, Brooklyn, NY, 11217",
+     "qloo": "Grand Army"
+    },
+    {
+     "name": "H&H Reserve",
+     "address": "519 Metropolitan Ave, Brooklyn, NY, 11211",
+     "qloo": ""
+    },
+    {
+     "name": "Hanks Bar",
+     "address": "613 Bushwick Ave, Brooklyn, NY, 11206",
+     "qloo": ""
+    },
+    {
+     "name": "Hart Bar",
+     "address": "538 Hart St, Brooklyn, NY, 11221",
+     "qloo": ""
+    },
+    {
+     "name": "Here Bk",
+     "address": "26 Bushwick Ave, Brooklyn, NY, 11211",
+     "qloo": ""
+    },
+    {
+     "name": "Hide & Seek",
+     "address": "593 Manhattan Ave, Brooklyn, NY, 11222",
+     "qloo": ""
+    },
+    {
+     "name": "Honore Club",
+     "address": "173 Irving Ave, Brooklyn, NY, 11237",
+     "qloo": "Honore Club"
+    },
+    {
+     "name": "June",
+     "address": "231 Court St, Brooklyn, NY, 11201",
+     "qloo": "June"
+    },
+    {
+     "name": "Keg & Lantern",
+     "address": "95 Nassau Ave, Brooklyn, NY, 11222",
+     "qloo": ""
+    },
+    {
+     "name": "Kelloggs Diner",
+     "address": "518 Metropolitan Ave, Brooklyn, NY, 11211",
+     "qloo": "Kellogg’s Diner"
+    },
+    {
+     "name": "Kinda Nice",
+     "address": "168 Borinquen Pl, Brooklyn, NY, 11211",
+     "qloo": ""
+    },
+    {
+     "name": "King Tai",
+     "address": "1095 Bergen St, Brooklyn, NY, 11216",
+     "qloo": "King Tai"
+    },
+    {
+     "name": "La Vara",
+     "address": "268 Clinton St, Brooklyn, NY, 11201",
+     "qloo": "La Vara"
+    },
+    {
+     "name": "Larina",
+     "address": "387 Myrtle Ave, Brooklyn, NY, 11205",
+     "qloo": ""
+    },
+    {
+     "name": "Leroys American Bistro",
+     "address": "195 Franklin St, Brooklyn, NY, 11222",
+     "qloo": ""
+    },
+    {
+     "name": "Level Restaurant",
+     "address": "2775 Coney Island Ave, Brooklyn, NY, 11235",
+     "qloo": "Level Restaurant & Bar"
+    },
+    {
+     "name": "Light House",
+     "address": "145 Borinquen Pl, Brooklyn, NY, 11211",
+     "qloo": "Lighthouse"
+    },
+    {
+     "name": "Lilia",
+     "address": "567 Union Ave, Brooklyn, NY, 11211",
+     "qloo": "Lilia"
+    },
+    {
+     "name": "Limousine",
+     "address": "632 Manhattan Ave, Brooklyn, NY, 11222",
+     "qloo": ""
+    },
+    {
+     "name": "Locanda Vivi & Olii",
+     "address": "129 Gates Ave, Brooklyn, NY, 11238",
+     "qloo": "Locanda Vini & Olii"
+    },
+    {
+     "name": "Madelines",
+     "address": "113 Franklin St, Brooklyn, NY, 11222",
+     "qloo": "Madeline's"
+    },
+    {
+     "name": "Mama Tried Y",
+     "address": "147 27th St, Brooklyn, NY, 11232",
+     "qloo": ""
+    },
+    {
+     "name": "Mccarren Park",
+     "address": "776 Lorimer St, Brooklyn, NY, 11222",
+     "qloo": ""
+    },
+    {
+     "name": "Midnights",
+     "address": "149 N 6th St, Brooklyn, NY, 11249",
+     "qloo": "MIDNIGHTS"
+    },
+    {
+     "name": "Montesacro",
+     "address": "432 Union Av, Brooklyn, NY, 11211",
+     "qloo": "Montesacro"
+    },
+    {
+     "name": "Naked Tomato",
+     "address": "476 Kent Ave, Brooklyn, NY, 11249",
+     "qloo": ""
+    },
+    {
+     "name": "Nobody Told Me",
+     "address": "188 Front St, Brooklyn, NY, 11201",
+     "qloo": ""
+    },
+    {
+     "name": "Olea",
+     "address": "171 Lafayette Ave, Brooklyn, NY, 11238",
+     "qloo": ""
+    },
+    {
+     "name": "Ore Bar",
+     "address": "277 Graham Ave, Brooklyn, NY, 11211",
+     "qloo": "ORE BAR"
+    },
+    {
+     "name": "Osteria Brooklyn",
+     "address": "458 Myrtle Ave, Brooklyn, NY, 11205",
+     "qloo": ""
+    },
+    {
+     "name": "Ottava",
+     "address": "1123 8th Ave Ste A, Brooklyn, NY, 11215",
+     "qloo": ""
+    },
+    {
+     "name": "Park Slope Ale House",
+     "address": "356 6th Ave, Brooklyn, NY, 11215",
+     "qloo": ""
+    },
+    {
+     "name": "Pauli Gees",
+     "address": "60 Greenpoint Ave, Brooklyn, NY, 11222",
+     "qloo": ""
+    },
+    {
+     "name": "Peter Luger",
+     "address": "178 Broadway, Brooklyn, NY, 11211",
+     "qloo": ""
+    },
+    {
+     "name": "Phils Place",
+     "address": "524 Graham Ave, Brooklyn, NY, 11222",
+     "qloo": ""
+    },
+    {
+     "name": "Randolph Brooklyn B",
+     "address": "104 S 4th St, Brooklyn, NY, 11249",
+     "qloo": ""
+    },
+    {
+     "name": "Red Rover",
+     "address": "928 Manhattan Ave, Brooklyn, NY, 11222",
+     "qloo": ""
+    },
+    {
+     "name": "Richies Crown Heights",
+     "address": "1433 Bedford Ave, Brooklyn, NY, 11216",
+     "qloo": ""
+    },
+    {
+     "name": "Ringolevio",
+     "address": "490 Humboldt St, Brooklyn, NY, 11222",
+     "qloo": "Ringolevio"
+    },
+    {
+     "name": "Risbo",
+     "address": "701 Flatbush Ave, Brooklyn, NY, 11225",
+     "qloo": "Risbo"
+    },
+    {
+     "name": "River Cafe",
+     "address": "1 Water St, Brooklyn, NY, 11201",
+     "qloo": ""
+    },
+    {
+     "name": "Ruth",
+     "address": "665 Flatbush Ave, Brooklyn, NY, 11225",
+     "qloo": ""
+    },
+    {
+     "name": "Sams Restaurant",
+     "address": "238 Court St, Brooklyn, NY, 11201",
+     "qloo": ""
+    },
+    {
+     "name": "Saraghina",
+     "address": "435 Halsey St, Brooklyn, NY, 11233",
+     "qloo": ""
+    },
+    {
+     "name": "Sea Witch",
+     "address": "703 5th Ave, Brooklyn, NY, 11215",
+     "qloo": "Sea Witch"
+    },
+    {
+     "name": "Shota Omakase",
+     "address": "50 S 3rd St, Brooklyn, NY, 11249",
+     "qloo": ""
+    },
+    {
+     "name": "Silo",
+     "address": "90 Scott Ave, Brooklyn, NY, 11237",
+     "qloo": ""
+    },
+    {
+     "name": "Strange Delight",
+     "address": "63 Lafayette Ave, Brooklyn, NY, 11217",
+     "qloo": ""
+    },
+    {
+     "name": "Sycamore",
+     "address": "1118 Cortelyou Rd, Brooklyn, NY, 11218",
+     "qloo": "Sycamore Bar + Flower Shop"
+    },
+    {
+     "name": "Teddys",
+     "address": "96 Berry St, Brooklyn, NY, 11249",
+     "qloo": "Teddy's Bar & Grill"
+    },
+    {
+     "name": "Temkins",
+     "address": "155 Greenpoint Ave, Brooklyn, NY, 11222",
+     "qloo": ""
+    },
+    {
+     "name": "The Cat",
+     "address": "1238 Prospect Ave, Brooklyn, NY, 11218",
+     "qloo": ""
+    },
+    {
+     "name": "The Exley",
+     "address": "520 Union Ave, Brooklyn, NY, 11211",
+     "qloo": ""
+    },
+    {
+     "name": "The Snail",
+     "address": "544 Manhattan Ave, Brooklyn, NY, 11222",
+     "qloo": ""
+    },
+    {
+     "name": "Time Out Market",
+     "address": "55 Water St Ground Fl 1B 1E, Brooklyn, NY, 11201",
+     "qloo": "Time Out Market New York"
+    },
+    {
+     "name": "Twins Lounge",
+     "address": "732 Manhattan Ave, Brooklyn, NY, 11222",
+     "qloo": ""
+    },
+    {
+     "name": "Vacations Bk",
+     "address": "48 Cypress Ave, Brooklyn, NY, 11237",
+     "qloo": ""
+    },
+    {
+     "name": "Vinegar Hill House",
+     "address": "72 Hudson Ave, Brooklyn, NY, 11201",
+     "qloo": "Vinegar Hill House"
+    },
+    {
+     "name": "Whoopsie Daisy",
+     "address": "225 Rogers Ave, Brooklyn, NY, 11225",
+     "qloo": ""
+    }
+   ],
+   "top10": {
+    "Q-fit": [
+     "F&F Restaurant and Bar",
+     "June",
+     "Vinegar Hill House",
+     "Chez Ma Tante",
+     "Lilia",
+     "Glasserie",
+     "Have & Meyer",
+     "Shalom Japan",
+     "Grand Army",
+     "Diner"
+    ],
+    "Q-raw": [
+     "Lilia",
+     "Have & Meyer",
+     "Glasserie",
+     "F&F Restaurant and Bar",
+     "Grand Army",
+     "Chez Ma Tante",
+     "Vinegar Hill House",
+     "Madeline's",
+     "June",
+     "Hotel Delmano"
+    ],
+    "POP": [
+     "House of Yes",
+     "Baby's All Right",
+     "Wythe Hotel",
+     "Roberta's",
+     "Kings Plaza Shopping Center",
+     "Five Leaves",
+     "The Bell House",
+     "Royal Palms Shuffleboard Club Brooklyn",
+     "Maison Premiere",
+     "Cecconi's DUMBO"
+    ],
+    "LLM": [
+     "Lilia",
+     "Cecconi's DUMBO",
+     "Hanson Dry",
+     "Hotel Delmano",
+     "Aska",
+     "Public Records",
+     "Locanda Vini & Olii",
+     "Ammazzacaffè",
+     "TØRST",
+     "Krupa Grocery"
+    ],
+    "Q-fit+LLM": [
+     "Lilia",
+     "Hotel Delmano",
+     "Glasserie",
+     "Cecconi's DUMBO",
+     "Ammazzacaffè",
+     "Leuca",
+     "Five Leaves",
+     "Have & Meyer",
+     "Vinegar Hill House",
+     "Sweetwater"
+    ]
+   }
+  },
+  {
+   "brand": "Casamara Club",
+   "key": "casamara",
+   "split": "test",
+   "description": "Non-alcoholic botanical sodas inspired by Italian amari",
+   "types": [
+    "bar",
+    "restaurant",
+    "deli"
+   ],
+   "comparables": [
+    "Fever-Tree",
+    "Spindrift Sparkling Water",
+    "Ghia"
+   ],
+   "counts": {
+    "accounts": 30,
+    "in_pool": 7
+   },
+   "metrics": {
+    "Q-fit": {
+     "recall15": 0.143,
+     "recall30": 0.143,
+     "found30": 1,
+     "mpr": 68.8,
+     "tail30": 0.143
+    },
+    "Q-raw": {
+     "recall15": 0.143,
+     "recall30": 0.143,
+     "found30": 1,
+     "mpr": 72.4,
+     "tail30": 0.143
+    },
+    "POP": {
+     "recall15": 0.0,
+     "recall30": 0.0,
+     "found30": 0,
+     "mpr": 34.6,
+     "tail30": 0.0
+    },
+    "LLM": {
+     "recall15": 0.0,
+     "recall30": 0.0,
+     "found30": 0,
+     "mpr": 70.2,
+     "tail30": 0.0
+    },
+    "Q-fit+LLM": {
+     "recall15": 0.143,
+     "recall30": 0.143,
+     "found30": 1,
+     "mpr": 72.5,
+     "tail30": 0.143
+    },
+    "RANDOM": {
+     "recall15": 0.014,
+     "recall30": 0.028,
+     "found30": 0.2,
+     "mpr": 50.0,
+     "tail30": 0.028
+    },
+    "truth": 7,
+    "tail": 7,
+    "pool": 1089
+   },
+   "stockists": [
+    {
+     "name": "Glasserie",
+     "type": "bar",
+     "neighborhood": "Greenpoint",
+     "Q-fit": 10,
+     "Q-raw": 2,
+     "POP": 87,
+     "LLM": 37,
+     "Q-fit+LLM": 13,
+     "taste_pct": 0.998,
+     "mass_pct": 0.24,
+     "drivers": [
+      "Ghia",
+      "Spindrift Sparkling Water"
+     ]
+    },
+    {
+     "name": "Travel Bar",
+     "type": "bar",
+     "neighborhood": "Carroll Gardens",
+     "Q-fit": 182,
+     "Q-raw": 60,
+     "POP": 925,
+     "LLM": 235,
+     "Q-fit+LLM": 152,
+     "taste_pct": 0.932,
+     "mass_pct": 0.958,
+     "drivers": [
+      "Fever-Tree",
+      "Ghia"
+     ]
+    },
+    {
+     "name": "The Hop Shop",
+     "type": "bar",
+     "neighborhood": "Columbia Street Waterfront District",
+     "Q-fit": 203,
+     "Q-raw": 116,
+     "POP": 835,
+     "LLM": 592,
+     "Q-fit+LLM": 359,
+     "taste_pct": 0.862,
+     "mass_pct": 0.752,
+     "drivers": [
+      "Ghia",
+      "Spindrift Sparkling Water"
+     ]
+    },
+    {
+     "name": "Doris",
+     "type": "bar",
+     "neighborhood": "Bedford-Stuyvesant",
+     "Q-fit": 325,
+     "Q-raw": 265,
+     "POP": 941,
+     "LLM": 184,
+     "Q-fit+LLM": 194,
+     "taste_pct": 0.644,
+     "mass_pct": 0.358,
+     "drivers": [
+      "Ghia",
+      "Spindrift Sparkling Water"
+     ]
+    },
+    {
+     "name": "Brouwerij Lane",
+     "type": "bar",
+     "neighborhood": "Greenpoint",
+     "Q-fit": 354,
+     "Q-raw": 208,
+     "POP": 299,
+     "LLM": 251,
+     "Q-fit+LLM": 243,
+     "taste_pct": 0.73,
+     "mass_pct": 0.74,
+     "drivers": [
+      "Ghia",
+      "Fever-Tree"
+     ]
+    },
+    {
+     "name": "El Pingüino",
+     "type": "bar",
+     "neighborhood": "Greenpoint",
+     "Q-fit": 453,
+     "Q-raw": 402,
+     "POP": 943,
+     "LLM": 409,
+     "Q-fit+LLM": 398,
+     "taste_pct": 0.448,
+     "mass_pct": 0.036,
+     "drivers": [
+      "Ghia",
+      "Spindrift Sparkling Water"
+     ]
+    },
+    {
+     "name": "Eastern District",
+     "type": "deli",
+     "neighborhood": "Greenpoint",
+     "Q-fit": 860,
+     "Q-raw": 1053,
+     "POP": 957,
+     "LLM": 572,
+     "Q-fit+LLM": 743,
+     "taste_pct": 0.2477,
+     "mass_pct": 0.2477,
+     "drivers": []
+    }
+   ],
+   "resolution": [
+    {
+     "name": "608 Franklin Meat Corp",
+     "address": "608 Franklin Ave, Brooklyn, NY 11238",
+     "qloo": ""
+    },
+    {
+     "name": "7 Ave Gourmet",
+     "address": "75 7th Ave, Brooklyn, NY 11217",
+     "qloo": ""
+    },
+    {
+     "name": "Bar Francis",
+     "address": "810 Fulton St., Brooklyn, NY 11238",
+     "qloo": ""
+    },
+    {
+     "name": "Beer Street South",
+     "address": "550 Vanderbilt Ave, Brooklyn, NY 11238",
+     "qloo": ""
+    },
+    {
+     "name": "Boisson",
+     "address": "50 Gold St, Brooklyn, NY 11201",
+     "qloo": ""
+    },
+    {
+     "name": "Brouwerij Lane",
+     "address": "78 Greenpoint Ave., Brooklyn, NY 11222",
+     "qloo": "Brouwerij Lane"
+    },
+    {
+     "name": "Campbells Cheese & Grocer",
+     "address": "502 Lorimer St., Brooklyn, NY 11211",
+     "qloo": ""
+    },
+    {
+     "name": "Doris",
+     "address": "1088 Fulton St, Brooklyn, NY 11238",
+     "qloo": "Doris"
+    },
+    {
+     "name": "Dumbo Market",
+     "address": "66 Front St, Brooklyn, NY 11201",
+     "qloo": ""
+    },
+    {
+     "name": "Dumbo Market Smith St",
+     "address": "205 Smith St, Brooklyn, NY 11201",
+     "qloo": ""
+    },
+    {
+     "name": "Eastern District",
+     "address": "1053 Manhattan Ave., Brooklyn, NY 11222",
+     "qloo": "Eastern District"
+    },
+    {
+     "name": "Eastern District South",
+     "address": "90 5th Ave, Brooklyn, NY 11217",
+     "qloo": ""
+    },
+    {
+     "name": "El Pinguino",
+     "address": "25 Greenpoint Ave, Brooklyn, NY 11222",
+     "qloo": "El Pingüino"
+    },
+    {
+     "name": "Food Garden Market - 4th Ave",
+     "address": "58 St Marks Pl., Brooklyn, NY 11217",
+     "qloo": ""
+    },
+    {
+     "name": "Fort Defiance",
+     "address": "347 Van Brunt St, Brooklyn, NY 11231",
+     "qloo": ""
+    },
+    {
+     "name": "General Irving",
+     "address": "1210 Halsey St, Brooklyn, NY, 11207",
+     "qloo": ""
+    },
+    {
+     "name": "Glasserie",
+     "address": "95 Commercial St, Brooklyn, NY 11222",
+     "qloo": "Glasserie"
+    },
+    {
+     "name": "Greene Grape",
+     "address": "767 Fulton St, Brooklyn, NY 11217",
+     "qloo": ""
+    },
+    {
+     "name": "Key Food Fulton",
+     "address": "991 Fulton St, Brooklyn, NY 11238",
+     "qloo": ""
+    },
+    {
+     "name": "Margot Restaurant",
+     "address": "69 Lafayette Ave, Brooklyn, NY 11205",
+     "qloo": ""
+    },
+    {
+     "name": "Maxwell Gift & Grocery",
+     "address": "406 Marcus Garvey Boulevard, Brooklyn, NY, 11216",
+     "qloo": ""
+    },
+    {
+     "name": "Maxwell Gift and Grocery",
+     "address": "406 Marcus Garvey Blvd., Brooklyn, NY, 11216",
+     "qloo": ""
+    },
+    {
+     "name": "Minus Moonshine",
+     "address": "433 Sterling Pl, Brooklyn, NY 11523",
+     "qloo": ""
+    },
+    {
+     "name": "Misipasta",
+     "address": "329 Kent Ave, Brooklyn, NY 11249",
+     "qloo": ""
+    },
+    {
+     "name": "Rita & Maria",
+     "address": "558 Halsey Street, Brooklyn, NY 11233",
+     "qloo": ""
+    },
+    {
+     "name": "The Hop Shop",
+     "address": "121 Columbia St., Brooklyn, NY 11231",
+     "qloo": "The Hop Shop"
+    },
+    {
+     "name": "The Meat Hook",
+     "address": "397 Graham Ave, Brooklyn, NY 11211",
+     "qloo": ""
+    },
+    {
+     "name": "Travel Bar",
+     "address": "520 Court St, Brooklyn, NY 11231",
+     "qloo": "Travel Bar"
+    },
+    {
+     "name": "Winner on Franklin",
+     "address": "747 Franklin Ave, Brooklyn, NY 11215",
+     "qloo": ""
+    },
+    {
+     "name": "Yough",
+     "address": "203 Knickerbocker Ave, Brooklyn, NY 11237",
+     "qloo": ""
+    }
+   ],
+   "top10": {
+    "Q-fit": [
+     "The Four Horsemen",
+     "Nightmoves",
+     "Maison Premiere",
+     "The Hoxton, Williamsburg",
+     "La Vara",
+     "Vinegar Hill House",
+     "Chez Ma Tante",
+     "Colonia Verde",
+     "F&F Restaurant and Bar",
+     "Glasserie"
+    ],
+    "Q-raw": [
+     "Me and Paul’s",
+     "Glasserie",
+     "Court Street Grocers",
+     "Have & Meyer",
+     "The Hoxton, Williamsburg",
+     "The Four Horsemen",
+     "Vinegar Hill House",
+     "Chez Ma Tante",
+     "Colonia Verde",
+     "Elsa"
+    ],
+    "POP": [
+     "House of Yes",
+     "Baby's All Right",
+     "Wythe Hotel",
+     "Roberta's",
+     "Kings Plaza Shopping Center",
+     "Five Leaves",
+     "The Bell House",
+     "Royal Palms Shuffleboard Club Brooklyn",
+     "Maison Premiere",
+     "Cecconi's DUMBO"
+    ],
+    "LLM": [
+     "Lilia",
+     "Ammazzacaffè",
+     "Hanson Dry",
+     "Whole Foods Market",
+     "Public Records",
+     "Sottocasa",
+     "Frankies 457 Spuntino",
+     "The Four Horsemen",
+     "Maison Premiere",
+     "Aita"
+    ],
+    "Q-fit+LLM": [
+     "The Four Horsemen",
+     "Maison Premiere",
+     "Lilia",
+     "Ammazzacaffè",
+     "Wythe Hotel",
+     "June",
+     "The Hoxton, Williamsburg",
+     "Hotel Delmano",
+     "Aita",
+     "Cecconi's DUMBO"
+    ]
+   }
+  }
+ ]
+}

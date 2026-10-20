@@ -1,0 +1,7625 @@
+[
+ {
+  "id": "002AB674-5832-4711-B7A7-CA4ED6BFA9F2",
+  "name": "Merv’s Bar",
+  "type": "bar",
+  "neighborhood": "Bushwick",
+  "stockist": false
+ },
+ {
+  "id": "00CBD9F6-8A13-443B-96D7-97600B6B079B",
+  "name": "IHOP",
+  "type": "restaurant",
+  "neighborhood": "Downtown Brooklyn",
+  "stockist": false
+ },
+ {
+  "id": "00E60489-A9C4-4E39-A30F-3B141CE8C247",
+  "name": "Foodtown of Bushwick",
+  "type": "deli",
+  "neighborhood": "Bushwick",
+  "stockist": false
+ },
+ {
+  "id": "01198D19-38BB-40C3-B775-A7B698F52DE7",
+  "name": "Bar Americano",
+  "type": "bar",
+  "neighborhood": "Greenpoint",
+  "stockist": false
+ },
+ {
+  "id": "0125BC3B-CF9D-44B5-AEB4-61C4C180112F",
+  "name": "ICHIRAN Brooklyn",
+  "type": "restaurant",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "01357A7C-56C3-4659-B181-477B6307D029",
+  "name": "Tacombi",
+  "type": "restaurant",
+  "neighborhood": "Fort Greene",
+  "stockist": false
+ },
+ {
+  "id": "01518839-48FD-4E17-AC0D-F290C6321DF4",
+  "name": "Skyline Billiards & Bar",
+  "type": "bar",
+  "neighborhood": "Gravesend",
+  "stockist": false
+ },
+ {
+  "id": "015B4A1C-9E2E-4C7D-8200-D6612B06994E",
+  "name": "Radio Star",
+  "type": "bar",
+  "neighborhood": "Greenpoint",
+  "stockist": false
+ },
+ {
+  "id": "0183B4CB-F1C1-47E6-9579-FA12943BC829",
+  "name": "Allswell",
+  "type": "restaurant",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "0232D1F5-09D9-4433-9C18-66FA4219ADDB",
+  "name": "Lucky 13 Saloon",
+  "type": "bar",
+  "neighborhood": "Gowanus",
+  "stockist": false
+ },
+ {
+  "id": "027231BB-ABEE-44B9-BCE9-1131AA355D82",
+  "name": "Leland Eating and Drinking House",
+  "type": "bar",
+  "neighborhood": "Prospect Heights",
+  "stockist": false
+ },
+ {
+  "id": "029DCDA6-1B5B-4FE7-B3F8-2758BA294BEF",
+  "name": "La Flor De Atlixco II Deli & Grocery",
+  "type": "deli",
+  "neighborhood": "Midwood",
+  "stockist": false
+ },
+ {
+  "id": "02A194B4-2C23-4810-8643-6269174735F4",
+  "name": "Wendy's",
+  "type": "restaurant",
+  "neighborhood": "East New York",
+  "stockist": false
+ },
+ {
+  "id": "02A26F80-95E7-4FDB-B445-6946B0B7DF2A",
+  "name": "The Cobra Club",
+  "type": "bar",
+  "neighborhood": "Bushwick",
+  "stockist": false
+ },
+ {
+  "id": "02F4FE22-7C7F-4A58-89D4-89A81C38E489",
+  "name": "Farmer in the Deli",
+  "type": "deli",
+  "neighborhood": "Fort Greene",
+  "stockist": false
+ },
+ {
+  "id": "0359F050-97C3-4918-A28B-747435FDFC0E",
+  "name": "Mazzat",
+  "type": "bar",
+  "neighborhood": "Columbia Street Waterfront District",
+  "stockist": false
+ },
+ {
+  "id": "038D8AC8-F51F-4A0B-AE1C-16C6C5DCBB44",
+  "name": "Gold Sounds Bar",
+  "type": "restaurant",
+  "neighborhood": "Bushwick",
+  "stockist": false
+ },
+ {
+  "id": "040667AF-003F-4C24-8D37-88538B766563",
+  "name": "Terrace Restaurant & Bakery",
+  "type": "bar",
+  "neighborhood": "Park Slope",
+  "stockist": false
+ },
+ {
+  "id": "046B07D8-DEB2-45EF-A1D9-B4D1886B33D0",
+  "name": "McDonald's",
+  "type": "restaurant",
+  "neighborhood": "Park Slope",
+  "stockist": false
+ },
+ {
+  "id": "0499B3C2-A5C0-482C-BAF5-F00339B225FE",
+  "name": "McDonald's",
+  "type": "restaurant",
+  "neighborhood": "Greenpoint",
+  "stockist": false
+ },
+ {
+  "id": "04E62397-D101-462E-83C6-1B7EDAF4CD35",
+  "name": "Popeyes Louisiana Kitchen",
+  "type": "restaurant",
+  "neighborhood": "Cypress Hills",
+  "stockist": false
+ },
+ {
+  "id": "0530414E-D8BF-4B93-8135-56EF68132A36",
+  "name": "World Famous Deli",
+  "type": "deli",
+  "neighborhood": "Prospect Heights",
+  "stockist": false
+ },
+ {
+  "id": "0542689A-9787-49B3-B5D3-A5ADB826A570",
+  "name": "Shelsky's Brooklyn Bagels",
+  "type": "deli",
+  "neighborhood": "",
+  "stockist": false
+ },
+ {
+  "id": "05536B37-241D-4DFC-A414-B1B81B031F69",
+  "name": "Xiang Hotpot-Brooklyn",
+  "type": "restaurant",
+  "neighborhood": "Borough Park",
+  "stockist": false
+ },
+ {
+  "id": "055ECC61-6213-473B-8A08-9AD97A6F6D10",
+  "name": "Whole Foods Market",
+  "type": "deli",
+  "neighborhood": "Gowanus",
+  "stockist": false
+ },
+ {
+  "id": "05726820-E2ED-4726-9B98-FF98E49FD568",
+  "name": "Fulton Ale House",
+  "type": "bar",
+  "neighborhood": "Bedford-Stuyvesant",
+  "stockist": false
+ },
+ {
+  "id": "05BED3AE-275E-417E-9275-81D187689779",
+  "name": "One Stop Deli and Grill",
+  "type": "deli",
+  "neighborhood": "Greenwood Heights",
+  "stockist": false
+ },
+ {
+  "id": "05C043B7-D03E-4389-B4DA-0767B42D5ED1",
+  "name": "Brooklyn's Natural Deli",
+  "type": "deli",
+  "neighborhood": "Flatbush",
+  "stockist": false
+ },
+ {
+  "id": "05C65DE7-96B9-45EF-8E3B-27C387DF4862",
+  "name": "LORE",
+  "type": "restaurant",
+  "neighborhood": "",
+  "stockist": false
+ },
+ {
+  "id": "05E39560-046C-4F9B-B7C1-11D46EFB1728",
+  "name": "Ruby's Bar & Grill",
+  "type": "bar",
+  "neighborhood": "Brighton Beach",
+  "stockist": false
+ },
+ {
+  "id": "05F03D0F-E3A2-484B-963B-B643CF1469BE",
+  "name": "Roti on the Run",
+  "type": "restaurant",
+  "neighborhood": "Cypress Hills",
+  "stockist": false
+ },
+ {
+  "id": "06102663-2C6D-4ACA-85B5-11A0B751D6DF",
+  "name": "Bareburger",
+  "type": "bar",
+  "neighborhood": "",
+  "stockist": false
+ },
+ {
+  "id": "065530EE-484B-47D9-A2AD-8FB597E7DF5A",
+  "name": "Chez Ma Tante",
+  "type": "restaurant",
+  "neighborhood": "Greenpoint",
+  "stockist": false
+ },
+ {
+  "id": "068CC0A1-859F-403F-9B60-D91B2BCAC006",
+  "name": "New Carrizal Restaurant",
+  "type": "bar",
+  "neighborhood": "Bedford-Stuyvesant",
+  "stockist": false
+ },
+ {
+  "id": "06CFDE2E-E4D1-4F87-8DA0-91EECFE7FB46",
+  "name": "ALPHAVILLE",
+  "type": "bar",
+  "neighborhood": "Bushwick",
+  "stockist": false
+ },
+ {
+  "id": "06D2A7F3-1AEC-476A-89C4-9397B87A14CC",
+  "name": "Crown Heights Mozzarella",
+  "type": "restaurant",
+  "neighborhood": "Crown Heights",
+  "stockist": false
+ },
+ {
+  "id": "07C5E04A-66D0-4C40-B0DB-1B24BA009441",
+  "name": "The Market Place - Crown Heights",
+  "type": "deli",
+  "neighborhood": "",
+  "stockist": false
+ },
+ {
+  "id": "07D3D487-4240-4891-BA82-7510C3055686",
+  "name": "Popeyes Louisiana Kitchen",
+  "type": "restaurant",
+  "neighborhood": "Sunset Park",
+  "stockist": false
+ },
+ {
+  "id": "07E16415-2DB6-44FE-A7FC-53B602F3BFA8",
+  "name": "Indian Kitchen",
+  "type": "restaurant",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "08191977-F877-48D3-99A7-E9887A7AC715",
+  "name": "IHOP",
+  "type": "restaurant",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "082C1F9D-F0A4-48AE-A397-E8C8363C1A90",
+  "name": "Hardee on Utica",
+  "type": "restaurant",
+  "neighborhood": "Crown Heights",
+  "stockist": false
+ },
+ {
+  "id": "083F1272-0089-4EA0-B1C1-FB2FED8D0C23",
+  "name": "Beyti Turkish Kebab",
+  "type": "restaurant",
+  "neighborhood": "Brighton Beach",
+  "stockist": false
+ },
+ {
+  "id": "08AF41DB-D0AA-4A98-8078-AFB21BB735F2",
+  "name": "Tete-a-Tete",
+  "type": "bar",
+  "neighborhood": "Sheepshead Bay",
+  "stockist": false
+ },
+ {
+  "id": "08D64FA9-C16F-4189-AD15-D0BAD7417253",
+  "name": "McDonald's",
+  "type": "restaurant",
+  "neighborhood": "Flatlands",
+  "stockist": false
+ },
+ {
+  "id": "09113180-0CB8-4945-A654-076988F723EB",
+  "name": "TBA Brooklyn",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "09370644-8D62-45FE-A904-7AFD5B9E8BE9",
+  "name": "Footprints Cafe",
+  "type": "bar",
+  "neighborhood": "Coney Island",
+  "stockist": false
+ },
+ {
+  "id": "09568B5C-0819-4963-A4D9-5238F9FAE22B",
+  "name": "Lake Street Bar",
+  "type": "bar",
+  "neighborhood": "Greenpoint",
+  "stockist": false
+ },
+ {
+  "id": "0984AA2D-D737-443E-BBED-74896C9E7581",
+  "name": "Gregory Deli",
+  "type": "deli",
+  "neighborhood": "Borough Park",
+  "stockist": false
+ },
+ {
+  "id": "09A5A977-1029-4AD4-82E0-985291304ECC",
+  "name": "Abilene Bar",
+  "type": "bar",
+  "neighborhood": "Carroll Gardens",
+  "stockist": false
+ },
+ {
+  "id": "09BBC1EC-565B-4DB3-A5C7-34FE39BE507E",
+  "name": "Casa Pública",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "09EA5479-B0D6-4D36-A47B-5247D97E37B8",
+  "name": "Very Juice",
+  "type": "restaurant",
+  "neighborhood": "Gravesend",
+  "stockist": false
+ },
+ {
+  "id": "0A02D0A1-0D7A-45CE-BCAB-276D5702BA0B",
+  "name": "Bati Ethiopian Kitchen",
+  "type": "bar",
+  "neighborhood": "Clinton Hill",
+  "stockist": false
+ },
+ {
+  "id": "0A51201E-043E-49C3-ACBB-19D947037342",
+  "name": "Roebling Sporting Club",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "0A7A38CF-8A0F-4702-B34B-1616080EA274",
+  "name": "Tooker Alley",
+  "type": "bar",
+  "neighborhood": "Crown Heights",
+  "stockist": false
+ },
+ {
+  "id": "0A83881D-7A1C-4A98-9D11-53A3E341A2AA",
+  "name": "Carro Cafe",
+  "type": "bar",
+  "neighborhood": "Cypress Hills",
+  "stockist": false
+ },
+ {
+  "id": "0A9EB028-2F6B-4660-8CE6-D2AE43203F11",
+  "name": "Circa Brewing Co.",
+  "type": "bar",
+  "neighborhood": "Downtown Brooklyn",
+  "stockist": false
+ },
+ {
+  "id": "0ACFA9B0-19FF-4CB5-944D-F84D6D1F3B78",
+  "name": "El Santo",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "0B451A01-2775-41A4-BBE8-9CE94515503A",
+  "name": "Chimu bistro",
+  "type": "restaurant",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "0B4DA1FD-9D49-477B-97C4-402D3622D4C3",
+  "name": "Home Frite",
+  "type": "restaurant",
+  "neighborhood": "Bedford-Stuyvesant",
+  "stockist": false
+ },
+ {
+  "id": "0B961F2B-3BDF-4122-9E19-0D702C75FF86",
+  "name": "Delia's Lounge & Restaurant",
+  "type": "bar",
+  "neighborhood": "Fort Hamilton",
+  "stockist": false
+ },
+ {
+  "id": "0BC0BF8A-EE66-4804-9654-FE7C2ACB58F7",
+  "name": "TØRST",
+  "type": "bar",
+  "neighborhood": "Greenpoint",
+  "stockist": false
+ },
+ {
+  "id": "0C10A85D-C7FA-4744-A760-EA467AD5A80E",
+  "name": "Halsey Bar & Grill",
+  "type": "bar",
+  "neighborhood": "Flatlands",
+  "stockist": false
+ },
+ {
+  "id": "0C4AB119-9BE6-4A47-8191-1A42579B8ED5",
+  "name": "The Armory",
+  "type": "bar",
+  "neighborhood": "Park Slope",
+  "stockist": false
+ },
+ {
+  "id": "0C5C2662-924B-4E99-AD84-9CE9170D67CE",
+  "name": "QDOBA Mexican Eats",
+  "type": "restaurant",
+  "neighborhood": "Bushwick",
+  "stockist": false
+ },
+ {
+  "id": "0C8346DC-4305-405D-8AF8-219B59B34F48",
+  "name": "Broken Land",
+  "type": "bar",
+  "neighborhood": "Greenpoint",
+  "stockist": false
+ },
+ {
+  "id": "0C8D383D-AB46-45CB-8634-95FE48510997",
+  "name": "Footprints Cafe Express",
+  "type": "bar",
+  "neighborhood": "Flatbush",
+  "stockist": false
+ },
+ {
+  "id": "0CB67162-EB9A-4B9F-8644-E52007976C70",
+  "name": "Natural Valley Market",
+  "type": "deli",
+  "neighborhood": "Bedford-Stuyvesant",
+  "stockist": false
+ },
+ {
+  "id": "0CCFA0EF-0011-4091-9418-7A3CCB5FC4F5",
+  "name": "MIRAGE MINGLE BAR &MUSIC VENUE",
+  "type": "bar",
+  "neighborhood": "Bedford-Stuyvesant",
+  "stockist": false
+ },
+ {
+  "id": "0D559711-5964-4ADA-986B-4AE1882CE3E5",
+  "name": "Satmar Meat",
+  "type": "deli",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "0DA17817-2603-4D75-8603-E6BB137ABE48",
+  "name": "Noodle Pudding",
+  "type": "restaurant",
+  "neighborhood": "",
+  "stockist": false
+ },
+ {
+  "id": "0DFF5B1F-CA3C-4915-B133-3F68C150A95F",
+  "name": "God Bless USA Deli",
+  "type": "deli",
+  "neighborhood": "Greenpoint",
+  "stockist": false
+ },
+ {
+  "id": "0E0B02DC-7F87-4FC5-A74C-E0AA264B2493",
+  "name": "Cafe Erzulie",
+  "type": "bar",
+  "neighborhood": "Bedford-Stuyvesant",
+  "stockist": false
+ },
+ {
+  "id": "0E243335-7323-486A-8AA8-88E94829B17A",
+  "name": "Caton Deli & Luncheonette",
+  "type": "deli",
+  "neighborhood": "Flatbush",
+  "stockist": false
+ },
+ {
+  "id": "0E43F4A3-F9B5-4BDD-979A-49CD3A652044",
+  "name": "Have A Bagel on Havemeyer",
+  "type": "deli",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "0E8B88A2-3DBE-4886-B57C-E97F9755CFCD",
+  "name": "Smart Deli",
+  "type": "deli",
+  "neighborhood": "Bedford-Stuyvesant",
+  "stockist": false
+ },
+ {
+  "id": "0E8DE9C6-ACF3-405D-BEDE-C10E9E53BE8B",
+  "name": "Benchmark Restaurant",
+  "type": "restaurant",
+  "neighborhood": "Park Slope",
+  "stockist": false
+ },
+ {
+  "id": "0ECD21ED-E39F-43DA-9C31-E9C5109969F0",
+  "name": "McDonald's",
+  "type": "restaurant",
+  "neighborhood": "Cypress Hills",
+  "stockist": false
+ },
+ {
+  "id": "0EEAE658-21E7-4F52-9D71-E1735B581E46",
+  "name": "Udom Thai",
+  "type": "bar",
+  "neighborhood": "Crown Heights",
+  "stockist": false
+ },
+ {
+  "id": "0F486D55-115D-4CCF-A5A2-55E766E6CB47",
+  "name": "The Brazen Head",
+  "type": "bar",
+  "neighborhood": "",
+  "stockist": false
+ },
+ {
+  "id": "0F550E63-DF91-4505-814F-2F737BF21909",
+  "name": "Leuca",
+  "type": "restaurant",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "0F62458D-801D-4C16-B957-B394D23EB514",
+  "name": "Ammazzacaffè",
+  "type": "restaurant",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "0F648B4A-EF21-41FE-9FFD-7EA8EFA5E89B",
+  "name": "Zombie Hut",
+  "type": "bar",
+  "neighborhood": "Carroll Gardens",
+  "stockist": false
+ },
+ {
+  "id": "0FB78339-CAB2-41DC-95F3-0904A8D9B41A",
+  "name": "Artichoke Basille's Pizza",
+  "type": "restaurant",
+  "neighborhood": "Park Slope",
+  "stockist": false
+ },
+ {
+  "id": "101B6B77-5DA4-45F8-89AB-DAECE5D1662D",
+  "name": "Antidote",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "10641137-FCA2-453E-9978-A4F7B2636083",
+  "name": "The Brooklyn Firefly",
+  "type": "bar",
+  "neighborhood": "Bay Ridge",
+  "stockist": false
+ },
+ {
+  "id": "1088B766-2EEE-46D8-8D1D-EC0D0A91C077",
+  "name": "331 Quincy Market corp",
+  "type": "deli",
+  "neighborhood": "Bedford-Stuyvesant",
+  "stockist": false
+ },
+ {
+  "id": "109A3430-8CC4-4C4B-82BA-1D7C3BA1BC37",
+  "name": "Five Leaves",
+  "type": "restaurant",
+  "neighborhood": "Greenpoint",
+  "stockist": false
+ },
+ {
+  "id": "10AA81E0-FB46-479D-8ECE-71E1C923FA08",
+  "name": "333 Lounge & Restaurant",
+  "type": "restaurant",
+  "neighborhood": "Prospect Heights",
+  "stockist": false
+ },
+ {
+  "id": "10DEADB7-2167-4B41-88CC-09276E144874",
+  "name": "Wild East Brewing Co.",
+  "type": "bar",
+  "neighborhood": "Gowanus",
+  "stockist": false
+ },
+ {
+  "id": "10FC4A3C-8100-418E-A701-DD14268F9419",
+  "name": "Silver Light Tavern",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "113317AE-2FE8-4E42-8441-6D6DED3E8553",
+  "name": "McCarren Parkhouse",
+  "type": "bar",
+  "neighborhood": "Greenpoint",
+  "stockist": false
+ },
+ {
+  "id": "11573ADD-5896-47CA-8BEC-4EE60F450E52",
+  "name": "Aita",
+  "type": "restaurant",
+  "neighborhood": "Clinton Hill",
+  "stockist": false
+ },
+ {
+  "id": "12022826-0793-4CCC-940D-AB6970E36AD7",
+  "name": "Fourth Avenue Pub",
+  "type": "bar",
+  "neighborhood": "",
+  "stockist": false
+ },
+ {
+  "id": "1310A708-D04B-4A1D-8C30-4856ABDA5923",
+  "name": "de Islands",
+  "type": "restaurant",
+  "neighborhood": "Canarsie",
+  "stockist": false
+ },
+ {
+  "id": "135FA0E2-3010-43CC-98FD-0A1A21E280B2",
+  "name": "Marco's",
+  "type": "bar",
+  "neighborhood": "Bushwick",
+  "stockist": false
+ },
+ {
+  "id": "13B34880-073C-4D97-9F6E-4978C4AD3291",
+  "name": "McDonald's",
+  "type": "restaurant",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "13DEAC73-E9CB-4281-B4E4-B79E83DB10A3",
+  "name": "Suede",
+  "type": "bar",
+  "neighborhood": "East Flatbush",
+  "stockist": false
+ },
+ {
+  "id": "13FDABBB-F1CE-4F3D-A03B-E21711A29AB1",
+  "name": "McDonald's",
+  "type": "restaurant",
+  "neighborhood": "Bushwick",
+  "stockist": false
+ },
+ {
+  "id": "1481B9CB-CC5B-44F5-B8F6-FA3CF1B8F291",
+  "name": "Kick Axe Throwing BROOKLYN",
+  "type": "bar",
+  "neighborhood": "Gowanus",
+  "stockist": false
+ },
+ {
+  "id": "14AFAF03-1DE3-4735-810D-04CC8147B6D7",
+  "name": "Salt & Sizzle",
+  "type": "restaurant",
+  "neighborhood": "Coney Island",
+  "stockist": false
+ },
+ {
+  "id": "14B0678C-890B-4EB6-9BC8-64C8112EDECB",
+  "name": "Reina de la Nube",
+  "type": "restaurant",
+  "neighborhood": "Greenwood Heights",
+  "stockist": false
+ },
+ {
+  "id": "14E21998-5A94-4B97-A4F1-0F0EC3AE2980",
+  "name": "Classon Avenue Grocery & Deli",
+  "type": "deli",
+  "neighborhood": "Clinton Hill",
+  "stockist": false
+ },
+ {
+  "id": "14EA9AB7-353C-4991-8D8E-EA41E3279015",
+  "name": "L Mos Market",
+  "type": "deli",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "15106D98-7EE5-494E-8F2F-C9AE2A391666",
+  "name": "Cafe Renaissance",
+  "type": "restaurant",
+  "neighborhood": "Sheepshead Bay",
+  "stockist": false
+ },
+ {
+  "id": "1530C8E6-D9A9-461A-B84C-CB606FDBB964",
+  "name": "duckduck",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "163C5F76-F28D-4AF2-BDF7-65AD77A9ECB6",
+  "name": "Memories Cafe",
+  "type": "bar",
+  "neighborhood": "Gravesend",
+  "stockist": false
+ },
+ {
+  "id": "1668A566-9C33-42FE-A58C-A951F14A8357",
+  "name": "Shenanigan's Pub",
+  "type": "bar",
+  "neighborhood": "",
+  "stockist": false
+ },
+ {
+  "id": "167E8BE8-4E5F-44CE-BB54-7AC07F9DE3A5",
+  "name": "Shake Shack Flatbush Ave (Barclays Center)",
+  "type": "restaurant",
+  "neighborhood": "Park Slope",
+  "stockist": false
+ },
+ {
+  "id": "16ACAA1B-CAA8-4B5C-BAF4-B3241729A1E8",
+  "name": "Los Paisanos Deli De La 4ta Avenida",
+  "type": "deli",
+  "neighborhood": "Sunset Park",
+  "stockist": false
+ },
+ {
+  "id": "16B0AB65-A632-458F-87D5-E7A9E3E83F60",
+  "name": "Pennsylvania Deli",
+  "type": "deli",
+  "neighborhood": "East New York",
+  "stockist": false
+ },
+ {
+  "id": "16EB7492-E34D-4351-AA5E-3AC22F326F3D",
+  "name": "McDonald's",
+  "type": "restaurant",
+  "neighborhood": "East Flatbush",
+  "stockist": false
+ },
+ {
+  "id": "1728F7AE-403D-4E73-BAE1-7319B2E7913B",
+  "name": "McDonald's",
+  "type": "restaurant",
+  "neighborhood": "East New York",
+  "stockist": false
+ },
+ {
+  "id": "1774D42C-0DDE-4DD5-A4DD-BD952CD013DA",
+  "name": "Tuffet",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "178EED8A-2872-4167-A4D9-09659CF6BA9C",
+  "name": "MyMoon",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "183C19F3-0530-42E2-A8DD-34B51BD9B94A",
+  "name": "Ocean's 8 Billiards",
+  "type": "bar",
+  "neighborhood": "Park Slope",
+  "stockist": false
+ },
+ {
+  "id": "185BE8A0-C8A8-492E-BD72-03062B5707B6",
+  "name": "Japan Village",
+  "type": "bar",
+  "neighborhood": "Greenwood Heights",
+  "stockist": false
+ },
+ {
+  "id": "18A83238-5EA6-46D9-8AB3-789A0B8AC2C0",
+  "name": "Keybar",
+  "type": "bar",
+  "neighborhood": "Bushwick",
+  "stockist": false
+ },
+ {
+  "id": "18DA50D3-705F-4F32-8BA5-97B02E8D986A",
+  "name": "McDonald's",
+  "type": "restaurant",
+  "neighborhood": "",
+  "stockist": false
+ },
+ {
+  "id": "18EE0F7C-EE4A-4848-AAB5-1DC1F29FA280",
+  "name": "Brooklyn Burgers & Beer",
+  "type": "bar",
+  "neighborhood": "Park Slope",
+  "stockist": false
+ },
+ {
+  "id": "18F57A8C-0467-4242-8952-A0CD41FBFEAE",
+  "name": "El Jarochito",
+  "type": "deli",
+  "neighborhood": "Brighton Beach",
+  "stockist": false
+ },
+ {
+  "id": "1983A31A-B5C2-4752-ABFF-AE91D026A396",
+  "name": "Puerto Viejo",
+  "type": "restaurant",
+  "neighborhood": "Crown Heights",
+  "stockist": false
+ },
+ {
+  "id": "19E688C3-2CED-48E3-AB0B-6597177108F9",
+  "name": "Little Mo",
+  "type": "restaurant",
+  "neighborhood": "Bushwick",
+  "stockist": false
+ },
+ {
+  "id": "19F0CD71-96F3-469D-BABC-C29F10567137",
+  "name": "La Cantine",
+  "type": "restaurant",
+  "neighborhood": "Bushwick",
+  "stockist": false
+ },
+ {
+  "id": "1B34F43A-4B22-423A-B2E5-02C2619D1641",
+  "name": "Belli Ristorante & Bar",
+  "type": "bar",
+  "neighborhood": "Clinton Hill",
+  "stockist": false
+ },
+ {
+  "id": "1BA89B54-1E7B-41E0-9F59-F59057E7F1DA",
+  "name": "June",
+  "type": "restaurant",
+  "neighborhood": "Carroll Gardens",
+  "stockist": false
+ },
+ {
+  "id": "1BBA1360-4ECE-4BF6-8872-FDC1916CAB39",
+  "name": "Foodtown of Crown Heights",
+  "type": "deli",
+  "neighborhood": "Crown Heights",
+  "stockist": false
+ },
+ {
+  "id": "1C535271-0C5F-4558-BC99-24026C70DE2F",
+  "name": "Garden Deli and Grill",
+  "type": "deli",
+  "neighborhood": "Bushwick",
+  "stockist": false
+ },
+ {
+  "id": "1D020341-CA3B-4358-85D6-1E053DCC7C93",
+  "name": "OTB",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "1D1DDF81-D689-43FE-942C-02AED2FCC84C",
+  "name": "Peppa's Jerk Chicken",
+  "type": "restaurant",
+  "neighborhood": "Crown Heights",
+  "stockist": false
+ },
+ {
+  "id": "1D23DB15-3530-4291-AE44-02CD809C7211",
+  "name": "BABA on Withers",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "1D3C1F7F-3D0A-46BD-9FF8-505465B62150",
+  "name": "Bake & Things",
+  "type": "restaurant",
+  "neighborhood": "East Flatbush",
+  "stockist": false
+ },
+ {
+  "id": "1D59BA00-DBE2-488C-83A2-66460FB321EB",
+  "name": "Boobie Trap",
+  "type": "bar",
+  "neighborhood": "Bushwick",
+  "stockist": false
+ },
+ {
+  "id": "1D604E40-69FD-4BB3-B74E-327B30F4F667",
+  "name": "Jackbar",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "1D7C9C8C-6E07-48E5-8A08-7AC4141B14DA",
+  "name": "John's Deli and Grocery",
+  "type": "deli",
+  "neighborhood": "Greenpoint",
+  "stockist": false
+ },
+ {
+  "id": "1DC33AA5-A750-478B-A247-43D11CA841EF",
+  "name": "Pokito",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "1DD8F70F-DB5D-4F2A-90B2-46339E34E9A7",
+  "name": "PLG Coffee House and Tavern",
+  "type": "restaurant",
+  "neighborhood": "",
+  "stockist": false
+ },
+ {
+  "id": "1DDD0762-4572-4D42-B3D1-D0B1FB1936A9",
+  "name": "Doris",
+  "type": "bar",
+  "neighborhood": "Bedford-Stuyvesant",
+  "stockist": true
+ },
+ {
+  "id": "1DE9F0CA-6E4C-48AB-9123-8B758333841B",
+  "name": "Kinanm Lounge",
+  "type": "bar",
+  "neighborhood": "Prospect Heights",
+  "stockist": false
+ },
+ {
+  "id": "1E0DA14C-36C7-4C90-8ECE-7DA58AED163E",
+  "name": "Edo",
+  "type": "restaurant",
+  "neighborhood": "Sheepshead Bay",
+  "stockist": false
+ },
+ {
+  "id": "1E1E298C-5AFB-42A2-9F7D-66F924AD332C",
+  "name": "Dar525",
+  "type": "bar",
+  "neighborhood": "Greenpoint",
+  "stockist": false
+ },
+ {
+  "id": "1E92DF34-5450-477E-BA06-E7FEFBEDA00A",
+  "name": "The Monro Pub",
+  "type": "bar",
+  "neighborhood": "",
+  "stockist": false
+ },
+ {
+  "id": "1EB1DDC1-0907-46FC-8D07-DB1BBCD020CA",
+  "name": "Butler",
+  "type": "restaurant",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "1EC6A134-2552-4FE9-8850-5322B9D4A780",
+  "name": "La Tranquilité",
+  "type": "restaurant",
+  "neighborhood": "Canarsie",
+  "stockist": false
+ },
+ {
+  "id": "1F1A3E77-0D46-4E25-A802-357B659F439A",
+  "name": "Wilkens Fine Foods",
+  "type": "deli",
+  "neighborhood": "Bergen Beach",
+  "stockist": false
+ },
+ {
+  "id": "1F1DC2AD-2237-4C94-8062-EDAA3E92440E",
+  "name": "Radegast Hall & Biergarten",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "1F2191F2-D2D0-4A5D-94DC-ED3086A2EB84",
+  "name": "The Crown Inn",
+  "type": "bar",
+  "neighborhood": "Crown Heights",
+  "stockist": false
+ },
+ {
+  "id": "1F4AA532-66D7-4778-B90B-372A74AEF272",
+  "name": "Hollow Nickel",
+  "type": "bar",
+  "neighborhood": "",
+  "stockist": false
+ },
+ {
+  "id": "1F7240B5-51EA-465E-9C5D-B1D135EC1681",
+  "name": "SET Lounge Bar & Billiards",
+  "type": "bar",
+  "neighborhood": "Gravesend",
+  "stockist": false
+ },
+ {
+  "id": "1F990084-86BC-4FFB-828D-05DBF3E0745A",
+  "name": "Omega",
+  "type": "deli",
+  "neighborhood": "Sunset Park",
+  "stockist": false
+ },
+ {
+  "id": "2040D247-4AB4-464E-ADCD-EA96915799AD",
+  "name": "Amami",
+  "type": "restaurant",
+  "neighborhood": "Greenpoint",
+  "stockist": false
+ },
+ {
+  "id": "20F7A486-4904-475E-B462-FDA6D0EA8EF2",
+  "name": "101 Wilson Bar",
+  "type": "bar",
+  "neighborhood": "Bushwick",
+  "stockist": false
+ },
+ {
+  "id": "2114D064-612F-4F6E-8812-B274B864234E",
+  "name": "Royal Palms Shuffleboard Club Brooklyn",
+  "type": "bar",
+  "neighborhood": "Gowanus",
+  "stockist": false
+ },
+ {
+  "id": "214F649E-443F-448B-A750-C3002035FA6B",
+  "name": "Panini La Cafe",
+  "type": "restaurant",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "2151373E-C078-417F-9ED4-C73C392BE11A",
+  "name": "Kings Plaza Shopping Center",
+  "type": "restaurant",
+  "neighborhood": "Mill Basin",
+  "stockist": false
+ },
+ {
+  "id": "21D86C60-760E-4A4A-B1EF-938B1F7BC2B7",
+  "name": "Adam's Deli On The Corner",
+  "type": "deli",
+  "neighborhood": "Gravesend",
+  "stockist": false
+ },
+ {
+  "id": "2203E5C3-0E9E-48F2-8CCF-771D0BF737D5",
+  "name": "Montauk Club",
+  "type": "bar",
+  "neighborhood": "Park Slope",
+  "stockist": false
+ },
+ {
+  "id": "22870328-6223-4A63-B65D-51F7DE876190",
+  "name": "Eve's Lounge",
+  "type": "bar",
+  "neighborhood": "Crown Heights",
+  "stockist": false
+ },
+ {
+  "id": "22A082EB-7316-4C27-827E-459F6F972CF7",
+  "name": "Bijan's",
+  "type": "bar",
+  "neighborhood": "",
+  "stockist": false
+ },
+ {
+  "id": "22CC5991-02B8-4400-BE61-75DAB82DD46B",
+  "name": "Théâtre XIV by Company XIV",
+  "type": "bar",
+  "neighborhood": "Bushwick",
+  "stockist": false
+ },
+ {
+  "id": "22CF5E34-C196-4678-981B-CC4882F3D246",
+  "name": "The Original John's Deli",
+  "type": "restaurant",
+  "neighborhood": "Gravesend",
+  "stockist": false
+ },
+ {
+  "id": "24116284-3AF3-4204-AAB7-A4CA172E162C",
+  "name": "Clemente's Crab House",
+  "type": "restaurant",
+  "neighborhood": "Sheepshead Bay",
+  "stockist": false
+ },
+ {
+  "id": "244824B7-6B2B-485A-831A-F1FE9C50D7ED",
+  "name": "Surf City Pizzeria",
+  "type": "bar",
+  "neighborhood": "Brighton Beach",
+  "stockist": false
+ },
+ {
+  "id": "246E9915-D633-45F9-BBF3-0FFC1B3F6AE8",
+  "name": "The Juicy Box",
+  "type": "bar",
+  "neighborhood": "Flatlands",
+  "stockist": false
+ },
+ {
+  "id": "25046A4F-2E4A-4DC6-8F6B-FA3271C5A37F",
+  "name": "Hinterlands Bar",
+  "type": "bar",
+  "neighborhood": "",
+  "stockist": false
+ },
+ {
+  "id": "251075A7-C477-4FD0-A7FF-3AE6E8C7DD34",
+  "name": "The Brooklyn Star",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "257C19A8-7656-4977-86BF-51FB303AFE54",
+  "name": "Tip-Top Bar & Grill",
+  "type": "bar",
+  "neighborhood": "Bedford-Stuyvesant",
+  "stockist": false
+ },
+ {
+  "id": "2591CC08-5335-49C9-AA6E-A4379290EB09",
+  "name": "Joe's Pizza",
+  "type": "restaurant",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "25925AFF-94B5-4B7C-A53D-244FB5B441A9",
+  "name": "Original Pizza",
+  "type": "restaurant",
+  "neighborhood": "Bergen Beach",
+  "stockist": false
+ },
+ {
+  "id": "259AA17B-6871-4F9B-A9F8-7EB168D0CC49",
+  "name": "Neptune Diner II",
+  "type": "restaurant",
+  "neighborhood": "Crown Heights",
+  "stockist": false
+ },
+ {
+  "id": "25D32E4E-E899-4DD8-A410-96B86C1CB15A",
+  "name": "The Bilt Bar",
+  "type": "bar",
+  "neighborhood": "Prospect Heights",
+  "stockist": false
+ },
+ {
+  "id": "2615948D-7CEC-4673-BADD-879176500C58",
+  "name": "Just Salad",
+  "type": "restaurant",
+  "neighborhood": "Park Slope",
+  "stockist": false
+ },
+ {
+  "id": "262586DA-9838-4D84-9905-12A8DA460427",
+  "name": "Custom House",
+  "type": "bar",
+  "neighborhood": "",
+  "stockist": false
+ },
+ {
+  "id": "263721AA-D0A9-4948-B2E0-D47CFD2997B3",
+  "name": "East Thirty Six Deli",
+  "type": "deli",
+  "neighborhood": "Flatlands",
+  "stockist": false
+ },
+ {
+  "id": "265BFDD4-547F-4576-AB54-52C527B1EBEE",
+  "name": "Breadberry",
+  "type": "deli",
+  "neighborhood": "Borough Park",
+  "stockist": false
+ },
+ {
+  "id": "265D95F4-8793-4482-8706-D230E5E2F92A",
+  "name": "Popeyes Louisiana Kitchen",
+  "type": "restaurant",
+  "neighborhood": "Bedford-Stuyvesant",
+  "stockist": false
+ },
+ {
+  "id": "266A4B20-61F3-4D62-9CE1-B7528CD508A8",
+  "name": "White Castle",
+  "type": "restaurant",
+  "neighborhood": "Bushwick",
+  "stockist": false
+ },
+ {
+  "id": "268DE987-1AB3-4932-885E-A642355E4134",
+  "name": "CCS RAVIOLI OF AVE. N",
+  "type": "deli",
+  "neighborhood": "Flatlands",
+  "stockist": false
+ },
+ {
+  "id": "268EE700-8965-4C60-82E3-C3E82F325417",
+  "name": "México 2000",
+  "type": "restaurant",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "26A9E54D-93EF-454E-8C9F-4408E54B7992",
+  "name": "Boston Market",
+  "type": "restaurant",
+  "neighborhood": "Flatlands",
+  "stockist": false
+ },
+ {
+  "id": "26C27F65-FA43-409D-9B45-6D19F270E690",
+  "name": "Avlee Greek Kitchen",
+  "type": "restaurant",
+  "neighborhood": "Carroll Gardens",
+  "stockist": false
+ },
+ {
+  "id": "26E82348-158F-4053-9C22-9F40263CD309",
+  "name": "Sunrise Deli & Grill",
+  "type": "deli",
+  "neighborhood": "Bushwick",
+  "stockist": false
+ },
+ {
+  "id": "26FB97C2-2B3D-43CA-AC78-59E3604B89FA",
+  "name": "Wendy's",
+  "type": "restaurant",
+  "neighborhood": "",
+  "stockist": false
+ },
+ {
+  "id": "275DBE9B-05E3-4730-85F5-4CD6674AA4CF",
+  "name": "El Rey II",
+  "type": "restaurant",
+  "neighborhood": "Cypress Hills",
+  "stockist": false
+ },
+ {
+  "id": "27725683-4E7B-4F64-B97E-427CDD1DAE87",
+  "name": "Carlo's Grocery",
+  "type": "deli",
+  "neighborhood": "Borough Park",
+  "stockist": false
+ },
+ {
+  "id": "27944BCD-F64F-4F72-99FF-F79AE63FA17B",
+  "name": "Wendy's",
+  "type": "restaurant",
+  "neighborhood": "Gravesend",
+  "stockist": false
+ },
+ {
+  "id": "2807AB63-6DA8-4383-B196-B20832F46028",
+  "name": "The Water Tower Bar",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "2814B3A6-5BC1-419C-A2DF-FB4F86BE0B58",
+  "name": "Table 87",
+  "type": "bar",
+  "neighborhood": "Gowanus",
+  "stockist": false
+ },
+ {
+  "id": "2822E0D7-70AF-4FF2-89E8-01C43BC6AE73",
+  "name": "New Ruan's Restaurant",
+  "type": "bar",
+  "neighborhood": "Bensonhurst",
+  "stockist": false
+ },
+ {
+  "id": "2951A4C3-19F8-4943-B358-4770BB7C23DA",
+  "name": "Hart's",
+  "type": "restaurant",
+  "neighborhood": "Bedford-Stuyvesant",
+  "stockist": false
+ },
+ {
+  "id": "29590363-CAC3-4532-98A5-57D195D8C189",
+  "name": "Grandchamps",
+  "type": "restaurant",
+  "neighborhood": "Bedford-Stuyvesant",
+  "stockist": false
+ },
+ {
+  "id": "29D93073-C7AF-44BB-8E26-471EE9FAE89E",
+  "name": "The Whiskey on Grand",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "2A009895-A120-45CA-A837-C00855FA43DF",
+  "name": "Emblem",
+  "type": "restaurant",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "2A20CCB8-BC29-485A-BEAD-937D677E0672",
+  "name": "No pork halal kitchen",
+  "type": "restaurant",
+  "neighborhood": "",
+  "stockist": false
+ },
+ {
+  "id": "2A3493E1-D34E-4E89-9D88-2857B59F813D",
+  "name": "CorTHAIyou.",
+  "type": "restaurant",
+  "neighborhood": "Flatbush",
+  "stockist": false
+ },
+ {
+  "id": "2AE867F3-4D0E-4041-881D-18D3CE2BF42E",
+  "name": "Giando on the Water",
+  "type": "restaurant",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "2AEE28E0-FFF9-410D-A6A8-CF36A7D73444",
+  "name": "Bushwick Country Club",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "2AFEA72A-C97D-4ADE-AACA-99DAEE603BA6",
+  "name": "Park Way Meats",
+  "type": "deli",
+  "neighborhood": "Crown Heights",
+  "stockist": false
+ },
+ {
+  "id": "2B3AA2F4-11A2-4091-9F33-C9A8550A3774",
+  "name": "POLYGON BROOKLYN",
+  "type": "restaurant",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "2B507C06-73EC-4181-B268-1DFBEA05B8D4",
+  "name": "For All Things Good",
+  "type": "bar",
+  "neighborhood": "Bedford-Stuyvesant",
+  "stockist": false
+ },
+ {
+  "id": "2B7C4B03-BD27-421A-847A-E8209C0CB598",
+  "name": "El Pingüino",
+  "type": "bar",
+  "neighborhood": "Greenpoint",
+  "stockist": true
+ },
+ {
+  "id": "2B9C677B-0CAD-4E22-8AFB-3A37EEFF1406",
+  "name": "Washington Commons",
+  "type": "bar",
+  "neighborhood": "Prospect Heights",
+  "stockist": false
+ },
+ {
+  "id": "2BE8FB7C-9F95-4A2C-A3E5-BE2B69CB74EA",
+  "name": "3 Dollar Bill",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "2C496D10-A3A6-4F57-86DA-DEB3AE0914DE",
+  "name": "Fushimi",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "2C52DA2B-05C9-474C-ABD2-C574234505A9",
+  "name": "Applebee's Grill + Bar",
+  "type": "restaurant",
+  "neighborhood": "East New York",
+  "stockist": false
+ },
+ {
+  "id": "2D1482A8-121F-4399-A274-7CBF00EBC138",
+  "name": "El Viejo Yayo 2",
+  "type": "restaurant",
+  "neighborhood": "Park Slope",
+  "stockist": false
+ },
+ {
+  "id": "2D3DA24E-8EB9-42AA-BABA-BE424C7C64EC",
+  "name": "Star Lite Deli Corporation",
+  "type": "deli",
+  "neighborhood": "East New York",
+  "stockist": false
+ },
+ {
+  "id": "2D40C358-D3E8-4AF5-91C5-504D568A4E40",
+  "name": "McDonald's",
+  "type": "restaurant",
+  "neighborhood": "East New York",
+  "stockist": false
+ },
+ {
+  "id": "2D4A4383-3C2E-4D31-A7A4-018340CFA745",
+  "name": "Ginger's Bar",
+  "type": "bar",
+  "neighborhood": "Park Slope",
+  "stockist": false
+ },
+ {
+  "id": "2D80EA8D-7A5C-48AA-92FB-B27DB8F31400",
+  "name": "Whole Foods Market",
+  "type": "deli",
+  "neighborhood": "Fort Greene",
+  "stockist": false
+ },
+ {
+  "id": "2DC0E616-1A4E-41E9-ADDD-9EEA48498D6A",
+  "name": "Pollo Campero",
+  "type": "restaurant",
+  "neighborhood": "Sunset Park",
+  "stockist": false
+ },
+ {
+  "id": "2E47BC29-2D91-4A5D-8FF4-0FDE6B7D0EE1",
+  "name": "Our Wicked Lady",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "2E695B31-00F3-44BD-8FB9-56584D7D0984",
+  "name": "Albany Food Corporation",
+  "type": "deli",
+  "neighborhood": "Crown Heights",
+  "stockist": false
+ },
+ {
+  "id": "2EB0FF4B-37A5-40AD-A194-A531BEB9F146",
+  "name": "Food U Desire",
+  "type": "deli",
+  "neighborhood": "Carroll Gardens",
+  "stockist": false
+ },
+ {
+  "id": "2ECDE1FF-FBD7-4B19-AF14-8A94F0AF34AD",
+  "name": "Iona",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "2EF722A9-0E22-4D91-A3D9-C433EFD26725",
+  "name": "McDonald's",
+  "type": "restaurant",
+  "neighborhood": "Gravesend",
+  "stockist": false
+ },
+ {
+  "id": "2F02D4BA-D33B-42E9-8934-3DAA71735B03",
+  "name": "Frankel's Delicatessen & Appetizing",
+  "type": "deli",
+  "neighborhood": "Greenpoint",
+  "stockist": false
+ },
+ {
+  "id": "2F3DE392-7200-4957-8DA4-5298CC98D72E",
+  "name": "Caribbean Social Club",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "2FC2D291-421D-4732-94E8-572166A984C6",
+  "name": "Littlefield",
+  "type": "bar",
+  "neighborhood": "Gowanus",
+  "stockist": false
+ },
+ {
+  "id": "2FF40DB8-46DF-4809-95FF-E7609365BA73",
+  "name": "Avenue H Deli",
+  "type": "deli",
+  "neighborhood": "Flatlands",
+  "stockist": false
+ },
+ {
+  "id": "302713E6-2563-46DE-A3C0-48BB8B0EB5A8",
+  "name": "Brooklyn Roots Italian",
+  "type": "restaurant",
+  "neighborhood": "Fort Hamilton",
+  "stockist": false
+ },
+ {
+  "id": "3098D298-812B-4974-BF38-AF9112A770FB",
+  "name": "Roberta's",
+  "type": "restaurant",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "30A720E9-5124-49E9-9C7D-B0A53E9C1070",
+  "name": "French Louie",
+  "type": "bar",
+  "neighborhood": "",
+  "stockist": false
+ },
+ {
+  "id": "31161B46-D472-49A8-8CF8-E8B2BC35A363",
+  "name": "Jimmy's Deli & Grill",
+  "type": "deli",
+  "neighborhood": "Borough Park",
+  "stockist": false
+ },
+ {
+  "id": "31350B6C-C8BF-4603-911C-CBF38B2C8490",
+  "name": "Windy City Ale House",
+  "type": "restaurant",
+  "neighborhood": "Bay Ridge",
+  "stockist": false
+ },
+ {
+  "id": "319263B9-4AB3-405B-B14F-AAA3A1A90B00",
+  "name": "Khaosan",
+  "type": "bar",
+  "neighborhood": "",
+  "stockist": false
+ },
+ {
+  "id": "31AFB6C6-9221-43F6-8102-D2BECE213B12",
+  "name": "East Harbor Seafood Palace",
+  "type": "restaurant",
+  "neighborhood": "Dyker Heights",
+  "stockist": false
+ },
+ {
+  "id": "3214A37E-6EED-45C2-A3C3-A3EC7698A6B7",
+  "name": "Smashburger",
+  "type": "restaurant",
+  "neighborhood": "East New York",
+  "stockist": false
+ },
+ {
+  "id": "3254D17F-A464-4B0B-84CD-745782B87CE8",
+  "name": "Wendy's",
+  "type": "restaurant",
+  "neighborhood": "Fort Hamilton",
+  "stockist": false
+ },
+ {
+  "id": "329F7D71-608F-4A9A-A921-DABDEAF70E23",
+  "name": "La Bagel Delight at Dumbo",
+  "type": "deli",
+  "neighborhood": "",
+  "stockist": false
+ },
+ {
+  "id": "33162356-5F7F-4B17-9C2F-E0D473E4DC3E",
+  "name": "McDonald's",
+  "type": "restaurant",
+  "neighborhood": "Coney Island",
+  "stockist": false
+ },
+ {
+  "id": "33198F14-D09D-48C8-A7EB-C7A29283CB8F",
+  "name": "Champion Deli & Grocery",
+  "type": "deli",
+  "neighborhood": "",
+  "stockist": false
+ },
+ {
+  "id": "33830B7A-A28C-4D19-B9A9-4A7B488EA7B6",
+  "name": "Mill Basin Deli",
+  "type": "restaurant",
+  "neighborhood": "Flatlands",
+  "stockist": false
+ },
+ {
+  "id": "33AF4814-09E4-47D9-9EFA-0B1730A861F7",
+  "name": "Venus in Furs",
+  "type": "bar",
+  "neighborhood": "Bedford-Stuyvesant",
+  "stockist": false
+ },
+ {
+  "id": "33C948D7-6256-48A6-9BB2-F0E5208E040E",
+  "name": "The Skyline Gourmet",
+  "type": "deli",
+  "neighborhood": "Downtown Brooklyn",
+  "stockist": false
+ },
+ {
+  "id": "33CC7BA0-9688-4C6F-8F0D-3DDDDF22333C",
+  "name": "Burger King",
+  "type": "restaurant",
+  "neighborhood": "Crown Heights",
+  "stockist": false
+ },
+ {
+  "id": "33DD68EF-CFCC-49E1-A660-BCB7335EDBF4",
+  "name": "Pizza Secret",
+  "type": "restaurant",
+  "neighborhood": "Park Slope",
+  "stockist": false
+ },
+ {
+  "id": "3409DD85-EF53-493A-899B-50CDA4E07E25",
+  "name": "Gran Torino",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "3424ECBD-A010-419E-91DF-E011B24E2E22",
+  "name": "Acapulco",
+  "type": "restaurant",
+  "neighborhood": "Greenpoint",
+  "stockist": false
+ },
+ {
+  "id": "343E1BD7-DCDA-4E23-8A7A-77225F08A2FE",
+  "name": "Natural Blend",
+  "type": "restaurant",
+  "neighborhood": "Crown Heights",
+  "stockist": false
+ },
+ {
+  "id": "34DE2BEC-40A2-41AD-A159-87D3EF28B2A3",
+  "name": "LoHi",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "34E4E63B-768E-43AF-8F88-B0C6E6219367",
+  "name": "Taqueria Milear",
+  "type": "bar",
+  "neighborhood": "Crown Heights",
+  "stockist": false
+ },
+ {
+  "id": "35A077B5-86E2-49F9-96DA-2DB1DABEE860",
+  "name": "The Owl Farm",
+  "type": "bar",
+  "neighborhood": "Park Slope",
+  "stockist": false
+ },
+ {
+  "id": "35AD39CB-1C05-4134-BC2B-3354D952144C",
+  "name": "La Strada Pizzeria",
+  "type": "restaurant",
+  "neighborhood": "Borough Park",
+  "stockist": false
+ },
+ {
+  "id": "35D131FF-B709-4E71-A1FB-7117058F6C02",
+  "name": "Wise Deli & Grill",
+  "type": "deli",
+  "neighborhood": "Crown Heights",
+  "stockist": false
+ },
+ {
+  "id": "35F10B1C-1697-407D-8206-7E6823D9D43D",
+  "name": "City Fresh Market - Bushwick",
+  "type": "deli",
+  "neighborhood": "Bushwick",
+  "stockist": false
+ },
+ {
+  "id": "36069F7B-299D-4760-8C27-154D3B294CA4",
+  "name": "Max's Deli",
+  "type": "deli",
+  "neighborhood": "Cypress Hills",
+  "stockist": false
+ },
+ {
+  "id": "362777A7-6C39-49D3-B1C4-75454597BE3A",
+  "name": "BONAO RESTAURANT",
+  "type": "restaurant",
+  "neighborhood": "Cypress Hills",
+  "stockist": false
+ },
+ {
+  "id": "378230D6-4DF0-44D1-8658-AAEA53D34E10",
+  "name": "Alnoor Halal Deli",
+  "type": "restaurant",
+  "neighborhood": "Greenwood Heights",
+  "stockist": false
+ },
+ {
+  "id": "3795FEB0-A876-48D1-AAF6-D4E5F876BBA6",
+  "name": "Pronto Gourmet & Deli",
+  "type": "deli",
+  "neighborhood": "Clinton Hill",
+  "stockist": false
+ },
+ {
+  "id": "37C7EFF7-60C9-4FE5-AF13-ADEA35CDE145",
+  "name": "Slope Foods inc",
+  "type": "deli",
+  "neighborhood": "Park Slope",
+  "stockist": false
+ },
+ {
+  "id": "38346A37-AA48-4303-94BB-183756B16D51",
+  "name": "Sereneco",
+  "type": "bar",
+  "neighborhood": "Greenpoint",
+  "stockist": false
+ },
+ {
+  "id": "385BB6AC-6FBD-4361-9341-252CEA13BAA9",
+  "name": "Bar Great Harry",
+  "type": "bar",
+  "neighborhood": "Carroll Gardens",
+  "stockist": false
+ },
+ {
+  "id": "38642D61-A55D-4A4B-AAF3-D6FA002ED62C",
+  "name": "Eight Turn Crepe",
+  "type": "restaurant",
+  "neighborhood": "Downtown Brooklyn",
+  "stockist": false
+ },
+ {
+  "id": "3867B5B8-BE6F-4260-9C05-6E817A19D095",
+  "name": "Mozzlab",
+  "type": "deli",
+  "neighborhood": "Carroll Gardens",
+  "stockist": false
+ },
+ {
+  "id": "387EC986-E371-4888-AC01-6613244FFEDA",
+  "name": "Spice Thai",
+  "type": "restaurant",
+  "neighborhood": "Park Slope",
+  "stockist": false
+ },
+ {
+  "id": "38D3ADFF-CB64-418D-92AC-064BF2275812",
+  "name": "Glorietta Baldy",
+  "type": "bar",
+  "neighborhood": "Bedford-Stuyvesant",
+  "stockist": false
+ },
+ {
+  "id": "38D8693F-584D-4C97-9AFA-1CC86F2C2694",
+  "name": "Baku Palace Restaurant",
+  "type": "bar",
+  "neighborhood": "Sheepshead Bay",
+  "stockist": false
+ },
+ {
+  "id": "392C4191-8788-4EE3-932D-76F1D32D64BD",
+  "name": "Shake Shack Dumbo",
+  "type": "restaurant",
+  "neighborhood": "",
+  "stockist": false
+ },
+ {
+  "id": "393AA667-D202-4600-96B4-F51C49E6455D",
+  "name": "Scottadito Osteria Toscana",
+  "type": "bar",
+  "neighborhood": "Park Slope",
+  "stockist": false
+ },
+ {
+  "id": "3992DF7E-EB58-48D6-9F6A-BD4DFAB7F658",
+  "name": "Bay Root Meats",
+  "type": "deli",
+  "neighborhood": "Bay Ridge",
+  "stockist": false
+ },
+ {
+  "id": "39AA0905-AD80-4814-94F9-8FA7A8C0DA94",
+  "name": "Mama Louisa's",
+  "type": "deli",
+  "neighborhood": "",
+  "stockist": false
+ },
+ {
+  "id": "39E9F2C9-DDBB-462F-A546-257E880A2063",
+  "name": "Lucky 7 Deli & Grill",
+  "type": "deli",
+  "neighborhood": "East Flatbush",
+  "stockist": false
+ },
+ {
+  "id": "3A06C788-B86F-403B-8738-1F175A555EC0",
+  "name": "Calexico",
+  "type": "bar",
+  "neighborhood": "Greenpoint",
+  "stockist": false
+ },
+ {
+  "id": "3A0C24D6-8685-4A74-B321-2F3619E9B9C5",
+  "name": "Block Hill Station",
+  "type": "bar",
+  "neighborhood": "Greenwood Heights",
+  "stockist": false
+ },
+ {
+  "id": "3A7FA126-04BD-48BC-81C2-8F0F8DAB0F28",
+  "name": "Elite Williamsburg",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "3BB17D7B-6B9F-4994-A493-2F34E1CF0F22",
+  "name": "Ainslie",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "3BBF887D-3F3A-4B69-B5F7-F5A8853CA268",
+  "name": "MIDNIGHTS",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "3BCBC839-7F99-49E3-BD97-CE58E884202F",
+  "name": "ACherry Restaurant",
+  "type": "bar",
+  "neighborhood": "Sheepshead Bay",
+  "stockist": false
+ },
+ {
+  "id": "3BFE4D3E-C25F-44C5-9BE4-AF99F69DC2D8",
+  "name": "Buttermilk Bar",
+  "type": "bar",
+  "neighborhood": "",
+  "stockist": false
+ },
+ {
+  "id": "3C057448-F5E4-4049-A59F-031A153CE01D",
+  "name": "David's Brisket House",
+  "type": "restaurant",
+  "neighborhood": "Bedford-Stuyvesant",
+  "stockist": false
+ },
+ {
+  "id": "3C522C5D-D8AC-443E-96AB-0E9E3E64781A",
+  "name": "Marco Polo",
+  "type": "bar",
+  "neighborhood": "Carroll Gardens",
+  "stockist": false
+ },
+ {
+  "id": "3C85B057-943E-493F-983A-13E0AD7D7D2F",
+  "name": "Cafe Luluc",
+  "type": "restaurant",
+  "neighborhood": "Carroll Gardens",
+  "stockist": false
+ },
+ {
+  "id": "3D3CE350-0C3F-4543-B459-6D9F2759AE17",
+  "name": "Lincoln Station",
+  "type": "bar",
+  "neighborhood": "Crown Heights",
+  "stockist": false
+ },
+ {
+  "id": "3D681C95-4473-41A6-A335-533B132C0EFD",
+  "name": "Fini Pizza",
+  "type": "restaurant",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "3E14A8E3-2BA2-425F-A606-86D630CD8200",
+  "name": "Black Forest Brooklyn",
+  "type": "bar",
+  "neighborhood": "Fort Greene",
+  "stockist": false
+ },
+ {
+  "id": "3E35F6F9-0B4C-4D84-BDD1-2D08E08BE26A",
+  "name": "Pine Box Rock Shop",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "3EB16612-508F-4EA5-9C7D-3CB393F8CC1B",
+  "name": "Pete's Candy Store",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "3F099C79-8321-4159-BACC-9EB72B6B9D7D",
+  "name": "Pitanga",
+  "type": "bar",
+  "neighborhood": "Bushwick",
+  "stockist": false
+ },
+ {
+  "id": "3FBB88C4-5855-438F-8213-09E8268DF41A",
+  "name": "Gowanus Yacht Club",
+  "type": "bar",
+  "neighborhood": "Carroll Gardens",
+  "stockist": false
+ },
+ {
+  "id": "4016B0C1-7093-4ECD-9537-FB8C876D407D",
+  "name": "Black Mountain Wine House",
+  "type": "bar",
+  "neighborhood": "Gowanus",
+  "stockist": false
+ },
+ {
+  "id": "4017AB0A-E42D-4ABB-A45C-120EB9F05867",
+  "name": "Carneval",
+  "type": "restaurant",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "403F0E5D-8FD1-430A-83CA-C27452B0FB58",
+  "name": "Kellogg’s Diner",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "407659F9-9B52-4C75-B84E-243F5DFD8075",
+  "name": "Lindenwood Diner",
+  "type": "restaurant",
+  "neighborhood": "East New York",
+  "stockist": false
+ },
+ {
+  "id": "414D27F1-5832-4105-90C3-EF638E3E47E1",
+  "name": "Celestine",
+  "type": "restaurant",
+  "neighborhood": "",
+  "stockist": false
+ },
+ {
+  "id": "416913BD-E433-4FC3-A3B4-6C62F5F044A9",
+  "name": "Crystal Lake Brooklyn",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "417A7293-5CE4-4CE9-B38D-1ED50AFE19ED",
+  "name": "Shane's Brooklyn",
+  "type": "restaurant",
+  "neighborhood": "Prospect Heights",
+  "stockist": false
+ },
+ {
+  "id": "41800DFA-A283-4CE7-9041-3A25954140EE",
+  "name": "Gloria's",
+  "type": "restaurant",
+  "neighborhood": "Crown Heights",
+  "stockist": false
+ },
+ {
+  "id": "41FE325A-285D-46AF-B431-90E03E454DE4",
+  "name": "Father & Sons Deli Food Corp.",
+  "type": "deli",
+  "neighborhood": "Flatbush",
+  "stockist": false
+ },
+ {
+  "id": "420A045D-AE0B-4BED-885E-9F2E44B3BC3F",
+  "name": "Deli Bite",
+  "type": "deli",
+  "neighborhood": "",
+  "stockist": false
+ },
+ {
+  "id": "4236B57C-F279-4B5D-B2D7-0C1242CABC73",
+  "name": "Finest Deli & Smoke Shop",
+  "type": "deli",
+  "neighborhood": "Fort Greene",
+  "stockist": false
+ },
+ {
+  "id": "42629DD1-F928-4545-B7F7-246060CD0DFE",
+  "name": "Citroën",
+  "type": "bar",
+  "neighborhood": "Greenpoint",
+  "stockist": false
+ },
+ {
+  "id": "4268E8C1-F1DE-4695-AC07-2C69F875E533",
+  "name": "GMC Temaxcal",
+  "type": "deli",
+  "neighborhood": "Fort Greene",
+  "stockist": false
+ },
+ {
+  "id": "42766F4B-8AD3-4259-80C7-26AE6EBA7602",
+  "name": "Bunch O' Bagels",
+  "type": "restaurant",
+  "neighborhood": "Crown Heights",
+  "stockist": false
+ },
+ {
+  "id": "42806C8B-6A7C-4708-AD02-36285943F478",
+  "name": "Awash",
+  "type": "bar",
+  "neighborhood": "Cobble Hill",
+  "stockist": false
+ },
+ {
+  "id": "42B19E34-BC26-451A-914A-E3E8A55CDEA1",
+  "name": "Bay Ridge Diner",
+  "type": "restaurant",
+  "neighborhood": "Bay Ridge",
+  "stockist": false
+ },
+ {
+  "id": "4302C119-CF3E-46E1-8607-EE15C1370A46",
+  "name": "McDonald's",
+  "type": "restaurant",
+  "neighborhood": "Brownsville",
+  "stockist": false
+ },
+ {
+  "id": "431C5CF8-0F00-4CF0-AB12-01AE0C16790C",
+  "name": "John & Sons Deli",
+  "type": "deli",
+  "neighborhood": "",
+  "stockist": false
+ },
+ {
+  "id": "438F4C37-6164-43B8-816D-9ED41409E866",
+  "name": "Banter Bar",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "43BB4379-4BE8-4F53-A3CD-847493135E63",
+  "name": "LunÀtico",
+  "type": "bar",
+  "neighborhood": "Bedford-Stuyvesant",
+  "stockist": false
+ },
+ {
+  "id": "43C32D84-1A29-452A-841F-4B990C360427",
+  "name": "The Holler",
+  "type": "bar",
+  "neighborhood": "Bedford-Stuyvesant",
+  "stockist": false
+ },
+ {
+  "id": "43FF8EC0-9BA8-4D19-B4C8-F9BB559F25D8",
+  "name": "Cebu",
+  "type": "bar",
+  "neighborhood": "Fort Hamilton",
+  "stockist": false
+ },
+ {
+  "id": "44813277-F7CE-40D5-9433-FF869441074F",
+  "name": "Cubana Café",
+  "type": "bar",
+  "neighborhood": "Carroll Gardens",
+  "stockist": false
+ },
+ {
+  "id": "44E78F6C-B8CA-42B7-8808-C9A761DA8350",
+  "name": "Midway",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "44ED8796-6379-41D8-B084-A2791A8AB885",
+  "name": "The Wicked Monk",
+  "type": "bar",
+  "neighborhood": "Fort Hamilton",
+  "stockist": false
+ },
+ {
+  "id": "44F9A3CA-6959-4A29-93BC-3010984B795B",
+  "name": "Hometown Bar-B-Que",
+  "type": "bar",
+  "neighborhood": "Red Hook",
+  "stockist": false
+ },
+ {
+  "id": "45100492-4D11-48E0-AC60-AA3E2BB94685",
+  "name": "Nosh Express",
+  "type": "deli",
+  "neighborhood": "",
+  "stockist": false
+ },
+ {
+  "id": "452FEC0D-560E-41FF-8E5A-98898B9156C1",
+  "name": "Bagel Schmagel",
+  "type": "deli",
+  "neighborhood": "Bay Ridge",
+  "stockist": false
+ },
+ {
+  "id": "457439B4-7BA0-4185-853A-331C7C8D67AD",
+  "name": "The Bushwick Diner",
+  "type": "restaurant",
+  "neighborhood": "Bushwick",
+  "stockist": false
+ },
+ {
+  "id": "4598A90A-DA58-4B50-A104-0DDCF9B26FA7",
+  "name": "Barcade",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "45B57CE6-E1EA-42FF-AF56-B85D65A3BEC8",
+  "name": "Cousins Deli",
+  "type": "deli",
+  "neighborhood": "Sunset Park",
+  "stockist": false
+ },
+ {
+  "id": "460AA1E6-E60E-4EF1-9156-C1B4E46811B1",
+  "name": "Applebee's Grill + Bar",
+  "type": "restaurant",
+  "neighborhood": "Sheepshead Bay",
+  "stockist": false
+ },
+ {
+  "id": "467DD6CA-2D1A-45B3-8A23-C7AD23C89317",
+  "name": "Tabare Williamsburg",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "46CD33B2-ECD6-4D18-A105-3F99ACECE754",
+  "name": "Pearl's Social & Billy Club",
+  "type": "bar",
+  "neighborhood": "Bushwick",
+  "stockist": false
+ },
+ {
+  "id": "470B8CC8-8CF1-437D-B363-35EE5A6A9027",
+  "name": "Syndicated Bar Theater Kitchen",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "4781F240-87D7-4126-B351-C6879D821B46",
+  "name": "Artichoke Basille's Pizza",
+  "type": "bar",
+  "neighborhood": "Bushwick",
+  "stockist": false
+ },
+ {
+  "id": "488978D8-BD8C-4F44-BE88-E3DC29296734",
+  "name": "Tacocina",
+  "type": "restaurant",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "48942FB4-B400-4FDC-874D-75A100D07C20",
+  "name": "J.K. & Sons",
+  "type": "deli",
+  "neighborhood": "Bushwick",
+  "stockist": false
+ },
+ {
+  "id": "4915D85D-E193-421C-8D92-3987DE40F34F",
+  "name": "Wholesome Farms Market",
+  "type": "restaurant",
+  "neighborhood": "Crown Heights",
+  "stockist": false
+ },
+ {
+  "id": "49258841-A001-4B61-B371-BCD53AFCC258",
+  "name": "Giovanni's Brooklyn Eats",
+  "type": "bar",
+  "neighborhood": "",
+  "stockist": false
+ },
+ {
+  "id": "49B152FD-75B7-45CF-9A12-65A163B5DD65",
+  "name": "SKYTOWN",
+  "type": "bar",
+  "neighborhood": "Bushwick",
+  "stockist": false
+ },
+ {
+  "id": "49D41491-EAFB-4E26-B72A-9A9532209951",
+  "name": "Dave & Buster's Brooklyn",
+  "type": "bar",
+  "neighborhood": "East New York",
+  "stockist": false
+ },
+ {
+  "id": "4A47839A-EF12-40F9-A9E3-643A4A85D6EB",
+  "name": "Union Hotel Brooklyn",
+  "type": "bar",
+  "neighborhood": "Gowanus",
+  "stockist": false
+ },
+ {
+  "id": "4A53C7C5-55EF-434E-B082-A491BF56CDBD",
+  "name": "Glasserie",
+  "type": "bar",
+  "neighborhood": "Greenpoint",
+  "stockist": true
+ },
+ {
+  "id": "4ACBA329-2A06-412D-9E8F-D1A68F58AA62",
+  "name": "Paddy's of Park Slope",
+  "type": "bar",
+  "neighborhood": "",
+  "stockist": false
+ },
+ {
+  "id": "4ACC9DAE-69AE-4F31-B14C-788940AB797F",
+  "name": "Ops",
+  "type": "bar",
+  "neighborhood": "Bushwick",
+  "stockist": false
+ },
+ {
+  "id": "4B131867-7CA8-4715-BA09-3962A6B57EDF",
+  "name": "Savelli",
+  "type": "bar",
+  "neighborhood": "Carroll Gardens",
+  "stockist": false
+ },
+ {
+  "id": "4BCF7355-8107-4C45-91FF-07A4B49EADFE",
+  "name": "Ultimate State Deli",
+  "type": "deli",
+  "neighborhood": "",
+  "stockist": false
+ },
+ {
+  "id": "4C0D7D61-64F0-4EE2-966F-E0A2A06E5E30",
+  "name": "Ringolevio",
+  "type": "restaurant",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "4C275994-0539-48F4-8FC3-BEF3DC21266E",
+  "name": "The Johnson's",
+  "type": "bar",
+  "neighborhood": "Bushwick",
+  "stockist": false
+ },
+ {
+  "id": "4C4D4B15-FBC2-45D7-B585-31A9692A2BF3",
+  "name": "Santa Ana Deli & Grocery",
+  "type": "deli",
+  "neighborhood": "Bushwick",
+  "stockist": false
+ },
+ {
+  "id": "4C74AFA6-ADFF-464C-93DA-B7BE15E6200B",
+  "name": "Art Cafe + Bar",
+  "type": "bar",
+  "neighborhood": "Prospect Heights",
+  "stockist": false
+ },
+ {
+  "id": "4CCE6B00-A4B3-4004-9FD8-D7DF1338ADE3",
+  "name": "Bootleg Bar",
+  "type": "bar",
+  "neighborhood": "Bushwick",
+  "stockist": false
+ },
+ {
+  "id": "4D8F4FB6-087D-46C4-8094-46A29BE33503",
+  "name": "Rockaway Gourmet",
+  "type": "deli",
+  "neighborhood": "Canarsie",
+  "stockist": false
+ },
+ {
+  "id": "4D9EC8B5-2108-4E2B-B867-480EE8EFCE1F",
+  "name": "Alma BK",
+  "type": "bar",
+  "neighborhood": "Columbia Street Waterfront District",
+  "stockist": false
+ },
+ {
+  "id": "4DD74D2E-A0C0-4120-A632-055A19F27C97",
+  "name": "Shalom Japan",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "4E2C70D4-E802-415A-87C8-1DF4375919AD",
+  "name": "Maya Taqueria of Prospect Heights",
+  "type": "restaurant",
+  "neighborhood": "Prospect Heights",
+  "stockist": false
+ },
+ {
+  "id": "4EC80643-021B-4D47-B37F-BF675222B2CE",
+  "name": "Traif",
+  "type": "restaurant",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "4F53BD1A-729D-4BE4-BD9A-CABE54DDE252",
+  "name": "Burger King",
+  "type": "restaurant",
+  "neighborhood": "Sunset Park",
+  "stockist": false
+ },
+ {
+  "id": "4F70DBD2-3288-4C4B-B296-5734792EF9D1",
+  "name": "McDonald's",
+  "type": "restaurant",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "5045AE5C-0871-4415-8324-3DDD46A310A8",
+  "name": "Alligator Lounge",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "504E7BAF-6815-483A-84E0-90DF729E0ADA",
+  "name": "Norwind's",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "5058B79F-E905-4B21-81B9-4FAA5B4E0991",
+  "name": "Beco",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "50795247-4A91-4E6F-BDCB-D0FC95182EA1",
+  "name": "The Lot Radio",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "507EBF75-68E8-4A40-9137-A82E5AD5E29D",
+  "name": "The Anchored Inn",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "50A5BA3C-A521-49DB-83FE-DBB81CABDFDD",
+  "name": "McDonald's",
+  "type": "restaurant",
+  "neighborhood": "Sunset Park",
+  "stockist": false
+ },
+ {
+  "id": "5177A749-D4AC-4F50-9B11-7E88208BE39A",
+  "name": "Wendy's",
+  "type": "restaurant",
+  "neighborhood": "East Flatbush",
+  "stockist": false
+ },
+ {
+  "id": "51B22168-5CE5-4167-B7FA-46815C1752BB",
+  "name": "McDonald's",
+  "type": "restaurant",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "51DD442A-8B36-470F-A22A-747028F442EA",
+  "name": "Sunac Natural Food",
+  "type": "deli",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "52593E2B-0C8D-4D17-B1DD-5A9E3ECF8F3D",
+  "name": "The King of Fish",
+  "type": "bar",
+  "neighborhood": "Sunset Park",
+  "stockist": false
+ },
+ {
+  "id": "52684654-A469-4C68-AAAA-C3D0556D107D",
+  "name": "Bossa Nova Civic Club",
+  "type": "bar",
+  "neighborhood": "Bushwick",
+  "stockist": false
+ },
+ {
+  "id": "52DD4BF1-7E3C-4156-AD37-ED0D409640B3",
+  "name": "Outback Steakhouse",
+  "type": "bar",
+  "neighborhood": "Bensonhurst",
+  "stockist": false
+ },
+ {
+  "id": "532325F1-DF3C-4476-9D30-5147E0EC1B50",
+  "name": "Easy Lover",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "537C9A0E-E61C-46B1-A2D7-E861860A460F",
+  "name": "Amber Steak House",
+  "type": "bar",
+  "neighborhood": "Greenpoint",
+  "stockist": false
+ },
+ {
+  "id": "5391EE6A-DBFE-446B-84BA-98CDBC564A03",
+  "name": "Sea Witch",
+  "type": "bar",
+  "neighborhood": "Greenwood Heights",
+  "stockist": false
+ },
+ {
+  "id": "53D16CC6-EE4E-450D-A617-3E7243F76F2C",
+  "name": "Han Dynasty Brooklyn",
+  "type": "restaurant",
+  "neighborhood": "Downtown Brooklyn",
+  "stockist": false
+ },
+ {
+  "id": "53D3699C-8C86-4E35-AB12-42E4CCBE0329",
+  "name": "Triangle Deli & Grill",
+  "type": "deli",
+  "neighborhood": "Bedford-Stuyvesant",
+  "stockist": false
+ },
+ {
+  "id": "54F3D198-F5AE-43A3-BE81-E1942B26E7A5",
+  "name": "Le Petit Cafe",
+  "type": "restaurant",
+  "neighborhood": "Carroll Gardens",
+  "stockist": false
+ },
+ {
+  "id": "55371F45-F247-459A-B751-A8D765E02CD0",
+  "name": "Best Deli",
+  "type": "deli",
+  "neighborhood": "Sunset Park",
+  "stockist": false
+ },
+ {
+  "id": "55728E60-5A70-414C-ADC9-53AF4885E69C",
+  "name": "McDonald's",
+  "type": "restaurant",
+  "neighborhood": "",
+  "stockist": false
+ },
+ {
+  "id": "557F0EF1-12A4-4BC8-8414-115049388776",
+  "name": "Five Guys",
+  "type": "restaurant",
+  "neighborhood": "Gravesend",
+  "stockist": false
+ },
+ {
+  "id": "557FEC93-34AE-4079-A2C4-399D991DC6A5",
+  "name": "Azteca Deli",
+  "type": "deli",
+  "neighborhood": "Brighton Beach",
+  "stockist": false
+ },
+ {
+  "id": "558756F1-BA8B-4785-86EE-706251B56442",
+  "name": "Sarku Japan",
+  "type": "restaurant",
+  "neighborhood": "East New York",
+  "stockist": false
+ },
+ {
+  "id": "559B162B-06C7-4836-A98C-64D7A4720BBD",
+  "name": "Cheeseboat Williamsburg",
+  "type": "restaurant",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "55C4A81E-0202-4407-8FF8-A0D065F6D33D",
+  "name": "Fine Time",
+  "type": "bar",
+  "neighborhood": "Bushwick",
+  "stockist": false
+ },
+ {
+  "id": "55E6BA87-F930-4AF0-AD01-D2A3AF0CF782",
+  "name": "Lilia",
+  "type": "restaurant",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "55EBCF25-AA99-4A80-B862-6D8413DEADA8",
+  "name": "Thaism",
+  "type": "restaurant",
+  "neighborhood": "Carroll Gardens",
+  "stockist": false
+ },
+ {
+  "id": "56066F4B-7218-40D5-AD85-4A85B2C54C58",
+  "name": "BierWax",
+  "type": "bar",
+  "neighborhood": "Prospect Heights",
+  "stockist": false
+ },
+ {
+  "id": "565B8700-013B-4621-8271-AD5637178EA3",
+  "name": "Xifu Food",
+  "type": "restaurant",
+  "neighborhood": "",
+  "stockist": false
+ },
+ {
+  "id": "56825060-B6D5-40F9-A7AF-E1B9558DB8CD",
+  "name": "Arepera Guacuco",
+  "type": "restaurant",
+  "neighborhood": "Bushwick",
+  "stockist": false
+ },
+ {
+  "id": "5689A1C7-C0F8-4AAD-A7F1-D4C5427F1A69",
+  "name": "Las Margaritas",
+  "type": "bar",
+  "neighborhood": "Bay Ridge",
+  "stockist": false
+ },
+ {
+  "id": "56D6E596-BAF5-4012-A5FA-3D8E80AFD516",
+  "name": "Wendy's",
+  "type": "restaurant",
+  "neighborhood": "East Flatbush",
+  "stockist": false
+ },
+ {
+  "id": "576D4E16-CDA6-4EED-BB53-33A82C49A832",
+  "name": "Oasis Cafe",
+  "type": "restaurant",
+  "neighborhood": "Sheepshead Bay",
+  "stockist": false
+ },
+ {
+  "id": "57CEF71E-7DD6-4475-8BF6-EB9561712E5E",
+  "name": "Petite Crevette",
+  "type": "restaurant",
+  "neighborhood": "Columbia Street Waterfront District",
+  "stockist": false
+ },
+ {
+  "id": "57E2601A-CF3C-457D-9E9C-4722747161ED",
+  "name": "White Castle",
+  "type": "restaurant",
+  "neighborhood": "East New York",
+  "stockist": false
+ },
+ {
+  "id": "581C1F42-02B3-4190-A0C3-EEA443E8C682",
+  "name": "Mtskheta Restaurant",
+  "type": "restaurant",
+  "neighborhood": "Sheepshead Bay",
+  "stockist": false
+ },
+ {
+  "id": "5828CAD3-FECD-468F-83EC-16DF8BED74F5",
+  "name": "Wendy's",
+  "type": "restaurant",
+  "neighborhood": "East Flatbush",
+  "stockist": false
+ },
+ {
+  "id": "58CF9ECF-0D13-43C7-8102-1CCC859E4F62",
+  "name": "Tom's",
+  "type": "restaurant",
+  "neighborhood": "Brighton Beach",
+  "stockist": false
+ },
+ {
+  "id": "5A17EB46-9EA5-4BBA-9063-F4B4D7DEE8BE",
+  "name": "Brooklyn Standard",
+  "type": "deli",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "5A5EFAAD-F8FB-4B5D-AC12-4119A26CB894",
+  "name": "Barbès",
+  "type": "bar",
+  "neighborhood": "",
+  "stockist": false
+ },
+ {
+  "id": "5A809007-5FC7-402B-BC7C-F7AE46D17BEC",
+  "name": "The New Bridgeview Diner",
+  "type": "restaurant",
+  "neighborhood": "Fort Hamilton",
+  "stockist": false
+ },
+ {
+  "id": "5AC91829-778A-41CD-A0FD-F08C8E57C7C4",
+  "name": "Hops Hill",
+  "type": "bar",
+  "neighborhood": "Clinton Hill",
+  "stockist": false
+ },
+ {
+  "id": "5AF8F4D7-0AF2-4A8A-A04D-2F1E8B143817",
+  "name": "Sugar Hill Restaurant & Supper Club",
+  "type": "restaurant",
+  "neighborhood": "Bedford-Stuyvesant",
+  "stockist": false
+ },
+ {
+  "id": "5B1618D8-3DD4-496C-92D4-C3E981BF1A8E",
+  "name": "Fulton Grand",
+  "type": "bar",
+  "neighborhood": "Clinton Hill",
+  "stockist": false
+ },
+ {
+  "id": "5B488828-4A97-4240-8806-1AEBC5AB7DB2",
+  "name": "Win Son Bakery",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "5C0AF53C-A1AC-40CD-A20F-E5ED66AF1FDA",
+  "name": "The Gibson",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "5C3DC14A-6420-474F-AB7D-EFF680F1631F",
+  "name": "China New Star",
+  "type": "bar",
+  "neighborhood": "",
+  "stockist": false
+ },
+ {
+  "id": "5C3FBABB-C89A-43F9-99AC-5D426BF2FBF5",
+  "name": "Moot Bar",
+  "type": "bar",
+  "neighborhood": "Bedford-Stuyvesant",
+  "stockist": false
+ },
+ {
+  "id": "5C74292E-E039-474D-BE1F-BC79989AC7A0",
+  "name": "66s Fusion - Asian Fusion",
+  "type": "bar",
+  "neighborhood": "Fort Greene",
+  "stockist": false
+ },
+ {
+  "id": "5C7EC1CC-1107-4CC4-8B0A-AC54C0E79311",
+  "name": "Kiwi Food Market",
+  "type": "deli",
+  "neighborhood": "Bedford-Stuyvesant",
+  "stockist": false
+ },
+ {
+  "id": "5C9AD950-7B55-4281-9C41-E8580C84BD7C",
+  "name": "Classic Deli",
+  "type": "deli",
+  "neighborhood": "Crown Heights",
+  "stockist": false
+ },
+ {
+  "id": "5C9EC0A5-3F91-4B0D-9A4B-D0EE73F25C1C",
+  "name": "Next Level Burger Brooklyn",
+  "type": "restaurant",
+  "neighborhood": "Fort Greene",
+  "stockist": false
+ },
+ {
+  "id": "5CDC586F-B932-4E40-B16B-C25BC1798B93",
+  "name": "Coffee Mob",
+  "type": "bar",
+  "neighborhood": "Flatbush",
+  "stockist": false
+ },
+ {
+  "id": "5D4EB225-E8D7-4A3D-8CDB-9DEEFB32F1D3",
+  "name": "Brennan & Carr",
+  "type": "restaurant",
+  "neighborhood": "Sheepshead Bay",
+  "stockist": false
+ },
+ {
+  "id": "5D88A650-B929-4D77-92D9-0B1E748E8392",
+  "name": "Michael’s",
+  "type": "restaurant",
+  "neighborhood": "Sheepshead Bay",
+  "stockist": false
+ },
+ {
+  "id": "5DAABCD8-220C-47CC-BC6A-2F76455B4AEB",
+  "name": "House of Yes",
+  "type": "bar",
+  "neighborhood": "Bushwick",
+  "stockist": false
+ },
+ {
+  "id": "5DAEEC73-516B-4B8C-AB82-232C321A04E6",
+  "name": "Batata",
+  "type": "restaurant",
+  "neighborhood": "",
+  "stockist": false
+ },
+ {
+  "id": "5E203702-7787-4C74-A53B-0E446E1DC45D",
+  "name": "Brooklyn Gourmet Deli Corporation",
+  "type": "deli",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "5E77DD4C-E450-4716-B203-1EBB50749235",
+  "name": "McDonald's",
+  "type": "restaurant",
+  "neighborhood": "Canarsie",
+  "stockist": false
+ },
+ {
+  "id": "5EBDBE14-EE05-4DAA-A0A5-4C70AD35E2B1",
+  "name": "KC Supermarket & Deli",
+  "type": "deli",
+  "neighborhood": "Flatbush",
+  "stockist": false
+ },
+ {
+  "id": "5F629972-FBDC-4B8D-962D-70C1CB288830",
+  "name": "John's Deli",
+  "type": "deli",
+  "neighborhood": "Dyker Heights",
+  "stockist": false
+ },
+ {
+  "id": "5FB689AB-6B8E-40D5-B88F-74B68A4AD2C5",
+  "name": "Key Food Supermarkets",
+  "type": "deli",
+  "neighborhood": "East Flatbush",
+  "stockist": false
+ },
+ {
+  "id": "5FD49806-3F85-4801-B3C3-4FDABC90CB5C",
+  "name": "Pomegranate Supermarket",
+  "type": "deli",
+  "neighborhood": "Midwood",
+  "stockist": false
+ },
+ {
+  "id": "600BF097-2246-4FDB-BDC5-B6D630199D63",
+  "name": "Cafe Rue Dix",
+  "type": "restaurant",
+  "neighborhood": "Crown Heights",
+  "stockist": false
+ },
+ {
+  "id": "603A073C-0E10-4004-A40D-CE71A9AFDF6D",
+  "name": "Brooklyn Heights Deli",
+  "type": "deli",
+  "neighborhood": "",
+  "stockist": false
+ },
+ {
+  "id": "609904C3-5359-4F36-A328-2A10E4F74088",
+  "name": "Momo Ramen",
+  "type": "restaurant",
+  "neighborhood": "Park Slope",
+  "stockist": false
+ },
+ {
+  "id": "60AAA4AC-8304-4468-A1EA-BA3D4A562D35",
+  "name": "McDonald's",
+  "type": "restaurant",
+  "neighborhood": "Carroll Gardens",
+  "stockist": false
+ },
+ {
+  "id": "60BEE9FD-0D2D-475E-8FA1-8F38B0906EDB",
+  "name": "Brooklyn Art Haus",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "60D813BC-AE21-4673-8987-02BEDEDEC681",
+  "name": "Bordeaux Steakhouse",
+  "type": "restaurant",
+  "neighborhood": "Midwood",
+  "stockist": false
+ },
+ {
+  "id": "60FF20DA-AF05-401D-A395-D3768B60B1F9",
+  "name": "Concrete Sicilian Eatery",
+  "type": "restaurant",
+  "neighborhood": "Bedford-Stuyvesant",
+  "stockist": false
+ },
+ {
+  "id": "610AC1CA-EF4D-4E96-A36F-1A56089ED8DE",
+  "name": "Fleet Organic Market",
+  "type": "deli",
+  "neighborhood": "Fort Greene",
+  "stockist": false
+ },
+ {
+  "id": "61320F5C-62A4-4A0B-8A47-4EF1AC3A967D",
+  "name": "H Q Lounge",
+  "type": "bar",
+  "neighborhood": "East Flatbush",
+  "stockist": false
+ },
+ {
+  "id": "6151AA3B-B99E-4514-BBC3-1A91CA95DD13",
+  "name": "BJ's Wholesale Club",
+  "type": "deli",
+  "neighborhood": "East New York",
+  "stockist": false
+ },
+ {
+  "id": "619EE79F-7AA8-4CBB-A206-85692519FF54",
+  "name": "Nitehawk Cinema Williamsburg",
+  "type": "restaurant",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "61DBCE9B-093A-4B0C-BED3-B697E9E08690",
+  "name": "Izzy's Brooklyn Smokehouse",
+  "type": "restaurant",
+  "neighborhood": "Crown Heights",
+  "stockist": false
+ },
+ {
+  "id": "61FD0D94-080C-4802-AAE8-11455D3A043B",
+  "name": "Whole Foods Market",
+  "type": "deli",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "62035CE0-AE1C-4BC2-B814-C63D6B41F4F6",
+  "name": "Fragole",
+  "type": "restaurant",
+  "neighborhood": "Carroll Gardens",
+  "stockist": false
+ },
+ {
+  "id": "6216FF92-FA4D-4BE4-9A6C-2C51E3332224",
+  "name": "F1 Lounge",
+  "type": "bar",
+  "neighborhood": "Flatbush",
+  "stockist": false
+ },
+ {
+  "id": "623BBC45-B80A-4026-A078-EBE790EECC41",
+  "name": "Main House",
+  "type": "bar",
+  "neighborhood": "Mill Basin",
+  "stockist": false
+ },
+ {
+  "id": "62A730F6-EA0B-4414-82E1-86482EDB6D27",
+  "name": "Sleepwalk",
+  "type": "restaurant",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "62CDE27F-36BE-42B3-9C4A-A23B610FF0D1",
+  "name": "Joseph's Dream Burger (JDB)",
+  "type": "restaurant",
+  "neighborhood": "Midwood",
+  "stockist": false
+ },
+ {
+  "id": "63177241-701D-42A9-80E2-B136A4FB3E62",
+  "name": "McDonald's",
+  "type": "restaurant",
+  "neighborhood": "Mill Basin",
+  "stockist": false
+ },
+ {
+  "id": "6335877B-3623-48B9-B7BF-365B5418043E",
+  "name": "Island Grill Cafe",
+  "type": "bar",
+  "neighborhood": "East Flatbush",
+  "stockist": false
+ },
+ {
+  "id": "63C02AA3-5C40-4CBD-BBA1-2BB282C07F90",
+  "name": "Alamo Drafthouse Cinema Brooklyn",
+  "type": "bar",
+  "neighborhood": "Downtown Brooklyn",
+  "stockist": false
+ },
+ {
+  "id": "63CCCBDB-9269-4F93-8AA8-69B50918ACC1",
+  "name": "Union Pool",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "643FEFEC-32C2-49E5-B6A8-9BD59AE0398A",
+  "name": "Western Beef Supermarket",
+  "type": "deli",
+  "neighborhood": "",
+  "stockist": false
+ },
+ {
+  "id": "6444ECA2-E941-463C-B490-FD968CDA28B0",
+  "name": "Mo's Bar & Lounge",
+  "type": "bar",
+  "neighborhood": "Fort Greene",
+  "stockist": false
+ },
+ {
+  "id": "6467E022-2763-483C-8CDD-D1CB3820BE72",
+  "name": "La Superior",
+  "type": "restaurant",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "64877A45-DB5B-4AD1-AF0D-0FE1698F538F",
+  "name": "CZEN Restaurant",
+  "type": "bar",
+  "neighborhood": "Flatlands",
+  "stockist": false
+ },
+ {
+  "id": "648D6967-47B6-4003-97B9-3038D538133A",
+  "name": "McDonald's",
+  "type": "restaurant",
+  "neighborhood": "Sheepshead Bay",
+  "stockist": false
+ },
+ {
+  "id": "64C8B76E-C237-4186-9F14-1EE76048524F",
+  "name": "Cordoba Deli",
+  "type": "deli",
+  "neighborhood": "Sunset Park",
+  "stockist": false
+ },
+ {
+  "id": "64E7F377-40A1-466B-A376-937402C5E5E6",
+  "name": "Moe's Pastrami & Burger Halal",
+  "type": "deli",
+  "neighborhood": "",
+  "stockist": false
+ },
+ {
+  "id": "64EABCFB-3FFE-4B8F-8A45-82A895CE8935",
+  "name": "Ignazio's",
+  "type": "restaurant",
+  "neighborhood": "",
+  "stockist": false
+ },
+ {
+  "id": "650BA108-BE34-40F9-8386-3E5648DDF352",
+  "name": "Pies 'n' Thighs",
+  "type": "restaurant",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "65777893-A5E0-4300-A60D-FF363F869ACA",
+  "name": "American Choice Gourmet Deli",
+  "type": "deli",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "6590F76F-DA14-419A-A0A3-7C412DCFF766",
+  "name": "Broski Gourmet Deli",
+  "type": "deli",
+  "neighborhood": "Crown Heights",
+  "stockist": false
+ },
+ {
+  "id": "659DDDC6-13A2-464B-AF2F-5268509BC478",
+  "name": "McDonald's",
+  "type": "restaurant",
+  "neighborhood": "Greenpoint",
+  "stockist": false
+ },
+ {
+  "id": "659FC2CD-2C8D-46F8-B6F7-E11D9B1BD963",
+  "name": "Brooklyn Wing House",
+  "type": "restaurant",
+  "neighborhood": "Crown Heights",
+  "stockist": false
+ },
+ {
+  "id": "65BCEAA4-8F6A-4702-B6FC-8BCD4EF01743",
+  "name": "McDonald's",
+  "type": "restaurant",
+  "neighborhood": "Flatbush",
+  "stockist": false
+ },
+ {
+  "id": "65EE6B79-7490-43D1-B1C0-22FAADB2C2CD",
+  "name": "Brouwerij Lane",
+  "type": "bar",
+  "neighborhood": "Greenpoint",
+  "stockist": true
+ },
+ {
+  "id": "65F36903-7A23-4437-A90E-D6D43DA89BCF",
+  "name": "Berry Park",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "6628DC55-0143-4E1A-998E-24290C6E8084",
+  "name": "Jersey Mike's Subs",
+  "type": "deli",
+  "neighborhood": "Bergen Beach",
+  "stockist": false
+ },
+ {
+  "id": "66DC9CAA-F267-438B-9377-76A0EEB7B602",
+  "name": "Brooklyn Brewery",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "66F609DB-C42E-4D91-8F5C-722D0BB1E1ED",
+  "name": "Aurora Brooklyn",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "671DDA14-ACA4-42AF-A8BF-EC075F3BC0DD",
+  "name": "Spice 52",
+  "type": "restaurant",
+  "neighborhood": "Borough Park",
+  "stockist": false
+ },
+ {
+  "id": "671E40C1-5FF7-40E6-8BA1-CEF88F742898",
+  "name": "King Tai",
+  "type": "bar",
+  "neighborhood": "Crown Heights",
+  "stockist": false
+ },
+ {
+  "id": "67381CE0-9C6C-4558-8C2C-675631B37E55",
+  "name": "McDonald's",
+  "type": "restaurant",
+  "neighborhood": "Bedford-Stuyvesant",
+  "stockist": false
+ },
+ {
+  "id": "67C01B9E-138F-4474-B996-F7AB811F9CDD",
+  "name": "Krupa Grocery",
+  "type": "bar",
+  "neighborhood": "",
+  "stockist": false
+ },
+ {
+  "id": "67C6119F-7FDB-47EF-B8DC-898B4AE7F8D2",
+  "name": "Zaytoons",
+  "type": "restaurant",
+  "neighborhood": "Prospect Heights",
+  "stockist": false
+ },
+ {
+  "id": "68345EFC-9EAA-42F4-9683-3656E35FA613",
+  "name": "Extra Fancy",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "68567F1D-252E-48B5-A133-D2550D79AD4D",
+  "name": "Sunshine Laundromat",
+  "type": "bar",
+  "neighborhood": "Greenpoint",
+  "stockist": false
+ },
+ {
+  "id": "688AD5C2-C43F-43AF-8163-88C60CC9066D",
+  "name": "The Three Diamond Door",
+  "type": "bar",
+  "neighborhood": "Bushwick",
+  "stockist": false
+ },
+ {
+  "id": "68ADCFCE-5750-4740-9941-5A7BD2B61BED",
+  "name": "Court Street Grocers",
+  "type": "restaurant",
+  "neighborhood": "Carroll Gardens",
+  "stockist": false
+ },
+ {
+  "id": "6911DA1C-E702-4AAE-A7D7-A228F992BA88",
+  "name": "The Kettle Black",
+  "type": "bar",
+  "neighborhood": "Fort Hamilton",
+  "stockist": false
+ },
+ {
+  "id": "6929076E-B814-42BB-8468-5A02D164484D",
+  "name": "Mother's",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "695E2F72-7746-4FB5-8D87-623D11AE6FFB",
+  "name": "Krajan Polish Deli",
+  "type": "deli",
+  "neighborhood": "Greenpoint",
+  "stockist": false
+ },
+ {
+  "id": "698BD835-0515-49B8-A392-B8A9D217BEF0",
+  "name": "Cafe Colette",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "6A641BE4-9889-4303-82B6-C699FF7F6C09",
+  "name": "The Whiskey Annex",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "6A8F4D6F-2391-41D3-956F-E69030587116",
+  "name": "Baker's Dozen",
+  "type": "deli",
+  "neighborhood": "Greenpoint",
+  "stockist": false
+ },
+ {
+  "id": "6AF0354C-2397-421A-B3E1-B43691AD544A",
+  "name": "Clara's",
+  "type": "bar",
+  "neighborhood": "Bushwick",
+  "stockist": false
+ },
+ {
+  "id": "6B284EC1-B320-41C1-A47E-9D212C6F0938",
+  "name": "Capri Social Club",
+  "type": "bar",
+  "neighborhood": "Greenpoint",
+  "stockist": false
+ },
+ {
+  "id": "6B2BB814-B6CB-41A8-B9D5-0E524303F10B",
+  "name": "Happyfun Hideaway",
+  "type": "bar",
+  "neighborhood": "Bushwick",
+  "stockist": false
+ },
+ {
+  "id": "6B306500-EEA4-4615-A7ED-48F9D0988AD1",
+  "name": "The Loft Steakhouse",
+  "type": "restaurant",
+  "neighborhood": "Borough Park",
+  "stockist": false
+ },
+ {
+  "id": "6BCA7517-4A8C-4DC4-A339-CB15975A2C63",
+  "name": "McDonald's",
+  "type": "restaurant",
+  "neighborhood": "Bay Ridge",
+  "stockist": false
+ },
+ {
+  "id": "6BCE5F8B-8652-4444-AA19-DE20BED13233",
+  "name": "Ume",
+  "type": "restaurant",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "6C3BED26-F3E2-46E8-9BAF-66263EDF9442",
+  "name": "Honore Club",
+  "type": "bar",
+  "neighborhood": "Bushwick",
+  "stockist": false
+ },
+ {
+  "id": "6C591B5A-78A6-4F07-A9B4-D502894282A6",
+  "name": "Mcondo Los Tacos",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "6D00DD1A-5F5B-4683-BB44-60762777A2FC",
+  "name": "Popeyes Louisiana Kitchen",
+  "type": "restaurant",
+  "neighborhood": "East New York",
+  "stockist": false
+ },
+ {
+  "id": "6D5833A1-2690-4F6F-91EB-581CF81941C3",
+  "name": "Merinda's Deli & Grill",
+  "type": "deli",
+  "neighborhood": "Bushwick",
+  "stockist": false
+ },
+ {
+  "id": "6D7A400C-9A2A-4410-8534-0C140430E3B3",
+  "name": "Sunrise/Sunset",
+  "type": "bar",
+  "neighborhood": "Bushwick",
+  "stockist": false
+ },
+ {
+  "id": "6D7B733F-2019-40A8-91DC-F283DEFCE5CB",
+  "name": "Ave M Fooderie",
+  "type": "deli",
+  "neighborhood": "Midwood",
+  "stockist": false
+ },
+ {
+  "id": "6D9FA8AD-27F8-441B-B8FB-DDB16CF79D26",
+  "name": "North Pole Pub",
+  "type": "bar",
+  "neighborhood": "Park Slope",
+  "stockist": false
+ },
+ {
+  "id": "6DFBB117-9DF3-4BD8-A8C6-139742AB7876",
+  "name": "McDonald's",
+  "type": "restaurant",
+  "neighborhood": "",
+  "stockist": false
+ },
+ {
+  "id": "6E12995D-FBF3-45CF-86FE-D916AD472DF8",
+  "name": "Brado NYC Thin Crust Pizza",
+  "type": "bar",
+  "neighborhood": "",
+  "stockist": false
+ },
+ {
+  "id": "6E1F4245-9CBA-4AFA-8B1C-AFE9604B2B75",
+  "name": "Ocean Deli And Grill Inc",
+  "type": "deli",
+  "neighborhood": "Gravesend",
+  "stockist": false
+ },
+ {
+  "id": "6E2261A5-AF7B-4D44-BE24-55276402B59A",
+  "name": "Hotel Delmano",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "6ED3E06E-68AA-4C5A-A0DD-E97ABCD219D1",
+  "name": "Have & Meyer",
+  "type": "restaurant",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "6ED4BF3B-78EB-4E29-97EE-B7CDEF62E5DF",
+  "name": "Pecoraro Latteria",
+  "type": "deli",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "6EFAA4DE-6185-4E3A-BB0E-D93939B53CB0",
+  "name": "Mable's Smokehouse & Banquet Hall",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "6F2816F2-BD98-4432-8006-385168B76514",
+  "name": "Ursula Brooklyn",
+  "type": "bar",
+  "neighborhood": "Bedford-Stuyvesant",
+  "stockist": false
+ },
+ {
+  "id": "6F3A5D5A-F9F0-476E-AE15-D7DBBA956BBE",
+  "name": "Miriam",
+  "type": "restaurant",
+  "neighborhood": "Park Slope",
+  "stockist": false
+ },
+ {
+  "id": "6F750633-6777-425E-9DDA-CC33F5B8A259",
+  "name": "Someday Bar NYC",
+  "type": "bar",
+  "neighborhood": "",
+  "stockist": false
+ },
+ {
+  "id": "6FDB059F-DFE3-4E25-AC02-125942441585",
+  "name": "Espinal Deli",
+  "type": "deli",
+  "neighborhood": "Bedford-Stuyvesant",
+  "stockist": false
+ },
+ {
+  "id": "7020C48C-2BE9-418C-BFE8-D74DCB651DA1",
+  "name": "Trini Breakfast Shed II",
+  "type": "restaurant",
+  "neighborhood": "East Flatbush",
+  "stockist": false
+ },
+ {
+  "id": "70D2467C-FCA3-45F8-8A1B-86690A7B2193",
+  "name": "Sweetwater",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "7110A9C9-6F32-4651-88C6-8F370EFD84C0",
+  "name": "Jimmy's Famous Heros",
+  "type": "deli",
+  "neighborhood": "Sheepshead Bay",
+  "stockist": false
+ },
+ {
+  "id": "7130EE5E-49E1-4D4F-A87D-4BC95A7C923B",
+  "name": "Brookvin",
+  "type": "bar",
+  "neighborhood": "",
+  "stockist": false
+ },
+ {
+  "id": "7146F635-14AA-4FBB-B492-806AE2FE786E",
+  "name": "Panda Express",
+  "type": "restaurant",
+  "neighborhood": "Flatbush",
+  "stockist": false
+ },
+ {
+  "id": "717C8685-CAC7-42D5-969D-48B98D3D40CB",
+  "name": "Palenque best food/ Latin Bistro",
+  "type": "restaurant",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "7192ABC2-C4E7-4269-AAA3-932F91CB0135",
+  "name": "BJ's Wholesale Club",
+  "type": "deli",
+  "neighborhood": "Gravesend",
+  "stockist": false
+ },
+ {
+  "id": "71C1F4D7-8BF9-4F40-A9CB-C87F6E0A42CD",
+  "name": "Istanbul Bay",
+  "type": "restaurant",
+  "neighborhood": "Gravesend",
+  "stockist": false
+ },
+ {
+  "id": "71D58BBD-A869-43B4-949A-3F27B9981C9F",
+  "name": "Bevacco",
+  "type": "bar",
+  "neighborhood": "",
+  "stockist": false
+ },
+ {
+  "id": "7217D390-DBF9-4DF0-99F7-CB570D2A02F9",
+  "name": "Wingbar",
+  "type": "bar",
+  "neighborhood": "Carroll Gardens",
+  "stockist": false
+ },
+ {
+  "id": "72507E69-6C67-4253-9B38-448838C7D9ED",
+  "name": "Ooh La La Lounge and Bar",
+  "type": "bar",
+  "neighborhood": "Crown Heights",
+  "stockist": false
+ },
+ {
+  "id": "725338C1-A42A-4112-8A14-EF4DA44E9E2A",
+  "name": "Vineapple",
+  "type": "restaurant",
+  "neighborhood": "",
+  "stockist": false
+ },
+ {
+  "id": "725BAC2E-0D91-4DBF-9F6F-3655E48B3D4E",
+  "name": "Stay Fresh Deli",
+  "type": "deli",
+  "neighborhood": "Bushwick",
+  "stockist": false
+ },
+ {
+  "id": "7278854D-3DFF-4811-BAFF-5F53CCD6DE7F",
+  "name": "Tipsy Scoop",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "72F1D1CB-1D6A-41C8-9545-E31894F29123",
+  "name": "Applebee's Grill + Bar",
+  "type": "restaurant",
+  "neighborhood": "Flatbush",
+  "stockist": false
+ },
+ {
+  "id": "7311FFCC-17BA-4C30-9C72-08E16D258587",
+  "name": "Kings Co Imperial",
+  "type": "restaurant",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "732ACE4A-94B8-4531-91DB-C07749628FA0",
+  "name": "McDonald's",
+  "type": "restaurant",
+  "neighborhood": "Greenwood Heights",
+  "stockist": false
+ },
+ {
+  "id": "736E7237-DEF8-4C71-8BDB-6600D564E6DA",
+  "name": "Tacombi",
+  "type": "restaurant",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "73A107DF-AD8D-4420-8C2E-F8766624941C",
+  "name": "Burger King",
+  "type": "restaurant",
+  "neighborhood": "Downtown Brooklyn",
+  "stockist": false
+ },
+ {
+  "id": "7422C18A-5F3A-46C0-AA3B-986FFAB7538A",
+  "name": "Lighthouse",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "7445559B-8DD7-4AED-8E7E-915277B25D6D",
+  "name": "Insa",
+  "type": "restaurant",
+  "neighborhood": "Gowanus",
+  "stockist": false
+ },
+ {
+  "id": "745595C0-8B33-4F90-BCA1-C523AA7A90B4",
+  "name": "Cpt. Dan's Good Time Tavern",
+  "type": "bar",
+  "neighborhood": "Bedford-Stuyvesant",
+  "stockist": false
+ },
+ {
+  "id": "745C2D7C-2CA2-4AE4-A77C-C9B3B0104905",
+  "name": "Tenda Asian Fusion",
+  "type": "bar",
+  "neighborhood": "Sheepshead Bay",
+  "stockist": false
+ },
+ {
+  "id": "7611AC7B-DCC6-45C9-B4F6-83E6DC2C206B",
+  "name": "Ave-Z Deli & Pizza",
+  "type": "deli",
+  "neighborhood": "Gravesend",
+  "stockist": false
+ },
+ {
+  "id": "76184D3B-12F8-4FD4-9FB3-0DD0CAAA61AC",
+  "name": "Mr. Q's",
+  "type": "deli",
+  "neighborhood": "Sunset Park",
+  "stockist": false
+ },
+ {
+  "id": "761ED5FC-BAF4-4886-951A-3C2BF24F0CD4",
+  "name": "Hot Bagel",
+  "type": "deli",
+  "neighborhood": "",
+  "stockist": false
+ },
+ {
+  "id": "76F62C31-EE79-4B76-BC1C-71307520194D",
+  "name": "Sunac Natural Deli",
+  "type": "deli",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "7707C5EA-FF9A-47C5-AA58-CAC1F8369C88",
+  "name": "Parlay",
+  "type": "restaurant",
+  "neighborhood": "Sunset Park",
+  "stockist": false
+ },
+ {
+  "id": "78157FB7-A6B1-470E-A862-2EDD76227273",
+  "name": "McDonald's",
+  "type": "restaurant",
+  "neighborhood": "East New York",
+  "stockist": false
+ },
+ {
+  "id": "781FA133-EC3D-4F14-867A-3E13FF799C85",
+  "name": "Clover Club",
+  "type": "bar",
+  "neighborhood": "Carroll Gardens",
+  "stockist": false
+ },
+ {
+  "id": "7869BE72-6EBB-419E-9A0D-7B8865186984",
+  "name": "F & M Cafe",
+  "type": "deli",
+  "neighborhood": "Red Hook",
+  "stockist": false
+ },
+ {
+  "id": "787D42E6-3E3F-467A-8BC2-85A7CACA8B3A",
+  "name": "Francie",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "78E5AEDD-49C3-4727-AECB-3AD47C9AC989",
+  "name": "Two Hands",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "7902A806-0A03-4F3E-A0EB-63B9B60AE14D",
+  "name": "Alibi",
+  "type": "bar",
+  "neighborhood": "Fort Greene",
+  "stockist": false
+ },
+ {
+  "id": "791F1B8B-C5E6-4160-9928-D1DFEA5C2075",
+  "name": "Vis-a-Vis Restaurant",
+  "type": "bar",
+  "neighborhood": "Brighton Beach",
+  "stockist": false
+ },
+ {
+  "id": "79466CC8-0320-4D9C-99F5-4DCF1077C003",
+  "name": "Thai Me",
+  "type": "bar",
+  "neighborhood": "Bedford-Stuyvesant",
+  "stockist": false
+ },
+ {
+  "id": "79673ABB-9002-4957-8AAF-E565A7CC079F",
+  "name": "Kai Feng Fu Dumpling House",
+  "type": "restaurant",
+  "neighborhood": "Borough Park",
+  "stockist": false
+ },
+ {
+  "id": "798EDF79-A797-482D-815F-C1F1A1194072",
+  "name": "Grand Army",
+  "type": "bar",
+  "neighborhood": "",
+  "stockist": false
+ },
+ {
+  "id": "799F3B3B-A7F0-4975-A5F6-233C86F59E59",
+  "name": "High Dive",
+  "type": "bar",
+  "neighborhood": "Park Slope",
+  "stockist": false
+ },
+ {
+  "id": "79A2868D-FA50-4CA2-B455-19E6825AC97B",
+  "name": "Two Deli Corporation",
+  "type": "deli",
+  "neighborhood": "East New York",
+  "stockist": false
+ },
+ {
+  "id": "7A10D60F-B123-477A-AA24-8F422B30A8A8",
+  "name": "Lone Wolf",
+  "type": "bar",
+  "neighborhood": "Bushwick",
+  "stockist": false
+ },
+ {
+  "id": "7A56D8B4-FF47-46F1-8A9F-868F6A1279C7",
+  "name": "Milky Way Grocery",
+  "type": "deli",
+  "neighborhood": "Canarsie",
+  "stockist": false
+ },
+ {
+  "id": "7A59D3A4-0E51-4CD3-9F3F-E41D1A2C6011",
+  "name": "Dick and Jane’s",
+  "type": "bar",
+  "neighborhood": "Fort Greene",
+  "stockist": false
+ },
+ {
+  "id": "7B0D63FD-33E5-4EA7-A6BC-22863B8E8C43",
+  "name": "Elora’s",
+  "type": "bar",
+  "neighborhood": "",
+  "stockist": false
+ },
+ {
+  "id": "7B26C88E-DC6D-4CF7-9BC6-7D5E0746E9E6",
+  "name": "Greene Bites",
+  "type": "deli",
+  "neighborhood": "Fort Greene",
+  "stockist": false
+ },
+ {
+  "id": "7B5051ED-C1C3-4428-9604-718A0981B9CB",
+  "name": "Elsa",
+  "type": "bar",
+  "neighborhood": "Cobble Hill",
+  "stockist": false
+ },
+ {
+  "id": "7BA51915-1FCC-4B38-B8C7-85E27D2A2100",
+  "name": "Camillo",
+  "type": "bar",
+  "neighborhood": "",
+  "stockist": false
+ },
+ {
+  "id": "7C249307-8F2E-4A30-A989-C02330B435A8",
+  "name": "Ital Kitchen",
+  "type": "restaurant",
+  "neighborhood": "Crown Heights",
+  "stockist": false
+ },
+ {
+  "id": "7C4CBF71-6FBF-4E41-9BC0-0F3D0E3AD120",
+  "name": "Bee's Knees & Honey Lounge",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "7C774A0B-1C1D-4E93-A240-441D9B332D69",
+  "name": "BJ's Wholesale Club",
+  "type": "deli",
+  "neighborhood": "Canarsie",
+  "stockist": false
+ },
+ {
+  "id": "7CA9BF91-55BE-4289-A688-A6FCC2891E98",
+  "name": "Cheryl's Global Soul",
+  "type": "bar",
+  "neighborhood": "Prospect Heights",
+  "stockist": false
+ },
+ {
+  "id": "7CEF9351-3AEF-4540-889F-F746705551D6",
+  "name": "Omonia Cafe",
+  "type": "bar",
+  "neighborhood": "Bay Ridge",
+  "stockist": false
+ },
+ {
+  "id": "7D60072C-8A6C-4CB6-965A-AEA6B442EB20",
+  "name": "The Ox Tavern",
+  "type": "bar",
+  "neighborhood": "Flatbush",
+  "stockist": false
+ },
+ {
+  "id": "7DD6D93B-FF4F-4FC8-91C0-1E111D57920C",
+  "name": "Chilo's",
+  "type": "bar",
+  "neighborhood": "Bedford-Stuyvesant",
+  "stockist": false
+ },
+ {
+  "id": "7DEEFFE3-0837-4626-8F23-BD938B2C04D3",
+  "name": "Carmelo’s",
+  "type": "bar",
+  "neighborhood": "Bushwick",
+  "stockist": false
+ },
+ {
+  "id": "7DFB7902-DCC4-445A-A305-7DB9ED3F5284",
+  "name": "Rosie Pizza Bar",
+  "type": "bar",
+  "neighborhood": "Bushwick",
+  "stockist": false
+ },
+ {
+  "id": "7E57159E-C663-4147-837C-6B507EC55630",
+  "name": "Turtles all the way down",
+  "type": "bar",
+  "neighborhood": "Bedford-Stuyvesant",
+  "stockist": false
+ },
+ {
+  "id": "7E5E3AE9-578A-489D-BF7F-5E718D7D7D79",
+  "name": "Asaad Deli And Grill",
+  "type": "deli",
+  "neighborhood": "",
+  "stockist": false
+ },
+ {
+  "id": "7E6D0B48-F885-4D59-A772-70D93D7AAF2B",
+  "name": "Post No Bills",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "7E77726E-AA21-4D12-9ADE-9098B5684018",
+  "name": "Brookdale deli and grill",
+  "type": "deli",
+  "neighborhood": "East New York",
+  "stockist": false
+ },
+ {
+  "id": "7E8D09D8-4B94-4A6B-A00D-97A8E7D6E94E",
+  "name": "baba cool",
+  "type": "bar",
+  "neighborhood": "Fort Greene",
+  "stockist": false
+ },
+ {
+  "id": "7ED63DD7-6BC1-4700-B694-E84CD3B04665",
+  "name": "Commune Cafe + Wine Bar",
+  "type": "bar",
+  "neighborhood": "Bedford-Stuyvesant",
+  "stockist": false
+ },
+ {
+  "id": "7F0978C9-F305-4F79-8EBD-9727B465E39A",
+  "name": "D'Amore , Italian Restaurant, Bar ,Dining & Pizzeria - Mill Basin , Brooklyn, NY",
+  "type": "bar",
+  "neighborhood": "Mill Basin",
+  "stockist": false
+ },
+ {
+  "id": "7F1C4F9F-7FED-47D8-8A67-F3B0323EC711",
+  "name": "Old Stanley's Bar",
+  "type": "bar",
+  "neighborhood": "Bushwick",
+  "stockist": false
+ },
+ {
+  "id": "7F31FFF4-4412-4860-B567-FAFD2333F045",
+  "name": "Montero Bar & Grill",
+  "type": "bar",
+  "neighborhood": "",
+  "stockist": false
+ },
+ {
+  "id": "7F4509A4-DFEB-4A32-961E-B5D12859FA34",
+  "name": "The Richardson",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "7F683CE7-1BEE-4EB0-B406-3046D0FCB96C",
+  "name": "Cherry Valley Marketplace",
+  "type": "deli",
+  "neighborhood": "East New York",
+  "stockist": false
+ },
+ {
+  "id": "7F83A21C-6B94-4076-B797-318F3D5A1B20",
+  "name": "Cozy Royale",
+  "type": "restaurant",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "7F84C643-0D3A-4098-95BE-55339C6379A2",
+  "name": "McDonald's",
+  "type": "restaurant",
+  "neighborhood": "East Flatbush",
+  "stockist": false
+ },
+ {
+  "id": "7F88CDA7-3044-4A20-B806-8D0D25FB3956",
+  "name": "McDonald's",
+  "type": "restaurant",
+  "neighborhood": "Bedford-Stuyvesant",
+  "stockist": false
+ },
+ {
+  "id": "7FA12DED-18CB-4FED-8D3C-355B8C86EAAE",
+  "name": "Olivier Bistro",
+  "type": "restaurant",
+  "neighborhood": "",
+  "stockist": false
+ },
+ {
+  "id": "7FB8978F-1BCD-4CF1-9AEC-D242FED48ADF",
+  "name": "La Abuelita",
+  "type": "deli",
+  "neighborhood": "Bushwick",
+  "stockist": false
+ },
+ {
+  "id": "7FDDCA85-D8A5-45AD-ABF9-9CD5694AFFAD",
+  "name": "Foodtown of Bensonhurst",
+  "type": "deli",
+  "neighborhood": "Gravesend",
+  "stockist": false
+ },
+ {
+  "id": "7FE52988-D96C-48BE-B7FA-354F5C613B9C",
+  "name": "Purgatory",
+  "type": "bar",
+  "neighborhood": "Bushwick",
+  "stockist": false
+ },
+ {
+  "id": "7FF413B8-EA47-4566-83B8-749F46954F4B",
+  "name": "Kent Ale House",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "800455F6-099D-4729-9F69-D22CB7F922DE",
+  "name": "All Night Skate",
+  "type": "bar",
+  "neighborhood": "Bedford-Stuyvesant",
+  "stockist": false
+ },
+ {
+  "id": "8020B9A1-1919-43D9-BF76-57A6FCA963D7",
+  "name": "Blueprint",
+  "type": "restaurant",
+  "neighborhood": "Park Slope",
+  "stockist": false
+ },
+ {
+  "id": "810D9D07-D2FD-465A-9622-020BD6E30756",
+  "name": "Il Porto Ristorante & Wood Fired Pizza",
+  "type": "restaurant",
+  "neighborhood": "Clinton Hill",
+  "stockist": false
+ },
+ {
+  "id": "81534E8D-4CAC-4E89-8306-809960848DB7",
+  "name": "Hole In The Wall",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "816C48D1-D572-4750-9943-49107F1DB9BF",
+  "name": "Sherdor",
+  "type": "restaurant",
+  "neighborhood": "Sheepshead Bay",
+  "stockist": false
+ },
+ {
+  "id": "816D4A7F-E7C6-484F-9EE3-95CF4E20F00E",
+  "name": "Kilo Bravo",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "817BC7F0-0C41-46CE-AFC3-6D67468F304D",
+  "name": "Wonderville",
+  "type": "bar",
+  "neighborhood": "Bedford-Stuyvesant",
+  "stockist": false
+ },
+ {
+  "id": "818E508D-17E8-4915-A612-1F5EE89B4766",
+  "name": "BrownStone Bagels",
+  "type": "deli",
+  "neighborhood": "Park Slope",
+  "stockist": false
+ },
+ {
+  "id": "81D5B630-A9F6-4FF7-8855-ECE9AF2436E7",
+  "name": "Knapp Street Deli",
+  "type": "deli",
+  "neighborhood": "Sheepshead Bay",
+  "stockist": false
+ },
+ {
+  "id": "82339348-13E0-4835-A058-8F54BDA5DFD6",
+  "name": "Honey's",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "828423EC-E218-4417-99AD-F165D1F03E63",
+  "name": "Lea",
+  "type": "bar",
+  "neighborhood": "Flatbush",
+  "stockist": false
+ },
+ {
+  "id": "82C7A39E-94E4-4D90-BD6F-4B056785FABF",
+  "name": "Met Foodmarkets of Greenpoint",
+  "type": "deli",
+  "neighborhood": "Greenpoint",
+  "stockist": false
+ },
+ {
+  "id": "82EB2579-2C0D-4473-962E-6DC9828CF78F",
+  "name": "Barrow’s Intense NY Tasting Room",
+  "type": "bar",
+  "neighborhood": "Greenwood Heights",
+  "stockist": false
+ },
+ {
+  "id": "83688139-D607-4607-9061-EE49168C331C",
+  "name": "Fiction Bar/Cafe",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "83782E0F-2A5E-4E4F-815A-97413998B95A",
+  "name": "Friducha",
+  "type": "bar",
+  "neighborhood": "Greenpoint",
+  "stockist": false
+ },
+ {
+  "id": "8378F343-E8D1-494A-9515-53A27EFF2036",
+  "name": "McDonald's",
+  "type": "restaurant",
+  "neighborhood": "Bensonhurst",
+  "stockist": false
+ },
+ {
+  "id": "839AA2D5-6DA3-498D-B10F-8EA41BEA7527",
+  "name": "Land-O-Fun",
+  "type": "restaurant",
+  "neighborhood": "Sheepshead Bay",
+  "stockist": false
+ },
+ {
+  "id": "83A7F3F4-7754-401F-8D73-7321589F27AE",
+  "name": "Chez Moi",
+  "type": "bar",
+  "neighborhood": "",
+  "stockist": false
+ },
+ {
+  "id": "845D417B-91F3-4E63-AF46-BAB5D7B05D90",
+  "name": "Certo Market",
+  "type": "deli",
+  "neighborhood": "Borough Park",
+  "stockist": false
+ },
+ {
+  "id": "848DD7C5-E0C3-4080-9246-BADBEFE9D95C",
+  "name": "McDonald's",
+  "type": "restaurant",
+  "neighborhood": "Prospect Heights",
+  "stockist": false
+ },
+ {
+  "id": "84AE1708-5A77-47FC-99E1-355F22DC0B7C",
+  "name": "South Brooklyn Foundry",
+  "type": "restaurant",
+  "neighborhood": "Bay Ridge",
+  "stockist": false
+ },
+ {
+  "id": "84D40C82-60C7-45AF-958A-5A5BB2FC0445",
+  "name": "American Cheez",
+  "type": "bar",
+  "neighborhood": "",
+  "stockist": false
+ },
+ {
+  "id": "8500203A-A3B6-401D-9BA4-7BA169CEBF3D",
+  "name": "Mucho Loco Deli",
+  "type": "deli",
+  "neighborhood": "Brownsville",
+  "stockist": false
+ },
+ {
+  "id": "8513AF58-85A0-4EB6-B81D-03AD618F764B",
+  "name": "Dekalb Market Hall",
+  "type": "restaurant",
+  "neighborhood": "Downtown Brooklyn",
+  "stockist": false
+ },
+ {
+  "id": "852F2BC2-A6F4-4678-8A09-BF021A8B045C",
+  "name": "Aden Food Market",
+  "type": "deli",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "8540D96D-5868-4B16-AAAB-880A31AFE2EB",
+  "name": "Lucky Dog",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "85D1BF4E-844F-42EC-B1F7-F7CADEBC48D2",
+  "name": "Dynaco",
+  "type": "bar",
+  "neighborhood": "Bedford-Stuyvesant",
+  "stockist": false
+ },
+ {
+  "id": "8621CB2B-282F-4E7B-B59E-156BCB630468",
+  "name": "Lady Jay's",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "86AD2BD5-026F-4F75-A818-FAC24565FEB3",
+  "name": "Popeyes Louisiana Kitchen",
+  "type": "restaurant",
+  "neighborhood": "",
+  "stockist": false
+ },
+ {
+  "id": "86B1CE67-5B20-4B2B-8567-CA12A652404D",
+  "name": "Popeyes Louisiana Kitchen",
+  "type": "restaurant",
+  "neighborhood": "East Flatbush",
+  "stockist": false
+ },
+ {
+  "id": "86E521C4-23E2-4E2D-8A84-290D6BE13CA4",
+  "name": "The Borough Bar & Grill",
+  "type": "restaurant",
+  "neighborhood": "Crown Heights",
+  "stockist": false
+ },
+ {
+  "id": "87554F8E-8A80-4B23-89EA-2B910F0F11B0",
+  "name": "Genao",
+  "type": "bar",
+  "neighborhood": "Bedford-Stuyvesant",
+  "stockist": false
+ },
+ {
+  "id": "875DD526-F654-43D0-BC0D-FD684C50EB00",
+  "name": "The Hoxton, Williamsburg",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "87600054-C80F-471F-9544-FB4BAFA9287D",
+  "name": "Kavkazkiy Dvorik",
+  "type": "restaurant",
+  "neighborhood": "Sheepshead Bay",
+  "stockist": false
+ },
+ {
+  "id": "87748ED6-7B13-4140-9215-790A2A21695E",
+  "name": "Stumpy's Hatchet House Brooklyn",
+  "type": "bar",
+  "neighborhood": "Greenwood Heights",
+  "stockist": false
+ },
+ {
+  "id": "87FF1B28-90BD-4C90-9BB3-A182ED5F8DB5",
+  "name": "WINNER",
+  "type": "restaurant",
+  "neighborhood": "",
+  "stockist": false
+ },
+ {
+  "id": "8818B3D2-8ECE-4D92-A9D7-C7305E9F5C7C",
+  "name": "Punta Cana",
+  "type": "restaurant",
+  "neighborhood": "Bedford-Stuyvesant",
+  "stockist": false
+ },
+ {
+  "id": "885B185B-1475-470B-8F3B-0B2984D27FE3",
+  "name": "Ayat Bay Ridge",
+  "type": "restaurant",
+  "neighborhood": "Bay Ridge",
+  "stockist": false
+ },
+ {
+  "id": "887738AB-D0C6-45B4-9563-5E3E17366578",
+  "name": "Walter's",
+  "type": "bar",
+  "neighborhood": "Fort Greene",
+  "stockist": false
+ },
+ {
+  "id": "88A5A59C-3EF8-456A-B9B1-2394DB9ECC4A",
+  "name": "Nourish Thai",
+  "type": "restaurant",
+  "neighborhood": "Prospect Heights",
+  "stockist": false
+ },
+ {
+  "id": "88B600A8-FE31-4C25-8F60-B0177F09B4AB",
+  "name": "Baba's Pierogies",
+  "type": "restaurant",
+  "neighborhood": "Gowanus",
+  "stockist": false
+ },
+ {
+  "id": "88E8EBC1-2D9A-490B-828C-6EED37C0019C",
+  "name": "Henry Public",
+  "type": "bar",
+  "neighborhood": "Cobble Hill",
+  "stockist": false
+ },
+ {
+  "id": "88F82545-B435-4105-B9AB-BA0BE0733200",
+  "name": "Plenty's",
+  "type": "restaurant",
+  "neighborhood": "Flatbush",
+  "stockist": false
+ },
+ {
+  "id": "892E7266-A12D-4A30-A5B3-257B0E844EF0",
+  "name": "Anthony's Deli",
+  "type": "deli",
+  "neighborhood": "Coney Island",
+  "stockist": false
+ },
+ {
+  "id": "893FF4D1-19AA-4407-90F6-030A4E203336",
+  "name": "TK's Deli",
+  "type": "deli",
+  "neighborhood": "Bedford-Stuyvesant",
+  "stockist": false
+ },
+ {
+  "id": "895FA243-5148-421C-B962-74FF86B12E33",
+  "name": "Lucali",
+  "type": "restaurant",
+  "neighborhood": "Carroll Gardens",
+  "stockist": false
+ },
+ {
+  "id": "898DC12D-1CE5-49D3-842A-82B1881C39FC",
+  "name": "Gino's",
+  "type": "bar",
+  "neighborhood": "Bay Ridge",
+  "stockist": false
+ },
+ {
+  "id": "89C9F606-4B3D-4DE1-B2CC-CFA1D54DF905",
+  "name": "Ha-Weeda",
+  "type": "bar",
+  "neighborhood": "Sunset Park",
+  "stockist": false
+ },
+ {
+  "id": "89F48502-9248-4BF4-B750-835A78536E18",
+  "name": "McDonald's",
+  "type": "restaurant",
+  "neighborhood": "Crown Heights",
+  "stockist": false
+ },
+ {
+  "id": "8A6923B3-B4F6-4F7C-9812-E67BA107F0EF",
+  "name": "McDonald's",
+  "type": "restaurant",
+  "neighborhood": "Bedford-Stuyvesant",
+  "stockist": false
+ },
+ {
+  "id": "8A75B606-851C-46A8-ABBC-A1C8D5D539D1",
+  "name": "Perry's",
+  "type": "bar",
+  "neighborhood": "Sheepshead Bay",
+  "stockist": false
+ },
+ {
+  "id": "8A9EC216-0D0F-4652-A8A0-11CAF72613B9",
+  "name": "Diner",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "8AA66183-73FF-4775-8424-DBE53FAC25F2",
+  "name": "Topaze",
+  "type": "restaurant",
+  "neighborhood": "Flatlands",
+  "stockist": false
+ },
+ {
+  "id": "8B0F7BEF-303C-4636-AA66-966A416D2FF1",
+  "name": "McDonald's",
+  "type": "restaurant",
+  "neighborhood": "Brighton Beach",
+  "stockist": false
+ },
+ {
+  "id": "8BA1B583-A90C-4CC8-96F7-BB9ED1763719",
+  "name": "The Bedford",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "8BE3B694-82C5-4895-9DD0-2496CB44764D",
+  "name": "Taco Bell Cantina",
+  "type": "restaurant",
+  "neighborhood": "Flatbush",
+  "stockist": false
+ },
+ {
+  "id": "8BF1515C-BFEA-4571-AE6F-4CAE1E3F023D",
+  "name": "D & P",
+  "type": "bar",
+  "neighborhood": "East Flatbush",
+  "stockist": false
+ },
+ {
+  "id": "8C0DF373-3CD1-4D63-A7C5-7A4A72C29FFA",
+  "name": "Mesa Coyoacan",
+  "type": "restaurant",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "8C4487E1-4C31-4F8C-9053-86C862EAA68C",
+  "name": "Viva Toro",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "8C6348B6-F4A7-455B-9880-395137BA93B2",
+  "name": "Franklin Corner Cafe",
+  "type": "deli",
+  "neighborhood": "Greenpoint",
+  "stockist": false
+ },
+ {
+  "id": "8C70B364-EBF2-45A7-8083-3D6ACFF507A8",
+  "name": "7th Ave Donuts & Diner",
+  "type": "restaurant",
+  "neighborhood": "Park Slope",
+  "stockist": false
+ },
+ {
+  "id": "8CF6D7FF-383E-4133-913D-5F95F45F4E43",
+  "name": "The Little Whiskey",
+  "type": "bar",
+  "neighborhood": "Bushwick",
+  "stockist": false
+ },
+ {
+  "id": "8D6530C1-446D-441A-9B90-95FEE9EB33E4",
+  "name": "Colonia Verde",
+  "type": "restaurant",
+  "neighborhood": "Fort Greene",
+  "stockist": false
+ },
+ {
+  "id": "8DAA3FE1-F3D9-4AF6-88B2-9B453AA6C570",
+  "name": "MEAT",
+  "type": "restaurant",
+  "neighborhood": "Crown Heights",
+  "stockist": false
+ },
+ {
+  "id": "8DC0483B-D658-4DD5-A1E7-B49B17A3E6BA",
+  "name": "DeStefano's Steakhouse",
+  "type": "restaurant",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "8DEA8478-82E5-4C07-9371-89ADAFA85694",
+  "name": "Dips",
+  "type": "deli",
+  "neighborhood": "Borough Park",
+  "stockist": false
+ },
+ {
+  "id": "8E75F0D5-A7BA-4121-B00E-C07194F4AE08",
+  "name": "McDonald's",
+  "type": "restaurant",
+  "neighborhood": "Fort Hamilton",
+  "stockist": false
+ },
+ {
+  "id": "8E9FE684-D436-4865-A763-EA3C74D456BF",
+  "name": "Dawn’s Til Dusk",
+  "type": "restaurant",
+  "neighborhood": "",
+  "stockist": false
+ },
+ {
+  "id": "8F4ACA25-B68B-42FA-BA7B-2399E4E00473",
+  "name": "Star Deli",
+  "type": "deli",
+  "neighborhood": "Bensonhurst",
+  "stockist": false
+ },
+ {
+  "id": "8FA2E381-DAC8-4B0F-8F15-9EAD339C7BDB",
+  "name": "Cerveceria Havemeyer",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "8FBF2031-7862-4BC7-A119-D8049B5CB7AB",
+  "name": "George & Jack's Tap Room",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "903DE6F2-2105-4827-AEFE-88FE37E98C6F",
+  "name": "Chavela's",
+  "type": "restaurant",
+  "neighborhood": "Crown Heights",
+  "stockist": false
+ },
+ {
+  "id": "90745E29-755E-45CE-920E-77F32C0C2077",
+  "name": "Boat",
+  "type": "bar",
+  "neighborhood": "",
+  "stockist": false
+ },
+ {
+  "id": "90B45F80-1D95-49E0-B9B4-D57822E6253D",
+  "name": "Public Records",
+  "type": "restaurant",
+  "neighborhood": "Gowanus",
+  "stockist": false
+ },
+ {
+  "id": "90CCD2DF-C485-4C9A-9027-190CF9048016",
+  "name": "St. Anselm",
+  "type": "restaurant",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "9150DA59-BF66-4012-80DD-2DA685C5F9E6",
+  "name": "Cobble Hill Coffee Shop",
+  "type": "restaurant",
+  "neighborhood": "Carroll Gardens",
+  "stockist": false
+ },
+ {
+  "id": "917C4862-3055-4D28-89DD-938FEB2B4F22",
+  "name": "Friends and Lovers",
+  "type": "bar",
+  "neighborhood": "Crown Heights",
+  "stockist": false
+ },
+ {
+  "id": "91AAE8DC-A868-480F-912A-A105CAC193D5",
+  "name": "BK Bagel & Deli",
+  "type": "deli",
+  "neighborhood": "Crown Heights",
+  "stockist": false
+ },
+ {
+  "id": "91B71CF1-3B46-4429-9E7B-1644FC95125F",
+  "name": "In & Out Deli & Grill",
+  "type": "deli",
+  "neighborhood": "Coney Island",
+  "stockist": false
+ },
+ {
+  "id": "91B8002C-E33E-4F4A-AA81-C2186A5BC02E",
+  "name": "Fornino",
+  "type": "restaurant",
+  "neighborhood": "Greenpoint",
+  "stockist": false
+ },
+ {
+  "id": "91D570DD-4F8A-4BB7-A5AD-4A97B5D276A6",
+  "name": "Phil’s",
+  "type": "bar",
+  "neighborhood": "Bushwick",
+  "stockist": false
+ },
+ {
+  "id": "91D65EC4-8E75-4EC1-8D19-74CF9D470C12",
+  "name": "Elaine's Avenue M Deli",
+  "type": "deli",
+  "neighborhood": "Midwood",
+  "stockist": false
+ },
+ {
+  "id": "91F1AC17-CA65-4CE8-9C11-634B49B7399C",
+  "name": "Sycamore Bar + Flower Shop",
+  "type": "bar",
+  "neighborhood": "Flatbush",
+  "stockist": false
+ },
+ {
+  "id": "9268A65E-54F8-4246-A03A-6909F3B62138",
+  "name": "Koo Koo Chicken",
+  "type": "restaurant",
+  "neighborhood": "Bath Beach",
+  "stockist": false
+ },
+ {
+  "id": "928146B6-02E6-407F-8F9F-5243C1A1EDB3",
+  "name": "Greenpoint Fish & Lobster Co.",
+  "type": "restaurant",
+  "neighborhood": "Greenpoint",
+  "stockist": false
+ },
+ {
+  "id": "9293499F-0309-47FC-950C-9D0CC5A6327B",
+  "name": "Vanessa's Dumpling House",
+  "type": "restaurant",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "92C20B47-2106-4E75-8169-9E1513EDDCC1",
+  "name": "Sea Kings Steam and Fry Seafood Inc",
+  "type": "restaurant",
+  "neighborhood": "East Flatbush",
+  "stockist": false
+ },
+ {
+  "id": "93279D82-E9FD-4924-9CCE-FE7AD4434612",
+  "name": "A Bar Brooklyn",
+  "type": "bar",
+  "neighborhood": "Greenpoint",
+  "stockist": false
+ },
+ {
+  "id": "93C12CF4-18BF-4911-8220-3BAC8623394F",
+  "name": "Taco Bell",
+  "type": "restaurant",
+  "neighborhood": "Fort Hamilton",
+  "stockist": false
+ },
+ {
+  "id": "93DBE788-A4BE-4A06-9132-17EFFD89985F",
+  "name": "Essen NY Deli",
+  "type": "deli",
+  "neighborhood": "Midwood",
+  "stockist": false
+ },
+ {
+  "id": "93DC03E0-BAF3-450D-8C51-E52007B9AE43",
+  "name": "Tabu lounge",
+  "type": "bar",
+  "neighborhood": "Sheepshead Bay",
+  "stockist": false
+ },
+ {
+  "id": "93FBA5FA-2FF2-4BA7-97BE-1C89700F5B90",
+  "name": "We Got Company",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "9401158A-CC1E-447A-9ADA-B39342033C46",
+  "name": "The Moonlight Mile",
+  "type": "bar",
+  "neighborhood": "Greenpoint",
+  "stockist": false
+ },
+ {
+  "id": "9432ADD0-8EBF-4A9D-A211-7EE2F9AB2729",
+  "name": "Gold Street Market",
+  "type": "deli",
+  "neighborhood": "Downtown Brooklyn",
+  "stockist": false
+ },
+ {
+  "id": "94A689E7-C7D4-43CF-8ACE-EEC42CF10D4C",
+  "name": "Gold Star Beer Counter",
+  "type": "bar",
+  "neighborhood": "Prospect Heights",
+  "stockist": false
+ },
+ {
+  "id": "950076CD-44A1-439A-893E-658470B9CCCA",
+  "name": "Starr Bar",
+  "type": "bar",
+  "neighborhood": "Bushwick",
+  "stockist": false
+ },
+ {
+  "id": "950A3ABE-1304-431A-96E9-F0183D069735",
+  "name": "Spritzenhaus33",
+  "type": "bar",
+  "neighborhood": "Greenpoint",
+  "stockist": false
+ },
+ {
+  "id": "9518742F-E88E-41D5-8BC8-024D02B1814D",
+  "name": "Raizes Churrascaria",
+  "type": "bar",
+  "neighborhood": "Greenpoint",
+  "stockist": false
+ },
+ {
+  "id": "951C9707-F3B9-488A-95FA-9EB4FBE8DE15",
+  "name": "Giuseppina's",
+  "type": "restaurant",
+  "neighborhood": "Greenwood Heights",
+  "stockist": false
+ },
+ {
+  "id": "956E7DDD-0E8D-4209-855F-87AE5924C573",
+  "name": "Irish Haven",
+  "type": "bar",
+  "neighborhood": "Sunset Park",
+  "stockist": false
+ },
+ {
+  "id": "95E205E3-428B-43C5-9C8F-E0FDFF255857",
+  "name": "Sociale",
+  "type": "restaurant",
+  "neighborhood": "Carroll Gardens",
+  "stockist": false
+ },
+ {
+  "id": "95F76950-21F7-41AE-86DE-D5F5080C9ABD",
+  "name": "Rag Top Lounge & Bar",
+  "type": "bar",
+  "neighborhood": "East Flatbush",
+  "stockist": false
+ },
+ {
+  "id": "9630D9A0-FCBB-4E60-92A7-66EE5628EDD4",
+  "name": "Ki Sushi",
+  "type": "restaurant",
+  "neighborhood": "Park Slope",
+  "stockist": false
+ },
+ {
+  "id": "9646DC22-08B0-40B4-A65B-AE550FC4A7B6",
+  "name": "Stone Park Cafe",
+  "type": "bar",
+  "neighborhood": "Park Slope",
+  "stockist": false
+ },
+ {
+  "id": "96BD87A8-F220-4E47-8524-A4AED0CE4804",
+  "name": "Coney Island Bagels",
+  "type": "deli",
+  "neighborhood": "Sheepshead Bay",
+  "stockist": false
+ },
+ {
+  "id": "96CAAD34-F7D1-4D3C-9BB1-6D6E9C54EE5D",
+  "name": "KanaHashi",
+  "type": "restaurant",
+  "neighborhood": "Greenpoint",
+  "stockist": false
+ },
+ {
+  "id": "96D690A8-B69D-42BB-9DD9-BE1940DFC3EE",
+  "name": "Brooklyn Inn",
+  "type": "bar",
+  "neighborhood": "",
+  "stockist": false
+ },
+ {
+  "id": "9767ADB7-5D86-408F-A8AB-47D0F2D67024",
+  "name": "McDonald's",
+  "type": "restaurant",
+  "neighborhood": "Canarsie",
+  "stockist": false
+ },
+ {
+  "id": "9774FA43-7B9F-4AF4-8DBD-15FA8930D9BA",
+  "name": "My Grill Bar",
+  "type": "restaurant",
+  "neighborhood": "Sheepshead Bay",
+  "stockist": false
+ },
+ {
+  "id": "97B8DB1D-00BE-4406-BDE1-16DEACE6CFA5",
+  "name": "Curry Heights",
+  "type": "restaurant",
+  "neighborhood": "",
+  "stockist": false
+ },
+ {
+  "id": "9818D792-EE8F-4BC4-8B76-EA97E93D3D59",
+  "name": "The Exley",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "988A88A3-A242-4AA4-9DB6-FD59CA84132D",
+  "name": "The Hop Shop",
+  "type": "bar",
+  "neighborhood": "Columbia Street Waterfront District",
+  "stockist": true
+ },
+ {
+  "id": "992711F5-CEDD-4898-8963-DB229D5FA9C0",
+  "name": "Grimm Artisanal Ales",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "99BF2317-F676-4B17-BBAA-2A82B84798CB",
+  "name": "Parklife",
+  "type": "bar",
+  "neighborhood": "Gowanus",
+  "stockist": false
+ },
+ {
+  "id": "99C42072-7606-4F05-8E7E-838CDCEFDD22",
+  "name": "M9 Deli and Grill",
+  "type": "deli",
+  "neighborhood": "Borough Park",
+  "stockist": false
+ },
+ {
+  "id": "99E260B1-7F5C-4481-8681-07EF9840AC52",
+  "name": "Soup N Burger",
+  "type": "restaurant",
+  "neighborhood": "Sheepshead Bay",
+  "stockist": false
+ },
+ {
+  "id": "9A1749E8-C021-4EA6-AFF7-F6D1C361368C",
+  "name": "Black Rabbit",
+  "type": "bar",
+  "neighborhood": "Greenpoint",
+  "stockist": false
+ },
+ {
+  "id": "9A3BC79F-28C4-4B3E-9C4C-38B57E7291A2",
+  "name": "Ocean View Cafe",
+  "type": "restaurant",
+  "neighborhood": "Brighton Beach",
+  "stockist": false
+ },
+ {
+  "id": "9A47479B-EBCC-4406-9174-220EBC59B691",
+  "name": "Maison Premiere",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "9B47BA6C-7506-4B2F-959D-FAD63D02B8F8",
+  "name": "Calabrije's Brooklyn",
+  "type": "bar",
+  "neighborhood": "Bushwick",
+  "stockist": false
+ },
+ {
+  "id": "9B4D4A83-6F1F-4369-BA9F-9D3A2C9ABC1B",
+  "name": "Milk & Roses",
+  "type": "restaurant",
+  "neighborhood": "Greenpoint",
+  "stockist": false
+ },
+ {
+  "id": "9BA7D007-9795-4D78-B7BF-F1FBB29C7F3B",
+  "name": "Lopez",
+  "type": "deli",
+  "neighborhood": "Fort Greene",
+  "stockist": false
+ },
+ {
+  "id": "9C04B776-77A1-4703-A0A9-02E1AD11E94C",
+  "name": "Wendy's",
+  "type": "restaurant",
+  "neighborhood": "Canarsie",
+  "stockist": false
+ },
+ {
+  "id": "9C2894FF-5B77-4291-ABD0-C6D0C332ECDE",
+  "name": "Bar Toto",
+  "type": "bar",
+  "neighborhood": "",
+  "stockist": false
+ },
+ {
+  "id": "9C3869B3-9A3A-4EFE-BB15-888FC2241A83",
+  "name": "Rocky Deli and Grill",
+  "type": "deli",
+  "neighborhood": "Fort Greene",
+  "stockist": false
+ },
+ {
+  "id": "9C469A9B-2779-45BA-A0DD-F9287612B0D6",
+  "name": "Ocean Fruit Supermarket",
+  "type": "deli",
+  "neighborhood": "Midwood",
+  "stockist": false
+ },
+ {
+  "id": "9C46E80D-E4FC-4781-B1FA-70FA4EE4413B",
+  "name": "Joya",
+  "type": "restaurant",
+  "neighborhood": "Cobble Hill",
+  "stockist": false
+ },
+ {
+  "id": "9C7ABFF2-E6C9-42AA-856A-89A4C36779F1",
+  "name": "Pasta Louise Cafe",
+  "type": "restaurant",
+  "neighborhood": "Park Slope",
+  "stockist": false
+ },
+ {
+  "id": "9D10B455-09FA-4B94-933D-C98D331D8533",
+  "name": "Wholesome Farms Market",
+  "type": "deli",
+  "neighborhood": "Clinton Hill",
+  "stockist": false
+ },
+ {
+  "id": "9DA0E286-AF04-4498-B6D5-273A553E81E7",
+  "name": "Rocka Rolla",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "9DDE0141-5084-4F26-AC29-A053128A31F5",
+  "name": "Cecconi's DUMBO",
+  "type": "restaurant",
+  "neighborhood": "",
+  "stockist": false
+ },
+ {
+  "id": "9DEAA49D-F823-471B-B787-B4964F52D157",
+  "name": "SLIMAK CAFE",
+  "type": "restaurant",
+  "neighborhood": "Sunset Park",
+  "stockist": false
+ },
+ {
+  "id": "9E06B735-70C1-4087-8E6D-F5F6FC44A255",
+  "name": "Natural Mini Market",
+  "type": "deli",
+  "neighborhood": "Bedford-Stuyvesant",
+  "stockist": false
+ },
+ {
+  "id": "9E255141-6E3C-482D-870C-8583455A075A",
+  "name": "Trad Room",
+  "type": "bar",
+  "neighborhood": "Bedford-Stuyvesant",
+  "stockist": false
+ },
+ {
+  "id": "9E2BF5A9-63DE-4A48-95F5-1A8B8FA55EC2",
+  "name": "Vinegar Hill House",
+  "type": "bar",
+  "neighborhood": "",
+  "stockist": false
+ },
+ {
+  "id": "9E438B45-065E-4FBF-8FD2-3E3168A20CC7",
+  "name": "EastVille Comedy Club",
+  "type": "bar",
+  "neighborhood": "",
+  "stockist": false
+ },
+ {
+  "id": "9E7593E4-521D-49BA-8B51-AEA3CBEC7B5B",
+  "name": "Bar Ferdinando",
+  "type": "bar",
+  "neighborhood": "Columbia Street Waterfront District",
+  "stockist": false
+ },
+ {
+  "id": "9E7FF296-D7AC-4FBF-B285-6CEDE6A5178A",
+  "name": "Nostrand Avenue Pub",
+  "type": "bar",
+  "neighborhood": "Crown Heights",
+  "stockist": false
+ },
+ {
+  "id": "9E858471-CE86-408A-AF40-A798D975EB3B",
+  "name": "Gourmet Boutique",
+  "type": "deli",
+  "neighborhood": "Sheepshead Bay",
+  "stockist": false
+ },
+ {
+  "id": "9EB6450F-3287-49B5-9560-E0466183A014",
+  "name": "Black Forest Brooklyn - Smith Street",
+  "type": "bar",
+  "neighborhood": "",
+  "stockist": false
+ },
+ {
+  "id": "9FA0DA0F-7AD3-4B01-B269-FB37FE6CA7BE",
+  "name": "McDonald's",
+  "type": "restaurant",
+  "neighborhood": "Bedford-Stuyvesant",
+  "stockist": false
+ },
+ {
+  "id": "A020DFFF-AD02-4207-AD94-3A958DAC14DC",
+  "name": "tava turkish and mediterranean",
+  "type": "bar",
+  "neighborhood": "Park Slope",
+  "stockist": false
+ },
+ {
+  "id": "A0B0B323-EDA4-4C78-81BE-3F8BDEB0CB68",
+  "name": "Mash Gourmet Deli",
+  "type": "deli",
+  "neighborhood": "Brownsville",
+  "stockist": false
+ },
+ {
+  "id": "A0EDE0E0-BED3-4504-91B2-E0F19AB3685A",
+  "name": "Omega Deli & Cafe",
+  "type": "deli",
+  "neighborhood": "Sunset Park",
+  "stockist": false
+ },
+ {
+  "id": "A12FA19E-B811-45DF-8223-25F4636227B7",
+  "name": "Johnson Gourmet",
+  "type": "deli",
+  "neighborhood": "Downtown Brooklyn",
+  "stockist": false
+ },
+ {
+  "id": "A15FFC13-3681-47B7-AF0D-FF8B28B244C4",
+  "name": "ORE BAR",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "A172725F-F26C-4EF1-A91C-137906E817D7",
+  "name": "Two Brothers Deli",
+  "type": "deli",
+  "neighborhood": "Flatlands",
+  "stockist": false
+ },
+ {
+  "id": "A181855B-EF94-4BA0-B815-781F5300192F",
+  "name": "The Grumpy Cat Bar",
+  "type": "bar",
+  "neighborhood": "Sunset Park",
+  "stockist": false
+ },
+ {
+  "id": "A1F10C40-7BF8-4C9B-ACF1-EEB710591591",
+  "name": "AlMar",
+  "type": "bar",
+  "neighborhood": "",
+  "stockist": false
+ },
+ {
+  "id": "A207740C-0292-4B41-8FD3-F29D7F1F801B",
+  "name": "Popeyes Louisiana Kitchen",
+  "type": "restaurant",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "A2244826-1257-4B19-8220-C48F481A4DC4",
+  "name": "Sal expresses deli and grocery store",
+  "type": "deli",
+  "neighborhood": "East Flatbush",
+  "stockist": false
+ },
+ {
+  "id": "A22E1CDA-D3D5-4C5F-8F50-1797AE5E98B6",
+  "name": "El Born",
+  "type": "bar",
+  "neighborhood": "Greenpoint",
+  "stockist": false
+ },
+ {
+  "id": "A26740F9-C4F1-493E-A8E5-696A32FEE0DF",
+  "name": "Elder Greene",
+  "type": "bar",
+  "neighborhood": "Greenpoint",
+  "stockist": false
+ },
+ {
+  "id": "A27105FD-E64B-4D63-B5B9-A4F26CB5B428",
+  "name": "Connie O's",
+  "type": "bar",
+  "neighborhood": "Greenpoint",
+  "stockist": false
+ },
+ {
+  "id": "A2ED4FEB-4993-4998-8A2D-0A87D1165D3F",
+  "name": "Sweet Science",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "A376BEC9-3169-4D22-AD6B-8DA3788D2003",
+  "name": "The Buren",
+  "type": "bar",
+  "neighborhood": "Bushwick",
+  "stockist": false
+ },
+ {
+  "id": "A389C044-0CC8-4F9E-817F-E09C7EA0A20F",
+  "name": "Threes Brewing",
+  "type": "bar",
+  "neighborhood": "Gowanus",
+  "stockist": false
+ },
+ {
+  "id": "A4552EF4-0402-40FA-AF22-A7B4950C549B",
+  "name": "CENA BROOKLYN",
+  "type": "bar",
+  "neighborhood": "",
+  "stockist": false
+ },
+ {
+  "id": "A4C00733-6447-4EC7-B2A4-31E56B16D431",
+  "name": "Finn’s Corner",
+  "type": "bar",
+  "neighborhood": "Prospect Heights",
+  "stockist": false
+ },
+ {
+  "id": "A53741C6-1074-45CF-A8DF-1D165071B7E2",
+  "name": "Ziggy deli & grill",
+  "type": "deli",
+  "neighborhood": "Brownsville",
+  "stockist": false
+ },
+ {
+  "id": "A6471675-B9B3-4D1D-8AE9-2123CEF51EA8",
+  "name": "Bed-Stuy Fish Fry",
+  "type": "restaurant",
+  "neighborhood": "Clinton Hill",
+  "stockist": false
+ },
+ {
+  "id": "A67728DE-E7CE-4776-BD5F-29822DF912FB",
+  "name": "Aska",
+  "type": "restaurant",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "A6C09489-FCE8-47D0-94AB-F604D1059859",
+  "name": "Munchiez Deli",
+  "type": "deli",
+  "neighborhood": "East Flatbush",
+  "stockist": false
+ },
+ {
+  "id": "A76D905D-A29D-4383-B0EC-70C253DAFB33",
+  "name": "95 South Soul Food Restaurant",
+  "type": "bar",
+  "neighborhood": "Crown Heights",
+  "stockist": false
+ },
+ {
+  "id": "A7779975-3887-44A2-A6D9-31AE1CF39C72",
+  "name": "Shake Shack Downtown Brooklyn",
+  "type": "restaurant",
+  "neighborhood": "Downtown Brooklyn",
+  "stockist": false
+ },
+ {
+  "id": "A77988FE-4C13-43A8-8608-7E14DFF9B1EC",
+  "name": "Lucky Seven Deli & Cigar Shop",
+  "type": "deli",
+  "neighborhood": "",
+  "stockist": false
+ },
+ {
+  "id": "A791A2BF-B2F6-43B6-8B14-B6E37C5CF1B7",
+  "name": "Maite",
+  "type": "bar",
+  "neighborhood": "Bushwick",
+  "stockist": false
+ },
+ {
+  "id": "A7A6118D-33A1-404E-A3AE-6F2BA08BE051",
+  "name": "Goldie's Bar",
+  "type": "bar",
+  "neighborhood": "Greenpoint",
+  "stockist": false
+ },
+ {
+  "id": "A7D47466-2085-49D4-AB86-C37142E3F180",
+  "name": "Taci's Beyti",
+  "type": "restaurant",
+  "neighborhood": "Sheepshead Bay",
+  "stockist": false
+ },
+ {
+  "id": "A7F2F321-9914-4C39-A635-CF07E7C69756",
+  "name": "IHOP",
+  "type": "restaurant",
+  "neighborhood": "East New York",
+  "stockist": false
+ },
+ {
+  "id": "A806676E-8045-4821-802D-AC36ADDE6D3A",
+  "name": "Bowl 360 Brooklyn",
+  "type": "bar",
+  "neighborhood": "Gravesend",
+  "stockist": false
+ },
+ {
+  "id": "A83E0EA4-FF9A-402A-9346-892429ADC696",
+  "name": "Mr. DELI & GRILL",
+  "type": "deli",
+  "neighborhood": "Bushwick",
+  "stockist": false
+ },
+ {
+  "id": "A890EE8D-B2C9-431B-AA3E-94B7AB4AD35B",
+  "name": "Oak & Iron",
+  "type": "bar",
+  "neighborhood": "Greenpoint",
+  "stockist": false
+ },
+ {
+  "id": "A8B67D27-5B4D-4268-8B55-3FF0CC4AC402",
+  "name": "Meze",
+  "type": "restaurant",
+  "neighborhood": "Dyker Heights",
+  "stockist": false
+ },
+ {
+  "id": "A9179AA2-4D25-4D77-9D33-CA5D46F5407C",
+  "name": "Uncle Barry's",
+  "type": "bar",
+  "neighborhood": "Park Slope",
+  "stockist": false
+ },
+ {
+  "id": "AAB4BE83-668D-4108-A9DF-C36D1CAF7BB0",
+  "name": "Brooklyn Standard Deli (The Standard )",
+  "type": "deli",
+  "neighborhood": "Greenpoint",
+  "stockist": false
+ },
+ {
+  "id": "AABC9885-49D4-4938-9C13-BEB26BA10F84",
+  "name": "Burger King",
+  "type": "restaurant",
+  "neighborhood": "Borough Park",
+  "stockist": false
+ },
+ {
+  "id": "AB041454-B1BA-406A-A37C-C7834AF7AEE2",
+  "name": "Guacuco",
+  "type": "restaurant",
+  "neighborhood": "Bedford-Stuyvesant",
+  "stockist": false
+ },
+ {
+  "id": "AB119BEE-E764-4C99-B1D6-187523D7355B",
+  "name": "Galaxy Food Market",
+  "type": "deli",
+  "neighborhood": "Bushwick",
+  "stockist": false
+ },
+ {
+  "id": "AB22C115-9941-412C-8BA2-6921C270F994",
+  "name": "Clem's",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "ABA5C823-0F77-4359-A9CC-0CB45A063C76",
+  "name": "Black Horse Pub",
+  "type": "bar",
+  "neighborhood": "",
+  "stockist": false
+ },
+ {
+  "id": "ABABFC51-FB16-4232-BA91-322B2E25A03F",
+  "name": "wild birds",
+  "type": "bar",
+  "neighborhood": "Crown Heights",
+  "stockist": false
+ },
+ {
+  "id": "ABD57620-3F3A-448F-869F-F5AF1994CEC1",
+  "name": "Gottlieb's Restaurant",
+  "type": "deli",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "ABFD9FA7-92EC-41A2-8448-CFA339C385FF",
+  "name": "Patsy’s Pizzeria",
+  "type": "restaurant",
+  "neighborhood": "Park Slope",
+  "stockist": false
+ },
+ {
+  "id": "AC702CEC-823D-4804-840C-4F56CA221918",
+  "name": "McDonald's",
+  "type": "restaurant",
+  "neighborhood": "",
+  "stockist": false
+ },
+ {
+  "id": "AD610412-DA8E-41DA-99EA-787419032EB9",
+  "name": "F&F Restaurant and Bar",
+  "type": "bar",
+  "neighborhood": "Carroll Gardens",
+  "stockist": false
+ },
+ {
+  "id": "AD998C8B-84F9-48C9-8AE1-C4CC27C315B6",
+  "name": "Felice Montague",
+  "type": "bar",
+  "neighborhood": "",
+  "stockist": false
+ },
+ {
+  "id": "AE32E131-C388-4606-A1AF-B5545D90F939",
+  "name": "Soccer Tavern",
+  "type": "bar",
+  "neighborhood": "Sunset Park",
+  "stockist": false
+ },
+ {
+  "id": "AE541087-8236-4E81-A758-4968018AD38F",
+  "name": "Travel Bar",
+  "type": "bar",
+  "neighborhood": "Carroll Gardens",
+  "stockist": true
+ },
+ {
+  "id": "AE5A8797-CDA4-47EA-8D5D-51DF5D05E938",
+  "name": "Ange Noir Cafe",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "AEBC7639-94EE-494F-87EB-A24CE2F5BB41",
+  "name": "Santa Salsa",
+  "type": "bar",
+  "neighborhood": "Bushwick",
+  "stockist": false
+ },
+ {
+  "id": "AED6756B-3848-4E65-9449-C2D72D0EAFD6",
+  "name": "Roll N Roaster",
+  "type": "restaurant",
+  "neighborhood": "Sheepshead Bay",
+  "stockist": false
+ },
+ {
+  "id": "AEFB5656-417A-4984-83C9-672AAEDA2D70",
+  "name": "12 Chairs Café",
+  "type": "restaurant",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "AFA2E2D8-923D-42B5-B9A7-410BF3512227",
+  "name": "No. 7 Restaurant",
+  "type": "restaurant",
+  "neighborhood": "Prospect Heights",
+  "stockist": false
+ },
+ {
+  "id": "AFC8A9D6-5202-491C-8AAB-6D2179E2E4D0",
+  "name": "Ontario Bar",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "B011279A-A343-4A80-85CA-EF92C22D6588",
+  "name": "Brooklyn Public House",
+  "type": "bar",
+  "neighborhood": "Fort Greene",
+  "stockist": false
+ },
+ {
+  "id": "B03D0AAE-0FA7-4822-A198-E1C99D556763",
+  "name": "Carmine's",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "B05C42B6-48F1-4928-8932-071D509C898B",
+  "name": "Bamonte's",
+  "type": "restaurant",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "B07E47C0-A6B3-43AC-9521-BB999C861120",
+  "name": "Maria's Bistro Mexicano",
+  "type": "bar",
+  "neighborhood": "Greenwood Heights",
+  "stockist": false
+ },
+ {
+  "id": "B08C7945-DDB9-4106-AD9D-1CF02B3EAF25",
+  "name": "honeygrow",
+  "type": "restaurant",
+  "neighborhood": "",
+  "stockist": false
+ },
+ {
+  "id": "B0C6E781-01B0-4696-9624-EB8B8B383669",
+  "name": "WISE Bar & Grill",
+  "type": "restaurant",
+  "neighborhood": "Sheepshead Bay",
+  "stockist": false
+ },
+ {
+  "id": "B0DC1230-9463-45D7-BCEB-E19380ED60CD",
+  "name": "McDonald's",
+  "type": "restaurant",
+  "neighborhood": "Bensonhurst",
+  "stockist": false
+ },
+ {
+  "id": "B1003C48-1E25-4746-A4C6-3906E43A6E19",
+  "name": "Sottocasa",
+  "type": "restaurant",
+  "neighborhood": "",
+  "stockist": false
+ },
+ {
+  "id": "B1482970-DBB0-4B62-AEC0-3AC7A16EE6B4",
+  "name": "La Isla",
+  "type": "restaurant",
+  "neighborhood": "Sunset Park",
+  "stockist": false
+ },
+ {
+  "id": "B14EB923-066A-4F48-9BD4-DA119A4528F5",
+  "name": "Mill Basin Bagel Cafe",
+  "type": "deli",
+  "neighborhood": "Bergen Beach",
+  "stockist": false
+ },
+ {
+  "id": "B1530613-C85C-4E11-8D74-9A82247C30E3",
+  "name": "Three Jolly Pigeons",
+  "type": "bar",
+  "neighborhood": "Bay Ridge",
+  "stockist": false
+ },
+ {
+  "id": "B19851A1-7991-4D57-9C7C-04A681A38ECB",
+  "name": "Popeyes Louisiana Kitchen",
+  "type": "restaurant",
+  "neighborhood": "East New York",
+  "stockist": false
+ },
+ {
+  "id": "B1BCDCD8-EB01-4E99-B493-3C4C7CC06C9D",
+  "name": "The Sandwich Shop",
+  "type": "deli",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "B1E92EC4-5420-449F-B540-5A72B0005BFA",
+  "name": "L’Wren",
+  "type": "bar",
+  "neighborhood": "Sunset Park",
+  "stockist": false
+ },
+ {
+  "id": "B2234782-173A-4907-B1C4-5C7842E78C35",
+  "name": "Nightmoves",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "B249B97C-1B2C-4740-ADA2-199A2C7B59C3",
+  "name": "The Bell House",
+  "type": "bar",
+  "neighborhood": "Gowanus",
+  "stockist": false
+ },
+ {
+  "id": "B26112EF-B84D-47DB-B039-177D22F9FEA3",
+  "name": "La Vara",
+  "type": "restaurant",
+  "neighborhood": "Cobble Hill",
+  "stockist": false
+ },
+ {
+  "id": "B2F17736-BF75-476F-9262-7333EB98FA4A",
+  "name": "Buckley's",
+  "type": "bar",
+  "neighborhood": "Sheepshead Bay",
+  "stockist": false
+ },
+ {
+  "id": "B329EDA4-F6D5-4127-93AF-7119725DBDF4",
+  "name": "Noribar – 16th Ave",
+  "type": "bar",
+  "neighborhood": "Borough Park",
+  "stockist": false
+ },
+ {
+  "id": "B32D6248-2286-42A6-9DB0-B1B65FBE795A",
+  "name": "Tony's Pizza",
+  "type": "restaurant",
+  "neighborhood": "Cypress Hills",
+  "stockist": false
+ },
+ {
+  "id": "B397E579-37CD-4338-B9F0-4588707DD9EF",
+  "name": "McDonald's",
+  "type": "restaurant",
+  "neighborhood": "Crown Heights",
+  "stockist": false
+ },
+ {
+  "id": "B39E567A-A456-4CCB-8401-FF4AA48A8B67",
+  "name": "DJONDJON",
+  "type": "restaurant",
+  "neighborhood": "",
+  "stockist": false
+ },
+ {
+  "id": "B3A871BF-9455-4CFA-BF71-A77D50F1BFE3",
+  "name": "Sunny's",
+  "type": "bar",
+  "neighborhood": "Red Hook",
+  "stockist": false
+ },
+ {
+  "id": "B3BD4A7B-2485-4096-8480-21378904CBC9",
+  "name": "Vera Cruz",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "B3E7B925-D4DF-44D6-88A9-B3480F3BEB35",
+  "name": "Floridian Plaza Diner",
+  "type": "restaurant",
+  "neighborhood": "Flatlands",
+  "stockist": false
+ },
+ {
+  "id": "B3F47A2A-54C0-46DA-9B94-39628D918F8F",
+  "name": "Canal Bar",
+  "type": "bar",
+  "neighborhood": "Gowanus",
+  "stockist": false
+ },
+ {
+  "id": "B41436A7-15EE-4FE1-A716-31F17BEBE7E0",
+  "name": "Young Ethel's",
+  "type": "bar",
+  "neighborhood": "",
+  "stockist": false
+ },
+ {
+  "id": "B4414A99-4578-4556-8C77-B0A4ADB76BFB",
+  "name": "Old Baku",
+  "type": "restaurant",
+  "neighborhood": "",
+  "stockist": false
+ },
+ {
+  "id": "B5035260-7323-4087-8CEC-825566A5EEDD",
+  "name": "O'Keefe's Bar & Grill",
+  "type": "restaurant",
+  "neighborhood": "",
+  "stockist": false
+ },
+ {
+  "id": "B5237CD5-57E5-40C5-8BEE-4F981B98C023",
+  "name": "Wendy's",
+  "type": "restaurant",
+  "neighborhood": "Cypress Hills",
+  "stockist": false
+ },
+ {
+  "id": "B52BEB53-4774-4631-9C0D-7113ECF3B394",
+  "name": "Fedoroff's Roast Pork",
+  "type": "restaurant",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "B535692E-C318-4937-BF12-E66DFB1E4F2E",
+  "name": "Montesacro",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "B536A3AC-9FEE-42AA-B72D-732D7EEC0F4F",
+  "name": "Hamilton's",
+  "type": "bar",
+  "neighborhood": "",
+  "stockist": false
+ },
+ {
+  "id": "B53B605D-64F6-41FF-8B49-F0CAAB4462EF",
+  "name": "Room 1 Hundred",
+  "type": "restaurant",
+  "neighborhood": "Cypress Hills",
+  "stockist": false
+ },
+ {
+  "id": "B544AB10-318E-42C5-A957-5257A86765B9",
+  "name": "Olympia Steakhouse",
+  "type": "restaurant",
+  "neighborhood": "Midwood",
+  "stockist": false
+ },
+ {
+  "id": "B5BC847E-F270-4852-BDD4-12A3020D1E96",
+  "name": "St. Mazie Bar & Supper Club",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "B630A468-E2DC-40EF-855E-7444C440E648",
+  "name": "Highbury Pub",
+  "type": "bar",
+  "neighborhood": "Flatbush",
+  "stockist": false
+ },
+ {
+  "id": "B630B71A-DAD3-4579-8D7E-24F523B58F01",
+  "name": "The Tiny Cupboard Comedy Club & Game Bar",
+  "type": "bar",
+  "neighborhood": "Bushwick",
+  "stockist": false
+ },
+ {
+  "id": "B68F8D1E-6066-4E47-BEA9-9BD69EA3255C",
+  "name": "FIB Tattoo Bar and Grill",
+  "type": "bar",
+  "neighborhood": "Flatbush",
+  "stockist": false
+ },
+ {
+  "id": "B75FE87B-E45B-422A-ACD4-BF4787F52AE9",
+  "name": "Mood Ring",
+  "type": "bar",
+  "neighborhood": "Bushwick",
+  "stockist": false
+ },
+ {
+  "id": "B76AB987-01DA-4B2A-B174-CD1F42F52BD1",
+  "name": "McDonald's",
+  "type": "restaurant",
+  "neighborhood": "Sheepshead Bay",
+  "stockist": false
+ },
+ {
+  "id": "B7B4D42D-F369-475C-BB1F-25916EFC3223",
+  "name": "Eastern District",
+  "type": "deli",
+  "neighborhood": "Greenpoint",
+  "stockist": true
+ },
+ {
+  "id": "B7E95D50-08D5-4958-ACF7-7C0AE77A59EF",
+  "name": "George's",
+  "type": "restaurant",
+  "neighborhood": "Sunset Park",
+  "stockist": false
+ },
+ {
+  "id": "B823C60B-C78E-4064-B1CB-85991B2A498B",
+  "name": "408 NY Deli",
+  "type": "deli",
+  "neighborhood": "Downtown Brooklyn",
+  "stockist": false
+ },
+ {
+  "id": "B8572C7C-BAB3-4357-B9A9-B76F87060FFF",
+  "name": "Freak Bar",
+  "type": "bar",
+  "neighborhood": "Brighton Beach",
+  "stockist": false
+ },
+ {
+  "id": "B93A13FD-99F0-4439-9721-647C89A2D93F",
+  "name": "Arden",
+  "type": "bar",
+  "neighborhood": "Crown Heights",
+  "stockist": false
+ },
+ {
+  "id": "B97BB6C3-12AC-4B3A-A7B7-0A936FD78665",
+  "name": "Harefield Road",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "B9C6223D-5435-4831-A283-490ACD7597B1",
+  "name": "Sushi Lin Park Slope",
+  "type": "restaurant",
+  "neighborhood": "Prospect Heights",
+  "stockist": false
+ },
+ {
+  "id": "B9D5A243-F194-4976-8E5F-4329B96CB0A8",
+  "name": "Hana Food",
+  "type": "deli",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "B9EE941C-A4C6-429E-AAAE-D0F3B2F7EE18",
+  "name": "FourFiveSix",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "BA0A0D98-8F55-4E7F-9B19-9A770E6E1CF7",
+  "name": "Istanbul Bay",
+  "type": "restaurant",
+  "neighborhood": "Bay Ridge",
+  "stockist": false
+ },
+ {
+  "id": "BA332162-2C77-497F-89C7-9AAAB7568849",
+  "name": "Las Tainas",
+  "type": "restaurant",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "BA6B9080-2D9B-4B8E-BF6C-1962C5DFFB83",
+  "name": "Bed-Vyne Brew",
+  "type": "bar",
+  "neighborhood": "Bedford-Stuyvesant",
+  "stockist": false
+ },
+ {
+  "id": "BA7C539F-3E3C-43AF-B962-E8A0E8CC358F",
+  "name": "Lobo",
+  "type": "bar",
+  "neighborhood": "Cobble Hill",
+  "stockist": false
+ },
+ {
+  "id": "BA9829D9-7E94-4324-92BA-4B654166692F",
+  "name": "Taste Of Heaven",
+  "type": "restaurant",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "BAB47E20-BE24-4D55-B31C-1E4804D3C569",
+  "name": "Healthy bites Gourmet corp |",
+  "type": "deli",
+  "neighborhood": "Clinton Hill",
+  "stockist": false
+ },
+ {
+  "id": "BAF8CB6D-B808-43B2-AD55-8768BDBF8F40",
+  "name": "Judy's",
+  "type": "bar",
+  "neighborhood": "Sunset Park",
+  "stockist": false
+ },
+ {
+  "id": "BB030788-070F-45AB-B711-CC3A76DCE67B",
+  "name": "Skylark",
+  "type": "bar",
+  "neighborhood": "",
+  "stockist": false
+ },
+ {
+  "id": "BB4D143A-D8B1-4D38-8F75-87C08D9F2112",
+  "name": "The Adirondack",
+  "type": "bar",
+  "neighborhood": "",
+  "stockist": false
+ },
+ {
+  "id": "BB997DAC-BA18-47DD-B791-D1CAAB6AD31A",
+  "name": "Burger King",
+  "type": "restaurant",
+  "neighborhood": "East Flatbush",
+  "stockist": false
+ },
+ {
+  "id": "BBA2CC5D-1CA1-4505-98FE-79B58ABA56F2",
+  "name": "Do or Dive Bar",
+  "type": "bar",
+  "neighborhood": "Bedford-Stuyvesant",
+  "stockist": false
+ },
+ {
+  "id": "BBD07369-4A93-4EEA-A11B-AF9F11F975C9",
+  "name": "Karen Deli",
+  "type": "deli",
+  "neighborhood": "Sunset Park",
+  "stockist": false
+ },
+ {
+  "id": "BBDAE346-3FC1-4CE0-A07E-799C36698C82",
+  "name": "Lemongrass Brooklyn",
+  "type": "bar",
+  "neighborhood": "Cobble Hill",
+  "stockist": false
+ },
+ {
+  "id": "BBE4A5FA-EC7B-4168-B813-8A4BFE696026",
+  "name": "East River Bar",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "BC398DA7-1499-459F-9632-EE7BF41C3D2D",
+  "name": "Popeyes Louisiana Kitchen",
+  "type": "restaurant",
+  "neighborhood": "Bushwick",
+  "stockist": false
+ },
+ {
+  "id": "BC860878-F67D-4D18-8DD7-6E499353388A",
+  "name": "Zum Schneider NYC",
+  "type": "bar",
+  "neighborhood": "Greenpoint",
+  "stockist": false
+ },
+ {
+  "id": "BCC8F75A-795D-4FD3-8CC8-EA49616F75CB",
+  "name": "The Soul Spot",
+  "type": "restaurant",
+  "neighborhood": "",
+  "stockist": false
+ },
+ {
+  "id": "BCF0BECB-A4B2-4746-8897-5944C2B55E90",
+  "name": "Tasty Delicious",
+  "type": "restaurant",
+  "neighborhood": "Brownsville",
+  "stockist": false
+ },
+ {
+  "id": "BD3D62B5-B981-424D-9F8F-91BA3FE10D58",
+  "name": "Farrell's Bar & Grill",
+  "type": "bar",
+  "neighborhood": "",
+  "stockist": false
+ },
+ {
+  "id": "BD4842EC-1B7A-4C98-9881-A6C65DB7EFC0",
+  "name": "Jalopy Theatre and School of Music",
+  "type": "bar",
+  "neighborhood": "Columbia Street Waterfront District",
+  "stockist": false
+ },
+ {
+  "id": "BD69CF36-C7F1-4C2A-95ED-0A45FFCEFBB4",
+  "name": "Teddy's Bar & Grill",
+  "type": "restaurant",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "BDA7285E-6A0E-447E-A19E-98BC2ECA1338",
+  "name": "Brooklyn Bowl",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "BDD0A030-534A-4780-A01A-223655247F90",
+  "name": "Cholula Deli & Grill",
+  "type": "deli",
+  "neighborhood": "Bushwick",
+  "stockist": false
+ },
+ {
+  "id": "BE0A767E-27CD-4DDA-AE5F-A53B55E8DE5D",
+  "name": "Dumbo Gourmet Deli",
+  "type": "deli",
+  "neighborhood": "",
+  "stockist": false
+ },
+ {
+  "id": "BE38F4D9-A06A-4A42-96ED-9B736EE3947E",
+  "name": "Metropolitan",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "BE7B917C-46F1-4DDB-AA69-03E89A6739E5",
+  "name": "MangoSeed Restaurant",
+  "type": "bar",
+  "neighborhood": "Flatbush",
+  "stockist": false
+ },
+ {
+  "id": "BECB93C4-88B1-42CF-8CEA-69637F169198",
+  "name": "september",
+  "type": "bar",
+  "neighborhood": "Bedford-Stuyvesant",
+  "stockist": false
+ },
+ {
+  "id": "BFC779E6-D214-4F0E-A713-67AFD399B2E8",
+  "name": "Wheated",
+  "type": "bar",
+  "neighborhood": "Flatbush",
+  "stockist": false
+ },
+ {
+  "id": "BFE64F76-651A-4D74-84B3-830760378ADD",
+  "name": "Fast and Fresh Burrito Deli",
+  "type": "deli",
+  "neighborhood": "",
+  "stockist": false
+ },
+ {
+  "id": "C05E73C1-E0EF-476E-8863-CD0E780D98B9",
+  "name": "The Emerson",
+  "type": "bar",
+  "neighborhood": "Clinton Hill",
+  "stockist": false
+ },
+ {
+  "id": "C06BE072-A2BE-4450-9C06-060ADD78E4F8",
+  "name": "BAMcafé",
+  "type": "restaurant",
+  "neighborhood": "Fort Greene",
+  "stockist": false
+ },
+ {
+  "id": "C0C8474E-5CB9-4065-B82B-4E0FB2A9629E",
+  "name": "Orange Grill",
+  "type": "bar",
+  "neighborhood": "Gravesend",
+  "stockist": false
+ },
+ {
+  "id": "C0E65DAE-E582-4963-8080-861463E9586E",
+  "name": "J G Grocery & Deli",
+  "type": "deli",
+  "neighborhood": "Sunset Park",
+  "stockist": false
+ },
+ {
+  "id": "C1054646-1CC9-4E6E-9299-32FF4D5DAC6A",
+  "name": "King Express Deli",
+  "type": "deli",
+  "neighborhood": "Sheepshead Bay",
+  "stockist": false
+ },
+ {
+  "id": "C1510A83-AFDC-4340-B645-6F6CF976BDF3",
+  "name": "Golda",
+  "type": "restaurant",
+  "neighborhood": "Bedford-Stuyvesant",
+  "stockist": false
+ },
+ {
+  "id": "C154D9EA-4194-44EC-9739-F88437C867C1",
+  "name": "Slope Natural Plus",
+  "type": "deli",
+  "neighborhood": "Park Slope",
+  "stockist": false
+ },
+ {
+  "id": "C1A50D15-8A9E-431D-ADB4-E9ECF3C26D1F",
+  "name": "Sakman Grill & Gourmet",
+  "type": "deli",
+  "neighborhood": "Bay Ridge",
+  "stockist": false
+ },
+ {
+  "id": "C1A7EA12-97AB-4EA8-856C-3F8E13DB4193",
+  "name": "Skovorodka",
+  "type": "restaurant",
+  "neighborhood": "Brighton Beach",
+  "stockist": false
+ },
+ {
+  "id": "C1B1574B-2945-4E68-BBEC-D108F249E9EE",
+  "name": "Otis",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "C20A3517-CB39-4EF9-AEA7-175270904D00",
+  "name": "La Bagel Delight at Court St",
+  "type": "deli",
+  "neighborhood": "",
+  "stockist": false
+ },
+ {
+  "id": "C2460BD6-AF2C-46D6-8694-7ADEECDE1BAE",
+  "name": "The Great Georgiana",
+  "type": "bar",
+  "neighborhood": "Fort Greene",
+  "stockist": false
+ },
+ {
+  "id": "C299BAEB-F05C-4819-8506-B0E87A140797",
+  "name": "WB Deli & Grill",
+  "type": "deli",
+  "neighborhood": "Brighton Beach",
+  "stockist": false
+ },
+ {
+  "id": "C3408A36-005A-46A8-B355-BD9EBD1DE1C1",
+  "name": "Popeyes Louisiana Kitchen",
+  "type": "restaurant",
+  "neighborhood": "Fort Greene",
+  "stockist": false
+ },
+ {
+  "id": "C34D943D-36E0-41C5-87BF-8EB1B00E911B",
+  "name": "Ponyboy",
+  "type": "restaurant",
+  "neighborhood": "Greenpoint",
+  "stockist": false
+ },
+ {
+  "id": "C39BBD73-4181-4DC8-AE8B-3FF195F033A4",
+  "name": "Queen",
+  "type": "bar",
+  "neighborhood": "Bushwick",
+  "stockist": false
+ },
+ {
+  "id": "C41ECC92-B731-457C-B982-12758C4AFB8F",
+  "name": "Nana Ramen",
+  "type": "restaurant",
+  "neighborhood": "Bedford-Stuyvesant",
+  "stockist": false
+ },
+ {
+  "id": "C41FDADA-7AC6-4F25-8565-3FF939517578",
+  "name": "IHOP",
+  "type": "restaurant",
+  "neighborhood": "Bergen Beach",
+  "stockist": false
+ },
+ {
+  "id": "C4444923-366F-49E2-9CBF-C74AB2F664BE",
+  "name": "The Dram Shop Bar",
+  "type": "restaurant",
+  "neighborhood": "Park Slope",
+  "stockist": false
+ },
+ {
+  "id": "C4A35681-2B35-4181-A822-858FB50A0226",
+  "name": "Transmitter Brewing",
+  "type": "bar",
+  "neighborhood": "",
+  "stockist": false
+ },
+ {
+  "id": "C4B9F91D-E4C3-4FFB-AA16-64C08953850B",
+  "name": "Bluestone Lane DUMBO Café",
+  "type": "bar",
+  "neighborhood": "Downtown Brooklyn",
+  "stockist": false
+ },
+ {
+  "id": "C4E60F75-2AD0-4D40-A03D-ABC79E1CFE48",
+  "name": "Taco Bell",
+  "type": "restaurant",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "C53B97D1-7732-4D87-BD6D-4085AD6455B6",
+  "name": "The Brew Inn",
+  "type": "bar",
+  "neighborhood": "Greenpoint",
+  "stockist": false
+ },
+ {
+  "id": "C5A4BBB9-485F-4691-930D-E35DDE3D881F",
+  "name": "Endswell",
+  "type": "bar",
+  "neighborhood": "Fort Greene",
+  "stockist": false
+ },
+ {
+  "id": "C5EDE1BE-3D79-4867-9E0B-A16C9CDA0A0A",
+  "name": "Key Food Urban Marketplace",
+  "type": "deli",
+  "neighborhood": "Park Slope",
+  "stockist": false
+ },
+ {
+  "id": "C62F8DBB-DD80-4080-B6CC-0172C4514646",
+  "name": "Electric Beets",
+  "type": "deli",
+  "neighborhood": "Park Slope",
+  "stockist": false
+ },
+ {
+  "id": "C66BD09A-2BF4-4CF2-A342-DD78458A850D",
+  "name": "Russo's Mozzarella & Pasta",
+  "type": "deli",
+  "neighborhood": "",
+  "stockist": false
+ },
+ {
+  "id": "C679F5CA-DB0F-4A31-BA54-99C02A1D0BA3",
+  "name": "Five Guys",
+  "type": "restaurant",
+  "neighborhood": "Park Slope",
+  "stockist": false
+ },
+ {
+  "id": "C6BB7B5B-093A-4BA1-9BF9-343A8CECE8D0",
+  "name": "Xcellent Soul Food",
+  "type": "restaurant",
+  "neighborhood": "Crown Heights",
+  "stockist": false
+ },
+ {
+  "id": "C6F5CC12-3C34-4451-ACAB-0C0ACCCCB2A0",
+  "name": "The Commodore",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "C70D07E5-F4FC-4378-8EEC-317FBF1E072E",
+  "name": "Nacho Macho Taco",
+  "type": "restaurant",
+  "neighborhood": "Crown Heights",
+  "stockist": false
+ },
+ {
+  "id": "C7B44870-AAF7-44E2-9791-3FD00C4D6E2D",
+  "name": "Lavender Lake",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "C7B9F07F-41DD-4BA7-9EBD-10F96719024A",
+  "name": "Affy's Premium Grill",
+  "type": "restaurant",
+  "neighborhood": "Midwood",
+  "stockist": false
+ },
+ {
+  "id": "C80AFCEB-7CB6-41D7-A561-A3A95301CF24",
+  "name": "B & A Pork Store",
+  "type": "deli",
+  "neighborhood": "Dyker Heights",
+  "stockist": false
+ },
+ {
+  "id": "C84F32FD-C028-442F-A217-01356FFDCCDA",
+  "name": "Risbo",
+  "type": "bar",
+  "neighborhood": "",
+  "stockist": false
+ },
+ {
+  "id": "C8624299-8671-4960-AA61-8D924663DCA4",
+  "name": "IHOP",
+  "type": "restaurant",
+  "neighborhood": "Flatbush",
+  "stockist": false
+ },
+ {
+  "id": "C8A08146-E1E5-44AA-918B-9D4817AF2A64",
+  "name": "Da Nonna Rosa Restaurant & Pizzeria",
+  "type": "bar",
+  "neighborhood": "Park Slope",
+  "stockist": false
+ },
+ {
+  "id": "C8EDA3F0-2E9F-4176-9D1F-D39561EB1AAE",
+  "name": "ZeroSpace",
+  "type": "bar",
+  "neighborhood": "Gowanus",
+  "stockist": false
+ },
+ {
+  "id": "C8EE5225-384B-4007-9AD5-444D7D2D344D",
+  "name": "Hanson Dry",
+  "type": "bar",
+  "neighborhood": "Clinton Hill",
+  "stockist": false
+ },
+ {
+  "id": "C8F196FF-5311-4821-8D3F-4BA37465CEC5",
+  "name": "The Korner",
+  "type": "restaurant",
+  "neighborhood": "Gravesend",
+  "stockist": false
+ },
+ {
+  "id": "CAAD694F-A08B-44D3-A876-D33DEA95F12E",
+  "name": "Bar Tabac",
+  "type": "bar",
+  "neighborhood": "Cobble Hill",
+  "stockist": false
+ },
+ {
+  "id": "CAFEE552-F9BA-4461-A31E-07EDB0F47DCB",
+  "name": "Shake Shack Williamsburg",
+  "type": "restaurant",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "CAFF3C33-8B7F-463D-9039-57CAD58CD2D9",
+  "name": "Estelle Lounge and Karaoke Bar",
+  "type": "bar",
+  "neighborhood": "Sheepshead Bay",
+  "stockist": false
+ },
+ {
+  "id": "CB8882C4-E559-42FA-9A9A-2EB18F956822",
+  "name": "Covenhoven",
+  "type": "bar",
+  "neighborhood": "Crown Heights",
+  "stockist": false
+ },
+ {
+  "id": "CBB67F3A-1B96-42A2-9E4B-6A05C8CA7E31",
+  "name": "The West Brooklyn",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "CBDD8AE8-58AB-46A1-818A-C415AEE325A9",
+  "name": "Best Pizza",
+  "type": "restaurant",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "CC1744C7-9888-4D4F-8016-2AC90267A21C",
+  "name": "Popeyes Louisiana Kitchen",
+  "type": "restaurant",
+  "neighborhood": "Crown Heights",
+  "stockist": false
+ },
+ {
+  "id": "CC221055-0C5F-44A3-B92C-D0EF3A25BF60",
+  "name": "Ali's Roti",
+  "type": "restaurant",
+  "neighborhood": "Crown Heights",
+  "stockist": false
+ },
+ {
+  "id": "CC504732-3232-4168-A2EE-8A00181B636D",
+  "name": "Lamoza",
+  "type": "restaurant",
+  "neighborhood": "Bay Ridge",
+  "stockist": false
+ },
+ {
+  "id": "CC845CB2-761E-4853-B970-8AB467A55E0F",
+  "name": "Superfine",
+  "type": "bar",
+  "neighborhood": "",
+  "stockist": false
+ },
+ {
+  "id": "CCF36939-B855-4809-AC6A-D68D5C3C7607",
+  "name": "Gargiulo's",
+  "type": "restaurant",
+  "neighborhood": "Coney Island",
+  "stockist": false
+ },
+ {
+  "id": "CD62A0EE-0B53-42B4-9BE8-39BB2B72754F",
+  "name": "Golden Years",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "CDC9E33E-0191-4EF7-B03B-62541874B541",
+  "name": "Time Out Market New York",
+  "type": "bar",
+  "neighborhood": "",
+  "stockist": false
+ },
+ {
+  "id": "CDEC7E20-1901-42B0-9797-6630EFC01D72",
+  "name": "Bushwick gourmet Deli",
+  "type": "deli",
+  "neighborhood": "Bushwick",
+  "stockist": false
+ },
+ {
+  "id": "CDFBAED1-15A1-4DA1-9A87-971AA7EB829C",
+  "name": "Recette",
+  "type": "restaurant",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "CE52E9C0-30C0-4683-A727-02EDCB3DBD17",
+  "name": "Gueros Brooklyn",
+  "type": "restaurant",
+  "neighborhood": "Crown Heights",
+  "stockist": false
+ },
+ {
+  "id": "CE828FF4-7BE7-4B60-A998-7AC220BD796A",
+  "name": "McDonald's",
+  "type": "restaurant",
+  "neighborhood": "Canarsie",
+  "stockist": false
+ },
+ {
+  "id": "CF1168EC-9D73-43BD-BE20-2377DC2886FE",
+  "name": "Sage",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "CF1C9FB2-F3D1-48DF-AF4A-CD73F8D7FFA2",
+  "name": "Emmons Palace",
+  "type": "bar",
+  "neighborhood": "Sheepshead Bay",
+  "stockist": false
+ },
+ {
+  "id": "CF272AB3-5A76-452B-AFB6-27CE2C628AAC",
+  "name": "Henry Street Ale House",
+  "type": "bar",
+  "neighborhood": "",
+  "stockist": false
+ },
+ {
+  "id": "CF4EE705-C29B-4045-B427-A86246C99898",
+  "name": "CMS DELI CORP",
+  "type": "deli",
+  "neighborhood": "Flatbush",
+  "stockist": false
+ },
+ {
+  "id": "CF5E277D-BB0B-406B-9007-45483BDC5616",
+  "name": "Deli & Grill",
+  "type": "deli",
+  "neighborhood": "Bedford-Stuyvesant",
+  "stockist": false
+ },
+ {
+  "id": "CF7268AA-33FE-4705-A8D2-4FD3BE152C82",
+  "name": "Minnie's Bar",
+  "type": "bar",
+  "neighborhood": "Greenwood Heights",
+  "stockist": false
+ },
+ {
+  "id": "CF8503DF-2014-42D7-9437-0082A70CC58E",
+  "name": "Baby's All Right",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "CFBAF4EA-1CC9-4488-852A-AC72AFD24A78",
+  "name": "Gowanus Gardens",
+  "type": "bar",
+  "neighborhood": "Gowanus",
+  "stockist": false
+ },
+ {
+  "id": "CFD6E41E-38E9-4332-B28E-E28A8AE4DD98",
+  "name": "New Apolo",
+  "type": "bar",
+  "neighborhood": "Bushwick",
+  "stockist": false
+ },
+ {
+  "id": "D043BDD8-8AD2-4A83-9AF6-9F76DE2444E2",
+  "name": "Velvet Brooklyn",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "D0B9D666-CF08-44DE-9254-A9AA7EE3CFA7",
+  "name": "Stay Fresh Grill & Deli",
+  "type": "deli",
+  "neighborhood": "Bushwick",
+  "stockist": false
+ },
+ {
+  "id": "D0DD946B-F0C0-494D-8C18-8F825392F270",
+  "name": "Lillo Cucina Italiana",
+  "type": "restaurant",
+  "neighborhood": "Cobble Hill",
+  "stockist": false
+ },
+ {
+  "id": "D1372F03-2FD5-4F5A-B552-0C0808FEC7E3",
+  "name": "Big Boy Deli",
+  "type": "deli",
+  "neighborhood": "Bedford-Stuyvesant",
+  "stockist": false
+ },
+ {
+  "id": "D152EAD8-3520-4A01-86BA-4B358C854B15",
+  "name": "Brooklyn Billiards",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "D1A2BD19-72C4-47E8-B95F-5DA80E0E183E",
+  "name": "Indigo Murphys",
+  "type": "bar",
+  "neighborhood": "Dyker Heights",
+  "stockist": false
+ },
+ {
+  "id": "D1FD4DB2-BAE5-460D-8BEB-B90E2AFD7463",
+  "name": "BHI Thursdays (722)",
+  "type": "restaurant",
+  "neighborhood": "Sheepshead Bay",
+  "stockist": false
+ },
+ {
+  "id": "D21481C0-9E6C-4B43-B952-238D3CD13D2B",
+  "name": "The Commissioner",
+  "type": "bar",
+  "neighborhood": "Park Slope",
+  "stockist": false
+ },
+ {
+  "id": "D21B719D-CB79-4221-AA9D-7ED216033685",
+  "name": "Henry's End",
+  "type": "bar",
+  "neighborhood": "",
+  "stockist": false
+ },
+ {
+  "id": "D234930C-69DF-44A2-B4F2-2412F561FA33",
+  "name": "The Long Island Bar",
+  "type": "bar",
+  "neighborhood": "Cobble Hill",
+  "stockist": false
+ },
+ {
+  "id": "D2EE2564-F415-40A1-B57D-3AA2F40DF18E",
+  "name": "Midwood Flats",
+  "type": "bar",
+  "neighborhood": "",
+  "stockist": false
+ },
+ {
+  "id": "D33C0FA6-3773-41AA-BC63-61BFC675364D",
+  "name": "Sunflower Cafe",
+  "type": "restaurant",
+  "neighborhood": "Sheepshead Bay",
+  "stockist": false
+ },
+ {
+  "id": "D351091E-6202-44F1-9EB2-2E68A25F6E5D",
+  "name": "Tradesman",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "D40A1002-E7D5-45FA-94A5-63EF915C9313",
+  "name": "Putnam's Pub & Cooker",
+  "type": "bar",
+  "neighborhood": "Clinton Hill",
+  "stockist": false
+ },
+ {
+  "id": "D4B4AC79-1647-4D7B-81BF-CC4B0AC204CD",
+  "name": "Jersey Mike's Subs",
+  "type": "deli",
+  "neighborhood": "Park Slope",
+  "stockist": false
+ },
+ {
+  "id": "D540C4F2-FEF6-4B38-9B7D-C1088176B322",
+  "name": "Cafe Spaghetti",
+  "type": "bar",
+  "neighborhood": "Columbia Street Waterfront District",
+  "stockist": false
+ },
+ {
+  "id": "D5D53A36-C238-4596-AC8B-AF82B4879026",
+  "name": "Nasser Candy Store/Luncheonette",
+  "type": "deli",
+  "neighborhood": "",
+  "stockist": false
+ },
+ {
+  "id": "D6B0A25D-68AD-40BB-A2A9-14FEA241153B",
+  "name": "Fandi Mata",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "D6F23698-1FD0-4F58-9869-26524D90C760",
+  "name": "Choice Market",
+  "type": "restaurant",
+  "neighborhood": "Clinton Hill",
+  "stockist": false
+ },
+ {
+  "id": "D6FB7CD3-B2D2-4781-B894-1038F829D93A",
+  "name": "Rullo's",
+  "type": "bar",
+  "neighborhood": "",
+  "stockist": false
+ },
+ {
+  "id": "D70DDD49-70D0-4180-858E-9295E25EF20E",
+  "name": "A&S Fine Foods",
+  "type": "deli",
+  "neighborhood": "Gravesend",
+  "stockist": false
+ },
+ {
+  "id": "D767F73B-7BB4-45DE-9A7A-F511F632CA03",
+  "name": "Draft Barn",
+  "type": "bar",
+  "neighborhood": "Gravesend",
+  "stockist": false
+ },
+ {
+  "id": "D7C2E24E-0518-486F-945C-571C497E081D",
+  "name": "Tabaré Bushwick",
+  "type": "bar",
+  "neighborhood": "Bushwick",
+  "stockist": false
+ },
+ {
+  "id": "D7DDDDF5-6EFF-43AC-9525-0C0904F46F71",
+  "name": "Eavesdrop",
+  "type": "bar",
+  "neighborhood": "Greenpoint",
+  "stockist": false
+ },
+ {
+  "id": "D8334630-06FF-4721-BC4E-893D9C4921CA",
+  "name": "Greenhouse Cafe",
+  "type": "bar",
+  "neighborhood": "Bay Ridge",
+  "stockist": false
+ },
+ {
+  "id": "D85EBEA5-DBAB-4650-88AA-C54580D9155B",
+  "name": "The Ten Bells Brooklyn",
+  "type": "bar",
+  "neighborhood": "Bushwick",
+  "stockist": false
+ },
+ {
+  "id": "D8DF1B2C-2983-4C5F-A655-C0B36E885741",
+  "name": "Popeyes Louisiana Kitchen",
+  "type": "restaurant",
+  "neighborhood": "Bushwick",
+  "stockist": false
+ },
+ {
+  "id": "D95A92C7-9637-46BE-89C2-7F3E7C139726",
+  "name": "DuMont Burger",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "D971EEF4-2A9B-4483-8C79-C2EADFA82910",
+  "name": "Full Circle Bar",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "DA102B02-629A-4F14-BF57-9BE5790A20B1",
+  "name": "Phở Hoài",
+  "type": "restaurant",
+  "neighborhood": "Sheepshead Bay",
+  "stockist": false
+ },
+ {
+  "id": "DA5B4E42-0569-4377-B141-E11ED039C79E",
+  "name": "Duff's",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "DA72C708-0CCE-49E7-89AA-B4B227C093D4",
+  "name": "Brooklyn Social",
+  "type": "bar",
+  "neighborhood": "Carroll Gardens",
+  "stockist": false
+ },
+ {
+  "id": "DA89C137-93C5-4989-80DF-020F54BCBBDC",
+  "name": "Key Food Supermarket",
+  "type": "deli",
+  "neighborhood": "Clinton Hill",
+  "stockist": false
+ },
+ {
+  "id": "DA8D8126-A40F-4347-A24A-655C76B4375E",
+  "name": "Horses and Divorces",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "DAA502BB-3F8A-435A-B41E-81C22F8C77E7",
+  "name": "Patrizia's of Williamsburg",
+  "type": "restaurant",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "DAA5241C-2BF7-455C-AEBB-08AF5DE7D05A",
+  "name": "Prestige Gourmet Deli Corp.",
+  "type": "deli",
+  "neighborhood": "Bedford-Stuyvesant",
+  "stockist": false
+ },
+ {
+  "id": "DABD005A-5E8E-4EAE-B916-840BDB2D0888",
+  "name": "La Loncheria",
+  "type": "bar",
+  "neighborhood": "Bushwick",
+  "stockist": false
+ },
+ {
+  "id": "DB5961E3-C823-44AE-B3F9-7A8B9507CD80",
+  "name": "Brooklyn Beso",
+  "type": "restaurant",
+  "neighborhood": "Bedford-Stuyvesant",
+  "stockist": false
+ },
+ {
+  "id": "DB7C442D-3983-47C8-85C3-2FC90086BFF5",
+  "name": "Sonora Restaurant & Bar",
+  "type": "bar",
+  "neighborhood": "Bedford-Stuyvesant",
+  "stockist": false
+ },
+ {
+  "id": "DB7E3013-B04A-4F14-BFEB-97A5AB18AE23",
+  "name": "Smith Gourmet Deli",
+  "type": "deli",
+  "neighborhood": "",
+  "stockist": false
+ },
+ {
+  "id": "DBCA0BA0-1EDB-4000-8710-0897D5D5150C",
+  "name": "McDonald's",
+  "type": "restaurant",
+  "neighborhood": "",
+  "stockist": false
+ },
+ {
+  "id": "DBE98A32-7D2D-4A4F-A496-3686A197EE53",
+  "name": "Halyards",
+  "type": "bar",
+  "neighborhood": "Gowanus",
+  "stockist": false
+ },
+ {
+  "id": "DBEEB4DE-3DD7-4DC5-9E6C-2495C6F932FE",
+  "name": "Latenight Deli Inc",
+  "type": "deli",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "DBFAB4AD-D4F9-444E-8E63-E0DBC41D1BFE",
+  "name": "Abba Bar & Grill",
+  "type": "restaurant",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "DC2803B4-D70E-4548-8A89-701D374FBB84",
+  "name": "Knapp Street Pizza",
+  "type": "restaurant",
+  "neighborhood": "Gerritsen Beach",
+  "stockist": false
+ },
+ {
+  "id": "DC46962D-7FBE-4B44-A155-1B37F79720D3",
+  "name": "Level Restaurant & Bar",
+  "type": "bar",
+  "neighborhood": "Sheepshead Bay",
+  "stockist": false
+ },
+ {
+  "id": "DC724A38-74DD-4998-9905-65514C5532B9",
+  "name": "Russo's Mozzarella and Pasta",
+  "type": "deli",
+  "neighborhood": "Park Slope",
+  "stockist": false
+ },
+ {
+  "id": "DCB0932B-F045-4F5E-8B59-B4D8F4A6B4AA",
+  "name": "Commonwealth",
+  "type": "bar",
+  "neighborhood": "",
+  "stockist": false
+ },
+ {
+  "id": "DD296B98-1ABB-41E6-B586-153D68168D07",
+  "name": "Highlawn Grill Deli",
+  "type": "deli",
+  "neighborhood": "Gravesend",
+  "stockist": false
+ },
+ {
+  "id": "DD62971F-3FE6-45CA-8B53-8A899902E286",
+  "name": "Talon Bar",
+  "type": "bar",
+  "neighborhood": "Bushwick",
+  "stockist": false
+ },
+ {
+  "id": "DD75F052-8A63-4674-B8C4-06488B405AC2",
+  "name": "Logan's Run",
+  "type": "bar",
+  "neighborhood": "Park Slope",
+  "stockist": false
+ },
+ {
+  "id": "DDC74D44-DB1E-45AB-A3A2-34E9A779E774",
+  "name": "Fausto",
+  "type": "restaurant",
+  "neighborhood": "Park Slope",
+  "stockist": false
+ },
+ {
+  "id": "DE5584B6-4DCE-4DBB-B298-AC6314848924",
+  "name": "El Encebollado de Rossy",
+  "type": "restaurant",
+  "neighborhood": "Bushwick",
+  "stockist": false
+ },
+ {
+  "id": "DE667D4F-8F89-455A-B784-64C59208B0E5",
+  "name": "The Gutter",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "DEACDEE0-305D-4350-9DFB-DA8D7730ADD7",
+  "name": "Bass & Bourbon",
+  "type": "restaurant",
+  "neighborhood": "Columbia Street Waterfront District",
+  "stockist": false
+ },
+ {
+  "id": "DED2B024-3ABF-4BBD-8392-E5370DA177DE",
+  "name": "La Palina",
+  "type": "restaurant",
+  "neighborhood": "Bensonhurst",
+  "stockist": false
+ },
+ {
+  "id": "DEF1BF7D-6162-4710-B2B9-B0A874FCC880",
+  "name": "Bury the Hatchet Axe Throwing Brooklyn",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "DF0BBDA4-AC8A-43D1-8162-6E4152365D06",
+  "name": "Hadar Geulah",
+  "type": "deli",
+  "neighborhood": "Borough Park",
+  "stockist": false
+ },
+ {
+  "id": "DF35C953-4733-4C0B-B102-A20F6696F6B0",
+  "name": "Metro Finest Deli",
+  "type": "deli",
+  "neighborhood": "",
+  "stockist": false
+ },
+ {
+  "id": "DF77B740-45E6-4311-9080-D7338F28A269",
+  "name": "Mirage Diner",
+  "type": "restaurant",
+  "neighborhood": "Sheepshead Bay",
+  "stockist": false
+ },
+ {
+  "id": "DFA683EC-813B-4983-8F6A-FEAA54794FBB",
+  "name": "Popeyes Louisiana Kitchen",
+  "type": "restaurant",
+  "neighborhood": "East Flatbush",
+  "stockist": false
+ },
+ {
+  "id": "DFFEDBBF-2123-4A77-85A0-8F64A9B17B77",
+  "name": "NY Tracks Cafe",
+  "type": "bar",
+  "neighborhood": "Canarsie",
+  "stockist": false
+ },
+ {
+  "id": "E0087F2F-539E-4AE7-A8D7-BC3BB61A6752",
+  "name": "Madeline's",
+  "type": "bar",
+  "neighborhood": "Greenpoint",
+  "stockist": false
+ },
+ {
+  "id": "E00A03ED-60B9-404D-8F97-36122C3BD181",
+  "name": "Dallas BBQ - Downtown Brooklyn",
+  "type": "restaurant",
+  "neighborhood": "Downtown Brooklyn",
+  "stockist": false
+ },
+ {
+  "id": "E0623D16-24B8-4605-B1DA-8B8CACD28768",
+  "name": "Deli On Fifth Avenue",
+  "type": "deli",
+  "neighborhood": "Bay Ridge",
+  "stockist": false
+ },
+ {
+  "id": "E0750047-8DEF-4E23-917D-18147F243872",
+  "name": "The Craic",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "E11B67F7-BFC1-46F8-9F07-B573C879F1CD",
+  "name": "Madison Gourmet Deli",
+  "type": "deli",
+  "neighborhood": "Bedford-Stuyvesant",
+  "stockist": false
+ },
+ {
+  "id": "E12C1A72-B88F-401F-B86B-DDE7428BED4E",
+  "name": "House of Wax",
+  "type": "bar",
+  "neighborhood": "Downtown Brooklyn",
+  "stockist": false
+ },
+ {
+  "id": "E187B387-21C3-4CB7-8CAA-71509BB16AE2",
+  "name": "Front Street Pizza",
+  "type": "deli",
+  "neighborhood": "",
+  "stockist": false
+ },
+ {
+  "id": "E18E6C9F-BD8F-4231-9147-5B34DB7B6489",
+  "name": "Windsor Diner",
+  "type": "restaurant",
+  "neighborhood": "",
+  "stockist": false
+ },
+ {
+  "id": "E19CFD58-8151-4C76-BE82-E780D5A6A480",
+  "name": "Nargis Cafe",
+  "type": "bar",
+  "neighborhood": "Sheepshead Bay",
+  "stockist": false
+ },
+ {
+  "id": "E19E7FCD-5BA8-4F7B-8ECC-4A94A786D170",
+  "name": "Los Primos Delicatessen",
+  "type": "deli",
+  "neighborhood": "East New York",
+  "stockist": false
+ },
+ {
+  "id": "E1D68C3F-1A69-48BC-A8C8-CED1767C9A14",
+  "name": "Lakou Cafe",
+  "type": "bar",
+  "neighborhood": "Crown Heights",
+  "stockist": false
+ },
+ {
+  "id": "E1FBFF8F-6769-4F44-A254-A0343B36D8C0",
+  "name": "Corner Cafe",
+  "type": "restaurant",
+  "neighborhood": "Borough Park",
+  "stockist": false
+ },
+ {
+  "id": "E244A42F-B738-4764-99F4-75B1534B9014",
+  "name": "Giardini Pizza",
+  "type": "restaurant",
+  "neighborhood": "Carroll Gardens",
+  "stockist": false
+ },
+ {
+  "id": "E266262E-4AF8-456F-BEB4-989CAAC1E283",
+  "name": "Purity Diner",
+  "type": "restaurant",
+  "neighborhood": "Park Slope",
+  "stockist": false
+ },
+ {
+  "id": "E310BEDC-AA8C-48D8-996A-92F16E4547D3",
+  "name": "Alex's Luncheonette",
+  "type": "restaurant",
+  "neighborhood": "Bushwick",
+  "stockist": false
+ },
+ {
+  "id": "E3C25190-D629-4726-A86C-D96517DD6368",
+  "name": "Lamonte",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "E3C3DD30-5CF7-4AF2-AD29-ADEE6D7EF36D",
+  "name": "Lahori Chilli",
+  "type": "restaurant",
+  "neighborhood": "",
+  "stockist": false
+ },
+ {
+  "id": "E3E5A70B-99E8-459D-9F96-2F22C99E7398",
+  "name": "Natural Deli Market corp",
+  "type": "deli",
+  "neighborhood": "Bedford-Stuyvesant",
+  "stockist": false
+ },
+ {
+  "id": "E40C7064-C970-43E5-9EE6-C6E5F76AF301",
+  "name": "Highway Bagels",
+  "type": "deli",
+  "neighborhood": "Sheepshead Bay",
+  "stockist": false
+ },
+ {
+  "id": "E41B258A-3B06-4F6A-927A-337713E79BED",
+  "name": "Gourmet Grill",
+  "type": "bar",
+  "neighborhood": "Mill Basin",
+  "stockist": false
+ },
+ {
+  "id": "E426C535-68B3-440A-BE8E-75A7C8C98037",
+  "name": "The Levee",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "E4562D49-A218-4BFD-99B1-39B119690C99",
+  "name": "Jupiter Disco",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "E48D8AF1-4336-47A4-AB56-09CA0DF68EF2",
+  "name": "Skinny Dennis",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "E4A8E187-D7B6-4D3D-8ACA-BCE4D32DEA88",
+  "name": "Taste of Russia",
+  "type": "deli",
+  "neighborhood": "Brighton Beach",
+  "stockist": false
+ },
+ {
+  "id": "E536A62D-3FD8-4A08-87E5-9B8E6868472F",
+  "name": "Taco Bell Cantina",
+  "type": "restaurant",
+  "neighborhood": "Bedford-Stuyvesant",
+  "stockist": false
+ },
+ {
+  "id": "E647B4D4-30BC-48A2-964C-C16B453AF3A0",
+  "name": "Bar Bruno",
+  "type": "bar",
+  "neighborhood": "Carroll Gardens",
+  "stockist": false
+ },
+ {
+  "id": "E6A328DE-470E-4F5F-A487-FDE8C1A721C3",
+  "name": "Three Decker Diner",
+  "type": "restaurant",
+  "neighborhood": "Greenpoint",
+  "stockist": false
+ },
+ {
+  "id": "E6A9CFE0-E963-41AB-8176-FE7A2195867E",
+  "name": "Mike's Delicatessen",
+  "type": "deli",
+  "neighborhood": "Fort Hamilton",
+  "stockist": false
+ },
+ {
+  "id": "E6C3C159-8279-4D73-B517-68622DF850CB",
+  "name": "Locanda Vini & Olii",
+  "type": "bar",
+  "neighborhood": "Clinton Hill",
+  "stockist": false
+ },
+ {
+  "id": "E6ED335D-F681-427B-90E2-88E00323DFE3",
+  "name": "Panda Express",
+  "type": "restaurant",
+  "neighborhood": "Downtown Brooklyn",
+  "stockist": false
+ },
+ {
+  "id": "E72AC23C-DB64-4786-92EE-02152E7825E6",
+  "name": "Pollo D'Oro",
+  "type": "bar",
+  "neighborhood": "Downtown Brooklyn",
+  "stockist": false
+ },
+ {
+  "id": "E7AF2DF2-9CC1-49D8-9B44-AF7F1E2BB81C",
+  "name": "Catskill Bagel Co.",
+  "type": "deli",
+  "neighborhood": "Flatbush",
+  "stockist": false
+ },
+ {
+  "id": "E7D879C6-1B3E-473B-9C95-AEA8D9EDFF0F",
+  "name": "Morgan's Brooklyn Barbecue",
+  "type": "bar",
+  "neighborhood": "Prospect Heights",
+  "stockist": false
+ },
+ {
+  "id": "E8FAFAFB-11F8-4A73-8397-C507629AF619",
+  "name": "Patchen organic deli & grill",
+  "type": "deli",
+  "neighborhood": "Bedford-Stuyvesant",
+  "stockist": false
+ },
+ {
+  "id": "E9F1F4CE-80E6-4CD2-837E-0AAF4EDD4A21",
+  "name": "Footprints Cafe",
+  "type": "bar",
+  "neighborhood": "East Flatbush",
+  "stockist": false
+ },
+ {
+  "id": "EA13C92D-3384-42BC-9D65-7820861C99D5",
+  "name": "Whisk & Whiskey",
+  "type": "bar",
+  "neighborhood": "Park Slope",
+  "stockist": false
+ },
+ {
+  "id": "EA14D63F-C877-4229-87CB-84E1EC07AD61",
+  "name": "Atlantic Deli & Grocery",
+  "type": "deli",
+  "neighborhood": "Bedford-Stuyvesant",
+  "stockist": false
+ },
+ {
+  "id": "EA3BBE62-B675-4060-BF15-1350F1D47AAE",
+  "name": "Randazzo's Clam Bar",
+  "type": "restaurant",
+  "neighborhood": "Sheepshead Bay",
+  "stockist": false
+ },
+ {
+  "id": "EA6AEA2C-0938-4B69-A79D-1D0BFCBBF680",
+  "name": "M & R Express Deli",
+  "type": "deli",
+  "neighborhood": "East New York",
+  "stockist": false
+ },
+ {
+  "id": "EA76A106-4FC9-4DE7-B3F4-502613F5E977",
+  "name": "Salty Dog",
+  "type": "restaurant",
+  "neighborhood": "Bay Ridge",
+  "stockist": false
+ },
+ {
+  "id": "EA9C64ED-6A93-41F8-A4A1-C8C638A0E111",
+  "name": "Bushwick Deli",
+  "type": "deli",
+  "neighborhood": "Bushwick",
+  "stockist": false
+ },
+ {
+  "id": "EB28C741-2FFD-4F2A-8708-D295CF833F40",
+  "name": "Popeyes Louisiana Kitchen",
+  "type": "restaurant",
+  "neighborhood": "East Flatbush",
+  "stockist": false
+ },
+ {
+  "id": "EB68723C-46C4-419F-B115-8547A0742F41",
+  "name": "Isla & Co - Williamsburg",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "EC70CF3E-C17C-4CD9-85BC-F456665333E3",
+  "name": "Brooklyn Artisan Bakehouse",
+  "type": "restaurant",
+  "neighborhood": "Crown Heights",
+  "stockist": false
+ },
+ {
+  "id": "ECA0DD5C-E509-4A78-B638-461248E50BDC",
+  "name": "Prince Broadway Deli",
+  "type": "deli",
+  "neighborhood": "Bedford-Stuyvesant",
+  "stockist": false
+ },
+ {
+  "id": "ECB43FCB-D534-4F4A-A6C8-2AF4C5780B58",
+  "name": "Wythe Hotel",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "ECBE1154-860A-4B6E-8E5E-1245E4D52007",
+  "name": "Ocean Z Deli",
+  "type": "deli",
+  "neighborhood": "Sheepshead Bay",
+  "stockist": false
+ },
+ {
+  "id": "ECDB90BD-0DE9-453E-A03E-004F0904E40B",
+  "name": "McDonald's",
+  "type": "restaurant",
+  "neighborhood": "Flatbush",
+  "stockist": false
+ },
+ {
+  "id": "EDAEBC8D-626C-41C6-9A65-D10FFFCB99BD",
+  "name": "Ogliastro Pizza Bar",
+  "type": "bar",
+  "neighborhood": "Prospect Heights",
+  "stockist": false
+ },
+ {
+  "id": "EE9A864E-735D-4309-AE6D-25884ECF8219",
+  "name": "My 3 Sons Diner",
+  "type": "restaurant",
+  "neighborhood": "Dyker Heights",
+  "stockist": false
+ },
+ {
+  "id": "EECBB34F-516B-4735-B672-0BA1CD56E050",
+  "name": "McDonald's",
+  "type": "restaurant",
+  "neighborhood": "Fort Greene",
+  "stockist": false
+ },
+ {
+  "id": "EEDD4B9B-108B-478D-85A2-93BA6B29DF2A",
+  "name": "Five Guys",
+  "type": "restaurant",
+  "neighborhood": "Downtown Brooklyn",
+  "stockist": false
+ },
+ {
+  "id": "EEE52EC3-0882-47ED-B3E4-0AD9CA2F33BF",
+  "name": "Applebee's Grill + Bar",
+  "type": "restaurant",
+  "neighborhood": "Fort Greene",
+  "stockist": false
+ },
+ {
+  "id": "EF80577C-244F-4E2C-AE09-CFD0029ADE95",
+  "name": "5ive Spice Tacos & Banh Mi",
+  "type": "restaurant",
+  "neighborhood": "Park Slope",
+  "stockist": false
+ },
+ {
+  "id": "EF965FD7-BD28-4869-9320-D820B847DCE8",
+  "name": "Yours Sincerely",
+  "type": "bar",
+  "neighborhood": "Bushwick",
+  "stockist": false
+ },
+ {
+  "id": "F02748F6-9337-4E71-BED8-1D99528B4CCA",
+  "name": "Bunton’s World Famous",
+  "type": "bar",
+  "neighborhood": "Bushwick",
+  "stockist": false
+ },
+ {
+  "id": "F058C372-EDB7-418F-8D5E-C12348526EB7",
+  "name": "Brooklyn's Natural",
+  "type": "deli",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "F0595BF2-021D-41F6-A386-F9C974F07FE9",
+  "name": "Rebecca's",
+  "type": "bar",
+  "neighborhood": "Bushwick",
+  "stockist": false
+ },
+ {
+  "id": "F0818FE3-EE8F-4FA3-BF4B-7965E62B1273",
+  "name": "Soulfood Caterers",
+  "type": "restaurant",
+  "neighborhood": "Crown Heights",
+  "stockist": false
+ },
+ {
+  "id": "F08D2A3F-1D82-4D80-901D-CCD85D31F749",
+  "name": "El Zason",
+  "type": "bar",
+  "neighborhood": "",
+  "stockist": false
+ },
+ {
+  "id": "F0BC2AF7-DAF7-48C6-890A-F595F33C5DF1",
+  "name": "Otway",
+  "type": "bar",
+  "neighborhood": "Clinton Hill",
+  "stockist": false
+ },
+ {
+  "id": "F0D321E1-7511-416B-A56F-B0E4811A0F0F",
+  "name": "Me and Paul’s",
+  "type": "bar",
+  "neighborhood": "Greenpoint",
+  "stockist": false
+ },
+ {
+  "id": "F1D2F4E2-0875-4119-939C-57FDCD5CFA79",
+  "name": "Night of Joy",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "F1ED930D-D6B8-45E6-B9A8-56A4DC87071B",
+  "name": "Reclamation Bar",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "F20FC1AF-2C48-48E1-AED4-652B8B12BB96",
+  "name": "Empanada City",
+  "type": "restaurant",
+  "neighborhood": "",
+  "stockist": false
+ },
+ {
+  "id": "F25C0589-589E-4702-9020-916196C87AEA",
+  "name": "Le Boudoir",
+  "type": "bar",
+  "neighborhood": "",
+  "stockist": false
+ },
+ {
+  "id": "F28253C8-75E8-4B29-98BE-30E55735CEFC",
+  "name": "TALEA Beer Co - Williamsburg",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "F312CF29-8263-419B-AE4D-7E1C9B582DCA",
+  "name": "McDonald's",
+  "type": "restaurant",
+  "neighborhood": "Cypress Hills",
+  "stockist": false
+ },
+ {
+  "id": "F31F161D-A3C4-4248-8DC4-251E80523259",
+  "name": "Mendez",
+  "type": "deli",
+  "neighborhood": "Sunset Park",
+  "stockist": false
+ },
+ {
+  "id": "F36E87AF-455C-4343-8DC0-C0FC5C54C41A",
+  "name": "Heights Falafel",
+  "type": "restaurant",
+  "neighborhood": "",
+  "stockist": false
+ },
+ {
+  "id": "F3E21495-C5A8-4617-BE22-494D4FFF8EAC",
+  "name": "The Gate",
+  "type": "bar",
+  "neighborhood": "Park Slope",
+  "stockist": false
+ },
+ {
+  "id": "F40A7DF5-82D7-4C3F-914D-8CCD91A23B3C",
+  "name": "Frankies 457 Spuntino",
+  "type": "bar",
+  "neighborhood": "Carroll Gardens",
+  "stockist": false
+ },
+ {
+  "id": "F437E843-ED48-4BC5-8002-E010CFEF38A3",
+  "name": "Brooklyn Safehouse",
+  "type": "bar",
+  "neighborhood": "Greenpoint",
+  "stockist": false
+ },
+ {
+  "id": "F44D3EEF-746F-42B2-94EA-64C40E60E643",
+  "name": "McDonald's",
+  "type": "restaurant",
+  "neighborhood": "Fort Greene",
+  "stockist": false
+ },
+ {
+  "id": "F4589A85-5569-4190-A741-53A0790D6843",
+  "name": "Shelsky's Of Brooklyn Appetizing and Delicatessen",
+  "type": "deli",
+  "neighborhood": "",
+  "stockist": false
+ },
+ {
+  "id": "F45C846F-2F63-4991-9773-21F19B2572F7",
+  "name": "Desy's Clam Restaurant",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "F4697986-8111-4730-9FFE-AEDF4EA2C405",
+  "name": "Skinflints",
+  "type": "bar",
+  "neighborhood": "Bay Ridge",
+  "stockist": false
+ },
+ {
+  "id": "F47FE7FC-9487-4F76-884D-4A361A1D9462",
+  "name": "Place des Fêtes",
+  "type": "restaurant",
+  "neighborhood": "Clinton Hill",
+  "stockist": false
+ },
+ {
+  "id": "F4A8A4B6-9BDE-467A-AC06-3F152C6A84D3",
+  "name": "L'industrie Pizzeria - Williamsburg",
+  "type": "restaurant",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "F6133C52-7ED6-4F31-9D2C-991BE9776F45",
+  "name": "Fushimi Bay Ridge",
+  "type": "bar",
+  "neighborhood": "Fort Hamilton",
+  "stockist": false
+ },
+ {
+  "id": "F628CF0B-4F18-4917-BDCB-EF57EDFA92ED",
+  "name": "Tacos Matamoros",
+  "type": "bar",
+  "neighborhood": "Sunset Park",
+  "stockist": false
+ },
+ {
+  "id": "F63BBC92-8635-4361-B820-E3228F5DF6F9",
+  "name": "Bearded Lady",
+  "type": "bar",
+  "neighborhood": "Prospect Heights",
+  "stockist": false
+ },
+ {
+  "id": "F649BC42-51F8-4905-A858-FDAD6BFE2F05",
+  "name": "Los Limones Deli",
+  "type": "deli",
+  "neighborhood": "Bushwick",
+  "stockist": false
+ },
+ {
+  "id": "F652E7FA-5BBD-473C-9358-A53D41D00A70",
+  "name": "The Wheelhouse",
+  "type": "bar",
+  "neighborhood": "Bushwick",
+  "stockist": false
+ },
+ {
+  "id": "F681AB6C-26F4-4AC4-A703-1A82733FC8BF",
+  "name": "Molasses Books",
+  "type": "bar",
+  "neighborhood": "Bushwick",
+  "stockist": false
+ },
+ {
+  "id": "F74D27E4-ABC6-4D4C-BA44-1C4CC9A22C02",
+  "name": "Kitchen at Cobble Hill",
+  "type": "bar",
+  "neighborhood": "Cobble Hill",
+  "stockist": false
+ },
+ {
+  "id": "F75AEB0A-2F15-4D24-AD71-742E3E31C53D",
+  "name": "Rad's Grocery & Deli",
+  "type": "deli",
+  "neighborhood": "Bushwick",
+  "stockist": false
+ },
+ {
+  "id": "F76C5BF1-CB1F-48E5-B6F6-8C1C98336274",
+  "name": "Brooklyn Moon Cafe",
+  "type": "bar",
+  "neighborhood": "Fort Greene",
+  "stockist": false
+ },
+ {
+  "id": "F7E6D80D-0AD2-4475-A460-7A9B2ED6E62C",
+  "name": "Waverly Gourmet Market- Neighborhood Supermarket",
+  "type": "deli",
+  "neighborhood": "Clinton Hill",
+  "stockist": false
+ },
+ {
+  "id": "F7EF6B58-1645-4B2F-B188-9C690F6743F8",
+  "name": "Margarita Island",
+  "type": "bar",
+  "neighborhood": "Brighton Beach",
+  "stockist": false
+ },
+ {
+  "id": "F814B130-5D58-4D71-9B33-660A9DFE1D32",
+  "name": "Red Oak",
+  "type": "bar",
+  "neighborhood": "Bay Ridge",
+  "stockist": false
+ },
+ {
+  "id": "F89E5186-2A57-4BFC-B01E-4D31B458DDCE",
+  "name": "Vermont Dell & Grill INC V",
+  "type": "deli",
+  "neighborhood": "East New York",
+  "stockist": false
+ },
+ {
+  "id": "F8AC7D7E-5832-4408-8BEE-E2FCD0F9E2D3",
+  "name": "Michelle's Cocktail Lounge",
+  "type": "bar",
+  "neighborhood": "Flatbush",
+  "stockist": false
+ },
+ {
+  "id": "F8D335E1-334B-4150-ABF5-7D7DA2C8CE6F",
+  "name": "Taco Bell / KFC",
+  "type": "restaurant",
+  "neighborhood": "Greenpoint",
+  "stockist": false
+ },
+ {
+  "id": "F8ED99FD-A8DD-45B7-8C14-C61EBDCC8267",
+  "name": "Tamaqua Bar & Marina",
+  "type": "bar",
+  "neighborhood": "Gerritsen Beach",
+  "stockist": false
+ },
+ {
+  "id": "F90AA2D8-EB2C-4940-B42A-06C330B7BBE1",
+  "name": "Taco Bell Cantina",
+  "type": "restaurant",
+  "neighborhood": "Bushwick",
+  "stockist": false
+ },
+ {
+  "id": "F9351071-BF97-4E81-8B58-C2B64C6F0F69",
+  "name": "Linden deli & Grocery",
+  "type": "deli",
+  "neighborhood": "East New York",
+  "stockist": false
+ },
+ {
+  "id": "F97B340C-9960-4989-B449-20B8FAB03F09",
+  "name": "Love Express Deli",
+  "type": "deli",
+  "neighborhood": "Crown Heights",
+  "stockist": false
+ },
+ {
+  "id": "F9911E5A-C264-4A31-B5C9-6F61711B45CA",
+  "name": "Mike's Coffee Shop",
+  "type": "restaurant",
+  "neighborhood": "Clinton Hill",
+  "stockist": false
+ },
+ {
+  "id": "F9D5D503-DBE7-410C-90FD-304CA1AEE75E",
+  "name": "Wildberry Cake",
+  "type": "restaurant",
+  "neighborhood": "Sheepshead Bay",
+  "stockist": false
+ },
+ {
+  "id": "FA4C87FF-998C-4237-AE0F-AAE4555FB0FF",
+  "name": "Tanoreen",
+  "type": "bar",
+  "neighborhood": "Bay Ridge",
+  "stockist": false
+ },
+ {
+  "id": "FA5B5B49-4D7A-4CBA-A5D9-AAF3DAF7198C",
+  "name": "Union Hall",
+  "type": "bar",
+  "neighborhood": "Park Slope",
+  "stockist": false
+ },
+ {
+  "id": "FAD04D8F-23F0-42DB-B00E-8BCC69F73EE0",
+  "name": "Associated Supermarkets of Greenpoint",
+  "type": "deli",
+  "neighborhood": "Greenpoint",
+  "stockist": false
+ },
+ {
+  "id": "FADF6352-0DE1-4E00-BA47-15F857CD9EA3",
+  "name": "JM Deli",
+  "type": "deli",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "FB33FEBC-BF61-41E3-A67D-17BA608E26A6",
+  "name": "Hook & Reel Cajun Seafood & Bar",
+  "type": "bar",
+  "neighborhood": "Bergen Beach",
+  "stockist": false
+ },
+ {
+  "id": "FB7EDB41-B524-4E81-A95D-101D0495B98F",
+  "name": "Eris",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "FBA635B8-CECC-4A10-97AF-7E09C3C648B0",
+  "name": "The Narrows",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "FBEFCBE6-3B6F-4F2F-9050-03A47543A8B3",
+  "name": "Rustik Tavern",
+  "type": "bar",
+  "neighborhood": "Bedford-Stuyvesant",
+  "stockist": false
+ },
+ {
+  "id": "FBF03AFD-1E4D-442E-8E95-D58D19C7A93C",
+  "name": "McDonald's",
+  "type": "restaurant",
+  "neighborhood": "East Flatbush",
+  "stockist": false
+ },
+ {
+  "id": "FC2E426F-56E0-4D2B-B8DB-732A91245F41",
+  "name": "The Beach Deli",
+  "type": "deli",
+  "neighborhood": "Gerritsen Beach",
+  "stockist": false
+ },
+ {
+  "id": "FC4D25D3-A229-4B35-B686-82EED7E6577F",
+  "name": "The Woods",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "FC724148-8101-4B5C-B473-78269766535E",
+  "name": "IHOP",
+  "type": "restaurant",
+  "neighborhood": "Brighton Beach",
+  "stockist": false
+ },
+ {
+  "id": "FC72A299-30BD-47E1-9230-5F41B7FE4FDB",
+  "name": "The Evergreen",
+  "type": "bar",
+  "neighborhood": "Bushwick",
+  "stockist": false
+ },
+ {
+  "id": "FCA4ECDB-1A9F-4D30-A1BE-B327492C8CE3",
+  "name": "Hotel Indigo Williamsburg - Brooklyn by IHG",
+  "type": "restaurant",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "FCC440BD-A31F-457B-B70E-AB4DCC2FA2A4",
+  "name": "Dyker Park Bagels",
+  "type": "deli",
+  "neighborhood": "Bay Ridge",
+  "stockist": false
+ },
+ {
+  "id": "FD018F3C-FD00-427B-B376-6C4A55C639A1",
+  "name": "The Double Windsor",
+  "type": "bar",
+  "neighborhood": "",
+  "stockist": false
+ },
+ {
+  "id": "FD255952-90A0-4992-83D3-28372165F175",
+  "name": "LOFT by Hot Potato",
+  "type": "restaurant",
+  "neighborhood": "Manhattan Beach",
+  "stockist": false
+ },
+ {
+  "id": "FD91EDEB-4AEF-4519-9992-29A29EDB6D14",
+  "name": "SottoVoce",
+  "type": "restaurant",
+  "neighborhood": "Park Slope",
+  "stockist": false
+ },
+ {
+  "id": "FDAAF953-245D-4FBE-BD00-82448B098F06",
+  "name": "Surf Bar Seafood Restaurant & Grill",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "FDDD3292-9A51-439D-897E-FEDFD76E7BE3",
+  "name": "Qc's Fresh Deli & Grocery",
+  "type": "deli",
+  "neighborhood": "Borough Park",
+  "stockist": false
+ },
+ {
+  "id": "FEA641C6-86AA-4B6E-8C89-09C113C88BA5",
+  "name": "The Charleston",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "FEB38FA7-7C92-42E4-A9AC-FCFACE5D837F",
+  "name": "Miti Miti Modern Mexican",
+  "type": "bar",
+  "neighborhood": "Park Slope",
+  "stockist": false
+ },
+ {
+  "id": "FECDE8F5-C60D-4C9F-A7BF-BA0F868312C9",
+  "name": "Lantern",
+  "type": "bar",
+  "neighborhood": "",
+  "stockist": false
+ },
+ {
+  "id": "FEFB7D14-01F4-43E0-A89C-1455D3EF7556",
+  "name": "Adamz Deli & Grill",
+  "type": "deli",
+  "neighborhood": "Crown Heights",
+  "stockist": false
+ },
+ {
+  "id": "FF91FE97-F0CA-488B-B731-A364AAFEE70C",
+  "name": "Smith Finest Deli",
+  "type": "deli",
+  "neighborhood": "Carroll Gardens",
+  "stockist": false
+ },
+ {
+  "id": "FF98C45B-95E5-4677-A62B-A11648960C36",
+  "name": "Saraghina Caffè",
+  "type": "restaurant",
+  "neighborhood": "Fort Greene",
+  "stockist": false
+ },
+ {
+  "id": "FFC62F5E-965D-49B5-87A4-040946EB48C8",
+  "name": "Birdy's",
+  "type": "bar",
+  "neighborhood": "Bushwick",
+  "stockist": false
+ },
+ {
+  "id": "FFCF33DA-44EC-4E41-BB37-3EB824C736D5",
+  "name": "The Four Horsemen",
+  "type": "restaurant",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ },
+ {
+  "id": "FFDA6127-4184-4847-80A5-9E15FC6F816C",
+  "name": "Middle Eastern Halal Cart",
+  "type": "restaurant",
+  "neighborhood": "Fort Hamilton",
+  "stockist": false
+ },
+ {
+  "id": "FFF9D0AA-F71E-4263-8873-1E4282E38316",
+  "name": "La Nonna Ristorante & Bar - Williamsburg, Brooklyn",
+  "type": "bar",
+  "neighborhood": "Williamsburg",
+  "stockist": false
+ }
+]

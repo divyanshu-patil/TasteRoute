@@ -186,6 +186,11 @@ async def run_brand(svc: Any, pack: Any, b: dict[str, Any], rows: list[dict[str,
     trace = Trace(step="evaluate_stockists")
     comps = await comparables(svc, pack, b, trace)
     signal = [i for i, _ in comps]
+    if len(comps) < 3:  # pre-registered: at least 3 comparables must resolve, or the brand is not scored
+        return {"brand": b["brand"], "key": b["key"], "split": b["split"], "description": b["description"],
+                "types": b["types"], "comparables": [n for _, n in comps], "counts": {"accounts": len(rows)},
+                "not_scored": f"{len(comps)} of {len(b['comparables'] + b['backups'])} comparables "
+                              f"({', '.join(b['comparables'] + b['backups'])}) are known to Qloo; the minimum is 3"}
     pool = await build_pool(svc, pack, b, trace)
     truth, counts, log = resolve(rows, pool)
     ids = sorted(pool)
@@ -210,11 +215,44 @@ async def run_brand(svc: Any, pack: Any, b: dict[str, Any], rows: list[dict[str,
             "top10": {k: [pool[i]["name"] for i in order[k][:10]] for k in METHODS}}
 
 
+LESSONS = """## Where Qloo lost and why
+
+Written after the test run; every number is in the tables above or in `docs/eval/results-all.json`.
+
+- **Qloo doesn't know the natural-wine world (Steven Graf Wine).** None of six well-known natural-wine producers and \
+importers resolve in Qloo `/search`, so there is no taste signal. The app fails closed in that case (step 3 says Qloo \
+doesn't know the brands), and the pre-registered rule did the same here. The script only enforced that rule after the \
+first test run, which had ranked this brand with no signal (recall@30 Q-fit 0%, LLM 20%; kept in \
+`docs/eval/results-test.json`).
+- **The mass-market baseline works against coffee (Parlor Coffee).** The two café accounts, Odd Fox Coffee and Petee's \
+Café, sit at Qloo taste percentiles 96 and 90 but also at mass-market percentiles 87 and 83, because the mass-market \
+brands include Starbucks and Dunkin'. Lift pushes them down and Q-fit's top 10 turns into restaurants and hotels. Q-raw's \
+top 10 is specialty cafés (SEY, Blue Bottle, Black Brick) and finds 1 of the 4 accounts, as the LLM does. Only 4 of 47 \
+accounts are among Qloo's best-known venues, so this brand says little either way.
+- **Lift did not help on this test.** Q-raw matched or beat Q-fit on recall@30 for every scored test brand (Parlor 25% vs \
+0%, St. Agrestis 22% vs 19%, Casamara Club 14% vs 14%).
+- **The LLM reads names and knows famous venues.** Its mean percentile rank beats Q-fit on all three scored test brands \
+(86 vs 78, 73 vs 66, 70 vs 69) and both dev brands. Its top picks carry the category in the name ("Coffee Project", \
+"The Whiskey Annex", "Black Mountain Wine House") or are famous (Lilia, The Four Horsemen).
+- **Where Qloo was ahead: the top of the list for taste-led brands.** St. Agrestis recall@15: Q-raw 19% (7 of 36), Q-fit \
+11%, LLM 11%. Accounts Qloo ranks high and the LLM does not: Grand Army (Q-fit 9th, LLM 284th), June (2nd vs 101st), \
+Madeline's (22nd vs 283rd), all driven by fans of Ghia and Campari. For Casamara Club the LLM has no account in its \
+top 30; Q-fit has Glasserie at 10th.
+
+**What it means.** On these brands Qloo's taste signal finds about as many real accounts as an LLM that reads venue \
+names: 8 of 47 in the top 30 for Q-fit, 8 for the LLM, 10 for Q-raw, about 1.5 by chance. They find different ones \
+(Grand Army and June for Qloo, Lilia and Cecconi's for the LLM), so the app shows both (the LLM column on the results \
+page) instead of claiming Qloo wins. The mass-market set should not contain the brand's own category (no coffee chains \
+for a coffee brand); that change needs new brands to test it on, so it is logged, not made."""
+
+
 def pct(x: float | None) -> str:
     return "n/a" if x is None else f"{x * 100:.0f}%"
 
 
 def report(res: list[dict[str, Any]], spent: dict[str, Any]) -> str:
+    skipped = [r for r in res if r.get("not_scored")]
+    res = [r for r in res if not r.get("not_scored")]
     test = [r for r in res if r["split"] == "test"]
     wins = sum(r["metrics"]["Q-fit"]["recall30"] > r["metrics"]["LLM"]["recall30"] for r in test)
     ties = sum(r["metrics"]["Q-fit"]["recall30"] == r["metrics"]["LLM"]["recall30"] for r in test)
@@ -241,10 +279,12 @@ def report(res: list[dict[str, Any]], spent: dict[str, Any]) -> str:
         "",
     ]
     if test:
-        out += [f"**Result: Q-fit beat the LLM on recall@30 in {wins} of {len(test)} test brands"
+        out += [f"**Result: Q-fit beat the LLM on recall@30 in {wins} of {len(test)} scored test brands"
                 + (f" ({ties} tied)" if ties else "") + f". Target was 3 of 4: {'met' if wins >= 3 else 'missed'}.**", ""]
+    out += [f"Not scored: **{r['brand']}** ({r['split']}): {r['not_scored']}." for r in skipped]
+    out += [""] if skipped else []
     out += ["## Recall@30 by brand", "",
-            "| Brand | Split | Accounts known to Qloo | Pool | " + " | ".join(METHODS) + " | RANDOM |",
+            "| Brand | Split | Accounts in the pool | Pool | " + " | ".join(METHODS) + " | RANDOM |",
             "|---|---|---|---|" + "---|" * (len(METHODS) + 1)]
     for r in res:
         m, c = r["metrics"], r["counts"]
@@ -269,7 +309,7 @@ def report(res: list[dict[str, Any]], spent: dict[str, Any]) -> str:
         out += [f"| {s['name']} | {s['type']} | {s['Q-fit']} | {s['LLM']} | {s['POP']} | {s['taste_pct'] * 100:.0f} | "
                 f"{s['mass_pct'] * 100:.0f} | {', '.join(s['drivers'])} |" for s in r["stockists"]]
         out.append("")
-    out += ["## Where Qloo lost and why", "", "(written after the run; see below)", "",
+    out += [LESSONS, "",
             "## Limits", "",
             "- One city and six brands; the four test brands decide the claim. Small samples: one account moves recall@30 "
             "by several points.",
@@ -281,6 +321,36 @@ def report(res: list[dict[str, Any]], spent: dict[str, Any]) -> str:
             "(fixed hash).", "",
             "## Calls spent", "", f"Qloo live {spent['qloo']} (cached {spent['qloo_cached']}), LLM {spent['llm']}.", ""]
     return "\n".join(out)
+
+
+def web_summary(res: list[dict[str, Any]]) -> dict[str, Any]:
+    """apps/web/public/evaluation.json for the /evaluation page: totals, per-brand rows, one featured account."""
+    scored = [r for r in res if not r.get("not_scored")]
+    test = [r for r in scored if r["split"] == "test"]
+    found = {k: sum(r["metrics"][k]["found30"] for r in test) for k in [*METHODS, "RANDOM"]}
+    # An account in Q-fit's top 30 that the LLM ranked lowest.
+    feat_brand, feat = max(((r, s) for r in test for s in r["stockists"] if s["Q-fit"] <= 30), key=lambda rs: rs[1]["LLM"])
+    return {
+        "generated": datetime.now(UTC).date().isoformat(),
+        "city": "Brooklyn",
+        "test_brands_scored": len(test),
+        "accounts": sum(r["metrics"]["truth"] for r in test),
+        "found_top30": {k: round(v, 1) for k, v in found.items()},
+        "wins": {"q_fit": sum(r["metrics"]["Q-fit"]["recall30"] > r["metrics"]["LLM"]["recall30"] for r in test),
+                 "llm": sum(r["metrics"]["Q-fit"]["recall30"] < r["metrics"]["LLM"]["recall30"] for r in test),
+                 "ties": sum(r["metrics"]["Q-fit"]["recall30"] == r["metrics"]["LLM"]["recall30"] for r in test)},
+        "target": "TasteRoute beats the LLM on recall@30 in 3 of 4 test brands",
+        "target_met": False,
+        "brands": [{"brand": r["brand"], "split": r["split"], "what": r["description"], "comparables": r["comparables"],
+                    **({"not_scored": r["not_scored"]} if r.get("not_scored") else {
+                        "accounts": r["metrics"]["truth"], "pool": r["metrics"]["pool"],
+                        "recall30": {k: r["metrics"][k]["recall30"] for k in [*METHODS, "RANDOM"]},
+                        "mpr": {k: r["metrics"][k]["mpr"] for k in [*METHODS, "RANDOM"]}})} for r in res],
+        "featured": {"brand": feat_brand["brand"], "what": feat_brand["description"], "venue": feat["name"],
+                     "type": feat["type"], "neighborhood": feat["neighborhood"], "q_fit_rank": feat["Q-fit"],
+                     "llm_rank": feat["LLM"], "pool": feat_brand["metrics"]["pool"], "drivers": feat["drivers"]},
+        "doc": "https://github.com/divyanshu-patil/TasteRoute/blob/main/docs/evaluation-stockists.md",
+    }
 
 
 async def main(split: str) -> None:
@@ -296,10 +366,13 @@ async def main(split: str) -> None:
             if split != "all" and b["split"] != split:
                 continue
             r = await run_brand(svc, pack, b, [x for x in rows if x["brand"] == b["brand"]])
+            res.append(r)
+            if r.get("not_scored"):
+                print(f"{b['brand']}: not scored, {r['not_scored']}")
+                continue
             m = r["metrics"]
             print(f"{b['brand']}: truth {m['truth']}/{r['counts']['accounts']}, pool {m['pool']}, recall@30 "
                   + ", ".join(f"{k} {pct(m[k]['recall30'])}" for k in [*METHODS, "RANDOM"]))
-            res.append(r)
         spent = await pool.fetchrow(
             "select (select count(*) from qloo_calls where not cache_hit and created_at >= $1) qloo, "
             "(select count(*) from qloo_calls where cache_hit and created_at >= $1) qloo_cached, "
@@ -309,6 +382,7 @@ async def main(split: str) -> None:
                                   indent=1, ensure_ascii=False) + "\n")
         if split == "all":
             REPORT.write_text(report(res, dict(spent)))
+            WEB.write_text(json.dumps(web_summary(res), indent=1, ensure_ascii=False) + "\n")
         print(f"wrote {out.relative_to(ROOT)}; live calls spent: {dict(spent)}")
     finally:
         await close_services(svc)
