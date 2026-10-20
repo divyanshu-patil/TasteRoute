@@ -57,7 +57,7 @@ export function VenueMap({ pins, label, height = 380, bounds, onPick }: Props) {
         .setHTML(`<strong>${esc(p.title)}</strong>${p.sub ? `<br><span class="mono">${esc(p.sub)}</span>` : ""}${p.href ? `<br><a href="${esc(p.href)}">Open venue →</a>` : ""}`);
       const mk = new ml.Marker({ element: node }).setLngLat([p.lon, p.lat]).setPopup(popup).addTo(m); // Enter or Space opens it
       node.setAttribute("role", "button");
-      node.setAttribute("aria-label", p.title);
+      node.setAttribute("aria-label", p.dot || p.title.startsWith(p.label) ? p.title : `${p.label}: ${p.title}`); // the name includes the visible text
       if (p.dot) node.setAttribute("tabindex", "-1"); // venues below the top 10 are in the table; keyboard users skip them here
       return mk;
     });
