@@ -71,6 +71,21 @@ Read the A vs C number with the pool rows: C can only pick venues in its OSM sam
 | 14 | 101 Wilson Bar (80, +62, high) | Pete's Candy Store | Starbucks |
 | 15 | Brooklyn Brew Cafe (79, +78, high) | Cafe Madeline | Starbucks |
 
+## Does lift change the list? (score plan C1, 2026-10-20)
+
+`apps/api/scripts/lift_effect.py` re-scores two stored runs three ways over the same venues: taste only (Qloo affinity percentile), the old lift against a separate popularity query, and the new lift against the same venues' taste for mass-market brands (D-23). 6 live Qloo calls, one per venue type.
+
+| Brand | Venues | Lift spread, popularity (sd) | Lift spread, mass-market (sd) | Spearman, popularity lift vs taste only | Spearman, mass-market lift vs taste only | Top-15 Jaccard, popularity lift vs taste only | Top-15 Jaccard, mass-market lift vs taste only | Top-15 Jaccard, popularity vs mass-market |
+|---|---|---|---|---|---|---|---|---|
+| Fieldnote Drinks Co. (sample run) | 98 | 0.343 | 0.362 | 0.982 | 0.977 | 0.579 | 0.50 | 0.429 |
+| The Finnish Long Drink | 183 | 0.330 | 0.211 | 0.982 | 0.988 | 0.579 | 0.579 | 0.50 |
+
+What this shows, and what it doesn't:
+
+- Lift moves the top of the list, not the whole list. Over all venues the order stays close to taste alone (Spearman 0.98). In the top 15, a third to half of the venues change.
+- The old popularity lift was not constant; its spread is similar to the new one. The reason for the change (D-23) is what lift means: "these guests like brands like yours more than they like Coca-Cola and Starbucks" is a claim about taste, while a separate popularity query compared venues with a different set of venues.
+- The two baselines disagree on about half of the top 15. Neither is shown to be better here; the stockist test (Phase D) is the measure of that.
+
 ## Where Qloo did not help (automatic checks)
 
 - Ridgeline Coffee Roasters: 0 of A's top 15 have no positive lift or low confidence.
