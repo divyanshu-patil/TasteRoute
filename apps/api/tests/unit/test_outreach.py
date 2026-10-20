@@ -6,7 +6,9 @@ from urllib.parse import parse_qs, unquote, urlparse
 
 import pytest
 
+from tasteroute_api.agent import rules
 from tasteroute_api.agent.plan_guard import PlanGuard
+from tasteroute_api.agent.tools import qualified_city
 from tasteroute_api.categories import default_pack
 from tasteroute_api.errors import AppError
 from tasteroute_api.external import hunter
@@ -173,20 +175,56 @@ def test_suppression_matches_subdomains():
 
 
 def test_plan_guard():
-    g = PlanGuard("scout", {"product_ids": {"p1", "p2"}, "venue_types": {"cafe"}})
+    """AGT-08: safety, not a script. Known ids only (a subset is the agent's choice), order, caps, no repeats."""
+    g = PlanGuard("scout", {"product_ids": {"p1", "p2"}, "venue_types": {"cafe"}, "pack_types": {"cafe", "bar", "deli"}})
     assert "Unknown tool" in g.check("send_email", {})[1]
     assert "before" in g.check("rank_venues", {})[1]
-    assert "exactly" in g.check("resolve_entities", {"product_ids": ["p1", "zzz"]})[1]
+    assert "subset" in g.check("resolve_entities", {"product_ids": ["p1", "zzz"]})[1]
     assert "Invalid arguments" in g.check("resolve_entities", {"oops": 1})[1]
     args, err = g.check("resolve_entities", {"product_ids": ["p2", "p1"]})
     assert err is None
     g.record("resolve_entities", args)
     assert "already called" in g.check("resolve_entities", {"product_ids": ["p2", "p1"]})[1]
+    assert "must be one of" in g.check("suggest_more_comparables", {"product_id": "invented", "reason": "x"})[1]
+    for i in range(2):
+        a, err = g.check("suggest_more_comparables", {"product_id": "p1", "reason": f"round {i}"})
+        assert err is None
+        g.record("suggest_more_comparables", a)
+    assert "At most 2" in g.check("suggest_more_comparables", {"product_id": "p1", "reason": "again"})[1]
     assert g.check("rank_venues", {"venue_types": ["cafe"]})[1] is None
     assert g.remaining() == ["rank_venues", "match_products", "attach_evidence"]
+    g.record("rank_venues", {"venue_types": ["cafe"]})
+    assert "before rank_venues" in g.check("suggest_more_comparables", {"product_id": "p2", "reason": "late"})[1]
+    assert "must be one of" in g.check("add_venue_type", {"type_id": "cafe", "reason": "already in the run"})[1]
+    a, err = g.check("add_venue_type", {"type_id": "bar", "reason": "only 9 cafés"})
+    assert err is None
+    g.record("add_venue_type", a)
+    assert "must be one of ['deli']" in g.check("add_venue_type", {"type_id": "bar", "reason": "again"})[1]
     o = PlanGuard("outreach", {"venue_ids": {"v1"}, "draft_venue_ids": {"v1"}})
     o.record("find_contacts", {})
     assert "subset" in o.check("draft_pitches", {"venue_ids": ["v2"]})[1]
+
+
+def test_decision_rules():
+    """AGT-07: the thresholds the agent is told and the fixed plan applies."""
+    assert rules.weak([{"role": "comparable"}]) and rules.weak([])  # nothing found in the wizard counts too
+    assert not rules.weak([{"role": "self"}])
+    assert not rules.weak([{"role": "comparable"}, {"role": "comparable"}])
+    res = {"a": {"weak": True, "suggest_rounds": 1}, "b": {"weak": True, "suggest_rounds": 2}, "c": {"weak": False}}
+    assert rules.needs_comparables(res) == ["a"]
+    pack = ["cafe", "bar", "restaurant", "deli"]
+    assert rules.type_to_add({"cafe": 40, "bar": 9}, ["cafe", "bar"], pack, []) == "restaurant"
+    assert rules.type_to_add({"cafe": 40}, ["cafe", "bar"], pack, []) == "restaurant"  # a type with no venues is thin
+    assert rules.type_to_add({"cafe": 40, "bar": 20}, ["cafe", "bar"], pack, []) is None
+    assert rules.type_to_add({"cafe": 9}, ["cafe"], pack, ["bar", "deli"]) is None  # the cap
+
+
+def test_ambiguous_us_city_gets_its_state():
+    """QLO-12: Qloo reads a bare "Portland" as Oregon; the retry asks for "Portland, Maine"."""
+    me = {"name": "Portland", "display_name": "Portland, Cumberland County, Maine, United States", "country": "US"}
+    assert qualified_city(me) == "Portland, Maine"
+    assert qualified_city({"name": "London", "display_name": "London, Greater London, England, United Kingdom",
+                           "country": "gb"}) is None
 
 
 def test_scraped_email_must_be_the_venues_or_free_mail():

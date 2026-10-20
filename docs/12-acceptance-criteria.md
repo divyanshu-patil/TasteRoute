@@ -21,6 +21,7 @@ Each criterion has an ID, a measurable statement, how it is checked, and a prior
 | ENT-03 | Name matching accepts known variants and rejects unrelated names at threshold 0.85 | Unit tests | MVP |
 | ENT-04 | Users can remove an entity and add one found through Qloo search | API test | MVP |
 | ENT-05 | A run cannot start without at least one resolved entity | API test | MVP |
+| ENT-06 | A product's own name never resolves to a shorter brand name by its product words ("chipotle sauce" is not Chipotle) | Unit test `test_brand_extension_must_fit_the_product` | MVP |
 
 ## Ranking (F03)
 
@@ -103,6 +104,9 @@ Each criterion has an ID, a measurable statement, how it is checked, and a prior
 | AGT-04 | SSE streams all event types and replays from `Last-Event-ID` | API test | MVP |
 | AGT-05 | The trace lists every LLM step, tool call, Qloo call and external call; no secret appears | API test + string search | MVP |
 | AGT-06 | Agent, planner and deterministic paths produce identical venue scores for the same inputs and cache | Integration test | MVP |
+| AGT-07 | The scout agent decides from rules, not a script: tool outputs carry the inputs (similar brands per product, venues per type, affinity spread, hidden counts, tie share), and it may call `suggest_more_comparables` and `add_venue_type` with a stated reason; decisions show in the trace and live log as "AI agent" or "Fixed plan" | API test `test_agent_and_fallback_make_the_same_decisions`; `scripts/agent_decisions.py` | MVP |
+| AGT-08 | The plan guard enforces safety, not a script: tool allowed in the phase, order, only ids the run holds, caps (2 suggestion rounds per product, 2 added types, 60 venues), no identical repeat | Unit test `test_plan_guard` | MVP |
+| AGT-09 | The deterministic plan applies the same rules at the same points; with a model that follows the rules, both reach the same decisions and identical scores | API test `test_agent_and_fallback_make_the_same_decisions`, unit test `test_decision_rules` | MVP |
 
 ## Accounts and sending (F12)
 
@@ -147,6 +151,7 @@ Each criterion has an ID, a measurable statement, how it is checked, and a prior
 | QLO-08 | The per-run live-call cap holds under parallel calls (10 parallel calls, cap 5 → at most 5 live) | `test_parallel_calls_never_exceed_the_run_cap` | MVP |
 | QLO-10 | Insights paging (`page=2` with `take=50`) is verified and recorded | Probe + `docs/qloo-contract.md` | Stretch |
 | QLO-09 | Cross-domain insights (artists, podcasts, a venue as signal, venues scored by artist fans) are probed and recorded | Probe + `docs/qloo-contract.md` | MVP |
+| QLO-12 | An ambiguous US city name that lands Qloo in another city (every venue outside the bounding box) is asked again as "name, state" | Probe + unit test `test_ambiguous_us_city_gets_its_state`; live Portland, Maine run | MVP |
 
 ## LLM (cross-cutting)
 

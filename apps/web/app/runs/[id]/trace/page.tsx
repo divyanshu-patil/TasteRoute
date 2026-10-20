@@ -21,12 +21,18 @@ function brief(t: S["TraceRow"]): string {
   if (t.kind === "qloo") return `${String(d.status)} · ${d.cache_hit ? "cache hit" : `${String(d.duration_ms)} ms`} · ${String(d.result_count)} results`;
   if (t.kind === "llm") return `${String(d.status)} · ${String(d.duration_ms)} ms${d.tool_calls ? ` · called ${(d.tool_calls as string[]).join(", ")}` : ""}`;
   if (t.kind === "external") return `${String(d.status)} · ${d.cache_hit ? "cache hit" : `${String(d.duration_ms)} ms`}`;
+  if (t.step === "decision") return `${String(d.by)} decided`;
   return t.step === "step_done" ? "done" : t.step === "tool_call" ? "called" : String(t.step);
+}
+
+function Saw({ saw }: { saw: Record<string, unknown> }) {
+  const text = Object.entries(saw).filter(([k]) => k !== "rule").map(([k, v]) => `${k.replaceAll("_", " ")}: ${typeof v === "object" && v ? JSON.stringify(v).replace(/[{}"[\]]/g, "").replaceAll(",", ", ") : String(v)}`).join(" · ");
+  return <p className="mono faint">Saw {text}{saw.rule ? ` · rule: ${String(saw.rule)}` : ""}</p>;
 }
 
 const TOUR: TourStep[] = [
   { target: "trace-filter", title: "Filter the trace", body: "Agent steps, LLM calls, Qloo calls and web lookups, each with a count." },
-  { target: "trace", title: "Every call, in order", body: "Timings, cache hits and results for each call this run made. The agent's tool calls were checked by a plan guard; keys never appear." },
+  { target: "trace", title: "Every call, in order", body: "Timings, cache hits and results for each call this run made. Decision rows show what the agent saw and why it acted. A rule checker approved every call; keys never appear." },
 ];
 
 export default function Trace() {
@@ -65,9 +71,15 @@ export default function Trace() {
                 <tr key={`${t.kind}-${t.id}`}>
                   <td className="mono" data-label="Time">{new Date(t.at).toLocaleTimeString()}</td>
                   <td data-label="Kind"><span className={`kind kind-${t.kind}`}>{t.kind}</span></td>
-                  <td className="mono" data-label="Step">{t.step}</td>
+                  <td className="mono" data-label="Step">{t.step === "decision" ? <span className="tag">Decision</span> : t.step}</td>
                   <td className="cell-wide" data-label="Call">
                     <strong>{t.name}</strong>
+                    {t.step === "decision" && (
+                      <div className="stack-s" style={{ marginTop: 4 }}>
+                        <p className="small"><span className="tag tag-line">{String((t.detail as { by?: string }).by)}</span> {String((t.detail as { reason?: string }).reason ?? "")}</p>
+                        <Saw saw={(t.detail as { saw?: Record<string, unknown> }).saw ?? {}} />
+                      </div>
+                    )}
                     <details><summary>details</summary><pre>{JSON.stringify(t.detail, null, 2)}</pre></details>
                   </td>
                   <td className="small muted" data-label="Result">{brief(t)}</td>

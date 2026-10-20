@@ -21,8 +21,9 @@ class ComparableNames(BaseModel):
     names: list[str] = Field(default_factory=list, max_length=8)
 
 
-def best_match(query: str, brands: list[Brand], context: str | None = None) -> tuple[Brand, float] | None:
-    scored = [(b, similarity(query, b.name, context)) for b in brands]
+def best_match(query: str, brands: list[Brand], context: str | None = None, query_may_extend: bool = True
+               ) -> tuple[Brand, float] | None:
+    scored = [(b, similarity(query, b.name, context, query_may_extend)) for b in brands]
     ok = [(b, s) for b, s in scored if s >= THRESHOLD]
     return max(ok, key=lambda bs: (bs[1], bs[0].popularity)) if ok else None
 
@@ -38,13 +39,15 @@ def entity(b: Brand, role: str, sim: float, call_id: str) -> dict[str, Any]:
     }
 
 
-async def suggest_comparables(svc: Services, brand: dict[str, Any], product: dict[str, Any], run_id: str | None) -> list[str]:
+async def suggest_comparables(svc: Services, brand: dict[str, Any], product: dict[str, Any], run_id: str | None,
+                              exclude: list[str] | None = None) -> list[str]:
     prompt, version = load("suggest_comparables")
     profile = brand.get("profile") or {}
     user = (
         f"Brand: {brand.get('name')}\nOne-liner: {profile.get('one_liner', '')}\nPrice tier: {profile.get('price_tier', 'unknown')}\n"
         f"Style: {', '.join(profile.get('style_words') or [])}\nProduct: {product.get('name')} ({product.get('kind') or ''})\n"
         f"Notes: {product.get('notes') or ''}"
+        + (f"\nAlready tried, suggest different brands: {', '.join(exclude)}" if exclude else "")
     )
     out = await structured(svc.llm, ComparableNames, prompt, user, purpose="comparables", prompt_version=version,
                            run_id=run_id, max_tokens=300)
@@ -61,7 +64,7 @@ async def resolve_product(
     context = " ".join(str(product.get(k) or "") for k in ("name", "kind", "notes"))
     for q in [q for q in queries if q]:
         brands, call_id = await api.search(svc.qloo, q, types, trace)
-        m = best_match(q, brands, context)
+        m = best_match(q, brands, context, query_may_extend=q != product["name"])
         if m:
             return {"product_id": pid, "status": "resolved", "entities": [entity(m[0], "self", m[1], call_id)],
                     "dropped": [], "message": "Qloo knows this"}

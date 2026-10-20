@@ -164,5 +164,7 @@ def test_brand_extension_must_fit_the_product():
     assert not names.is_match("Bubbies", "Bubbies Ice Cream", pickle)
     assert names.is_match("Blue Bottle", "Blue Bottle Coffee", "nitro cold brew")  # generic word
     assert names.is_match("McClure's Pickles", "McClure's", pickle)  # the query may drop a word the product uses
+    # ...but a product's own name may not: a flavour is not a brand
+    assert names.similarity("chipotle sauce", "Chipotle", "chipotle sauce hot sauce", query_may_extend=False) < 0.85
     assert not names.is_match("Health-Ade", "Health", "ginger kombucha")
     assert names.is_match("Kaigo", "Kaigo Coffee Room")  # venues (no context) keep the old rule

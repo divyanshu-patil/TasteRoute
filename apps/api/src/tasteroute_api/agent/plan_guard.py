@@ -1,23 +1,36 @@
-"""Plan guard: allowed tools per phase, required order, validated arguments, no repeated calls (AGT-01)."""
+"""Plan guard: enforces safety, not a script (AGT-01, AGT-08). A call must be allowed in this phase, come after what it
+needs, use only ids the run already holds, stay within the caps and not repeat an identical call. Which tools to call,
+and with which of the known ids, is the agent's decision."""
 
 import json
+from collections import Counter
 from typing import Any
 
 from pydantic import BaseModel, ConfigDict, Field, ValidationError
 
+from . import rules
+
 PHASE_TOOLS: dict[str, list[str]] = {
-    "scout": ["resolve_entities", "rank_venues", "match_products", "attach_evidence", "finish_phase"],
+    "scout": ["resolve_entities", "suggest_more_comparables", "rank_venues", "add_venue_type", "match_products",
+              "attach_evidence", "finish_phase"],
     "outreach": ["find_contacts", "draft_pitches", "finish_phase"],
+}
+REQUIRED: dict[str, list[str]] = {  # every phase runs these, in this order; the deterministic plan finishes them
+    "scout": ["resolve_entities", "rank_venues", "match_products", "attach_evidence"],
+    "outreach": ["find_contacts", "draft_pitches"],
 }
 REQUIRES: dict[str, dict[str, set[str]]] = {
     "scout": {
+        "suggest_more_comparables": {"resolve_entities"},
         "rank_venues": {"resolve_entities"},
+        "add_venue_type": {"rank_venues"},
         "match_products": {"rank_venues"},
         "attach_evidence": {"match_products"},
         "finish_phase": {"attach_evidence"},
     },
     "outreach": {"draft_pitches": {"find_contacts"}, "finish_phase": {"find_contacts"}},
 }
+NOT_AFTER = {"suggest_more_comparables": "rank_venues", "add_venue_type": "match_products"}  # they change what those used
 
 
 class _Args(BaseModel):
@@ -28,9 +41,19 @@ class ResolveArgs(_Args):
     product_ids: list[str] | None = None
 
 
+class SuggestArgs(_Args):
+    product_id: str
+    reason: str = Field(default="", max_length=300)
+
+
 class RankArgs(_Args):
     venue_types: list[str] | None = None
     max_venues: int | None = Field(default=None, ge=10, le=60)
+
+
+class AddTypeArgs(_Args):
+    type_id: str
+    reason: str = Field(default="", max_length=300)
 
 
 class NoArgs(_Args):
@@ -51,7 +74,9 @@ class FinishArgs(_Args):
 
 ARGS: dict[str, type[_Args]] = {
     "resolve_entities": ResolveArgs,
+    "suggest_more_comparables": SuggestArgs,
     "rank_venues": RankArgs,
+    "add_venue_type": AddTypeArgs,
     "match_products": NoArgs,
     "attach_evidence": EvidenceArgs,
     "find_contacts": VenueIdsArgs,
@@ -61,11 +86,12 @@ ARGS: dict[str, type[_Args]] = {
 
 
 class PlanGuard:
-    def __init__(self, phase: str, expected: dict[str, set[str]]) -> None:
+    def __init__(self, phase: str, known: dict[str, set[str]]) -> None:
         self.phase = phase
-        self.expected = expected  # product_ids, venue_types, venue_ids, draft_venue_ids
+        self.known = known  # product_ids, venue_types (the run's), pack_types, venue_ids (selected), draft_venue_ids
         self.done: list[str] = []
         self.seen: set[str] = set()
+        self.suggested: Counter[str] = Counter()
 
     def check(self, name: str, args: dict[str, Any]) -> tuple[dict[str, Any] | None, str | None]:
         """Returns (validated args, None) or (None, error message for the model)."""
@@ -74,6 +100,8 @@ class PlanGuard:
         missing = REQUIRES[self.phase].get(name, set()) - set(self.done)
         if missing:
             return None, f"Call {sorted(missing)} before {name}."
+        if NOT_AFTER.get(name) in self.done:
+            return None, f"{name} must come before {NOT_AFTER[name]}."
         try:
             parsed = ARGS[name].model_validate(args or {}).model_dump()
         except ValidationError as e:
@@ -87,24 +115,35 @@ class PlanGuard:
         return parsed, None
 
     def _ids(self, name: str, a: dict[str, Any]) -> str | None:
-        checks = {
-            ("resolve_entities", "product_ids"): "product_ids",
-            ("rank_venues", "venue_types"): "venue_types",
-            ("find_contacts", "venue_ids"): "venue_ids",
-        }
-        for (tool, field), exp_key in checks.items():
-            if name == tool and a.get(field) is not None and set(a[field]) != self.expected.get(exp_key, set()):
-                return f"{field} must be exactly {sorted(self.expected.get(exp_key, set()))}."
-        if name == "draft_pitches" and a.get("venue_ids") is not None:
-            allowed = self.expected.get("draft_venue_ids", set())
-            if not a["venue_ids"] or not set(a["venue_ids"]) <= allowed:
-                return f"venue_ids must be a non-empty subset of the venues with contacts: {sorted(allowed)}."
+        """No invented ids: every id must be one the run state or an earlier tool output gave the agent."""
+        subsets = {"resolve_entities": ("product_ids", "product_ids"), "rank_venues": ("venue_types", "venue_types"),
+                   "find_contacts": ("venue_ids", "venue_ids"), "draft_pitches": ("venue_ids", "draft_venue_ids")}
+        if name in subsets and a.get(subsets[name][0]) is not None:
+            field, key = subsets[name]
+            allowed = self.known.get(key, set())
+            if not a[field] or not set(a[field]) <= allowed:
+                return f"{field} must be a non-empty subset of {sorted(allowed)}."
+        if name == "suggest_more_comparables":
+            if a["product_id"] not in self.known.get("product_ids", set()):
+                return f"product_id must be one of {sorted(self.known.get('product_ids', set()))}."
+            if self.suggested[a["product_id"]] >= rules.MAX_SUGGEST_ROUNDS:
+                return f"At most {rules.MAX_SUGGEST_ROUNDS} suggestion rounds per product."
+        if name == "add_venue_type":
+            free = self.known.get("pack_types", set()) - self.known.get("venue_types", set())
+            if a["type_id"] not in free:
+                return f"type_id must be one of {sorted(free)}."
+            if self.done.count("add_venue_type") >= rules.MAX_ADDED_TYPES:
+                return f"At most {rules.MAX_ADDED_TYPES} venue types can be added."
         return None
 
     def record(self, name: str, args: dict[str, Any]) -> None:
         self.done.append(name)
         self.seen.add(name + json.dumps(args, sort_keys=True))
+        if name == "suggest_more_comparables":
+            self.suggested[args["product_id"]] += 1
+        if name == "add_venue_type":
+            self.known["venue_types"] = self.known.get("venue_types", set()) | {args["type_id"]}
 
     def remaining(self) -> list[str]:
-        """Required tools not yet done, in plan order (used by the deterministic fallback)."""
-        return [t for t in PHASE_TOOLS[self.phase] if t != "finish_phase" and t not in self.done]
+        """Required tools not yet done, in order (used by the deterministic fallback)."""
+        return [t for t in REQUIRED[self.phase] if t not in self.done]

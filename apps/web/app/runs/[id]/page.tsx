@@ -177,7 +177,7 @@ export default function RunPage() {
             <div className="stat" style={{ background: "#000", color: "#fff" }}>
               <span className="label" style={{ color: "#979797" }}>Orchestration</span>
               <span className="h3">{run.orchestration === "agent" ? "AI agent" : "Deterministic plan"}</span>
-              <span className="mono" style={{ color: "#979797" }}>{run.orchestration_reason ?? "tool calls checked by a plan guard"}</span>
+              <span className="mono" style={{ color: "#979797" }}>{run.orchestration_reason ?? (run.orchestration === "agent" ? "An AI agent chose each step; a rule checker approved every call" : "The same steps and rules, without the AI agent")}</span>
             </div>
           </section>
 

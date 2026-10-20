@@ -2,7 +2,7 @@ import { API_URL, api, type S } from "./api";
 
 export type RunEvent = { id: number; type: string; payload: Record<string, unknown> };
 export const EVENT_TYPES = [
-  "phase_started", "tool_call", "step_done", "qloo_call", "external_call", "warning", "phase_done", "failed", "venue",
+  "phase_started", "tool_call", "step_done", "qloo_call", "external_call", "warning", "phase_done", "failed", "venue", "decision",
 ] as const;
 
 /** EventSource with a short-lived token for this run only (EventSource can't send headers, so the workspace token never

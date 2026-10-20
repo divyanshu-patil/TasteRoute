@@ -25,6 +25,11 @@ describe("progress reducer", () => {
     expect(p.log.find((l) => l.kind === "done")?.text).toContain("ranked: 50");
   });
 
+  it("logs a decision with who made it and why", () => {
+    const p = reduce(initialProgress, ev(1, "decision", { tool: "add_venue_type", by: "AI agent", reason: "only 9 bars" }));
+    expect(p.log[0]?.text).toBe("◆ AI agent chose add venue type: only 9 bars");
+  });
+
   it("ignores replayed events after a reconnect", () => {
     const once = reduce(initialProgress, ev(3, "qloo_call", { cache_hit: false }));
     const replayed = reduce(once, ev(3, "qloo_call", { cache_hit: false }));

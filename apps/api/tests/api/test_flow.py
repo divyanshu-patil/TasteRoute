@@ -11,7 +11,7 @@ import httpx
 from pydantic import SecretStr
 
 from tasteroute_api.errors import LLMUnavailable
-from tasteroute_api.llm.base import LLMResult
+from tasteroute_api.llm.base import LLMResult, ToolCall
 from tasteroute_api.services import runs as run_service
 
 from .. import conftest
@@ -96,6 +96,42 @@ async def test_agent_and_fallback_give_identical_scores_and_cache(client, ws, sv
     a = (await client.get(f"/v1/runs/{first}/venues", headers=ws)).json()
     b = (await client.get(f"/v1/runs/{second}/venues", headers=ws)).json()
     assert scores(a) == scores(b)
+
+
+async def test_agent_and_fallback_make_the_same_decisions(client, ws, svc, fake_qloo):
+    """AGT-07, AGT-09: a product known through one similar brand triggers suggest_more_comparables. A model that follows
+    the rules and the fixed plan make the same decisions with the same reasons' inputs, and the scores are identical.
+    Here Qloo confirms none of the suggestions, so the signal is unchanged (fixtures are keyed on it)."""
+    brand = await make_brand(client, ws, svc)
+    rows = await svc.pool.fetch("select id, entities from products where brand_id = $1", uuid.UUID(brand["brand_id"]))
+    weak = next(str(r["id"]) for r in rows if len(r["entities"]) == 1)
+    names = conftest.comparables("Partners Coffee", "Sey Coffee")
+
+    def call(name: str, **args):
+        return LLMResult("", [ToolCall(f"c_{name}", name, args)], "fake-1", "fake")
+
+    svc.llm.provider.script = [call("resolve_entities"), call("suggest_more_comparables", product_id=weak, reason="1 brand"),
+                               names, call("suggest_more_comparables", product_id=weak, reason="still 1 brand"), names]
+    agent = await scout(client, ws, brand)
+    svc.llm.provider.script = [LLMUnavailable("down"), names, names]
+    fixed = await scout(client, ws, brand)
+    runs = {k: (await client.get(f"/v1/runs/{rid}", headers=ws)).json() for k, rid in (("agent", agent), ("fixed", fixed))}
+    assert runs["agent"]["orchestration"] == "agent" and runs["fixed"]["orchestration"] == "deterministic_fallback"
+
+    async def decisions(rid):
+        trace = (await client.get(f"/v1/runs/{rid}/trace", headers=ws)).json()
+        return [(t["name"], t["detail"]["saw"]["product"], t["detail"]["by"]) for t in trace if t["step"] == "decision"]
+
+    a, f = await decisions(agent), await decisions(fixed)
+    assert [x[:2] for x in a] == [x[:2] for x in f] and len(a) == 2  # two rounds, then the cap
+    assert {x[2] for x in a} == {"AI agent"} and {x[2] for x in f} == {"Fixed plan"}
+
+    def scores(page):
+        return [(v["name"], v["fit"], v["lift"], v["confidence"], v["best_product"]["name"]) for v in page["items"]]
+
+    pa = (await client.get(f"/v1/runs/{agent}/venues", headers=ws)).json()
+    pf = (await client.get(f"/v1/runs/{fixed}/venues", headers=ws)).json()
+    assert scores(pa) == scores(pf)
 
 
 async def test_sse_replays_from_last_event_id(client, ws, svc):

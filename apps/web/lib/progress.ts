@@ -50,6 +50,9 @@ export function reduce(p: Progress, e: RunEvent): Progress {
       next.active = str(x.tool);
       log("call", `→ ${str(x.tool)}`);
       break;
+    case "decision": // AGT-07: a step the agent (or the fixed plan's same rule) chose, with its reason
+      log("call", `◆ ${str(x.by)} chose ${str(x.tool).replace(/_/g, " ")}: ${str(x.reason)}`);
+      break;
     case "step_done":
       next.done = p.done.includes(str(x.tool)) ? p.done : [...p.done, str(x.tool)];
       next.active = null;

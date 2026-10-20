@@ -81,7 +81,8 @@ async def main(api: str, city_q: str) -> None:
             check(any(e["entity_id"] == add["entity_id"] for e in out), f"added {add['name']} to {prods[0]['name']}")
 
         # 04 city → run
-        city = (await c.get("/v1/cities/search", params={"q": city_q})).json()[0]
+        hit = (await c.get("/v1/cities/search", params={"q": city_q})).json()[0]
+        city = {k: v for k, v in hit.items() if k not in ("label", "detail")}  # a CityHit is a City plus display text
         r = await c.post("/v1/runs", json={"brand_id": brand_id, "product_ids": [x["product_id"] for x in res],
                                            "city": city, "venue_types": ["cafe", "bar"]})
         if not check(r.status_code == 202, f"run started in {city['display_name'][:40]} ({r.status_code})"):

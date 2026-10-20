@@ -1,0 +1,163 @@
+[
+ {
+  "brand": "Petit Clos Imports",
+  "city": "Brooklyn",
+  "types": [
+   "bar",
+   "restaurant"
+  ],
+  "run_id": "63e8cb26-7c5d-4e1e-a102-c9ee4e825195",
+  "status": "failed",
+  "error": "no_entities_resolved",
+  "orchestration": null,
+  "reason": null,
+  "wizard": {
+   "3bb49903": [],
+   "6a68e10c": []
+  },
+  "decisions": [
+   {
+    "by": "AI agent",
+    "tool": "suggest_more_comparables",
+    "reason": "The product is unresolved and weak with 0 similar brands.",
+    "saw": {
+     "rule": "fewer than 2 similar brands",
+     "product": "Jura wines",
+     "known_by_name": false,
+     "rounds_so_far": 0,
+     "similar_brands": []
+    }
+   },
+   {
+    "by": "AI agent",
+    "tool": "suggest_more_comparables",
+    "reason": "The product is unresolved and weak with 0 similar brands.",
+    "saw": {
+     "rule": "fewer than 2 similar brands",
+     "product": "Austrian wines",
+     "known_by_name": false,
+     "rounds_so_far": 0,
+     "similar_brands": []
+    }
+   }
+  ],
+  "venue_types_after": [
+   "bar",
+   "restaurant"
+  ],
+  "agent_steps": 4,
+  "qloo_live": 0,
+  "warnings": [
+   "Jura wines: No brand Qloo knows was found for it in step 3",
+   "Austrian wines: No brand Qloo knows was found for it in step 3"
+  ]
+ },
+ {
+  "brand": "Ember Row",
+  "city": "Hudson, New York",
+  "types": [
+   "deli",
+   "bar"
+  ],
+  "run_id": "291202bf-5a19-4179-8996-3e1c39bc5373",
+  "status": "scouted",
+  "error": null,
+  "orchestration": "agent",
+  "reason": null,
+  "wizard": {
+   "d3cf8f44": [
+    "Cholula Hot Sauce",
+    "Tabasco",
+    "La Costeña"
+   ],
+   "0a1c76d6": [
+    "Cholula Hot Sauce",
+    "Tapatío",
+    "La Costeña"
+   ]
+  },
+  "decisions": [
+   {
+    "by": "AI agent",
+    "tool": "add_venue_type",
+    "reason": "The 'deli' type is very thin with only 1 venue; adding 'cafe' as suggested to increase coverage.",
+    "saw": {
+     "rule": "fewer than 15 venues in a type",
+     "thin": {
+      "bar": 7,
+      "deli": 1
+     },
+     "venues_by_type": {
+      "bar": 7,
+      "deli": 1
+     }
+    }
+   },
+   {
+    "by": "AI agent",
+    "tool": "add_venue_type",
+    "reason": "Coverage is still low (8 venues total) and all types are thin; adding 'restaurant' to maximize the list.",
+    "saw": {
+     "rule": "fewer than 15 venues in a type",
+     "thin": {
+      "bar": 7,
+      "cafe": 1,
+      "deli": 1
+     },
+     "venues_by_type": {
+      "bar": 7,
+      "cafe": 1,
+      "deli": 1
+     }
+    }
+   }
+  ],
+  "venue_types_after": [
+   "deli",
+   "bar",
+   "cafe",
+   "restaurant"
+  ],
+  "agent_steps": 7,
+  "qloo_live": 0,
+  "warnings": [
+   "The AI agent added cafés because only 1 delis and specialty food shops, 7 bars came back (fewer than 15 of a type). Its reason: The 'deli' type is very thin with only 1 venue; adding 'cafe' as suggested to increase coverage.",
+   "The AI agent added restaurants because only 1 delis and specialty food shops, 7 bars, 1 cafés came back (fewer than 15 of a type). Its reason: Coverage is still low (8 venues total) and all types are thin; adding 'restaurant' to maximize the list."
+  ]
+ },
+ {
+  "brand": "Ledge Coffee",
+  "city": "Portland, Maine",
+  "types": [
+   "cafe",
+   "restaurant"
+  ],
+  "run_id": "7d6b089b-2a50-4b7a-ad21-af26825bf30e",
+  "status": "scouted",
+  "error": null,
+  "orchestration": "agent",
+  "reason": null,
+  "wizard": {
+   "23cb66bb": [
+    "Blue Bottle Coffee",
+    "Stumptown Coffee Roasters",
+    "Intelligentsia Coffee"
+   ],
+   "25783360": [
+    "Blue Bottle Coffee",
+    "Stumptown Coffee Roasters",
+    "Intelligentsia Coffee"
+   ]
+  },
+  "decisions": [],
+  "venue_types_after": [
+   "cafe",
+   "restaurant"
+  ],
+  "agent_steps": 5,
+  "qloo_live": 0,
+  "warnings": [
+   "Hidden by default, listed after the rest: 9 chain venues and 0 venues of brands you resemble (Dunkin', McDonald's, Starbucks Coffee Company)."
+  ]
+ }
+]

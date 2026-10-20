@@ -55,6 +55,7 @@ class RunContext:
     pack: Pack
     settings_json: dict[str, Any] = field(default_factory=dict)
     warnings: list[str] = field(default_factory=list)
+    actor: str = "AI agent"  # who chose the current step: "AI agent" or "Fixed plan" (AGT-09)
 
     @property
     def pool(self) -> asyncpg.Pool:

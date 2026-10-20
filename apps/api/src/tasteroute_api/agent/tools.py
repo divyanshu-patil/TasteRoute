@@ -6,7 +6,7 @@ import asyncio
 from collections import defaultdict
 from typing import Any
 
-from ..errors import AppError, QlooError
+from ..errors import AppError, QlooContractViolation, QlooError
 from ..qloo import api
 from ..qloo.client import stored_response
 from ..qloo.compact import tag_kind
@@ -15,6 +15,7 @@ from ..qloo.models import InsightsBody, Place
 from ..scoring import SCORING_VERSION, buyability, rank
 from ..scoring.fit import FitThresholds, best_product, zscores
 from ..scoring.reasons import distinctive, plain_tags, reason
+from . import rules
 from .context import RunContext
 
 FATAL_QLOO = {"qloo_auth", "qloo_unconfigured", "qloo_budget_exceeded"}
@@ -49,7 +50,8 @@ async def resolve_entities(ctx: RunContext, product_ids: list[str] | None = None
     for pid in pids:
         p = ctx.products[pid]
         if p.get("entities") is not None:  # confirmed in the wizard (possibly emptied by the user)
-            res = {"status": "resolved", "entities": p["entities"], "dropped": [], "message": "Confirmed by you"}
+            res = {"status": "resolved", "entities": p["entities"], "dropped": [],
+                   "message": "Confirmed by you" if p["entities"] else "No brand Qloo knows was found for it in step 3"}
         else:
             res = await resolve_product(ctx.svc, ctx.brand, p, ctx.pack, ctx.trace("resolve_entities"), ctx.run_id)
         ents = res["entities"]
@@ -63,19 +65,79 @@ async def resolve_entities(ctx: RunContext, product_ids: list[str] | None = None
                 e.get("similarity"), _uuid(e.get("source_call_id")),
             )
         resolution[pid] = {"status": "resolved" if ents else "unresolved", "message": res["message"],
-                           "dropped": res["dropped"], "entities": [e["name"] for e in ents]}
+                           "dropped": res["dropped"], "entities": [e["name"] for e in ents],
+                           "known_by_name": any(e["role"] == "self" for e in ents), "weak": rules.weak(ents),
+                           "suggest_rounds": 0}
         if not ents:
             await ctx.warn("product_unresolved", f"{p['name']}: {res['message']}")
     ctx.settings_json["resolution"] = resolution
     await ctx.save_settings()
-    resolved = [pid for pid, r in resolution.items() if r["entities"]]
-    if not resolved:
-        raise NoEntities()
+    return _resolution_summary(ctx)  # no entities at all fails in rank_venues, after the agent could suggest more
+
+
+def _resolution_summary(ctx: RunContext) -> dict[str, Any]:
+    res = ctx.settings_json["resolution"]
     return {
-        "resolved_products": len(resolved),
-        "unresolved_products": [ctx.products[p]["name"] for p in resolution if p not in resolved],
-        "entities": sorted({n for r in resolution.values() for n in r["entities"]}),
+        "products": [{"product_id": pid, "name": ctx.products[pid]["name"], "status": r["status"],
+                      "known_by_name": r["known_by_name"], "similar_brands": r["entities"], "weak": r["weak"],
+                      "suggest_rounds": r["suggest_rounds"]} for pid, r in res.items()],
+        "rule": f"weak = known only through fewer than {rules.MIN_COMPARABLES} similar brands; "
+                f"suggest_more_comparables at most {rules.MAX_SUGGEST_ROUNDS} times per product",
+        "needs_more_comparables": rules.needs_comparables(res),
     }
+
+
+async def suggest_more_comparables(ctx: RunContext, product_id: str, reason: str = "") -> dict[str, Any]:
+    """The LLM suggests similar brands and Qloo /search must confirm each one (ENT-02); at most 2 are added per call."""
+    from ..errors import LLMBadResponse, LLMUnavailable
+    from ..services.resolve import best_match, entity, suggest_comparables
+
+    r = ctx.settings_json["resolution"][product_id]
+    p = ctx.products[product_id]
+    have = {x["qloo_entity_id"] for x in await ctx.pool.fetch(
+        "select qloo_entity_id from product_entities where run_id = $1 and product_id = $2", ctx.rid, _uuid(product_id))}
+    try:
+        names = await suggest_comparables(ctx.svc, ctx.brand, p, ctx.run_id, exclude=r["entities"] + r["dropped"])
+    except (LLMUnavailable, LLMBadResponse):
+        names = []
+    trace, context = ctx.trace("suggest_more_comparables"), _products_text(ctx, product_id)
+    added: list[str] = []
+    dropped: list[str] = []
+    for name in names:
+        if len(added) >= 2:
+            break
+        try:
+            brands, call_id = await api.search(ctx.svc.qloo, name, ctx.pack.product_entity_types, trace)
+        except QlooError as err:
+            if err.code in FATAL_QLOO:
+                raise
+            dropped.append(name)
+            continue
+        m = best_match(name, brands, context)
+        if not m or m[0].entity_id in have:
+            dropped.append(name)
+            continue
+        found = entity(m[0], "comparable", m[1], call_id)
+        await ctx.pool.execute(
+            "insert into product_entities (run_id, product_id, qloo_entity_id, name, entity_type, role, similarity, "
+            "source_call_id) values ($1,$2,$3,$4,$5,$6,$7,$8) on conflict do nothing",
+            ctx.rid, p["id"], found["entity_id"], found["name"], found["type"], found["role"], found["similarity"],
+            _uuid(call_id))
+        have.add(found["entity_id"])
+        added.append(found["name"])
+    r["entities"] += added
+    r["dropped"] += dropped
+    r["suggest_rounds"] += 1
+    r["status"] = "resolved" if r["entities"] else "unresolved"
+    r["weak"] = len(r["entities"]) < rules.MIN_COMPARABLES and not r["known_by_name"]
+    await ctx.save_settings()
+    if added:
+        why = f" Its reason: {reason.rstrip('.')}." if reason and ctx.actor == "AI agent" else ""
+        await ctx.warn("comparables_added", f"{p['name']}: the {_who(ctx)} added {', '.join(added)} as similar brands "
+                                            f"(Qloo confirmed each), because it was known through fewer than "
+                                            f"{rules.MIN_COMPARABLES}.{why}")
+    return {"product": p["name"], "added": added, "not_in_qloo": dropped, "similar_brands": r["entities"],
+            "still_weak": r["weak"], "needs_more_comparables": rules.needs_comparables(ctx.settings_json["resolution"])}
 
 
 def _uuid(v: Any) -> Any:
@@ -93,35 +155,88 @@ async def rank_venues(ctx: RunContext, venue_types: list[str] | None = None, max
     signal = await _signal(ctx)
     if not signal:
         raise NoEntities()
-    city_q = ctx.city.get("qloo_query") or ctx.city["name"]
-    trace = ctx.trace("rank_venues")
-
-    generic = ctx.pack.baseline_entities if ctx.pack.baseline_signal == "fixed_entities" else []
-
-    async def one(vt: str) -> tuple[str, dict[str, str]]:
-        vtype = ctx.pack.venue_type(vt)
-        assert vtype is not None
-        ids = [s["qloo_entity_id"] for s in signal]
-        if generic:  # the same venues under mass-market brands (D-23): same number of calls, the second needs the first
-            body, tcall, _ = await api.place_insights(ctx.svc.qloo, city_query=city_q, tags=vtype.qloo_tags, signal_ids=ids,
-                                                      explain=True, trace=trace)
-            venues = [p.entity_id for p in body.results.entities]
-            _, gcall, _ = await api.place_insights(ctx.svc.qloo, results_ids=venues, signal_ids=generic, trace=trace)
-            return vt, {"target": tcall, "generic": gcall}
-        (_, tcall, _), (_, bcall, _) = await asyncio.gather(
-            api.place_insights(ctx.svc.qloo, city_query=city_q, tags=vtype.qloo_tags, signal_ids=ids, explain=True, trace=trace),
-            api.place_insights(ctx.svc.qloo, city_query=city_q, tags=vtype.qloo_tags, trace=trace),
-        )
-        return vt, {"target": tcall, "baseline": bcall}
-
-    calls = await asyncio.gather(*[one(vt) for vt in types])
+    ids = [s["qloo_entity_id"] for s in signal]
+    calls = await asyncio.gather(*[_rank_type(ctx, vt, ids, ctx.trace("rank_venues")) for vt in types])
     ctx.settings_json["calls"] = dict(calls)
     ctx.settings_json["signal"] = [{"entity_id": s["qloo_entity_id"], "name": s["name"]} for s in signal]
     ctx.settings_json.setdefault("weights", {"target": rank.Weights().target, "lift": rank.Weights().lift})
     ctx.settings_json["scoring_version"] = SCORING_VERSION
+    ctx.settings_json["max_venues"] = max_venues
     await ctx.save_settings()
-    summary = await score_from_stored(ctx, max_venues=max_venues)
-    return summary
+    return _with_type_rule(ctx, await score_from_stored(ctx, max_venues=max_venues))
+
+
+def qualified_city(city: dict[str, Any]) -> str | None:
+    """'Portland, Maine' for a US city: the state from the geocoder's display name (verified 2026-10-20, QLO-12)."""
+    parts = (city.get("display_name") or "").split(", ")
+    return f"{city['name']}, {parts[-2]}" if (city.get("country") or "").lower() == "us" and len(parts) >= 3 else None
+
+
+async def _rank_type(ctx: RunContext, vt: str, ids: list[str], trace: Any) -> tuple[str, dict[str, str]]:
+    vtype = ctx.pack.venue_type(vt)
+    assert vtype is not None
+    city_q = ctx.city.get("qloo_query") or ctx.city["name"]
+
+    async def target(q: str) -> tuple[InsightsBody, str]:
+        body, call, _ = await api.place_insights(ctx.svc.qloo, city_query=q, tags=vtype.qloo_tags, signal_ids=ids,
+                                                 explain=True, trace=trace)
+        return body, call
+
+    def elsewhere(b: InsightsBody) -> bool:
+        try:
+            return not guard_places(b.results.entities, required_tags=vtype.qloo_tags, bbox=ctx.city.get("bbox")).kept
+        except QlooContractViolation:  # every venue failed the guard
+            return True
+
+    body, tcall = await target(city_q)
+    alt = qualified_city(ctx.city)
+    if alt and alt != city_q and body.results.entities and elsewhere(body):
+        # A bare name can land in another city ("Portland" -> Oregon); the bbox guard sees it, so ask with the state.
+        body, tcall = await target(alt)
+        city_q = alt
+    generic = ctx.pack.baseline_entities if ctx.pack.baseline_signal == "fixed_entities" else []
+    if generic:  # the same venues under mass-market brands (D-23): same number of calls, the second needs the first
+        venues = [p.entity_id for p in body.results.entities]
+        _, gcall, _ = await api.place_insights(ctx.svc.qloo, results_ids=venues, signal_ids=generic, trace=trace)
+        return vt, {"target": tcall, "generic": gcall}
+    _, bcall, _ = await api.place_insights(ctx.svc.qloo, city_query=city_q, tags=vtype.qloo_tags, trace=trace)
+    return vt, {"target": tcall, "baseline": bcall}
+
+
+def _who(ctx: RunContext) -> str:
+    return "AI agent" if ctx.actor == "AI agent" else "fixed plan"
+
+
+def _with_type_rule(ctx: RunContext, summary: dict[str, Any]) -> dict[str, Any]:
+    added = ctx.settings_json.get("added_types") or []
+    pack_types = [v.id for v in ctx.pack.venue_types]
+    return {**summary, "run_venue_types": ctx.venue_types,
+            "thin_types": rules.thin_types(summary["by_type"], ctx.venue_types),
+            "types_you_can_add": [t for t in pack_types if t not in ctx.venue_types][:4] if len(added) < rules.MAX_ADDED_TYPES else [],
+            "rule": f"thin = fewer than {rules.MIN_VENUES_PER_TYPE} ranked venues; add_venue_type at most "
+                    f"{rules.MAX_ADDED_TYPES} times per run",
+            "suggested_type": rules.type_to_add(summary["by_type"], ctx.venue_types, pack_types, added)}
+
+
+async def add_venue_type(ctx: RunContext, type_id: str, reason: str = "") -> dict[str, Any]:
+    """Ranks one more venue type from the pack and re-scores everything from stored responses (2 Qloo calls)."""
+    thin = rules.thin_types(ctx.settings_json.get("by_type") or {}, ctx.venue_types)
+    ids = [s["entity_id"] for s in ctx.settings_json["signal"]]
+    _, calls = await _rank_type(ctx, type_id, ids, ctx.trace("add_venue_type"))
+    ctx.venue_types.append(type_id)
+    ctx.settings_json["calls"][type_id] = calls
+    ctx.settings_json.setdefault("added_types", []).append(type_id)
+    await ctx.pool.execute("update runs set venue_types = $2 where id = $1", ctx.rid, ctx.venue_types)
+    await ctx.save_settings()
+    summary = await score_from_stored(ctx, max_venues=ctx.settings_json.get("max_venues"))
+    def label(t: str) -> str:
+        return (ctx.pack.venue_type(t) or ctx.pack.venue_types[0]).label.lower()
+
+    few = ", ".join(f"{n} {label(t)}" for t, n in thin.items())
+    why = f" Its reason: {reason.rstrip('.')}." if reason and ctx.actor == "AI agent" else ""
+    await ctx.warn("venue_type_added", f"The {_who(ctx)} added {label(type_id)} because only {few} came back (fewer "
+                                       f"than {rules.MIN_VENUES_PER_TYPE} of a type).{why}")
+    return {**_with_type_rule(ctx, summary), "added": type_id}
 
 
 def _products_text(ctx: RunContext, pid: str | None = None) -> str:
@@ -165,6 +280,7 @@ async def score_from_stored(ctx: RunContext, *, max_venues: int | None = None, e
     per_type: list[list[rank.Scored]] = []
     places: dict[str, Place] = {}
     by_type: dict[str, int] = {}
+    spread: dict[str, float] = {}  # max - min Qloo affinity per type: how much taste separates the venues
     baseline_counts: dict[str, int] = {}
     warnings: list[tuple[str, str]] = []
     for vt, c in ctx.settings_json["calls"].items():
@@ -198,6 +314,8 @@ async def score_from_stored(ctx: RunContext, *, max_venues: int | None = None, e
             baseline_counts[vt] = len(gb.kept)
         per_type.append(scored)
         by_type[vt] = len(scored)
+        affs = [c.affinity for c in cands if c.affinity is not None]
+        spread[vt] = round(max(affs) - min(affs), 3) if affs else 0.0
         for p in gt.kept:
             places.setdefault(p.entity_id, p)
     hidden = _buyability_flags(ctx, per_type, places)
@@ -231,13 +349,18 @@ async def score_from_stored(ctx: RunContext, *, max_venues: int | None = None, e
     ctx.settings_json["by_type"] = by_type
     await ctx.save_settings()
     if emit_warnings:
+        ctx.settings_json["rank_warnings"] = [{"code": c, "message": m} for c, m in warnings]  # the latest pass wins
+        await ctx.save_settings()
         for code, msg in warnings:
             await ctx.warn(code, msg)
     return {
         "ranked": len(merged),
         "by_type": by_type,
+        "affinity_spread": spread,
         "top": [places[s.venue_id].name for s in merged[:5]],
         "high_confidence": sum(1 for s in merged if s.confidence == "high"),
+        "high_confidence_share": round(sum(1 for s in merged if s.confidence == "high") / len(merged), 2),
+        "hidden": {f: sum(f in s.flags for s in merged) for f in buyability.HIDDEN},
         "warnings": [m for _, m in warnings][:5],
     }
 
@@ -297,6 +420,7 @@ async def match_products(ctx: RunContext) -> dict[str, Any]:
             await ctx.warn("product_unscored", f"{ctx.products[pid]['name']} could not be scored ({e.code}); excluded from best product.")
 
     best_counts: dict[str, int] = defaultdict(int)
+    labels: dict[str, int] = defaultdict(int)
     th = FitThresholds()
     b = ctx.pack.buyability
     wet = {pid for pid in by_product if buyability.alcoholic(_products_text(ctx, pid), b.alcohol_keywords)}
@@ -316,6 +440,7 @@ async def match_products(ctx: RunContext) -> dict[str, Any]:
             fit = best_product(zs, raw.get(vid, {}), th)
             if fit.best:
                 best_counts[ctx.products[fit.best]["name"]] += 1
+                labels[fit.label] += 1
             for pid, value in pct.get(vid, {}).items():
                 await con.execute(
                     "insert into venue_product_fit (run_id, venue_id, product_id, percentile, is_best, margin, label, "
@@ -329,6 +454,7 @@ async def match_products(ctx: RunContext) -> dict[str, Any]:
     ctx.settings_json["unscored_products"] = unscored
     await ctx.save_settings()
     return {"scored_products": len(by_product) - len(unscored), "best_product_counts": dict(best_counts),
+            "tie_share": round(labels["tie"] / max(sum(labels.values()), 1), 2),
             "unscored": [ctx.products[p]["name"] for p in unscored]}
 
 

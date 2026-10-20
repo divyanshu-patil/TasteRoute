@@ -99,9 +99,17 @@ async def list_runs(ws: str = Depends(workspace_id), s: Services = Depends(svc))
     return [dict(r) for r in rows]
 
 
+RANK_CODES = {"guard_drops", "type_empty", "baseline_partial", "hidden_venues", "low_coverage"}
+
+
 async def _warnings(s: Services, run_id: uuid.UUID) -> list[str]:
+    """Run warnings, with the ranking's from its latest scoring pass only (add_venue_type re-scores; older runs keep
+    their events)."""
     rows = await s.pool.fetch("select payload from run_events where run_id = $1 and type = 'warning' order by id", run_id)
-    return list(dict.fromkeys(r["payload"].get("message", "") for r in rows if r["payload"].get("code") != "guard_refused"))
+    rank = await s.pool.fetchval("select settings->'rank_warnings' from runs where id = $1", run_id)
+    msgs = [r["payload"].get("message", "") for r in rows if r["payload"].get("code") != "guard_refused"
+            and (rank is None or r["payload"].get("code") not in RANK_CODES)]
+    return list(dict.fromkeys(msgs + [w["message"] for w in rank or []]))
 
 
 @router.get("/runs/{run_id}", response_model=RunOut)
@@ -317,7 +325,7 @@ async def trace(run_id: str, kind: str | None = Query(None, pattern="^(qloo|exte
                                 detail={"status": m["status"], "duration_ms": m["duration_ms"], "prompt_version": m["prompt_version"],
                                         "input_tokens": m["input_tokens"], "output_tokens": m["output_tokens"], **(m["detail"] or {})}))
     if kind in (None, "tool"):
-        for e in await s.pool.fetch("select * from run_events where run_id = $1 and type in ('tool_call','step_done','phase_started','phase_done') order by id", r["id"]):
+        for e in await s.pool.fetch("select * from run_events where run_id = $1 and type in ('tool_call','step_done','phase_started','phase_done','decision') order by id", r["id"]):
             p = e["payload"]
             out.append(TraceRow(kind="tool", id=str(e["id"]), at=e["created_at"], step=e["type"],
                                 name=p.get("tool") or p.get("phase") or e["type"], detail=p))
