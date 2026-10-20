@@ -130,11 +130,19 @@ async def login(body: LoginIn, request: Request, s: Services = Depends(svc)) -> 
 
 
 @router.delete("/v1/workspaces/me", status_code=204)
-async def delete_workspace(ws: str = Depends(workspace_id), s: Services = Depends(svc)) -> Response:
-    """Deletes this workspace and everything in it (brands, runs, contacts, drafts, do-not-contact list) and, when signed
-    in, the Supabase account with its Google identity, at once (privacy policy). Can't be undone."""
+async def delete_workspace(request: Request, ws: str = Depends(workspace_id), s: Services = Depends(svc)) -> Response:
+    """Deletes this workspace and everything in it (brands, runs, contacts, drafts, do-not-contact list, the runs' LLM and
+    web call logs) and, when signed in, the Supabase account with its Google identity, at once (privacy policy). The runs'
+    Qloo call rows keep only their time and status, so the monthly Qloo budget still counts them. Can't be undone."""
+    rate(request, "delete_workspace", 3, 86400)  # deleting frees the per-IP run cap; this bounds that
+    wid = uuid.UUID(ws)
+    runs = "(select id from runs where workspace_id = $1)"
     async with s.pool.acquire() as con, con.transaction():
-        uid = await con.fetchval("delete from workspaces where id = $1 and kind = 'anon' returning user_id", uuid.UUID(ws))
+        await con.execute(f"delete from llm_calls where run_id in {runs}", wid)
+        await con.execute(f"delete from external_calls where run_id in {runs}", wid)
+        await con.execute(f"update qloo_calls set params = '{{}}', response = null, warnings = '[]', expires_at = null "
+                          f"where run_id in {runs}", wid)
+        uid = await con.fetchval("delete from workspaces where id = $1 and kind = 'anon' returning user_id", wid)
         if uid and await con.fetchval("select to_regclass('auth.users') is not null"):  # Supabase only
             await con.execute("delete from auth.users where id = $1", uid)
     return Response(status_code=204)

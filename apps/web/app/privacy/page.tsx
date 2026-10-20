@@ -49,7 +49,7 @@ export default function Privacy() {
         <ul>
           <li>Your account id and email address sign you in and keep your runs in one workspace across your devices.</li>
           <li>Your name, email and picture are shown to you in the account menu.</li>
-          <li>The Gmail permission is used only to send the emails you choose: <strong>Send with Gmail</strong> sends one draft; <strong>Send all</strong> sends the unsent drafts on the page after you confirm how many. Each goes once, exactly as shown, to the address shown. We never send on a schedule or in the background.</li>
+          <li>The Gmail permission is used only to send the emails you choose: <strong>Send with Gmail</strong> sends one draft; <strong>Send all</strong> sends the approved drafts on the page that have not gone yet, after you confirm how many. Each goes once, exactly as shown, to the address shown. We never send on a schedule or in the background.</li>
           <li>Gmail message ids mark a draft as sent, so it can&apos;t be sent twice.</li>
         </ul>
         <h3 className="h3">How we share it</h3>
@@ -61,13 +61,13 @@ export default function Privacy() {
         <h3 className="h3">How we store and protect it</h3>
         <ul>
           <li>Your account id and email are stored in our database at Supabase (Tokyo region). Supabase Auth keeps your Google id, email, name and picture.</li>
-          <li>Google&apos;s access token for sending stays in your browser for about an hour. It reaches our server over HTTPS only with an email you are sending, is used for that request, and is never written to our database, files or logs.</li>
+          <li>Your Google token stays in this browser&apos;s local storage for up to 55 minutes. It reaches our server over HTTPS only with an email you are sending, is used for that request, and is never written to our database, files or logs.</li>
           <li>All traffic uses HTTPS (TLS). Supabase encrypts stored data. Only our API server can connect to the database, with a secret credential; row-level security blocks every public route into it. Secret keys never reach the browser.</li>
         </ul>
         <h3 className="h3">How long we keep it, and how to delete it</h3>
         <ul>
           <li>We keep your account data while you have an account.</li>
-          <li><strong>Delete account and data</strong> in the account menu deletes your account, your Google identity at Supabase, and all your runs, contacts, drafts and do-not-contact list, immediately and for good.</li>
+          <li><strong>Delete account and data</strong> in the account menu deletes your account, your Google identity at Supabase, and all your runs, contacts, drafts and do-not-contact list, immediately and for good. It also deletes your runs&apos; logs of AI prompts and of the web pages we read; your runs&apos; Qloo calls keep only their time and status, with no content, so the monthly Qloo limit still counts them.</li>
           <li>You can also ask us to delete it by writing to <Contact />; we do so within 30 days.</li>
           <li>You can withdraw TasteRoute&apos;s access to your Google account at any time at <a href="https://myaccount.google.com/permissions">myaccount.google.com/permissions</a>. After that we cannot send email for you.</li>
         </ul>

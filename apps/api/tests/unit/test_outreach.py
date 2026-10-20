@@ -7,15 +7,16 @@ from urllib.parse import parse_qs, unquote, urlparse
 import pytest
 
 from tasteroute_api.agent.plan_guard import PlanGuard
+from tasteroute_api.categories import default_pack
 from tasteroute_api.errors import AppError
 from tasteroute_api.external import hunter
 from tasteroute_api.grounding import Bundle, validate
 from tasteroute_api.services.contacts import (
     Candidate,
     choose,
-    emails_from_results,
     is_suppressed,
     names_venue,
+    venue_addresses,
     venue_inbox,
 )
 from tasteroute_api.services.drafts import next_status, short_name, template_draft
@@ -30,6 +31,8 @@ def bundle(**kw) -> Bundle:
         product_names=["Cold Brew Concentrate", "House Espresso"], best_product="Cold Brew Concentrate",
         reason="Guests here over-index on espresso bar (Qloo).",
         evidence={"e1": "Guests over-index on Espresso bar, Specialty coffee", "e2": "Fans of Blue Bottle Coffee like this venue"},
+        evidence_values={"e1": ["Espresso bar", "Specialty coffee"], "e2": ["Blue Bottle Coffee"]},
+        forbidden_claims=default_pack().pitch_style.forbidden_claims,
         contact_role=None, ask_examples=["send a free sample", "drop by for a 10-minute tasting"], opt_out_line=OPT_OUT,
     )
     return Bundle(**{**base, **kw})
@@ -58,12 +61,38 @@ def test_validator_rejects(subject, body, ids, needle):
     assert any(needle.lower() in e.lower() for e in errors), errors
 
 
+@pytest.mark.parametrize("sentence", [
+    "4 cafés nearby already stock our kombucha and it sold out at whole foods in 9 days.",
+    "Qloo taste data shows your guests over-index heavily on natural wine and oat milk lattes.",
+    "We'll give you half off your first order and free samples forever.",
+    "We're award-winning, certified organic, best in the city.",
+])
+def test_validator_rejects_ungrounded_claims(sentence):
+    """DRF-08: each of these passed the old validator."""
+    body = GOOD.replace("I think Cold Brew Concentrate would suit you.", sentence + " I think Cold Brew Concentrate would suit you.")
+    assert validate("Cold Brew Concentrate for Oslo Coffee Roasters", body, ["e1"], bundle())
+
+
+def test_validator_numbers_are_whole_tokens_and_names_may_hold_claim_words():
+    """DRF-08: '4' isn't allowed by '94'; a venue called 'Best Pizza' and the pack's 'free sample' ask are fine."""
+    b = bundle(evidence={**bundle().evidence, "e3": "Popularity 94"})
+    assert any("number" in e for e in validate("Hi", GOOD.replace("Mara from", "Mara (4 years) from"), ["e1"], b))
+    good = GOOD.replace("Oslo Coffee Roasters", "Best Pizza").replace("drop by for a 10-minute tasting", "send a free sample")
+    assert validate("Hi", good + "\n\nBest,\nMara", ["e1"], bundle(venue_name="Best Pizza")) == []
+    taste = GOOD.replace("Your guests over-index on espresso bar and specialty coffee.", "Your guests love what we do.")
+    assert any("unsupported_taste_claim" in e for e in validate("Hi", taste, ["e1"], bundle()))
+
+
 def test_template_always_passes_validator():
-    for ev in ({}, {"e1": "Crowd: Locals. Interests: Specialty coffee"}, bundle().evidence):
-        b = bundle(evidence=ev or {"x": "Qloo taste fit and popularity baseline"})
-        t = template_draft(b)
-        assert OPT_OUT in t.body  # DRF-05
-        assert validate(t.subject, t.body, t.cited_evidence_ids, b) == [], t.body
+    for ev, values in (({}, {}), ({"e1": "Crowd: Locals. Interests: Specialty coffee"}, {"e1": ["Specialty coffee", "Locals"]}),
+                       (bundle().evidence, bundle().evidence_values), ({"e2": "Fans of Blue Bottle Coffee like this venue"},
+                                                                         {"e2": ["Blue Bottle Coffee"]})):
+        for address in ("", "12 Main St, Brooklyn, NY 11201"):
+            b = bundle(evidence=ev or {"x": "Qloo taste fit and popularity baseline"}, evidence_values=values,
+                       postal_address=address)
+            t = template_draft(b)
+            assert OPT_OUT in t.body and address in t.body  # DRF-05, DRF-09
+            assert validate(t.subject, t.body, t.cited_evidence_ids, b) == [], t.body
 
 
 def test_short_name():
@@ -163,13 +192,16 @@ def test_scraped_email_must_be_the_venues_or_free_mail():
     assert not names_venue("sandwichshop@gmail.com", "Yampa Sandwich Co.", None)  # a generic word ties nothing
 
 
+def test_free_mail_ranks_below_the_venues_own_domain():
+    gmail = Candidate("cafebookings@gmail.com", "osm", "generic", sources=[{"freemail": True}])
+    own = Candidate("info@cafe.test", "website", "generic")
+    assert choose([gmail, own], "cafe.test") is own
+
+
 def test_web_results_keep_only_this_venues_address():
-    results = [
-        {"title": "Yampa Sandwich Co. - Denver", "url": "https://dir.test/yampa",
-         "content": "Yampa Sandwich Co. Catering: catering [at] yampasandwichco [dot] com. Nearby: Joe's Subs joessubs@gmail.com"},
-        {"title": "Best sandwiches in Denver", "url": "https://dir.test/list", "content": "Write to yampasandwichco@gmail.com"},
-        {"title": "Delis", "url": "https://dir.test/other", "content": "Ask at sandwichshop@gmail.com or info@agency.test"},
-    ]
-    # Its own domain (spelled out) and a Gmail inbox carrying its name; neighbours' and agencies' addresses are dropped.
-    got = emails_from_results(results, "Yampa Sandwich Co.", "yampasandwichco.com")
+    found = [("catering@yampasandwichco.com", "https://dir.test/yampa"), ("joessubs@gmail.com", "https://dir.test/yampa"),
+             ("yampasandwichco@gmail.com", "https://dir.test/list"), ("sandwichshop@gmail.com", "https://dir.test/other"),
+             ("info@agency.test", "https://dir.test/other")]
+    # Its own domain and a Gmail inbox carrying its name; neighbours' and agencies' addresses are dropped.
+    got = venue_addresses(found, "Yampa Sandwich Co.", "yampasandwichco.com")
     assert got == [("catering@yampasandwichco.com", "https://dir.test/yampa"), ("yampasandwichco@gmail.com", "https://dir.test/list")]

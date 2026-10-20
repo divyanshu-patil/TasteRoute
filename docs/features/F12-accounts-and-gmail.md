@@ -16,7 +16,7 @@ Let a user keep their work across devices, and send an approved pitch from their
 
 ## Sending
 
-1. A signed-in user sees "Send with Gmail" on each draft. One click saves any edits and sends that one email from their Gmail. Clicking send is the approval.
+1. A signed-in user sees "Send with Gmail" on each draft. On an approved draft the button sends that one email from their Gmail; on an unapproved draft it reads "Approve and send" and does both, so the click is the approval and says so. The API returns 409 `draft_not_approved` for a draft that is not approved (DRF-07).
 2. The API rebuilds the email from the stored draft (to the contact's address, the subject and body, with the opt-out line), checks the do-not-contact list, claims the draft so a double click cannot send twice, and calls Gmail's `users.messages.send`.
 3. Google's token lasts about an hour. It stays in the browser, goes to the API with each send, and is never stored or logged. When Gmail refuses it, the button asks to connect Gmail again.
 4. A sent draft is final: status `sent`, `sent_at`, Gmail's message id. It can't be edited or regenerated, and re-running outreach leaves it alone.

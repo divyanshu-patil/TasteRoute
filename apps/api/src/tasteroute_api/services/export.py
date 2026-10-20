@@ -1,4 +1,4 @@
-"""F08: mailto links and CSV for approved drafts. The app never sends email (EXP-04)."""
+"""F08: mailto links and CSV for approved drafts. Sending happens only on the user's click, from their Gmail (EXP-04, DRF-07)."""
 
 import csv
 import io

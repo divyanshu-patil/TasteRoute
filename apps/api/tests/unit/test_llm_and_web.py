@@ -144,18 +144,24 @@ async def test_contact_pages_follow_links_and_repair_urls():
         assert mangled[0].url == "https://deli.test/?ss_source=ads"
 
 
-async def test_ai_email_must_quote_the_page():
-    from tasteroute_api.services.contacts import ai_email
+def test_addresses_are_read_never_assembled():
+    """CON-08: words that only hint at an address give nothing; a spelled-out address is read exactly."""
+    hint = Page("https://oslocoffee.com/contact", "<p>For wholesale, contact our sales team by email at oslocoffee.com</p>"
+                "<p>orders, then the at sign, then oslocoffee.com</p>", 200)
+    assert emails_in(hint) == []
+    spelled = Page("https://oslocoffee.com/contact", "<p>Wholesale: hello [at] oslocoffee [dot] com</p>", 200)
+    assert emails_in(spelled) == [("hello@oslocoffee.com", "https://oslocoffee.com/contact")]
 
-    page = Page("https://deli.test/contact", "<p>Wholesale enquiries: please write to orders, then the at sign, then deli.test</p>", 200)
-    quote = "orders, then the at sign, then deli.test"
-    ok = Recorder([LLMResult(f'{{"email": "orders@deli.test", "quote": "{quote}", "page": "https://deli.test/contact"}}')])
-    assert await ai_email(ok, None, "Deli", [page]) == ("orders@deli.test", "https://deli.test/contact")
-    made_up = Recorder([LLMResult('{"email": "info@deli.test", "quote": "info@deli.test", "page": "https://deli.test/contact"}')])
-    assert await ai_email(made_up, None, "Deli", [page]) is None  # not on the page: rejected
-    swapped = Recorder([LLMResult(f'{{"email": "sales@deli.test", "quote": "{quote}", "page": "https://deli.test/contact"}}')])
-    assert await ai_email(swapped, None, "Deli", [page]) is None  # the quote shows a different address
-    assert await ai_email(Recorder([LLMResult('{"email": null, "quote": null, "page": null}')]), None, "Deli", [page]) is None
+
+def test_free_mail_counts_only_when_the_page_labels_it():
+    """CON-08: an owner's personal Gmail on the venue's site isn't its inbox unless the page says it is."""
+    from tasteroute_api.services.contacts import labelled_contact
+
+    footer = Page("https://cafe.test/", "<footer>Site by ana.lopez@gmail.com</footer>", 200)
+    booking = Page("https://cafe.test/", "<p>Bookings and events: cafebookings@gmail.com</p>", 200)
+    link = Page("https://cafe.test/", '<a href="mailto:owner.cafe@gmail.com">Email us</a>', 200)
+    assert not labelled_contact("ana.lopez@gmail.com", footer)
+    assert labelled_contact("cafebookings@gmail.com", booking) and labelled_contact("owner.cafe@gmail.com", link)
 
 
 def test_extract_text_strips_scripts():

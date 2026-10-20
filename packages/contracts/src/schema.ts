@@ -186,8 +186,8 @@ export interface paths {
         put?: never;
         /**
          * Send Draft
-         * @description One click sends the draft from the signed-in user's own Gmail (F12). Clicking send is the approval. The Google token
-         *     comes from the browser for this one request and is never stored or logged.
+         * @description Sends an approved draft from the signed-in user's own Gmail (F12, DRF-07). The Google token comes from the browser
+         *     for this one request and is never stored or logged.
          */
         post: operations["send_draft_v1_drafts__draft_id__send_post"];
         delete?: never;
@@ -577,8 +577,9 @@ export interface paths {
         post?: never;
         /**
          * Delete Workspace
-         * @description Deletes this workspace and everything in it (brands, runs, contacts, drafts, do-not-contact list) and, when signed
-         *     in, the Supabase account with its Google identity, at once (privacy policy). Can't be undone.
+         * @description Deletes this workspace and everything in it (brands, runs, contacts, drafts, do-not-contact list, the runs' LLM and
+         *     web call logs) and, when signed in, the Supabase account with its Google identity, at once (privacy policy). The runs'
+         *     Qloo call rows keep only their time and status, so the monthly Qloo budget still counts them. Can't be undone.
          */
         delete: operations["delete_workspace_v1_workspaces_me_delete"];
         options?: never;
@@ -985,6 +986,11 @@ export interface components {
              * @default
              */
             one_liner: string;
+            /**
+             * Postal Address
+             * @description Business postal address for the signature (CAN-SPAM, DRF-09)
+             */
+            postal_address?: string | null;
             /**
              * Price Tier
              * @default unknown

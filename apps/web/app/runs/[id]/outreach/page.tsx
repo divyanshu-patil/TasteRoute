@@ -10,7 +10,7 @@ import { Banner, ContactSource, EmptyState, NOTHING_SENT, Skeleton } from "../..
 import { forgetGoogle, googleToken, signIn, useAccount } from "../../../../lib/account";
 import { ApiError, api, downloadCsv, type S } from "../../../../lib/api";
 import { CONTACT_STATUS, OUTREACH_STEPS } from "../../../../lib/format";
-import { cancelOutreach, sendAll, startingOutreach } from "../../../../lib/outreach";
+import { cancelOutreach, sendAll, sendable, startingOutreach } from "../../../../lib/outreach";
 import { useRun } from "../../../../lib/use-run";
 
 type EditorProps = { draft: S["DraftOut"]; readOnly: boolean; onChange: (d: S["DraftOut"] | null) => void; onDirty: (id: string, dirty: boolean) => void };
@@ -39,7 +39,9 @@ function DraftEditor({ draft, readOnly, onChange, onDirty }: EditorProps) {
       setBusy(false);
     }
   };
-  // One click sends it from the user's own Gmail (F12); without sign-in or a fresh Google token, it goes to Google first
+  const approved = (draft.status === "approved" || draft.status === "exported") && !dirty;
+  // Sends it from the user's own Gmail (F12). An unapproved draft is approved first, in the same click, and the button
+  // says so; without sign-in or a fresh Google token, it goes to Google first
   const send = async () => {
     setBusy(true);
     setErr(null);
@@ -47,6 +49,7 @@ function DraftEditor({ draft, readOnly, onChange, onDirty }: EditorProps) {
       if (dirty) await api(`/v1/drafts/${draft.id}`, { method: "PATCH", body: { subject, body } });
       const token = googleToken();
       if (!account.user || !token) return void (await signIn()); // back on this page; one more click sends
+      if (!approved) await api(`/v1/drafts/${draft.id}`, { method: "PATCH", body: { subject, body, status: "approved" } });
       onChange(await api<S["DraftOut"]>(`/v1/drafts/${draft.id}/send`, { method: "POST", body: { google_access_token: token } }));
     } catch (e) {
       if (e instanceof ApiError && e.code === "gmail_reconnect") forgetGoogle();
@@ -112,7 +115,7 @@ function DraftEditor({ draft, readOnly, onChange, onDirty }: EditorProps) {
             )}
             {account.enabled && (
               <button className="btn btn-sm" disabled={busy} onClick={send}>
-                {!account.user ? "Log in to send with Gmail" : googleToken() ? "Send with Gmail" : "Connect Gmail to send"}
+                {!account.user ? "Log in to send with Gmail" : !googleToken() ? "Connect Gmail to send" : approved ? "Send with Gmail" : "Approve and send"}
               </button>
             )}
           </div>
@@ -124,7 +127,7 @@ function DraftEditor({ draft, readOnly, onChange, onDirty }: EditorProps) {
 
 const TOUR: TourStep[] = [
   { target: "contacts", title: "Public business contacts", body: "Only addresses a venue published itself: its OpenStreetMap listing or its own website. Each shows where it was found and which sources were checked." },
-  { target: "draft", title: "A grounded first email", body: "The AI writes from the venue's evidence only, and a validator rejects any name or number that isn't in it. You edit it, then send it from your own Gmail in one click, or approve it to copy out. Nothing goes without your click." },
+  { target: "draft", title: "A grounded first email", body: "The AI writes from the venue's evidence only. A validator rejects names and numbers that aren't in it, claims like \"award-winning\" or \"already stocked\", and any taste claim that doesn't quote a Qloo fact; then it falls back to a template. You edit and approve it, then send it from your own Gmail or copy it out. Nothing goes without your click." },
   { target: "export", title: "Take it with you", body: "Download every venue, contact and approved draft as a CSV for your own mail app or CRM." },
 ];
 
@@ -191,12 +194,12 @@ export default function Outreach() {
   const running = starting || status === "outreach_running";
   const approved = (drafts ?? []).filter((d) => d.status === "approved" || d.status === "exported").length;
   const sent = (drafts ?? []).filter((d) => d.status === "sent").length;
-  const unsent = (drafts ?? []).filter((d) => d.status !== "sent");
+  const unsent = sendable(drafts ?? []); // approved and not sent: all Send all may send
   const update = (d: S["DraftOut"] | null) => {
     if (d) setDrafts((list) => (list ?? []).map((x) => (x.id === d.id ? d : x)));
     else refresh();
   };
-  // Send all (F12): every unsent draft on this page, one at a time, after the user confirms the count
+  // Send all (F12): every approved, unsent draft on this page, one at a time, after the user confirms the count
   const sendEvery = async () => {
     const token = googleToken();
     setConfirming(false);
@@ -227,6 +230,9 @@ export default function Outreach() {
     <RunShell run={run} error={error} tab="outreach" online={online}>
       {running && <LiveProgress progress={progress} steps={OUTREACH_STEPS} title="Finding contacts and drafting" onCancel={cancel} cancelling={cancelling} />}
       <Banner tone="ink">{NOTHING_SENT}</Banner>
+      {!!drafts?.length && !run?.is_demo && !(run?.brand.profile as { postal_address?: string } | undefined)?.postal_address && (
+        <Banner tone="warn">Add your postal address before sending (required for commercial email in the US). It goes under your name in each email; set it in your brand details when you start a run.</Banner>
+      )}
       {err && <Banner tone="warn">{err}</Banner>}
       {note && <Banner tone={note.ok ? "mint" : "warn"}>{note.text}</Banner>}
       {!running && status === "scouted" && run?.error_message && <Banner tone="warn">{run.error_message}</Banner>}
@@ -279,7 +285,7 @@ export default function Outreach() {
             {sending ? (
               <span role="status">Sending {sending.done + 1 > sending.of ? sending.of : sending.done + 1} of {sending.of}…</span>
             ) : confirming ? (
-              <span role="status">Send {unsent.length} email{unsent.length === 1 ? "" : "s"} from your Gmail now?</span>
+              <span role="status">Send {unsent.length} approved draft{unsent.length === 1 ? "" : "s"} from your Gmail?</span>
             ) : (
               <span><strong>{approved}</strong> of {drafts.length} approved{sent > 0 && <>, <strong>{sent}</strong> sent</>}</span>
             )}
@@ -292,7 +298,7 @@ export default function Outreach() {
               ) : (
                 <button className="btn" disabled={edited.length > 0} title={edited.length ? "Save or undo your edits first" : undefined}
                   onClick={() => (account.user && googleToken() ? setConfirming(true) : void signIn())}>
-                  {!account.user ? "Log in to send all" : !googleToken() ? "Connect Gmail to send all" : edited.length ? "Save edits to send all" : `Send all (${unsent.length})`}
+                  {!account.user ? "Log in to send all" : !googleToken() ? "Connect Gmail to send all" : edited.length ? "Save edits to send all" : `Send all approved (${unsent.length})`}
                 </button>
               ))}
               {!confirming && !sending && <button className={account.user ? "btn-ghost" : "btn"} onClick={exportCsv}>Download CSV</button>}

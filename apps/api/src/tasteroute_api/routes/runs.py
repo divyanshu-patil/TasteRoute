@@ -433,8 +433,8 @@ GMAIL_SEND = "https://gmail.googleapis.com/gmail/v1/users/me/messages/send"
 
 @router.post("/drafts/{draft_id}/send", response_model=DraftOut)
 async def send_draft(draft_id: str, body: SendIn, ws: str = Depends(workspace_id), s: Services = Depends(svc)) -> DraftOut:
-    """One click sends the draft from the signed-in user's own Gmail (F12). Clicking send is the approval. The Google token
-    comes from the browser for this one request and is never stored or logged."""
+    """Sends an approved draft from the signed-in user's own Gmail (F12, DRF-07). The Google token comes from the browser
+    for this one request and is never stored or logged."""
     d = await s.pool.fetchrow(DRAFT_SQL + " where d.id = $1 and d.workspace_id = $2", as_uuid(draft_id), uuid.UUID(ws))
     if d is None:
         raise NotFound("Draft not found")
@@ -443,6 +443,10 @@ async def send_draft(draft_id: str, body: SendIn, ws: str = Depends(workspace_id
     sup_e, sup_d = await suppression_sets(s.pool, ws)
     if is_suppressed(d["email"], sup_e, sup_d):
         raise Conflict("This contact is on your do-not-contact list.")
+    if d["status"] == "sent":
+        raise Conflict("This email was already sent.")
+    if d["status"] not in ("approved", "exported"):
+        raise AppError("Approve this draft before sending it.", code="draft_not_approved", status=409)
     if not await s.pool.fetchval("update drafts set sent_at = now() where id = $1 and sent_at is null returning id", d["id"]):
         raise Conflict("This email was already sent.")  # claimed first, so a double click can't send twice
     msg = EmailMessage()

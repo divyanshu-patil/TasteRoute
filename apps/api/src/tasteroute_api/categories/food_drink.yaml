@@ -27,3 +27,7 @@ pitch_style:
   noun: stockist
   ask_examples: ["send a free sample", "drop by for a 10-minute tasting"]
   avoid: ["discount pressure", "health claims"]
+  # Claims a pitch can't back with Qloo evidence; the validator rejects any of them (DRF-08)
+  forbidden_claims: [award, award-winning, organic, certified, best, "#1", top-rated, sold out, bestseller, best-selling,
+                     stocked by, already stock, already stocked, guaranteed, guarantee, risk-free, discount, "% off",
+                     half off, forever, healthy, healthiest, cure, cures]

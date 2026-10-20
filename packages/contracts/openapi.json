@@ -1244,6 +1244,19 @@
             "title": "One Liner",
             "type": "string"
           },
+          "postal_address": {
+            "anyOf": [
+              {
+                "maxLength": 200,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Business postal address for the signature (CAN-SPAM, DRF-09)",
+            "title": "Postal Address"
+          },
           "price_tier": {
             "default": "unknown",
             "enum": [
@@ -2590,7 +2603,7 @@
     },
     "/v1/drafts/{draft_id}/send": {
       "post": {
-        "description": "One click sends the draft from the signed-in user's own Gmail (F12). Clicking send is the approval. The Google token\ncomes from the browser for this one request and is never stored or logged.",
+        "description": "Sends an approved draft from the signed-in user's own Gmail (F12, DRF-07). The Google token comes from the browser\nfor this one request and is never stored or logged.",
         "operationId": "send_draft_v1_drafts__draft_id__send_post",
         "parameters": [
           {
@@ -3833,7 +3846,7 @@
     },
     "/v1/workspaces/me": {
       "delete": {
-        "description": "Deletes this workspace and everything in it (brands, runs, contacts, drafts, do-not-contact list) and, when signed\nin, the Supabase account with its Google identity, at once (privacy policy). Can't be undone.",
+        "description": "Deletes this workspace and everything in it (brands, runs, contacts, drafts, do-not-contact list, the runs' LLM and\nweb call logs) and, when signed in, the Supabase account with its Google identity, at once (privacy policy). The runs'\nQloo call rows keep only their time and status, so the monthly Qloo budget still counts them. Can't be undone.",
         "operationId": "delete_workspace_v1_workspaces_me_delete",
         "responses": {
           "204": {

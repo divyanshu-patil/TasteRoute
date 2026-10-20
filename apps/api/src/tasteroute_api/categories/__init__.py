@@ -26,6 +26,7 @@ class PitchStyle(BaseModel):
     noun: str = "stockist"
     ask_examples: list[str] = Field(min_length=1)
     avoid: list[str] = Field(default_factory=list)
+    forbidden_claims: list[str] = Field(default_factory=list)  # phrases a draft may never use (DRF-08)
 
 
 class Pack(BaseModel):

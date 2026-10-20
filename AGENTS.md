@@ -13,7 +13,7 @@ Read `README.md`, then `docs/` in numbered order, before writing code.
 1. **Qloo decides; the LLM narrates.** Venue lists, scores, product fit and reasons come from Qloo responses through pure functions in `scoring/`. The LLM chooses tools and writes text only. Reasons are built by templates, not the LLM.
 2. **Verify before coding.** Every Qloo parameter and response field is unverified until recorded from a live call (Phase 0). Save fixtures, write `docs/qloo-contract.md`, build models from fixtures. Same for Gemma 4 Cloud tool calling (`docs/llm-contract.md`).
 3. **Fail closed on Qloo.** No fallback ranking from any other source outside `APP_ENV=test`.
-4. **Humans approve every email. The app never sends email.** No SMTP or email-sending library.
+4. **Humans approve every email.** The app sends only when the user clicks, from the user's own Gmail. No SMTP, no background sending.
 5. **Business contacts only, never constructed.** Every stored email has a source. Respect the suppression list and Hunter 451.
 6. **Secrets stay server-side.** Keys only in git-ignored `.env`; never logged, traced, returned or bundled. The browser never talks to Supabase, Qloo, Hunter or Ollama.
 7. **Provider isolation.** Only files under `apps/api/src/tasteroute_api/llm/` may name an LLM provider. Only `categories/` may name a category.

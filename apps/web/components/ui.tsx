@@ -71,10 +71,10 @@ export const NOTHING_SENT = "Nothing is sent without your click. Emails go from 
 
 const CONTACT_SOURCE: Record<string, string> = { osm: "OpenStreetMap", website: "venue website", web: "web search", hunter: "Hunter", qloo: "Qloo" };
 
-/** Where a contact was published, linked to that page, and whether the AI or a web search found it. */
+/** Where a contact was published, linked to that page, and whether it is a free-mail inbox the venue published (CON-08). */
 export function ContactSource({ contact }: { contact: { source: string; sources: { [k: string]: unknown }[] } }) {
   const uri = contact.sources.find((x) => typeof x.uri === "string")?.uri as string | undefined;
-  const label = `${CONTACT_SOURCE[contact.source] ?? contact.source}${contact.sources.some((x) => x.found_by === "ai") ? " · found by AI on the page" : ""}`;
+  const label = `${CONTACT_SOURCE[contact.source] ?? contact.source}${contact.sources.some((x) => x.freemail) ? " · Free-mail inbox published by the venue" : ""}`;
   return uri && /^https?:\/\//i.test(uri)
     ? <a className="link" href={uri} target="_blank" rel="noopener noreferrer">{label} ↗</a>
     : <>{label}</>;

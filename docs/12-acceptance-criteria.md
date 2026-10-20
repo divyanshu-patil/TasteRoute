@@ -48,6 +48,7 @@ Each criterion has an ID, a measurable statement, how it is checked, and a prior
 | EVD-01 | 100% of displayed venues have a reason and at least one Qloo evidence item | API test | MVP |
 | EVD-02 | Every evidence item links to an existing trace row | Integration test | MVP |
 | EVD-03 | Inferences are labelled as inferences in API and UI | Unit test + UI check | MVP |
+| EVD-04 | OpenStreetMap and contact-source evidence carry the `external_calls` id they came from; a second outreach pass leaves one row per evidence item | API test `test_outreach_evidence_links_its_call_and_never_duplicates` | MVP |
 
 ## Contacts (F06)
 
@@ -60,6 +61,7 @@ Each criterion has an ID, a measurable statement, how it is checked, and a prior
 | CON-05 | No email address is ever constructed; every stored email has a source | Unit test | MVP |
 | CON-06 | Hunter calls per run never exceed `HUNTER_MAX_CALLS_PER_RUN` | Integration test | MVP |
 | CON-07 | Suppressed emails and domains are skipped in lookups, drafts and export | Integration tests | MVP |
+| CON-08 | An address is kept only when the page parser reads that exact address on a fetched page (spelled-out forms included); web search results are fetched, never trusted as snippets; a free-mail inbox counts only when the page labels it as a contact, is shown as "Free-mail inbox published by the venue" and ranks below the venue's own domain | Unit tests `test_addresses_are_read_never_assembled`, `test_free_mail_counts_only_when_the_page_labels_it`, `test_free_mail_ranks_below_the_venues_own_domain`; API test `test_web_search_is_the_last_resort_for_an_email` | MVP |
 
 ## Drafts (F07)
 
@@ -71,6 +73,9 @@ Each criterion has an ID, a measurable statement, how it is checked, and a prior
 | DRF-04 | Status transitions follow the state machine; editing an approved draft resets it to `edited` | Unit tests | MVP |
 | DRF-05 | Every draft contains the opt-out line | Unit test | MVP |
 | DRF-06 | Edits are saved and survive reload | API test | MVP |
+| DRF-07 | The API refuses to send a draft that is not approved (409 `draft_not_approved`); "Approve and send" says what it does; Send all sends approved, unsent drafts only | API test `test_accounts` send flow; web unit test `only ever sends approved drafts` | MVP |
+| DRF-08 | The validator rejects numbers that are not whole tokens of the bundle, the category's blocklisted claims (outside names and its own asks) and taste sentences that quote no evidence value; templates always pass | Unit tests `test_validator_rejects_ungrounded_claims`, `test_validator_numbers_are_whole_tokens_and_names_may_hold_claim_words`, `test_template_always_passes_validator` | MVP |
+| DRF-09 | An optional business postal address is added under the sender's name in every draft and allowed by the validator; without one, the outreach page asks for it before sending | Unit test `test_template_always_passes_validator`; UI check | MVP |
 
 ## Export and suppression (F08)
 
@@ -100,7 +105,8 @@ Each criterion has an ID, a measurable statement, how it is checked, and a prior
 | ACC-02 | A forged or expired Supabase token is refused, and anonymous workspaces cannot send | API test | Stretch |
 | ACC-03 | "Send with Gmail" sends one draft once (never twice), honours the do-not-contact list, and asks to reconnect when Gmail refuses the token | API test | Stretch |
 | ACC-05 | "Delete account and data" removes the workspace, all its rows and the Supabase user at once; the old token stops working | API test | Stretch |
-| ACC-04 | "Send all" sends the unsent drafts one by one after a confirm step, reports failures, and stops on a Gmail reconnect so the next click sends the rest | Web unit test | Stretch |
+| ACC-04 | "Send all" sends the approved, unsent drafts one by one after a confirm step, reports failures, and stops on a Gmail reconnect so the next click sends the rest | Web unit test | Stretch |
+| ACC-06 | Sending needs an approved draft, also through Send all (see DRF-07) | API test + web unit test | Stretch |
 
 ## Demo and budget (F10)
 
@@ -198,3 +204,4 @@ Each criterion has an ID, a measurable statement, how it is checked, and a prior
 | REP-03 | Clean clone runs with the documented commands | Clean-machine run | MVP |
 | REP-04 | Public demo URL works logged out, including `/sample` | Manual from a private window | MVP |
 | REP-05 | Demo video recorded, public, matches the working app | Review | MVP |
+| REP-06 | README, AGENTS.md, Devpost, landing and privacy copy say only what the code does (approval before sending, contacts copied from a page, evidence links, token storage, deletion of run logs) | Review; API test `test_delete_workspace_removes_its_run_logs` | MVP |

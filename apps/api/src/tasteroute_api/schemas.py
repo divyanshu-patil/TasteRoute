@@ -103,6 +103,8 @@ class ProfileIn(In):
     price_tier: Literal["budget", "mid", "premium", "unknown"] = "unknown"
     style_words: list[str] = Field(default_factory=list, max_length=6)
     sender_name: str | None = Field(default=None, max_length=80)
+    postal_address: str | None = Field(default=None, max_length=200,
+                                       description="Business postal address for the signature (CAN-SPAM, DRF-09)")
     unsupported_reason: str | None = None
 
 

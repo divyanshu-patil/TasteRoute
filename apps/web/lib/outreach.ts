@@ -21,7 +21,11 @@ export async function cancelOutreach(runId: string): Promise<void> {
   await api(`/v1/runs/${runId}/cancel`, { method: "POST" });
 }
 
-/** Send all: sends the drafts one at a time from the user's Gmail. Stops when Gmail wants permission again, so the rest
+/** Drafts Send all may send: approved (or exported) and not sent yet. Unapproved drafts never go out (DRF-07). */
+export const sendable = <T extends { status: string }>(drafts: T[]) =>
+  drafts.filter((d) => d.status === "approved" || d.status === "exported");
+
+/** Send all: sends the approved drafts one at a time from the user's Gmail. Stops when Gmail wants permission again, so the rest
  * wait for the next click; the API sends each draft at most once, so nothing goes twice. */
 export async function sendAll(
   drafts: { id: string; venue_name: string }[],

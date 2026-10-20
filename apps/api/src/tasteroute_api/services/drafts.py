@@ -16,6 +16,7 @@ from ..errors import AppError, LLMBadResponse, LLMUnavailable
 from ..grounding import Bundle, validate
 from ..llm.prompts import load
 from ..llm.structured import parse, structured
+from ..scoring.reasons import quotable
 from .contacts import is_suppressed, suppression_sets
 
 log = logging.getLogger("tasteroute.drafts")
@@ -67,6 +68,23 @@ def evidence_text(e: dict[str, Any]) -> str:
     return str(e["label"])
 
 
+def evidence_values(e: dict[str, Any]) -> list[str]:
+    """The quotable values in an evidence row: what a taste sentence must cite word for word (DRF-08)."""
+    v = e["value"]
+    if e["type"] == "qloo_tag_overlap":
+        return quotable(v.get("tags", []))
+    if e["type"] == "qloo_explanation":
+        return [d["name"] for d in v.get("drivers", []) if d.get("name")]
+    if e["type"] == "qloo_venue_profile":
+        return quotable(v.get("interests", []) + v.get("crowd", []))
+    return []
+
+
+def signature(b: Bundle) -> str:
+    """The sender, then the business postal address when set (CAN-SPAM, DRF-09)."""
+    return b.sender_name + (f"\n{b.postal_address}" if b.postal_address else "")
+
+
 async def build_bundle(ctx: RunContext, venue: dict[str, Any], contact: dict[str, Any]) -> Bundle:
     ev = await ctx.pool.fetch(
         "select id, type, label, value from venue_evidence where run_id = $1 and venue_id = $2 "
@@ -91,6 +109,9 @@ async def build_bundle(ctx: RunContext, venue: dict[str, Any], contact: dict[str
         brand_one_liner=profile.get("one_liner") or "",
         reason=venue.get("reason") or "",
         evidence={str(e["id"]): evidence_text(dict(e)) for e in ev},
+        evidence_values={str(e["id"]): evidence_values(dict(e)) for e in ev},
+        forbidden_claims=ctx.pack.pitch_style.forbidden_claims,
+        postal_address=(profile.get("postal_address") or "").strip(),
         contact_role=contact.get("role"),
         ask_examples=ctx.pack.pitch_style.ask_examples,
         opt_out_line=ctx.svc.settings.opt_out_line,
@@ -99,23 +120,30 @@ async def build_bundle(ctx: RunContext, venue: dict[str, Any], contact: dict[str
     )
 
 
+def _join(items: list[str]) -> str:
+    return items[0] if len(items) == 1 else ", ".join(items[:-1]) + " and " + items[-1]
+
+
 def template_draft(b: Bundle) -> PitchOut:
-    """Built only from the bundle, so it always passes the validator."""
+    """Built only from the bundle's own words and values, so it always passes the validator."""
     prefs = ("Guests over-index", "Crowd", "Fans of")
-    cite = sorted((i for i, t in b.evidence.items() if t.startswith(prefs)),
+    cite = sorted((i for i, t in b.evidence.items() if t.startswith(prefs) and b.evidence_values.get(i)),
                   key=lambda i: next(n for n, p in enumerate(prefs) if b.evidence[i].startswith(p)))[:1]
-    taste = b.evidence[cite[0]] if cite else ""
-    if taste.startswith(("Guests", "Crowd")):
-        taste = taste.lower()
-    taste_line = (
-        f"Taste data from Qloo suggests your guests are a natural fit for us: {taste}."
-        if taste else "Taste data from Qloo suggests your guests are a natural fit for us."
-    )
+    taste_line = ""
+    if cite:
+        values = b.evidence_values[cite[0]][:2]
+        text = b.evidence[cite[0]]
+        if text.startswith("Fans of"):
+            taste_line = f" Qloo's taste data shows fans of {_join(values)} like {b.venue_name}."
+        elif text.startswith("Crowd"):
+            taste_line = f" Qloo's taste data on guests at {b.venue_name} mentions {_join([v.lower() for v in values])}."
+        else:
+            taste_line = f" Qloo's taste data shows guests here over-index on {_join([v.lower() for v in values])}."
     body = (
         f"Hi {b.venue_name} team,\n\n"
-        f"I'm {b.sender_name} from {b.brand_name}. {taste_line}\n\n"
+        f"I'm {b.sender_name} from {b.brand_name}.{taste_line}\n\n"
         f"I think {b.best_product} would suit {b.venue_name}. Could I {b.ask_examples[0]}?\n\n"
-        f"Thanks,\n{b.sender_name}\n\n{b.opt_out_line}"
+        f"Thanks,\n{signature(b)}\n\n{b.opt_out_line}"
     )
     return PitchOut(subject=f"{b.best_product} for {b.venue_name}"[:80], body=body,
                     cited_evidence_ids=cite or list(b.evidence)[:1])
@@ -128,8 +156,9 @@ async def write_pitch(ctx: RunContext, b: Bundle) -> tuple[PitchOut, str, str | 
         "venue_name": b.venue_name, "venue_type": b.venue_type, "brand_name": b.brand_name, "sender_name": b.sender_name,
         "brand_one_liner": b.brand_one_liner, "lead_product": b.best_product, "lead_product_kind": b.best_product_kind,
         "other_products": [p for p in b.product_names if p != b.best_product], "why_this_venue": b.reason,
-        "evidence": [{"id": i, "text": t} for i, t in b.evidence.items()], "contact_role": b.contact_role,
-        "ask_examples": b.ask_examples, "opt_out_line": b.opt_out_line,
+        "evidence": [{"id": i, "text": t, "quote_verbatim": b.evidence_values.get(i, [])} for i, t in b.evidence.items()],
+        "contact_role": b.contact_role, "ask_examples": b.ask_examples, "opt_out_line": b.opt_out_line,
+        "signature": signature(b), "never_say": b.forbidden_claims,
     }, ensure_ascii=False)
     kwargs: dict[str, Any] = {"purpose": "pitch", "prompt_version": version, "run_id": ctx.run_id,
                               "temperature": ctx.svc.settings.llm_temperature_writing, "max_tokens": 700}

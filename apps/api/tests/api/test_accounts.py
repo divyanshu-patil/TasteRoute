@@ -7,6 +7,7 @@ import uuid
 
 import httpx
 
+from tasteroute_api.qloo.client import monthly_live_calls
 from tasteroute_api.services import runs as run_service
 
 from ..conftest import make_brand, new_workspace, scout
@@ -66,6 +67,10 @@ async def test_send_from_gmail_once(client, ws, svc, net):
     sent: list[httpx.Request] = []
     net["gmail"].side_effect = lambda request: sent.append(request) or httpx.Response(200, json={"id": "18c0ffee"})
     r = await client.post(f"/v1/drafts/{d0['id']}/send", headers=ws, json=send)
+    assert r.status_code == 409 and r.json()["code"] == "draft_not_approved" and not sent  # DRF-07: approve first
+    for d in (d0, d1):
+        assert (await client.patch(f"/v1/drafts/{d['id']}", headers=ws, json={"status": "approved"})).status_code == 200
+    r = await client.post(f"/v1/drafts/{d0['id']}/send", headers=ws, json=send)
     assert r.status_code == 200, r.text
     assert r.json()["status"] == "sent" and r.json()["sent_at"]
     assert sent[0].headers["authorization"] == "Bearer ya29.google-token"
@@ -85,6 +90,25 @@ async def test_send_from_gmail_once(client, ws, svc, net):
 
     await client.post("/v1/suppressions", headers=ws, json={"kind": "email", "value": d1["contact_email"]})
     assert (await client.post(f"/v1/drafts/{d1['id']}/send", headers=ws, json=send)).status_code in (404, 409)
+
+
+async def test_delete_workspace_removes_its_run_logs(client, ws, svc):
+    """REP-06: the runs' LLM prompts and fetched pages go; Qloo rows stay only as a count for the monthly budget."""
+    run_id = uuid.UUID(await scout(client, ws, await make_brand(client, ws, svc)))
+    venues = (await client.get(f"/v1/runs/{run_id}/venues", headers=ws)).json()["items"]
+    await client.post(f"/v1/runs/{run_id}/contacts", headers=ws, json={"venue_ids": [venues[0]["venue_id"]]})
+    await run_service.drain()
+    month = await monthly_live_calls(svc.pool)
+    ids = {t: [r["id"] for r in await svc.pool.fetch(f"select id from {t} where run_id = $1", run_id)]
+           for t in ("llm_calls", "external_calls", "qloo_calls")}
+    assert all(ids.values()) and await svc.pool.fetchval(
+        "select count(*) from qloo_calls where run_id = $1 and response is not null", run_id)
+    assert (await client.delete("/v1/workspaces/me", headers=ws)).status_code == 204
+    for table in ("llm_calls", "external_calls"):
+        assert not await svc.pool.fetchval(f"select count(*) from {table} where id = any($1)", ids[table])
+    assert not await svc.pool.fetchval("select count(*) from qloo_calls where id = any($1) and (params <> '{}' or "
+                                       "response is not null)", ids["qloo_calls"])
+    assert await monthly_live_calls(svc.pool) == month
 
 
 async def test_delete_account_removes_work_and_supabase_user(client, ws, svc, net):

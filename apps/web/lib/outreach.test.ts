@@ -2,7 +2,7 @@ import { describe, expect, it, vi } from "vitest";
 
 const { api } = vi.hoisted(() => ({ api: vi.fn() }));
 vi.mock("./api", () => ({ api }));
-import { cancelOutreach, sendAll, startOutreach, startingOutreach } from "./outreach";
+import { cancelOutreach, sendAll, sendable, startOutreach, startingOutreach } from "./outreach";
 
 describe("outreach start and cancel", () => {
   it("shares the start with the outreach page; cancel aborts it and stops the API's work", async () => {
@@ -27,6 +27,11 @@ describe("outreach start and cancel", () => {
 });
 
 describe("send all", () => {
+  it("only ever sends approved drafts that haven't gone yet (DRF-07)", () => {
+    const drafts = ["draft", "edited", "approved", "exported", "sent"].map((status) => ({ id: status, status }));
+    expect(sendable(drafts).map((d) => d.id)).toEqual(["approved", "exported"]);
+  });
+
   it("sends one by one, reports failures, and stops when Gmail wants permission again", async () => {
     const drafts = ["a", "b", "c", "d"].map((id) => ({ id, venue_name: `Venue ${id}` }));
     api.mockReset();

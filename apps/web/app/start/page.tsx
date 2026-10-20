@@ -59,6 +59,7 @@ export default function Start() {
   const [tier, setTier] = useState<Intake["profile"]["price_tier"]>("unknown");
   const [style, setStyle] = useState("");
   const [sender, setSender] = useState("");
+  const [postal, setPostal] = useState("");
   const [products, setProducts] = useState<Product[]>([{ name: "", kind: "" }]);
   const [override, setOverride] = useState(false);
   // step 3
@@ -116,6 +117,7 @@ export default function Start() {
         price_tier: tier,
         style_words: style.split(",").map((s) => s.trim()).filter(Boolean).slice(0, 6),
         sender_name: sender.trim() || null,
+        postal_address: postal.trim() || null,
       };
       let b: S["BrandOut"];
       if (brand) {
@@ -295,6 +297,11 @@ export default function Start() {
               <label className="field">
                 <span>Style words (comma separated)</span>
                 <input className="input" value={style} onChange={(e) => setStyle(e.target.value)} />
+              </label>
+              <label className="field">
+                <span>Business postal address (optional)</span>
+                <input className="input" value={postal} maxLength={200} placeholder="12 Main St, Brooklyn, NY 11201" autoComplete="street-address" onChange={(e) => setPostal(e.target.value)} />
+                <span className="muted">Added under your name in every email. US law requires one in commercial email.</span>
               </label>
             </div>
             <div className="card stack">

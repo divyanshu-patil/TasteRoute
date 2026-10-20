@@ -13,6 +13,7 @@ from pydantic import SecretStr
 from tasteroute_api.errors import LLMUnavailable
 from tasteroute_api.services import runs as run_service
 
+from .. import conftest
 from ..conftest import BRAND, SPECIALTY, make_brand, scout
 
 
@@ -196,8 +197,27 @@ async def test_outreach_contacts_drafts_approve_export(client, ws, svc):
     assert r.json()["status"] == "edited" and r.json()["mailto"] is None
 
 
+async def test_outreach_evidence_links_its_call_and_never_duplicates(client, ws, svc):
+    """EVD-04: OpenStreetMap and contact-source evidence name the external call they came from; a second outreach pass
+    over the same venues replaces those rows instead of adding more."""
+    brand = await make_brand(client, ws, svc)
+    run_id = await scout(client, ws, brand)
+    top = [v["venue_id"] for v in (await client.get(f"/v1/runs/{run_id}/venues", headers=ws)).json()["items"][:4]]
+    for _ in range(2):
+        r = await client.post(f"/v1/runs/{run_id}/contacts", headers=ws, json={"venue_ids": top})
+        assert r.status_code == 202, r.text
+        await run_service.drain()
+    rows = await svc.pool.fetch(
+        "select e.venue_id, e.type, e.source_call_id, x.id as call from venue_evidence e left join external_calls x "
+        "on x.id = e.source_call_id where e.run_id = $1 and e.type in ('osm_fact', 'contact_source')", uuid.UUID(run_id))
+    assert {r["type"] for r in rows} == {"osm_fact", "contact_source"}
+    assert all(r["call"] is not None for r in rows), rows  # each id is a real external_calls row
+    assert len({(r["venue_id"], r["type"]) for r in rows}) == len(rows)
+
+
 async def test_web_search_is_the_last_resort_for_an_email(client, ws, svc, net, monkeypatch):
-    """No address on the venues' own pages (and the AI finds none): Ollama web search, keeping only the venue's own."""
+    """No address on the venues' own pages: Ollama web search. Each result page is fetched (snippets aren't trusted) and
+    only the venue's own address read on it is kept (CON-08)."""
     brand = await make_brand(client, ws, svc)
     run_id = await scout(client, ws, brand)
     venues = (await client.get(f"/v1/runs/{run_id}/venues", headers=ws)).json()["items"]
@@ -208,8 +228,15 @@ async def test_web_search_is_the_last_resort_for_an_email(client, ws, svc, net, 
         name = json.loads(request.content)["query"].split('"')[1]
         handle = re.sub(r"[^a-z0-9]", "", name.lower())
         return httpx.Response(200, json={"results": [{"title": name, "url": "https://dir.test/" + handle,
-                                                      "content": f"{name}: write to {handle}@gmail.com or ads@dir.test"}]})
+                                                      "content": f"{name}: write to {handle}@yahoo.com"}]})  # snippet only
 
+    def listing(request: httpx.Request) -> httpx.Response:  # the directory page each result points at
+        if request.url.host != "dir.test" or request.url.path == "/robots.txt":
+            return conftest.fake_site(request)
+        handle = request.url.path.strip("/")
+        return httpx.Response(200, html=f"<p>{handle}: write to {handle}@gmail.com or ads@dir.test</p>")
+
+    net.routes[-1].side_effect = listing  # the catch-all site route
     net["web_search"].side_effect = results
     pick = [v["venue_id"] for v in venues[:3]]
     await client.post(f"/v1/runs/{run_id}/contacts", headers=ws, json={"venue_ids": pick})
@@ -218,9 +245,8 @@ async def test_web_search_is_the_last_resort_for_an_email(client, ws, svc, net, 
     web = [c for c in contacts if "web search" in c["checked_sources"]]
     assert web and net["web_search"].called
     for c in web:  # no OpenStreetMap or page address: the web found the venue's own inbox, never the directory's
-        assert "venue website (read by AI)" in c["checked_sources"]
         assert [(x["source"], x["sources"][0]["found_by"]) for x in c["contacts"]] == [("web", "web_search")]
-        assert not any(x["email"].endswith("@dir.test") for x in c["contacts"])
+        assert all(x["email"].endswith("@gmail.com") for x in c["contacts"])  # read on the page, not the snippet
 
 
 async def test_cancel_stops_outreach(client, ws, svc, monkeypatch):

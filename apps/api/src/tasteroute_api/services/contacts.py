@@ -1,4 +1,5 @@
-"""F06: public business contacts for selected venues. Emails are copied from a source, never constructed (CON-05)."""
+"""F06: public business contacts for selected venues. Emails are copied from a source, never constructed (CON-05): an
+address is kept only when the page parser reads that exact address on a fetched page or listing (CON-08)."""
 
 from __future__ import annotations
 
@@ -6,18 +7,25 @@ import re
 import uuid
 from dataclasses import dataclass, field
 from datetime import timedelta
+from html import unescape
 from typing import Any
+from urllib.parse import unquote
 
 import asyncpg
-from pydantic import BaseModel
 
 from ..agent.context import RunContext
-from ..errors import AppError, LLMBadResponse, LLMUnavailable
+from ..errors import AppError
 from ..external import cached_call, hunter, osm
-from ..external.website import EMAIL, Page, WebsiteReader, clean_email, deobfuscate, page_emails, visible_text
+from ..external.website import (
+    Page,
+    WebsiteReader,
+    clean_email,
+    deobfuscate,
+    emails_in,
+    page_emails,
+    visible_text,
+)
 from ..llm import web_search
-from ..llm.prompts import load
-from ..llm.structured import structured
 
 BAD_VERIFICATION = {"invalid", "disposable"}
 # A scraped address must be on the venue's own domain or a free-mail inbox; anything else is usually the web agency's or a widget's.
@@ -74,55 +82,35 @@ def names_venue(email: str, name: str, domain: str | None) -> bool:
     return any(k in squash(local + d.split(".")[0]) for k in venue_keys(name, domain))
 
 
-def emails_from_results(results: list[dict[str, str]], name: str, domain: str | None) -> list[tuple[str, str]]:
-    """Addresses in web search results that belong to this venue: on its own domain, or carrying its name. A directory
-    page lists many businesses, so any other address on it is dropped. (email, result url)"""
+def venue_addresses(found: list[tuple[str, str]], name: str, domain: str | None) -> list[tuple[str, str]]:
+    """Addresses read on a fetched web search result that belong to this venue: on its own domain, or carrying its name.
+    A directory page lists many businesses, so any other address on it is dropped. (email, page url)"""
     out: dict[str, str] = {}
-    for r in results:
-        for raw in EMAIL.findall(deobfuscate(r["content"])):
-            e = clean_email(raw)
-            d = (e or "").rsplit("@", 1)[-1]
-            if e and (bool(domain) and (d == domain or d.endswith(f".{domain}")) or names_venue(e, name, domain)):
-                out.setdefault(e, r["url"])
+    for e, url in found:
+        d = e.rsplit("@", 1)[-1]
+        if bool(domain) and (d == domain or d.endswith(f".{domain}")) or names_venue(e, name, domain):
+            out.setdefault(e, url)
     return list(out.items())
 
 
-class EmailOnPage(BaseModel):
-    email: str | None = None
-    quote: str | None = None
-    page: str | None = None
+# Words that mark an address as the venue's own inbox when they sit next to it on the page
+CONTACT_WORDS = re.compile(r"\b(bookings?|book|events?|info|wholesale|trade|hello|contact\w*|e-?mail|enquir\w*|inquir\w*"
+                           r"|reservations?|catering|orders?|write|reach)\b", re.I)
 
 
-def quoted(email: str, quote: str, text: str) -> bool:
-    """The model's quote is really on the page and spells this address out: local part, then each domain label."""
-    q, t = " ".join(quote.lower().split()), " ".join(text.lower().split())
-    if not q or q not in t:
-        return False
-    at = 0
-    local, _, domain = email.lower().partition("@")
-    for part in [local, *domain.split(".")]:
-        at = q.find(part, at)
-        if at < 0:
-            return False
-        at += len(part)
-    return True
+def labelled_contact(email: str, page: Page, window: int = 80) -> bool:
+    """A free-mail address may be an owner's personal inbox. It counts as the venue's only when the page around it names
+    it as a contact ('Bookings: ...', 'Email us'), CON-08."""
+    for text in (deobfuscate(visible_text(page.html)), unquote(unescape(page.html))):
+        t = text.lower()
+        for m in re.finditer(re.escape(email), t):
+            if CONTACT_WORDS.search(t[max(0, m.start() - window): m.end() + window].replace(email, " ")):
+                return True
+    return False
 
 
-async def ai_email(llm: Any, run_id: str | None, venue: str, pages: list[Page]) -> tuple[str, str] | None:
-    """AI fallback when no pattern matched: the model reads the pages and must quote the address from one of them.
-    The quote is checked against the page text, so an address can be found this way but never made up (CON-05).
-    Raises LLMUnavailable or LLMBadResponse when the model can't answer."""
-    texts = {p.url: visible_text(p.html) for p in pages}
-    user = f"Venue: {venue}\n\n" + "\n\n".join(  # the start and the footer, where addresses usually are
-        f"<page url=\"{u}\">\n{t if len(t) <= 4000 else t[:2000] + ' … ' + t[-2000:]}\n</page>" for u, t in texts.items())
-    prompt, version = load("find_email")
-    out = await structured(llm, EmailOnPage, prompt, user, purpose="find_email", prompt_version=version, run_id=run_id,
-                           temperature=0, max_tokens=300)
-    email = clean_email(out.email or "")
-    page = out.page if out.page in texts else next((u for u, t in texts.items() if quoted(email or "", out.quote or "", t)), None)
-    if not email or not page or not quoted(email, out.quote or "", texts[page]):
-        return None
-    return email, page
+def freemail(email: str) -> bool:
+    return email.rsplit("@", 1)[-1] in FREEMAIL
 
 
 def purpose(email: str) -> tuple[int, str | None]:
@@ -145,7 +133,9 @@ def choose(cands: list[Candidate], domain: str | None = None) -> Candidate | Non
         else:
             tier = 3 if c.source == "hunter" else 2
         # A scraped address on another domain may be the web agency's; OSM's email tag is the venue's own listing.
-        off = int(c.source == "website" and bool(domain) and c.domain != domain and not c.domain.endswith("." + str(domain)))
+        # A free-mail inbox ranks below the venue's own domain wherever it came from (CON-08).
+        off = int(freemail(c.email) or c.source == "website" and bool(domain) and c.domain != domain
+                  and not c.domain.endswith("." + str(domain)))
         src = {"osm": 0, "website": 1, "qloo": 1}.get(c.source, 2)
         return tier, off, purpose(c.email)[0], src, -(c.confidence or 0)
 
@@ -173,6 +163,15 @@ async def suppress(pool: asyncpg.Pool, workspace_id: str, kind: str, value: str,
     )
 
 
+async def _evidence(ctx: RunContext, vid: Any, type_: str, label: str, value: dict[str, Any], call_id: str | None) -> None:
+    """One row per (run, venue, type) for outreach evidence, linked to the external call it came from (EVD-04)."""
+    async with ctx.pool.acquire() as con, con.transaction():
+        await con.execute("delete from venue_evidence where run_id = $1 and venue_id = $2 and type = $3", ctx.rid, vid, type_)
+        await con.execute(
+            "insert into venue_evidence (run_id, venue_id, type, label, value, source_kind, source_call_id) "
+            "values ($1,$2,$3,$4,$5,'external',$6)", ctx.rid, vid, type_, label, value, uuid.UUID(call_id) if call_id else None)
+
+
 class TooManyVenues(AppError):
     code, status, title = "validation_error", 422, "Too many venues selected"
 
@@ -192,6 +191,7 @@ async def find_contacts(ctx: RunContext, venue_ids: list[str]) -> dict[str, Any]
         "select count(*) from external_calls where run_id = $1 and service = 'hunter' and cache_hit = false", ctx.rid))
     reader = WebsiteReader(ctx.svc.web, timeout=s.website_fetch_timeout_seconds)
     osm_cache: dict[str, list[dict[str, Any]]] = {}
+    osm_call: dict[str, str | None] = {}
     counts = {"found": 0, "none": 0, "limit_reached": 0, "suppressed": 0, "skipped_social": 0, "error": 0}
 
     for i, v in enumerate(rows):
@@ -207,7 +207,7 @@ async def find_contacts(ctx: RunContext, venue_ids: list[str]) -> dict[str, Any]
         if vt and ctx.city.get("bbox"):
             key = vt.id
             if key not in osm_cache:
-                osm_cache[key], _ = await osm.venue_tags(
+                osm_cache[key], osm_call[key] = await osm.venue_tags(
                     ctx.pool, ctx.svc.http, s.overpass_base_url, s.osm_user_agent, key=vt.osm.key, value=vt.osm.value,
                     bbox=ctx.city["bbox"], run_id=ctx.run_id, emit=ctx.emit,
                 )
@@ -221,14 +221,11 @@ async def find_contacts(ctx: RunContext, venue_ids: list[str]) -> dict[str, Any]
                 email = clean_email(email.split(";")[0]) if email else None  # OSM allows "a@x.com;b@x.com"
                 if email:
                     cands.append(Candidate(email, "osm", "generic", purpose(email)[1],
-                                           sources=[{"uri": f"https://www.openstreetmap.org/{m['id']}"}]))
+                                           sources=[{"uri": f"https://www.openstreetmap.org/{m['id']}", "call_id": osm_call[key]}]))
                 await ctx.pool.execute(
                     "update venues set osm_ref = $2, website = coalesce(website, $3) where id = $1", vid, m["id"], website)
-                await ctx.pool.execute(
-                    "insert into venue_evidence (run_id, venue_id, type, label, value, source_kind) "
-                    "values ($1,$2,'osm_fact','OpenStreetMap listing',$3,'external')",
-                    ctx.rid, vid, {"osm_id": m["id"], **{k: tags[k] for k in tags if k != "name"}},
-                )
+                await _evidence(ctx, vid, "osm_fact", "OpenStreetMap listing",
+                                {"osm_id": m["id"], **{k: tags[k] for k in tags if k != "name"}}, osm_call[key])
         domain = hunter.registrable_domain(website) if website else None
         if domain and domain in sup_domains:
             status = "suppressed"
@@ -238,28 +235,22 @@ async def find_contacts(ctx: RunContext, venue_ids: list[str]) -> dict[str, Any]
         elif website:
             # The venue's own site (D-08)
             checked.append("venue website")
-            async def read(url: str = website, name: str = v["name"]) -> tuple[int, Any]:
+            async def read(url: str = website, name: str = v["name"], dom: str | None = domain) -> tuple[int, Any]:
                 try:
                     pages = await reader.contact_pages(url)
                 except AppError as e:
                     return 422, {"error": e.detail}
-                found = [[e, u, "page"] for e, u in page_emails(pages)]
-                if found:
-                    return 200, {"emails": found, "ai_read": False}
-                try:
-                    ai = await ai_email(ctx.svc.llm, ctx.run_id, name, pages)
-                except (LLMUnavailable, LLMBadResponse):
-                    return 503, {"error": "The AI could not read the site"}  # not cached: tried again next run
-                return 200, {"emails": [[*ai, "ai"]] if ai else [], "ai_read": True}
+                by_url = {p.url: p for p in pages}
+                # A free-mail address counts only when the page labels it as a contact, or it carries the venue's name
+                return 200, {"emails": [[e, u, "freemail" if freemail(e) else "page"] for e, u in page_emails(pages)
+                                        if not freemail(e) or names_venue(e, name, dom) or labelled_contact(e, by_url[u])]}
 
-            code, body, _, _ = await cached_call(ctx.pool, "website", "/emails", {"url": website, "v": 2}, timedelta(days=7),
-                                                 read, run_id=ctx.run_id, emit=ctx.emit)
-            if code == 200 and body["ai_read"]:
-                checked.append("venue website (read by AI)")
+            code, body, call_id, _ = await cached_call(ctx.pool, "website", "/emails", {"url": website, "v": 3},
+                                                       timedelta(days=7), read, run_id=ctx.run_id, emit=ctx.emit)
             for raw, page, how in body["emails"] if code == 200 else []:
                 email = clean_email(raw)
                 if email and (venue_inbox(email, domain) or names_venue(email, v["name"], domain)):
-                    src = {"uri": page, **({"found_by": "ai"} if how == "ai" else {})}
+                    src = {"uri": page, "call_id": call_id, **({"freemail": True} if how == "freemail" else {})}
                     cands.append(Candidate(email, "website", "generic", purpose(email)[1], sources=[src]))
             # Hunter domain search, capped per run (CON-02, CON-06)
             if hunter_key and domain:
@@ -271,22 +262,35 @@ async def find_contacts(ctx: RunContext, venue_ids: list[str]) -> dict[str, Any]
                     checked.append("hunter")
                     hunter_used += 1
                     try:
-                        found, _ = await hunter.domain_search(ctx.pool, ctx.svc.http, hunter_key, domain,
-                                                              run_id=ctx.run_id, emit=ctx.emit)
+                        found, hcall = await hunter.domain_search(ctx.pool, ctx.svc.http, hunter_key, domain,
+                                                                  run_id=ctx.run_id, emit=ctx.emit)
                         keep = [h for h in found if hunter.is_role(h.position) or h.type == "generic"]
                         for h in keep:
-                            cands.append(Candidate(h.value, "hunter", h.type, h.position, h.confidence, h.verification, h.sources))
+                            cands.append(Candidate(h.value, "hunter", h.type, h.position, h.confidence, h.verification,
+                                                   [{**src, "call_id": hcall} for src in h.sources] or [{"call_id": hcall}]))
                     except hunter.HunterClaimed:
                         await suppress(ctx.pool, ctx.workspace_id, "domain", domain, "claimed_email")
                         sup_domains.add(domain)
                         status = "suppressed"
-        # Last resort: a web search, when nothing above found an address (uses the LLM key; cached 14 days)
+        # Last resort: a web search, when nothing above found an address (uses the LLM key; cached 14 days). Snippets
+        # are never trusted: each result page is fetched like a venue page and only addresses read on it count.
         if status != "suppressed" and not cands and web_search.enabled(s):
             checked.append("web search")
             results = await web_search.search(ctx.pool, ctx.svc.http, s, f'"{v["name"]}" {ctx.city.get("name", "")} email',
                                               run_id=ctx.run_id, emit=ctx.emit)
-            for email, url in emails_from_results(results, v["name"], domain):
-                cands.append(Candidate(email, "web", "generic", purpose(email)[1], sources=[{"uri": url, "found_by": "web_search"}]))
+            for r in list({r["url"]: r for r in results if r["url"].startswith(("http://", "https://"))}.values())[:3]:
+                async def one(url: str = r["url"]) -> tuple[int, Any]:
+                    try:
+                        return 200, {"emails": [list(x) for x in emails_in(await reader.fetch(url))]}
+                    except AppError as err:
+                        return 422, {"error": err.detail}
+
+                code, body, call_id, _ = await cached_call(ctx.pool, "website", "/page_emails", {"url": r["url"], "v": 1},
+                                                           timedelta(days=7), one, run_id=ctx.run_id, emit=ctx.emit)
+                listed: list[tuple[str, str]] = [(e, u) for e, u in body["emails"]] if code == 200 else []
+                for email, url in venue_addresses(listed, v["name"], domain):
+                    cands.append(Candidate(email, "web", "generic", purpose(email)[1],
+                                           sources=[{"uri": url, "found_by": "web_search", "call_id": call_id}]))
         if status != "suppressed":
             cands = [c for c in cands if not is_suppressed(c.email, sup_emails, sup_domains)]
             best = choose(cands, domain)
@@ -301,6 +305,8 @@ async def find_contacts(ctx: RunContext, venue_ids: list[str]) -> dict[str, Any]
                     cands = [c for c in cands if c.email != best.email]
                 best = choose(cands, domain)
             await ctx.pool.execute("delete from contacts where run_id = $1 and venue_id = $2", ctx.rid, vid)
+            await ctx.pool.execute("delete from venue_evidence where run_id = $1 and venue_id = $2 and type = 'contact_source'",
+                                   ctx.rid, vid)
             if best:
                 status = "found"
                 rest = sorted((c for c in cands if c.email != best.email), key=lambda c: purpose(c.email)[0])
@@ -312,12 +318,10 @@ async def find_contacts(ctx: RunContext, venue_ids: list[str]) -> dict[str, Any]
                         uuid.UUID(ctx.workspace_id), ctx.rid, vid, c.email, c.role, c.type, c.source, c.confidence,
                         c.verification, c.sources, c is best,
                     )
-                await ctx.pool.execute(
-                    "insert into venue_evidence (run_id, venue_id, type, label, value, source_kind) "
-                    "values ($1,$2,'contact_source','Where this email was published',$3,'external')",
-                    ctx.rid, vid, {"email": best.email, "source": best.source, "sources": best.sources,
-                                   "verification": best.verification},
-                )
+                await _evidence(ctx, vid, "contact_source", "Where this email was published",
+                                {"email": best.email, "source": best.source, "sources": best.sources,
+                                 "verification": best.verification},
+                                next((src["call_id"] for src in best.sources if src.get("call_id")), None))
         counts[status] = counts.get(status, 0) + 1
         await ctx.pool.execute(
             "insert into contact_checks (run_id, venue_id, status, checked_sources) values ($1,$2,$3,$4) "

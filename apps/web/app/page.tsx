@@ -16,7 +16,7 @@ const STEPS = [
   {
     n: "03",
     title: "You approve every pitch",
-    body: "We find public business emails and draft short pitches that only use the evidence on screen. You edit, approve and send them yourself.",
+    body: "We find public business emails and draft short pitches that only use the evidence on screen. You edit and approve them, then send from your own Gmail.",
   },
 ];
 
