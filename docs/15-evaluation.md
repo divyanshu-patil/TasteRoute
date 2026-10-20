@@ -127,3 +127,20 @@ Written after the main test result above and before any cultural-fit number exis
 | Q-fit+C | The mean of the Q-fit and Q-cult positions (the same rule as Q-fit+LLM; no weights to tune) |
 
 **Rule:** cultural fit enters `fit` only if Q-fit+C puts more test accounts in its top 30 than Q-fit (summed over the scored test brands) **and** no fewer on either dev brand. Otherwise it stays an explanation (a reason clause and a venue card) and does not change any score. Same pools, accounts, metrics and tie-break as above.
+
+### Taste heatmap (score plan; pre-registered 2026-10-20, before it was run on any brand)
+
+Written after the main test and the cultural-fit result, and before any heatmap number existed for these brands. The only heatmap calls so far are three probes and the sample run's route, both for Fieldnote Drinks Co.'s comparables. The question: does *where* a brand's fans concentrate, from Qloo's heatmap, find accounts that venue-level taste and an LLM miss?
+
+| Method | How |
+|---|---|
+| Q-heat | Heatmap lift at the venue. Two heatmap queries for Brooklyn (`filter.type=urn:heatmap`, `filter.location.query=Brooklyn`): one with the comparables as the signal, one with the mass-market brands. Lift = comparables affinity − mass-market affinity in each cell both return, inside the Brooklyn box. Each venue takes the lift of its nearest such cell. This is the same calculation as the app's taste route (`services/route.py`). A venue without coordinates counts as the lowest. |
+| Q-fit+H | The mean of the Q-fit and Q-heat positions (the same rule as Q-fit+LLM and Q-fit+C; no weights to tune) |
+
+Ties are broken by the same fixed hash as every other method. Same pools, accounts and metrics as above. Two Qloo calls per brand; the mass-market heatmap is shared, so about 6 in all.
+
+**Rule:** the heatmap counts as helping only if Q-fit+H puts more test accounts in its top 30 than **both** Q-fit and the LLM (8 each, summed over the three scored test brands) **and** no fewer than Q-fit on either dev brand.
+- **If it holds:** the README and Devpost may say so, and the results page gets a "Fit + heatmap" sort (the default stays fit).
+- **If it doesn't:** the heatmap stays a route and a map layer.
+
+Either way the result is published in `docs/evaluation-stockists.md`. Q-heat alone is reported but is not part of the rule.
