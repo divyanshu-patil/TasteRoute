@@ -5,6 +5,7 @@ from .models import Brand, InsightsBody, Place, SearchBody, TagAffinity, TagInsi
 
 PLACE = "urn:entity:place"
 ARTIST = "urn:entity:artist"
+HEATMAP = "urn:heatmap"
 MAX_TAKE = 50  # D-02: live API rejects take > 50
 
 
@@ -55,6 +56,22 @@ async def taste_entities(
     params: Params = [("filter.type", entity_type), ("signal.interests.entities", ",".join(signal_ids)), ("take", str(take))]
     r = await client.get("/v2/insights", params, trace)
     return InsightsBody.model_validate(r.body).results.entities[:take], r.call_id
+
+
+async def heatmap(
+    client: QlooClient, *, city_query: str, signal_ids: list[str], trace: Trace | None = None
+) -> tuple[dict[str, tuple[float, float, float]], str]:
+    """Qloo's taste heatmap of a city: {geohash: (lat, lon, affinity)}, one cell about 150 m across, affinity a 0-1 rank
+    among the city's cells. A signal is required (QLO-11)."""
+    params: Params = [("filter.type", HEATMAP), ("filter.location.query", city_query),
+                      ("signal.interests.entities", ",".join(signal_ids))]
+    r = await client.get("/v2/insights", params, trace)
+    cells = {}
+    for c in (r.body.get("results") or {}).get("heatmap") or []:
+        loc, q = c.get("location") or {}, c.get("query") or {}
+        if loc.get("geohash") and q.get("affinity") is not None:
+            cells[loc["geohash"]] = (float(loc["latitude"]), float(loc["longitude"]), float(q["affinity"]))
+    return cells, r.call_id
 
 
 async def audience_tags(

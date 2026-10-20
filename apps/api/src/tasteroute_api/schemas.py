@@ -252,6 +252,28 @@ class VenueRow(BaseModel):
                                  "neighbourhood only, for comparison; never part of fit (EVL-06)")
 
 
+class RouteStop(BaseModel):
+    venue_id: str
+    name: str
+    rank: int
+    lat: float
+    lon: float
+
+
+class RouteArea(BaseModel):
+    name: str
+    lift: int = Field(description="Mean heatmap lift at the area's venues, in percentile points: the brand signal's "
+                                  "affinity rank minus the mass-market brands' (QLO-11)")
+    walk_km: float = Field(description="Straight-line walk between the stops, in order")
+    stops: list[RouteStop]
+
+
+class RouteOut(BaseModel):
+    areas: list[RouteArea] = Field(description="Walkable areas in suggested visiting order, strongest taste hotspot first")
+    heat: list[list[float]] = Field(description="[lat, lon, lift] for heatmap cells where the brand's taste beats mass-market taste")
+    source_call_ids: list[str]
+
+
 class VenuePage(BaseModel):
     items: list[VenueRow]
     total: int

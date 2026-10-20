@@ -237,6 +237,30 @@ async def test_llm_ranking_is_stored_and_never_changes_fit(client, ws, svc):
     assert len(svc.llm.provider.calls) == calls and [v["llm_rank"] for v in again["items"]] == ranks
 
 
+async def test_taste_route_is_stored_and_never_changes_fit(client, ws, svc):
+    """QLO-11: the top venues grouped into walkable areas, ordered by the heatmap lift (brand signal minus mass-market),
+    from two Qloo calls; stored (a second request makes none); fit and rank unchanged."""
+    brand = await make_brand(client, ws, svc)
+    run_id = await scout(client, ws, brand)
+    before = (await client.get(f"/v1/runs/{run_id}/venues", headers=ws)).json()
+    assert (await client.get(f"/v1/runs/{run_id}/route", headers=ws)).json() is None
+    route = (await client.post(f"/v1/runs/{run_id}/route", headers=ws)).json()
+    heat = await svc.pool.fetchval("select count(*) from qloo_calls where run_id = $1 and step = 'taste_route'", uuid.UUID(run_id))
+    assert heat == 2
+    stops = [x for a in route["areas"] for x in a["stops"]]
+    top = [v for v in before["items"] if v["lat"] is not None][:15]
+    assert sorted(x["venue_id"] for x in stops) == sorted(v["venue_id"] for v in top)
+    assert [a["lift"] for a in route["areas"]] == sorted((a["lift"] for a in route["areas"]), reverse=True)
+    assert route["heat"] and all(c[2] > 0 for c in route["heat"])
+    again = (await client.post(f"/v1/runs/{run_id}/route", headers=ws)).json()
+    assert again == route == (await client.get(f"/v1/runs/{run_id}/route", headers=ws)).json()
+    assert await svc.pool.fetchval("select count(*) from qloo_calls where run_id = $1 and step = 'taste_route'",
+                                   uuid.UUID(run_id)) == 2
+    after = (await client.get(f"/v1/runs/{run_id}/venues", headers=ws)).json()
+    assert [(v["venue_id"], v["fit"], v["rank"]) for v in after["items"]] == \
+        [(v["venue_id"], v["fit"], v["rank"]) for v in before["items"]]
+
+
 async def test_chains_are_hidden_and_counted_and_cafes_lead_with_a_dry_product(client, ws, svc):
     """RNK-09: chain venues leave the default list and are counted; with show_hidden they come back after the rest.
     At a café, an alcoholic product never leads when a non-alcoholic one was scored."""

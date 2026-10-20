@@ -2,6 +2,7 @@
 
 uv run python scripts/seed_demo.py [--outreach 8]
 uv run python scripts/seed_demo.py --redraft RUN_ID   # rewrite the drafts of an existing sample's contacted venues
+uv run python scripts/seed_demo.py --route RUN_ID     # add the taste route to an existing sample (2 Qloo calls)
 Prints the run id for DEMO_RUN_ID and how many live calls were spent.
 """
 
@@ -15,6 +16,7 @@ from tasteroute_api.main import Services, build_services, close_services
 from tasteroute_api.qloo.client import Trace
 from tasteroute_api.scoring import SCORING_VERSION
 from tasteroute_api.services import compare
+from tasteroute_api.services import route as route_service
 from tasteroute_api.services import runs as run_service
 from tasteroute_api.services.intake import propose
 from tasteroute_api.services.resolve import resolve_product
@@ -50,7 +52,7 @@ async def redraft(svc: Services, run_id: str) -> None:
     print(f"redrafted {len(ids)} venues")
 
 
-async def main(outreach: int, redo: str | None) -> None:
+async def main(outreach: int, redo: str | None, route: str | None) -> None:
     s = get_settings()
     pool = await db.open_pool(s.database_url, s.db_statement_cache_size)
     svc = build_services(s, pool)
@@ -59,6 +61,11 @@ async def main(outreach: int, redo: str | None) -> None:
         if redo:
             await redraft(svc, redo)
             print("llm calls:", await pool.fetchval("select count(*) from llm_calls where created_at >= $1", t0))
+            return
+        if route:
+            areas = (await route_service.taste_route(svc, route))["areas"]
+            print([(a["name"], a["lift"], len(a["stops"])) for a in areas])
+            print("qloo calls:", await pool.fetchval("select count(*) from qloo_calls where not cache_hit and created_at >= $1", t0))
             return
         ws = await pool.fetchval("select id from workspaces where kind = 'demo' order by created_at limit 1") \
             or await pool.fetchval("insert into workspaces (kind) values ('demo') returning id")
@@ -94,6 +101,7 @@ async def main(outreach: int, redo: str | None) -> None:
         if run["status"] in ("scouted", "done"):  # the sample shows the LLM column without a click (EVL-06)
             ranks = await compare.llm_ranking(svc, rid)
             print(f"llm ranking: {len(ranks)} venues")
+            print(f"route: {len((await route_service.taste_route(svc, rid))['areas'])} areas")
         if run["status"] == "scouted" and outreach:
             top = [str(r["venue_id"]) for r in await pool.fetch(
                 "select venue_id from venue_scores where run_id = $1 order by rank limit $2", run_id, outreach)]
@@ -115,5 +123,6 @@ if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("--outreach", type=int, default=8, help="top venues to find contacts and drafts for")
     ap.add_argument("--redraft", metavar="RUN_ID", help="only rewrite the drafts of this existing run")
+    ap.add_argument("--route", metavar="RUN_ID", help="only add the taste route to this existing run")
     a = ap.parse_args()
-    asyncio.run(main(a.outreach, a.redraft))
+    asyncio.run(main(a.outreach, a.redraft, a.route))

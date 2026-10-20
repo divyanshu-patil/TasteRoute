@@ -479,6 +479,31 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/v1/runs/{run_id}/route": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Route
+         * @description The stored taste route, or null when none was planned (QLO-11). Never calls Qloo.
+         */
+        get: operations["get_route_v1_runs__run_id__route_get"];
+        put?: never;
+        /**
+         * Taste Route
+         * @description QLO-11: the top venues grouped into walkable areas, ordered by Qloo's taste heatmap (brand signal minus mass-market
+         *     brands). Two Qloo calls, stored on the run; it never changes a score. The sample run serves its stored route.
+         */
+        post: operations["taste_route_v1_runs__run_id__route_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/v1/runs/{run_id}/trace": {
         parameters: {
             query?: never;
@@ -1058,6 +1083,51 @@ export interface components {
              * @enum {string}
              */
             status: "resolved" | "unresolved";
+        };
+        /** RouteArea */
+        RouteArea: {
+            /**
+             * Lift
+             * @description Mean heatmap lift at the area's venues, in percentile points: the brand signal's affinity rank minus the mass-market brands' (QLO-11)
+             */
+            lift: number;
+            /** Name */
+            name: string;
+            /** Stops */
+            stops: components["schemas"]["RouteStop"][];
+            /**
+             * Walk Km
+             * @description Straight-line walk between the stops, in order
+             */
+            walk_km: number;
+        };
+        /** RouteOut */
+        RouteOut: {
+            /**
+             * Areas
+             * @description Walkable areas in suggested visiting order, strongest taste hotspot first
+             */
+            areas: components["schemas"]["RouteArea"][];
+            /**
+             * Heat
+             * @description [lat, lon, lift] for heatmap cells where the brand's taste beats mass-market taste
+             */
+            heat: number[][];
+            /** Source Call Ids */
+            source_call_ids: string[];
+        };
+        /** RouteStop */
+        RouteStop: {
+            /** Lat */
+            lat: number;
+            /** Lon */
+            lon: number;
+            /** Name */
+            name: string;
+            /** Rank */
+            rank: number;
+            /** Venue Id */
+            venue_id: string;
         };
         /** RunCreated */
         RunCreated: {
@@ -2265,6 +2335,68 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["VenuePage"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_route_v1_runs__run_id__route_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                run_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["RouteOut"] | null;
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    taste_route_v1_runs__run_id__route_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                run_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["RouteOut"];
                 };
             };
             /** @description Validation Error */

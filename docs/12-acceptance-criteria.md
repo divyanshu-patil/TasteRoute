@@ -150,6 +150,7 @@ Each criterion has an ID, a measurable statement, how it is checked, and a prior
 | QLO-07 | `docs/qloo-contract.md` exists with verified parameters and fixtures for every endpoint used | Review | MVP |
 | QLO-08 | The per-run live-call cap holds under parallel calls (10 parallel calls, cap 5 → at most 5 live) | `test_parallel_calls_never_exceed_the_run_cap` | MVP |
 | QLO-10 | Insights paging (`page=2` with `take=50`) is verified and recorded | Probe + `docs/qloo-contract.md` | Stretch |
+| QLO-11 | Taste route: two heatmap queries (brand signal, mass-market brands) give a per-cell lift; the top 15 venues are grouped into walkable areas (1.2 km), strongest hotspot first, walked nearest-next from the best-ranked venue; stored on the run and never changes a score | Probe + unit test `test_route_groups_walkable_areas_and_orders_them_by_heatmap_lift`, API test `test_taste_route_is_stored_and_never_changes_fit` | Stretch |
 | QLO-09 | Cross-domain insights (artists, podcasts, a venue as signal, venues scored by artist fans) are probed and recorded | Probe + `docs/qloo-contract.md` | MVP |
 | QLO-12 | An ambiguous US city name that lands Qloo in another city (every venue outside the bounding box) is asked again as "name, state" | Probe + unit test `test_ambiguous_us_city_gets_its_state`; live Portland, Maine run | MVP |
 

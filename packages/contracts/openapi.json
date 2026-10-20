@@ -1384,6 +1384,109 @@
         "title": "ResolutionOut",
         "type": "object"
       },
+      "RouteArea": {
+        "properties": {
+          "lift": {
+            "description": "Mean heatmap lift at the area's venues, in percentile points: the brand signal's affinity rank minus the mass-market brands' (QLO-11)",
+            "title": "Lift",
+            "type": "integer"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "stops": {
+            "items": {
+              "$ref": "#/components/schemas/RouteStop"
+            },
+            "title": "Stops",
+            "type": "array"
+          },
+          "walk_km": {
+            "description": "Straight-line walk between the stops, in order",
+            "title": "Walk Km",
+            "type": "number"
+          }
+        },
+        "required": [
+          "name",
+          "lift",
+          "walk_km",
+          "stops"
+        ],
+        "title": "RouteArea",
+        "type": "object"
+      },
+      "RouteOut": {
+        "properties": {
+          "areas": {
+            "description": "Walkable areas in suggested visiting order, strongest taste hotspot first",
+            "items": {
+              "$ref": "#/components/schemas/RouteArea"
+            },
+            "title": "Areas",
+            "type": "array"
+          },
+          "heat": {
+            "description": "[lat, lon, lift] for heatmap cells where the brand's taste beats mass-market taste",
+            "items": {
+              "items": {
+                "type": "number"
+              },
+              "type": "array"
+            },
+            "title": "Heat",
+            "type": "array"
+          },
+          "source_call_ids": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Source Call Ids",
+            "type": "array"
+          }
+        },
+        "required": [
+          "areas",
+          "heat",
+          "source_call_ids"
+        ],
+        "title": "RouteOut",
+        "type": "object"
+      },
+      "RouteStop": {
+        "properties": {
+          "lat": {
+            "title": "Lat",
+            "type": "number"
+          },
+          "lon": {
+            "title": "Lon",
+            "type": "number"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "rank": {
+            "title": "Rank",
+            "type": "integer"
+          },
+          "venue_id": {
+            "title": "Venue Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "venue_id",
+          "name",
+          "rank",
+          "lat",
+          "lon"
+        ],
+        "title": "RouteStop",
+        "type": "object"
+      },
       "RunCreated": {
         "properties": {
           "run_id": {
@@ -3528,6 +3631,92 @@
           }
         },
         "summary": "Rescore"
+      }
+    },
+    "/v1/runs/{run_id}/route": {
+      "get": {
+        "description": "The stored taste route, or null when none was planned (QLO-11). Never calls Qloo.",
+        "operationId": "get_route_v1_runs__run_id__route_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "run_id",
+            "required": true,
+            "schema": {
+              "title": "Run Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/RouteOut"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "title": "Response Get Route V1 Runs  Run Id  Route Get"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Get Route"
+      },
+      "post": {
+        "description": "QLO-11: the top venues grouped into walkable areas, ordered by Qloo's taste heatmap (brand signal minus mass-market\nbrands). Two Qloo calls, stored on the run; it never changes a score. The sample run serves its stored route.",
+        "operationId": "taste_route_v1_runs__run_id__route_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "run_id",
+            "required": true,
+            "schema": {
+              "title": "Run Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RouteOut"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Taste Route"
       }
     },
     "/v1/runs/{run_id}/trace": {

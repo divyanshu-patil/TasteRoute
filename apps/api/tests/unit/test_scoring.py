@@ -168,3 +168,22 @@ def test_brand_extension_must_fit_the_product():
     assert names.similarity("chipotle sauce", "Chipotle", "chipotle sauce hot sauce", query_may_extend=False) < 0.85
     assert not names.is_match("Health-Ade", "Health", "ginger kombucha")
     assert names.is_match("Kaigo", "Kaigo Coffee Room")  # venues (no context) keep the old rule
+
+
+def test_route_groups_walkable_areas_and_orders_them_by_heatmap_lift():
+    """QLO-11: venues within walking distance share an area; areas go strongest taste hotspot first; inside an area the
+    walk starts at the best-ranked venue and goes to the nearest next."""
+    from tasteroute_api.services.route import plan
+    v = [  # two venues in Carroll Gardens, one in Bushwick (about 6 km away)
+        {"venue_id": "a", "name": "A", "rank": 1, "lat": 40.6795, "lon": -73.9990, "nb": "Carroll Gardens"},
+        {"venue_id": "b", "name": "B", "rank": 2, "lat": 40.6950, "lon": -73.9180, "nb": None},
+        {"venue_id": "c", "name": "C", "rank": 3, "lat": 40.6830, "lon": -73.9960, "nb": "Carroll Gardens"},
+    ]
+    cells = [(40.680, -73.998, -0.2), (40.695, -73.918, 0.6)]  # Bushwick's taste beats mass-market taste more
+    areas = plan(v, cells)
+    assert [a["name"] for a in areas] == ["Around B", "Carroll Gardens"]
+    assert [a["lift"] for a in areas] == [60, -20]
+    assert [x["venue_id"] for x in areas[1]["stops"]] == ["a", "c"] and areas[1]["walk_km"] == 0.5
+    far = {**v[1], "venue_id": "d", "rank": 4, "nb": "Carroll Gardens", "lat": 40.6950, "lon": -73.9170}
+    named = plan([v[0], {**far, "lon": -73.95}], cells)  # two areas called Carroll Gardens; the second is nearer the hotspot
+    assert [a["name"] for a in named] == ["Carroll Gardens", "Around A"]

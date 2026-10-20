@@ -28,6 +28,7 @@ const TOUR: TourStep[] = [
   { target: "signal", title: "The taste signal", body: "Qloo matched each product to brands it knows, or to real comparable brands when a product is too new. Venues rank by how much their guests share these brands' fans' taste." },
   { target: "map", title: "Where they are", body: "Every ranked venue. The top 10 are numbered by rank, venues you select turn yellow, and the mint pin is your business, if you set one. Open a pin for its scores and distance." },
   { target: "table", title: "Fit and lift", body: "Fit is 70% taste (Qloo affinity percentile for your brands) and 30% lift. Lift compares the same venues under mass-market brands like Coca-Cola and Starbucks, so a venue doesn't rank high just because everyone likes it. Chains are hidden unless you show them." },
+  { target: "route", title: "A route for the week", body: "The top 15 grouped into walkable areas, strongest taste hotspot first. The shading is Qloo's heatmap: where your brands' fans concentrate more than mass-market brands' fans. The ranking doesn't change." },
   { target: "llm", title: "Next to an LLM", body: "An LLM ranked the same venues from their names, types and neighbourhoods only. \"Only TasteRoute ranks this high\" marks venues in our top 15 that the LLM put below 30. On real stockists the two tied; the link shows the test." },
   { target: "reason", title: "Why each venue", body: "Open a reason to see what Qloo said and what is our inference. Each label links to the call in the trace." },
   { target: "weights", title: "Re-weight for free", body: "Shift the balance between taste and lift. Scores are recomputed from stored answers, with no new Qloo calls." },
@@ -48,6 +49,9 @@ export default function RunPage() {
   const [showHidden, setShowHidden] = useState(false);
   const [llmBusy, setLlmBusy] = useState(false);
   const [pageError, setPageError] = useState<ApiError | null>(null);
+  const [route, setRoute] = useState<S["RouteOut"] | null>(null);
+  const [routeBusy, setRouteBusy] = useState(false);
+  const [showHeat, setShowHeat] = useState(true);
   const [attempt, setAttempt] = useState(0);
 
   const ready = run && ["scouted", "done", "outreach_running"].includes(run.status);
@@ -62,6 +66,14 @@ export default function RunPage() {
       alive = false;
     };
   }, [id, ready, showHidden, attempt]);
+  useEffect(() => {
+    if (!ready) return;
+    let alive = true;
+    api<S["RouteOut"] | null>(`/v1/runs/${id}/route`).then((r) => alive && setRoute(r)).catch(() => undefined); // optional extra
+    return () => {
+      alive = false;
+    };
+  }, [id, ready]);
 
   const base = run?.base ?? null;
   const away = useCallback(
@@ -119,6 +131,17 @@ export default function RunPage() {
     }
   };
 
+  const planRoute = async () => {
+    setRouteBusy(true);
+    try {
+      setRoute(await api<S["RouteOut"]>(`/v1/runs/${id}/route`, { method: "POST" }));
+    } catch (e) {
+      setActionError(e instanceof ApiError ? e.detail || e.title : "Could not plan the route");
+    } finally {
+      setRouteBusy(false);
+    }
+  };
+
   const retry = async () => {
     if (!run) return;
     try {
@@ -149,6 +172,7 @@ export default function RunPage() {
     })).concat(base ? [{ id: "base", lat: base.lat, lon: base.lon, label: "You", title: base.label, sub: base.detail, base: true }] : []),
     [rows, selected, id, base, away],
   );
+  const routePath = useMemo(() => route?.areas.map((a) => a.stops.map((x) => [x.lat, x.lon])), [route]);
 
   return (
     <RunShell run={run} error={error} tab="results" online={online}>
@@ -266,7 +290,51 @@ export default function RunPage() {
                 <h2 id="map-h" className="label">Map</h2>
                 <span className="mono faint">{pins.length - (base ? 1 : 0)} venues · top 10 and your picks numbered{base ? " · You = your business" : ""}</span>
               </div>
-              <VenueMap pins={pins} label="Map of the ranked venues" height={480} />
+              <VenueMap pins={pins} label="Map of the ranked venues" height={480} heat={route && showHeat ? route.heat : undefined} path={routePath} />
+            </section>
+          )}
+
+          {(route || !run.is_demo) && (
+            <section className="card stack-s" aria-labelledby="route-h" data-tour="route">
+              <div className="row between">
+                <h2 id="route-h" className="label">Taste route</h2>
+                {route && (
+                  <label className="row small" style={{ gap: 6 }}>
+                    <input type="checkbox" checked={showHeat} onChange={(e) => setShowHeat(e.target.checked)} /> Taste heatmap on the map
+                  </label>
+                )}
+              </div>
+              {route ? (
+                <>
+                  <p className="small muted" style={{ maxWidth: "75ch" }}>
+                    The top {route.areas.reduce((n, a) => n + a.stops.length, 0)} grouped into walkable areas, strongest taste hotspot first: where Qloo&apos;s heatmap shows
+                    your brands&apos; fans concentrating more than mass-market brands&apos; fans (shaded on the map, darker is stronger). One area per visit; the dashed lines are its walk, in straight lines. The ranking doesn&apos;t change.
+                  </p>
+                  <ol className="route">
+                    {route.areas.map((a) => (
+                      <li key={a.stops[0]?.venue_id ?? a.name}>
+                        <div className="row between">
+                          <strong>{a.name}</strong>
+                          <span className="mono faint">
+                            <Tip label={`${a.lift > 0 ? "+" : ""}${a.lift} hotspot`}>Qloo heatmap at these venues: your brands&apos; affinity rank minus mass-market brands&apos;, in percentile points.</Tip>
+                            {" · "}{a.stops.length} {a.stops.length === 1 ? "venue" : "venues"}{a.walk_km ? ` · ${a.walk_km} km walk` : ""}
+                          </span>
+                        </div>
+                        <span className="small">
+                          {a.stops.map((x, i) => (
+                            <span key={x.venue_id}>{i > 0 && " → "}<Link className="link" href={`/runs/${id}/venues/${x.venue_id}`}>{x.name}</Link> <span className="mono faint">#{x.rank}</span></span>
+                          ))}
+                        </span>
+                      </li>
+                    ))}
+                  </ol>
+                </>
+              ) : (
+                <div className="row between">
+                  <p className="small muted">Group the top 15 into walkable areas, ordered by Qloo&apos;s taste heatmap. Two Qloo calls; the ranking doesn&apos;t change.</p>
+                  <button className="btn-ghost btn-sm" onClick={planRoute} disabled={routeBusy} aria-busy={routeBusy}>{routeBusy ? "Planning…" : "Plan a taste route"}</button>
+                </div>
+              )}
             </section>
           )}
 

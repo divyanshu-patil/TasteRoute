@@ -29,6 +29,7 @@ import pytest  # noqa: E402
 import respx  # noqa: E402
 
 from tasteroute_api import db  # noqa: E402
+from tasteroute_api.categories import default_pack  # noqa: E402
 from tasteroute_api.external import website  # noqa: E402
 from tasteroute_api.llm import LLMResult  # noqa: E402
 from tasteroute_api.main import app, build_services, close_services  # noqa: E402
@@ -53,7 +54,8 @@ class FakeQloo:
     """Serves recorded fixtures by normalised params. Three documented synthetic cases:
     /search for a name with no fixture returns no results; filter.results.entities (per-product fit) returns the
     requested recorded places with a deterministic affinity per (signal, venue), and explainability when asked;
-    an artist query returns the recorded artists for any signal. Anything else fails the test."""
+    an artist query returns the recorded artists for any signal; a heatmap returns the recorded Brooklyn heatmap for the
+    mass-market brands, or the recorded brand-signal one for any other signal. Anything else fails the test."""
 
     def __init__(self) -> None:
         self.exact: dict[Any, Any] = {}
@@ -101,6 +103,10 @@ class FakeQloo:
                             for s in signal.split(",")]}
                     out.append({**self.places[vid], "query": q})
             return httpx.Response(200, json={"success": True, "results": {"entities": out}})
+        if path == "/v2/insights" and p.get("filter.type") == "urn:heatmap":
+            mass = set(p["signal.interests.entities"].split(",")) == set(default_pack().baseline_entities)
+            name = "probe_heatmap_bk_massmarket" if mass else "probe_heatmap_bk_signal"
+            return httpx.Response(200, json=json.loads((FIX / f"qloo/{name}.json").read_text())["body"])
         if path == "/v2/insights" and p.get("filter.type") == "urn:entity:artist":
             return httpx.Response(200, json=json.loads((FIX / "qloo/insights_artists_for_signal.json").read_text())["body"])
         raise AssertionError(f"No Qloo fixture for {path} {sorted(params)}")

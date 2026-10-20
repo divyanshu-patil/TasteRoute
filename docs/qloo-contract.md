@@ -102,6 +102,13 @@ Probed 2026-10-20 with the sample run's 9 comparables (4 calls, fixtures `insigh
 - Place insights with `filter.results.entities=<ranked venues>`, `signal.interests.entities=<top 5 artists>` and `feature.explainability=true` score 29 of 30 bars (affinity 0.78–0.85) and say which artists drive each. The artists' explainability scores are close together (0.18–0.23), so per-venue names vary little.
 - For the stockist brands, the top artists are national tastes: country singers for both a whiskey and a rosé (Montgomery Gentry, Faith Hill). The stockist backtest found that ranking by them does not find more accounts (D-30).
 
+## `GET /v2/insights` heatmap (QLO-11, probed 2026-10-20, 3 calls)
+
+- `filter.type=urn:heatmap&filter.location.query=Brooklyn&signal.interests.entities=<ids>` returns `results.heatmap`: a list of `{location: {latitude, longitude, geohash}, query: {affinity, affinity_rank, popularity, entity_brand_affinity, entity_brand_affinity_rank}}`. Geohash precision 7 (about 150 m). Fixture: `probe_heatmap_bk_signal.json` (four of the sample's brands, 1,438 cells inside the Brooklyn box).
+- `affinity` and `popularity` are 0–1 ranks among the returned cells; `popularity` is re-ranked per call, so it is not comparable across calls.
+- **A signal is required:** without one the API returns 400, "at least one valid signal and filter.location or filter.location.query is required for heatmap insight" (`probe_heatmap_bk_nosignal.json`).
+- The mass-market brands as the signal (`probe_heatmap_bk_massmarket.json`) return 2,815 cells; 1,426 are shared with the brand heatmap. Over those, Spearman(brand affinity, mass-market affinity) = 0.14, while brand affinity vs its own popularity is 0.87. So lift = brand affinity − mass-market affinity (as D-23) is used, not affinity − popularity. Highest lift: Bushwick, Carroll Gardens and Gowanus, Red Hook, East Williamsburg, Greenpoint; lowest: south Brooklyn (Bensonhurst, Bay Ridge, Brighton Beach).
+
 ## Phase 0 measurements (Brooklyn)
 
 | Spike | Result | Pass? |

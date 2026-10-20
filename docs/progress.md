@@ -93,11 +93,16 @@ H2a: the sample brand in Brooklyn, Chicago and Los Angeles (`scripts/coverage_ci
 H2b: tour steps for the LLM column, the shared-tastes card and `/evaluation` (the trace tour now ends there; `/evaluation` gained "Start your own run"); screenshots retaken from a local production build; 5 Devpost gallery images (3:2) in `docs/screenshots/devpost/`.
 H3: Devpost: cited figures (Eightx, June 2026; ACSA and Park Street, October 6, 2026, newer than the figures in the plan: 2,131 distillers), try-it line, cross-domain step, path to use with measured calls per run, how it's different, Lighthouse line.
 
+## Score plan E3 (taste route) — done 2026-10-20
+
+Probed first (3 calls, `docs/qloo-contract.md`): the heatmap needs a signal; the brand and mass-market heatmaps differ (Spearman 0.14). `POST /v1/runs/{id}/route` makes two heatmap calls, groups the top 15 into walkable areas, orders them by heatmap lift and stores the result (`runs.route`, new migration); `GET` returns it without calls. Results page: a "Taste route" card with the areas and their walks, a heatmap layer and per-area dashed walks on the map, a tour step; "Plan a taste route" on live runs. Sample: 7 areas, Bushwick first (+80), Carroll Gardens 8 venues on a 3.5 km walk; 2 Qloo calls. QLO-11 passes (D-34). Lighthouse rerun on the new sample: accessibility 100 on all 7 pages, performance 87–96.
+
 ## Budget used
 
 | Service | Calls |
 |---|---|
 | Qloo (score plan C–D) | 445 live: 5 probes (place search, page 5, page 10), 6 lift measurement, 4 baseline-brand searches and 1 paging probe, 429 stockist backtest (dev runs 170 + 64 + 35, test 150, re-runs cached) |
+| Qloo (score plan E3) | 5 live: 3 heatmap probes, 2 for the sample's route |
 | Qloo (score plan G–H) | 40 live: 9 sample reseed, 27 coverage cities (Brooklyn mostly cached), 4 mass-market readings for `evaluate.py` |
 | Ollama Cloud (score plan G–H) | 166: 36 sample reseed, 36 two redrafts of the sample, about 82 coverage cities and wizard, 12 `evaluate.py` setup C |
 | Web (score plan G–H) | 110 venue pages, 22 web searches, 2 Overpass, 1 Nominatim |

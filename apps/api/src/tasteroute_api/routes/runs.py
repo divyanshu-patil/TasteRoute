@@ -24,6 +24,7 @@ from ..schemas import (
     DraftPatch,
     EventsToken,
     EvidenceOut,
+    RouteOut,
     RunCreated,
     RunIn,
     RunOut,
@@ -40,6 +41,7 @@ from ..schemas import (
 from ..scoring import SCORING_VERSION, buyability, rank
 from ..security import EVENTS_TTL_S, ip_hash, sign_events, verify_events, workspace_id
 from ..services import compare
+from ..services import route as route_service
 from ..services import runs as run_service
 from ..services.contacts import is_suppressed, suppression_sets
 from ..services.drafts import DraftLocked, next_status
@@ -341,6 +343,28 @@ async def _ranked_ids(s: Services, rid: uuid.UUID, ids: list[str]) -> list[str]:
     if len(found) != len(set(ids)):
         raise ValidationFailed("venue_ids must belong to this run")
     return [v for v in dict.fromkeys(ids)]
+
+
+@router.get("/runs/{run_id}/route", response_model=RouteOut | None)
+async def get_route(run_id: str, ws: str = Depends(workspace_id), s: Services = Depends(svc)) -> RouteOut | None:
+    """The stored taste route, or null when none was planned (QLO-11). Never calls Qloo."""
+    r = await get_run(s, ws, run_id)
+    return RouteOut.model_validate(r["route"]) if r["route"] else None
+
+
+@router.post("/runs/{run_id}/route", response_model=RouteOut)
+async def taste_route(run_id: str, request: Request, ws: str = Depends(workspace_id), s: Services = Depends(svc)) -> RouteOut:
+    """QLO-11: the top venues grouped into walkable areas, ordered by Qloo's taste heatmap (brand signal minus mass-market
+    brands). Two Qloo calls, stored on the run; it never changes a score. The sample run serves its stored route."""
+    r = await get_run(s, ws, run_id)
+    stored = r["route"]
+    if not stored:
+        r = await get_run(s, ws, run_id, write=True)
+        if r["status"] not in ("scouted", "done"):
+            raise Conflict(f"Run is {r['status']}.")
+        rate(request, "route", 10, 3600)
+        stored = await route_service.taste_route(s, run_id)
+    return RouteOut.model_validate(stored)
 
 
 @router.post("/runs/{run_id}/contacts", response_model=Accepted, status_code=202)

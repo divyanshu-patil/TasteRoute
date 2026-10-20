@@ -282,6 +282,8 @@ table.t { width: 100%; border-collapse: collapse; font-size: 14px; }
 .pfit .fill.alt { background: var(--ash); }
 
 /* ---------- evidence ---------- */
+.route { list-style: decimal; margin: 0; padding-left: 22px; display: grid; gap: 12px; }
+.route li { display: grid; gap: 4px; }
 .evidence { display: grid; grid-template-columns: minmax(0, 1fr); gap: 12px; }
 .ev { background: var(--mist); border-radius: var(--r-card-sm); padding: 16px 20px; display: grid; grid-template-columns: minmax(0, 1fr); gap: 10px; }
 .ev .chips { display: flex; gap: 6px; flex-wrap: wrap; }

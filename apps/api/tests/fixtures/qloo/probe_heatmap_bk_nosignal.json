@@ -1,0 +1,1 @@
+{"request":{"path":"/v2/insights","params":[["filter.type","urn:heatmap"],["filter.location.query","Brooklyn"]]},"status":400,"body":{"errors":[{"message":"at least one valid signal and filter.location or filter.location.query is required for heatmap insight"}]}}

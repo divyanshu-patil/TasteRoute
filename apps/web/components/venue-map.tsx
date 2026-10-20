@@ -6,13 +6,17 @@ import { useEffect, useId, useRef } from "react";
 import { mapStyle } from "../lib/map-style";
 
 export type Pin = { id: string; lat: number; lon: number; label: string; title: string; sub?: string; href?: string; on?: boolean; dot?: boolean; base?: boolean };
-type Props = { pins: Pin[]; label: string; height?: number; bounds?: number[]; onPick?: (lat: number, lon: number) => void };
+type Props = {
+  pins: Pin[]; label: string; height?: number; bounds?: number[]; onPick?: (lat: number, lon: number) => void;
+  heat?: number[][]; // [lat, lon, weight 0-1]: drawn as a heatmap under the pins
+  path?: number[][][]; // walks, each [lat, lon] stops in visiting order: drawn as dashed lines
+};
 type Box = [number, number, number, number]; // [s, w, n, e]
 
 const esc = (s: string) => s.replace(/[&<>"']/g, (c) => `&#${c.charCodeAt(0)};`);
 
 /** MapLibre map in the design system. `bounds` ([s, w, n, e]) is outlined and framed, else it shows the world; `onPick` makes a click choose a point. */
-export function VenueMap({ pins, label, height = 380, bounds, onPick }: Props) {
+export function VenueMap({ pins, label, height = 380, bounds, onPick, heat, path }: Props) {
   const el = useRef<HTMLDivElement>(null);
   const after = `after-map-${useId().replace(/:/g, "")}`;
   const lib = useRef<typeof ML | null>(null);
@@ -22,6 +26,7 @@ export function VenueMap({ pins, label, height = 380, bounds, onPick }: Props) {
   const latest = useRef(pins);
   const area = useRef(bounds);
   const pick = useRef(onPick);
+  const extra = useRef({ heat, path });
   const fitted = useRef({ ids: "", where: "" });
 
   const outline = (m: ML.Map, box: Box | null) => {
@@ -40,12 +45,36 @@ export function VenueMap({ pins, label, height = 380, bounds, onPick }: Props) {
     m.addLayer({ id: "area-line", type: "line", source: "area", paint: { "line-color": css.getPropertyValue("--black").trim(), "line-width": 1.5, "line-dasharray": [3, 3] } });
   };
 
+  const overlays = (m: ML.Map) => {
+    if (!ready.current || !el.current) return;
+    const css = getComputedStyle(el.current);
+    const fc = (features: object[]) => ({ type: "FeatureCollection", features }) as Parameters<ML.GeoJSONSource["setData"]>[0];
+    const { heat: h = [], path: p = [] } = extra.current;
+    const heatData = fc(h.map(([lat, lon, w]) => ({ type: "Feature", properties: { w }, geometry: { type: "Point", coordinates: [lon, lat] } })));
+    const pathData = fc(p.filter((w) => w.length > 1).map((w) => ({ type: "Feature", properties: {}, geometry: { type: "LineString", coordinates: w.map(([lat, lon]) => [lon, lat]) } })));
+    const hs = m.getSource<ML.GeoJSONSource>("heat");
+    if (hs) {
+      hs.setData(heatData);
+      m.getSource<ML.GeoJSONSource>("path")?.setData(pathData);
+      return;
+    }
+    m.addSource("heat", { type: "geojson", data: heatData });
+    m.addLayer({ id: "heat", type: "heatmap", source: "heat", paint: {
+      "heatmap-weight": ["get", "w"], "heatmap-radius": 22, "heatmap-opacity": 0.6,
+      "heatmap-color": ["interpolate", ["linear"], ["heatmap-density"], 0, "rgba(0,0,0,0)", 0.25, css.getPropertyValue("--mint").trim(),
+        0.7, css.getPropertyValue("--smoke").trim(), 1, css.getPropertyValue("--black").trim()],
+    } });
+    m.addSource("path", { type: "geojson", data: pathData });
+    m.addLayer({ id: "path", type: "line", source: "path", paint: { "line-color": css.getPropertyValue("--black").trim(), "line-width": 2, "line-dasharray": [2, 2] } });
+  };
+
   const draw = () => {
     const ml = lib.current, m = map.current;
     if (!ml || !m) return;
     const pts = latest.current;
     const box = area.current?.length === 4 ? (area.current as Box) : null;
     outline(m, box);
+    overlays(m);
     for (const mk of markers.current) mk.remove();
     markers.current = pts.map((p, i) => { // added in list order, so Tab follows the rank; stacking puts rank 1 on top
       const node = document.createElement("div");
@@ -117,8 +146,9 @@ export function VenueMap({ pins, label, height = 380, bounds, onPick }: Props) {
     latest.current = pins;
     area.current = bounds;
     pick.current = onPick;
+    extra.current = { heat, path };
     draw();
-  }, [pins, bounds, onPick]);
+  }, [pins, bounds, onPick, heat, path]);
 
   return (
     <div style={{ position: "relative" }}>
