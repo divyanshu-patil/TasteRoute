@@ -43,3 +43,63 @@ If a target is missed, the README and video say so, and the claim becomes "a tas
 ## Limits of this evaluation
 
 Small samples, one city, a single human judge, and no sales outcomes. It shows whether Qloo changes and plausibly improves targeting, not whether it increases sales. Say this in the README.
+
+## Stockist backtest (pre-registered 2026-10-20, before any test-brand ranking was run)
+
+The A-vs-C test above has no answer key. This one does: real venues that already carry a real brand. The question is the product's question: **given a brand's description and a few well-known comparable brands, which venues in the city carry it?** Brooklyn, food and drink pack.
+
+### Brands and split
+
+Six real brands with public, machine-readable account lists. Lists were opened only to check that they exist and are big enough; no ranking was run before this section was committed. Two **dev** brands may be used to debug and tune the pipeline; the four **test** brands are run once with the frozen pipeline.
+
+| Brand | Split | What it is (as given to every method; no brand name) | Venue types | Ground-truth source |
+|---|---|---|---|---|
+| Kings County Distillery | dev | A small-batch distillery making bourbon, rye and moonshine | bar, restaurant | stockist.co map on the brand's "where to find us" page |
+| Wölffer Estate | dev | A Long Island estate making rosé wines and dry rosé cider | bar, restaurant | Distributor sales locator on the brand's "find us" page (accounts with a recorded sale) |
+| Steven Graf Wine | test | An importer of low-intervention wines from small European and American growers | bar, restaurant | "Our Partners: New York Restaurants & Bars" page |
+| Parlor Coffee | test | A Brooklyn specialty coffee roaster supplying cafés and restaurants | cafe, restaurant | Storemapper map on the brand's "where to find us" page |
+| St. Agrestis | test | Non-alcoholic bottled aperitivo cocktails and a booze-free amaro | bar, restaurant | stockist.co map on the brand's "find" page |
+| Casamara Club | test | Non-alcoholic botanical sodas inspired by Italian amari | bar, restaurant, deli | stockist.co map on the brand's "find" page |
+
+Only accounts with a Brooklyn address count. Retail-only accounts (liquor and grocery stores) stay in the list; they drop out at resolution if Qloo does not tag them with one of the brand's venue types (below), the same rule for every method.
+
+### Comparables (fixed now; never the brand itself)
+
+Each is resolved with Qloo `/search` and the app's name match. If one does not resolve, the next backup in order is used; at least 3 must resolve.
+
+| Brand | Comparables | Backups |
+|---|---|---|
+| Kings County Distillery | Widow Jane, Hudson Whiskey, Woodford Reserve, Bulleit | Maker's Mark |
+| Wölffer Estate | Whispering Angel, Château Miraval, Kim Crawford | Angry Orchard |
+| Steven Graf Wine | Gut Oggau, Martha Stoumen, Broc Cellars, Kermit Lynch Wine Merchant | Scribe Winery, Donkey & Goat |
+| Parlor Coffee | Stumptown Coffee Roasters, Blue Bottle Coffee, Counter Culture Coffee, Intelligentsia Coffee | La Colombe Coffee Roasters |
+| St. Agrestis | Ghia, Lyre's, Seedlip, Campari | Aperol |
+| Casamara Club | Fever-Tree, Q Mixers, Spindrift, Sanpellegrino | Ghia |
+
+### Resolution and pool
+
+1. **Stockists to Qloo places.** Each Brooklyn account is matched first against the pool by name (the app's 0.85 name match) and street number, then, if unmatched, with one Qloo `/search` (`types=urn:entity:place`, `filter.location` = Brooklyn's centre, `filter.radius`). A match needs the name match, a point inside Brooklyn's bounding box, the same street number when both sides have one, and one of the brand's venue-type tags. Unresolved accounts are excluded for every method; coverage is reported as "k of n accounts are known to Qloo".
+2. **One pool per brand.** For each of the brand's venue types: the top 50 Brooklyn places for the comparables signal, the top 50 for the mass-market signal (the pack's generic brands, D-23), the top 50 by popularity (no signal), plus the resolved stockists. Deduplicated. Saved to `docs/eval/pools/<brand>.json` (ids, names, types, neighbourhood). The comparables' own top 50 are in the pool as hard negatives.
+
+### Methods (each ranks the whole pool)
+
+| Method | How |
+|---|---|
+| Q-raw | Qloo affinity for the comparables over the pool (`filter.results.entities`, batches of 50) |
+| **Q-fit** (TasteRoute) | The app's fit: per venue type, comparables percentile vs mass-market percentile at the same venues, `fit = 0.7·t + 0.3·max(t − g, 0)` |
+| POP | Qloo popularity |
+| LLM | The app's LLM (Gemma 4 31B), given the description and comparables and the pool's names, types and neighbourhoods; scores 0–100 in batches of 50 (pool order shuffled by a fixed hash); ties broken by the same hash |
+| RANDOM | Expected recall = k·N / pool size |
+
+The brand's name is never in a Qloo signal or an LLM prompt.
+
+### Metrics
+
+- **recall@15** and **recall@30**: share of resolved stockists in a method's top k.
+- **Mean percentile rank** of stockists: 100 × (1 − (rank − 1)/(N − 1)); random is 50.
+- **Long-tail recall@30**: recall over stockists outside POP's top 50, where taste should matter most.
+- Aggregate: wins on recall@30 over the 4 test brands, with the number of stockists behind each.
+
+### Success target
+
+**TasteRoute (Q-fit) beats the LLM on recall@30 in at least 3 of the 4 test brands.** The result is published whatever it is, in `docs/evaluation-stockists.md`, with where Qloo lost and why.
