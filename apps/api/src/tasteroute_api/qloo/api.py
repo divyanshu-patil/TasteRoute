@@ -25,6 +25,7 @@ async def place_insights(
     results_ids: list[str] | None = None,
     explain: bool = False,
     take: int = MAX_TAKE,
+    page: int = 1,
     trace: Trace | None = None,
 ) -> tuple[InsightsBody, str, bool]:
     params: list[tuple[str, str]] = [("filter.type", PLACE)]
@@ -39,6 +40,8 @@ async def place_insights(
     if explain:
         params.append(("feature.explainability", "true"))
     params.append(("take", str(min(take, MAX_TAKE))))
+    if page > 1:  # verified to page 5 with take=50: the next 50, no overlap (QLO-10)
+        params.append(("page", str(page)))
     r = await client.get("/v2/insights", params, trace)
     return InsightsBody.model_validate(r.body), r.call_id, r.cache_hit
 

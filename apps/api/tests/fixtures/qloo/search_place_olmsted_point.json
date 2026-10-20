@@ -1,0 +1,2275 @@
+{
+ "request": {
+  "path": "/search",
+  "params": [
+   [
+    "query",
+    "Olmsted"
+   ],
+   [
+    "types",
+    "urn:entity:place"
+   ],
+   [
+    "filter.location",
+    "40.6782,-73.9442"
+   ],
+   [
+    "filter.radius",
+    "15"
+   ],
+   [
+    "take",
+    "5"
+   ]
+  ]
+ },
+ "status": 200,
+ "body": {
+  "results": [
+   {
+    "name": "Olmsted",
+    "entity_id": "3BD03F3B-5DAE-49C8-B7A5-B203799A66A9",
+    "types": [
+     "urn:entity:place"
+    ],
+    "properties": {
+     "akas": [
+      {
+       "language": "",
+       "value": "Olmsted, 659 Vanderbilt Ave Brooklyn, NY 11238"
+      }
+     ],
+     "address": "659 Vanderbilt Ave Brooklyn, NY 11238",
+     "business_rating": 4.5,
+     "description": "Intimate Prospect Heights restaurant with a lush backyard garden serving inventive American tasting and \u00e0 la carte dishes, notable cocktails and pastries.",
+     "external": {
+      "tripadvisor": {
+       "id": "d11618593",
+       "rating": 4.5,
+       "rating_count": 109
+      },
+      "google_place": {
+       "id": "b90c80f36ae5500",
+       "place_id": "ChIJ_dqqUKZbwokRAFWuNg_IkAs"
+      }
+     },
+     "geocode": {
+      "name": "Prospect Heights",
+      "city": "New York",
+      "admin1_region": "New York",
+      "admin2_region": "Kings County",
+      "country_code": "US",
+      "country": "United States",
+      "metro": "New York City"
+     },
+     "hours": {},
+     "image": {
+      "url": "https://images.qloo.com/i/3BD03F3B-5DAE-49C8-B7A5-B203799A66A9-420x-auto.jpg"
+     },
+     "is_closed": true,
+     "neighborhood": "Prospect Heights",
+     "price_level": 3,
+     "price_range": {
+      "currency": "usd"
+     },
+     "website": "http://www.olmstednyc.com/",
+     "specialty_dishes": [
+      {
+       "id": "urn:tag:specialty_dish:place:kale_crab_rangoon",
+       "name": "Kale Crab Rangoon",
+       "type": "urn:tag:specialty_dish:place",
+       "weight": 1
+      },
+      {
+       "id": "urn:tag:specialty_dish:place:carrot_crepe",
+       "name": "Carrot Crepe",
+       "type": "urn:tag:specialty_dish:place",
+       "weight": 0.9230769230769231
+      },
+      {
+       "id": "urn:tag:specialty_dish:place:duck_liver_mousse",
+       "name": "Duck Liver Mousse",
+       "type": "urn:tag:specialty_dish:place",
+       "weight": 0.8461538461538461
+      }
+     ],
+     "good_for": [
+      {
+       "id": "urn:tag:resy:collection:place:good_groups",
+       "name": "Good for Groups",
+       "type": "urn:tag:resy:collection:place"
+      }
+     ],
+     "primary_genre": {
+      "id": "urn:tag:genre:place:restaurant:american",
+      "name": "American restaurant",
+      "type": "urn:tag:genre:place",
+      "akas": [
+       {
+        "language": "ro",
+        "value": "\"American\""
+       },
+       {
+        "language": "en_gb",
+        "value": "\"American\""
+       },
+       {
+        "language": "nl",
+        "value": "\"Amerikaans\""
+       },
+       {
+        "language": "af",
+        "value": "\"Amerikaans\""
+       },
+       {
+        "language": "el",
+        "value": "\"\u0391\u03bc\u03b5\u03c1\u03b9\u03ba\u03b1\u03bd\u03b9\u03ba\u03cc\""
+       },
+       {
+        "language": "fr",
+        "value": "\"Am\u00e9ricain\""
+       },
+       {
+        "language": "fr_ca",
+        "value": "\"Am\u00e9ricain\""
+       },
+       {
+        "language": "pl",
+        "value": "\"Ameryka\u0144ski\""
+       },
+       {
+        "language": "he",
+        "value": "\"\u05d0\u05de\u05e8\u05d9\u05e7\u05d0\u05d9\""
+       },
+       {
+        "language": "lv",
+        "value": "\"Amerik\u0101\u0146u\""
+       },
+       {
+        "language": "sw",
+        "value": "\"Kimarekani\""
+       },
+       {
+        "language": "pt",
+        "value": "\"Estadunidense\""
+       },
+       {
+        "language": "eu",
+        "value": "\"Amerikarra\""
+       },
+       {
+        "language": "ja",
+        "value": "\"\u30a2\u30e1\u30ea\u30ab\u6599\u7406\""
+       },
+       {
+        "language": "my",
+        "value": "\"\u1021\u1019\u1031\u101b\u102d\u1000\u1014\u103a\""
+       },
+       {
+        "language": "lt",
+        "value": "\"Amerikieti\u0161kas\""
+       },
+       {
+        "language": "da",
+        "value": "\"Amerikansk\""
+       },
+       {
+        "language": "sv",
+        "value": "\"Amerikansk\""
+       },
+       {
+        "language": "nb",
+        "value": "\"Amerikansk\""
+       },
+       {
+        "language": "bn",
+        "value": "\"\u0986\u09ae\u09c7\u09b0\u09bf\u0995\u09be\u09a8\""
+       },
+       {
+        "language": "hr",
+        "value": "\"Ameri\u010dki\""
+       },
+       {
+        "language": "bs",
+        "value": "\"Ameri\u010dki\""
+       },
+       {
+        "language": "et",
+        "value": "\"Ameerika\""
+       },
+       {
+        "language": "lo",
+        "value": "\"\u0ead\u0eb2\u0ec0\u0ea1\u0ea3\u0eb4\u0e81\u0eb1\u0e99\""
+       },
+       {
+        "language": "ta",
+        "value": "\"\u0b85\u0bae\u0bc6\u0bb0\u0bbf\u0b95\u0bcd\u0b95\""
+       },
+       {
+        "language": "gl",
+        "value": "\"Americano\""
+       },
+       {
+        "language": "pt",
+        "value": "\"Americano\""
+       },
+       {
+        "language": "it",
+        "value": "\"Americano\""
+       },
+       {
+        "language": "pt_pt",
+        "value": "\"Americano\""
+       },
+       {
+        "language": "vi",
+        "value": "\"Ki\u1ec3u M\u1ef9\""
+       },
+       {
+        "language": "zh",
+        "value": "\"\u7f8e\u5f0f\""
+       },
+       {
+        "language": "zh_tw",
+        "value": "\"\u7f8e\u5f0f\""
+       },
+       {
+        "language": "de",
+        "value": "\"Amerikanisch\""
+       },
+       {
+        "language": "sk",
+        "value": "\"Americk\u00fd\""
+       },
+       {
+        "language": "te",
+        "value": "\"\u0c05\u0c2e\u0c46\u0c30\u0c3f\u0c15\u0c28\u0c4d\""
+       },
+       {
+        "language": "ca",
+        "value": "\"Americ\u00e0\""
+       },
+       {
+        "language": "ar",
+        "value": "\"\u0623\u0645\u0631\u064a\u0643\u064a\""
+       },
+       {
+        "language": "kk",
+        "value": "\"\u0410\u043c\u0435\u0440\u0438\u043a\u0430\u043b\u044b\u049b\""
+       },
+       {
+        "language": "uk",
+        "value": "\"\u0410\u043c\u0435\u0440\u0438\u043a\u0430\u043d\u0441\u044c\u043a\u0438\u0439\""
+       },
+       {
+        "language": "hi",
+        "value": "\"\u0905\u092e\u0947\u0930\u093f\u0915\u0940\""
+       },
+       {
+        "language": "sr",
+        "value": "\"\u0410\u043c\u0435\u0440\u0438\u0447\u043a\u0438\""
+       },
+       {
+        "language": "sl",
+        "value": "\"Ameri\u0161ki\""
+       },
+       {
+        "language": "ka",
+        "value": "\"\u10d0\u10db\u10d4\u10e0\u10d8\u10d9\u10e3\u10da\u10d8\""
+       },
+       {
+        "language": "km",
+        "value": "\"\u17a2\u17b6\u1798\u17c1\u179a\u17b7\u1780\""
+       },
+       {
+        "language": "fi",
+        "value": "\"Amerikkalainen\""
+       },
+       {
+        "language": "es_ar",
+        "value": "\"Estadounidense\""
+       },
+       {
+        "language": "es",
+        "value": "\"Estadounidense\""
+       },
+       {
+        "language": "es_la",
+        "value": "\"Estadounidense\""
+       },
+       {
+        "language": "tl",
+        "value": "\"Amerikano\""
+       },
+       {
+        "language": "hu",
+        "value": "\"Amerikai\""
+       },
+       {
+        "language": "cs",
+        "value": "\"Americk\u00e9\""
+       },
+       {
+        "language": "bg",
+        "value": "\"\u0410\u043c\u0435\u0440\u0438\u043a\u0430\u043d\u0441\u043a\u0438\""
+       },
+       {
+        "language": "mk",
+        "value": "\"\u0410\u043c\u0435\u0440\u0438\u043a\u0430\u043d\u0441\u043a\u0438\""
+       },
+       {
+        "language": "ko",
+        "value": "\"\ubbf8\uad6d\uc2dd\""
+       },
+       {
+        "language": "id",
+        "value": "\"Amerika\""
+       },
+       {
+        "language": "ms",
+        "value": "\"Amerika\""
+       },
+       {
+        "language": "ru",
+        "value": "\"\u0410\u043c\u0435\u0440\u0438\u043a\u0430\u043d\u0441\u043a\u0438\u0439\""
+       },
+       {
+        "language": "tr",
+        "value": "\"Amerikan\""
+       },
+       {
+        "language": "sq",
+        "value": "\"Amerikan\""
+       },
+       {
+        "language": "az",
+        "value": "\"Amerikan\""
+       },
+       {
+        "language": "th",
+        "value": "\"\u0e2d\u0e40\u0e21\u0e23\u0e34\u0e01\u0e31\u0e19\""
+       }
+      ]
+     }
+    },
+    "popularity": 0.9897990454295734,
+    "disambiguation": "659 Vanderbilt Ave Brooklyn, NY 11238",
+    "location": {
+     "lat": 40.677106599999995,
+     "lon": -73.9687309
+    },
+    "tags": [
+     {
+      "name": "Best of brunch",
+      "tag_id": "urn:tag:resy:collection:place:best_of_brunch",
+      "type": "urn:tag:resy:collection:place",
+      "value": "urn:tag:resy:collection:place:best_of_brunch"
+     },
+     {
+      "name": "Visa",
+      "tag_id": "urn:tag:credit_card:place:visa",
+      "type": "urn:tag:credit_card:place",
+      "value": "urn:tag:credit_card:place:visa"
+     },
+     {
+      "name": "Cocktails",
+      "tag_id": "urn:tag:offerings:place:cocktails",
+      "type": "urn:tag:offerings:place",
+      "value": "urn:tag:offerings:place:cocktails"
+     },
+     {
+      "name": "Botanical",
+      "tag_id": "urn:tag:decor:qloo:botanical",
+      "type": "urn:tag:decor:qloo",
+      "value": "urn:tag:decor:qloo:botanical"
+     },
+     {
+      "name": "Specialty non alcoholic",
+      "tag_id": "urn:tag:beverage_offering:qloo:specialty_non_alcoholic",
+      "type": "urn:tag:beverage_offering:qloo",
+      "value": "urn:tag:beverage_offering:qloo:specialty_non_alcoholic"
+     },
+     {
+      "name": "Order ahead",
+      "tag_id": "urn:tag:dining_options:place:order_ahead",
+      "type": "urn:tag:dining_options:place",
+      "value": "urn:tag:dining_options:place:order_ahead"
+     },
+     {
+      "name": "Hipster chic",
+      "tag_id": "urn:tag:ambience:qloo:hipster_chic",
+      "type": "urn:tag:ambience:qloo",
+      "value": "urn:tag:ambience:qloo:hipster_chic"
+     },
+     {
+      "name": "Farm to table cuisine",
+      "tag_id": "urn:tag:interests:qloo:farm_to_table_cuisine",
+      "type": "urn:tag:interests:qloo",
+      "value": "urn:tag:interests:qloo:farm_to_table_cuisine"
+     },
+     {
+      "name": "Anniversary",
+      "tag_id": "urn:tag:event:place:anniversary",
+      "type": "urn:tag:event:place",
+      "value": "urn:tag:event:place:anniversary"
+     },
+     {
+      "name": "American restaurant",
+      "tag_id": "urn:tag:category:place:american_restaurant",
+      "type": "urn:tag:category:place",
+      "value": "urn:tag:category:place:american_restaurant"
+     },
+     {
+      "name": "Best of brooklyn",
+      "tag_id": "urn:tag:resy:collection:place:best_of_brooklyn",
+      "type": "urn:tag:resy:collection:place",
+      "value": "urn:tag:resy:collection:place:best_of_brooklyn"
+     },
+     {
+      "name": "Classic",
+      "tag_id": "urn:tag:ambience:qloo:classic",
+      "type": "urn:tag:ambience:qloo",
+      "value": "urn:tag:ambience:qloo:classic"
+     },
+     {
+      "name": "Duck liver mousse",
+      "tag_id": "urn:tag:menu_highlight:qloo:duck_liver_mousse",
+      "type": "urn:tag:menu_highlight:qloo",
+      "value": "urn:tag:menu_highlight:qloo:duck_liver_mousse"
+     },
+     {
+      "name": "Nature focused",
+      "tag_id": "urn:tag:ambience:qloo:nature_focused",
+      "type": "urn:tag:ambience:qloo",
+      "value": "urn:tag:ambience:qloo:nature_focused"
+     },
+     {
+      "name": "Gender neutral restroom",
+      "tag_id": "urn:tag:amenities:place:gender_neutral_restroom",
+      "type": "urn:tag:amenities:place",
+      "value": "urn:tag:amenities:place:gender_neutral_restroom"
+     },
+     {
+      "name": "Lunch reservations recommended",
+      "tag_id": "urn:tag:planning:place:lunch_reservations_recommended",
+      "type": "urn:tag:planning:place",
+      "value": "urn:tag:planning:place:lunch_reservations_recommended"
+     },
+     {
+      "name": "Beer",
+      "tag_id": "urn:tag:offerings:place:beer",
+      "type": "urn:tag:offerings:place",
+      "value": "urn:tag:offerings:place:beer"
+     },
+     {
+      "name": "Craft cocktails",
+      "tag_id": "urn:tag:interests:qloo:craft_cocktails",
+      "type": "urn:tag:interests:qloo",
+      "value": "urn:tag:interests:qloo:craft_cocktails"
+     },
+     {
+      "name": "Cocktails",
+      "tag_id": "urn:tag:beverage_offering:qloo:cocktails",
+      "type": "urn:tag:beverage_offering:qloo",
+      "value": "urn:tag:beverage_offering:qloo:cocktails"
+     },
+     {
+      "name": "Unique",
+      "tag_id": "urn:tag:ambience:qloo:unique",
+      "type": "urn:tag:ambience:qloo",
+      "value": "urn:tag:ambience:qloo:unique"
+     },
+     {
+      "name": "City center",
+      "tag_id": "urn:tag:setting:qloo:city_center",
+      "type": "urn:tag:setting:qloo",
+      "value": "urn:tag:setting:qloo:city_center"
+     },
+     {
+      "name": "Moderate",
+      "tag_id": "urn:tag:noise_level:qloo:moderate",
+      "type": "urn:tag:noise_level:qloo",
+      "value": "urn:tag:noise_level:qloo:moderate"
+     },
+     {
+      "name": "Dinner reservations recommended",
+      "tag_id": "urn:tag:planning:place:dinner_reservations_recommended",
+      "type": "urn:tag:planning:place",
+      "value": "urn:tag:planning:place:dinner_reservations_recommended"
+     },
+     {
+      "name": "Hard liquor",
+      "tag_id": "urn:tag:offerings:place:hard_liquor",
+      "type": "urn:tag:offerings:place",
+      "value": "urn:tag:offerings:place:hard_liquor"
+     },
+     {
+      "name": "Urban gardening",
+      "tag_id": "urn:tag:interests:qloo:urban_gardening",
+      "type": "urn:tag:interests:qloo",
+      "value": "urn:tag:interests:qloo:urban_gardening"
+     },
+     {
+      "name": "Watermelon sushi",
+      "tag_id": "urn:tag:specialty_dish:place:watermelon_sushi",
+      "type": "urn:tag:specialty_dish:place",
+      "value": "urn:tag:specialty_dish:place:watermelon_sushi"
+     },
+     {
+      "name": "Stylish",
+      "tag_id": "urn:tag:ambience:qloo:stylish",
+      "type": "urn:tag:ambience:qloo",
+      "value": "urn:tag:ambience:qloo:stylish"
+     },
+     {
+      "name": "Garden cocktails",
+      "tag_id": "urn:tag:activity_type:qloo:garden_cocktails",
+      "type": "urn:tag:activity_type:qloo",
+      "value": "urn:tag:activity_type:qloo:garden_cocktails"
+     },
+     {
+      "name": "Rutabaga tagliatelle",
+      "tag_id": "urn:tag:menu_highlight:qloo:rutabaga_tagliatelle",
+      "type": "urn:tag:menu_highlight:qloo",
+      "value": "urn:tag:menu_highlight:qloo:rutabaga_tagliatelle"
+     },
+     {
+      "name": "Delivery",
+      "tag_id": "urn:tag:service_options:place:delivery",
+      "type": "urn:tag:service_options:place",
+      "value": "urn:tag:service_options:place:delivery"
+     },
+     {
+      "name": "Casual",
+      "tag_id": "urn:tag:ambience:qloo:casual",
+      "type": "urn:tag:ambience:qloo",
+      "value": "urn:tag:ambience:qloo:casual"
+     },
+     {
+      "name": "Nfc mobile payments",
+      "tag_id": "urn:tag:payments:place:nfc_mobile_payments",
+      "type": "urn:tag:payments:place",
+      "value": "urn:tag:payments:place:nfc_mobile_payments"
+     },
+     {
+      "name": "Destination",
+      "tag_id": "urn:tag:visit_intent:qloo:destination",
+      "type": "urn:tag:visit_intent:qloo",
+      "value": "urn:tag:visit_intent:qloo:destination"
+     },
+     {
+      "name": "Al fresco dining",
+      "tag_id": "urn:tag:resy:collection:place:al_fresco_dining",
+      "type": "urn:tag:resy:collection:place",
+      "value": "urn:tag:resy:collection:place:al_fresco_dining"
+     },
+     {
+      "name": "Dine in",
+      "tag_id": "urn:tag:service_options:place:dine_in",
+      "type": "urn:tag:service_options:place",
+      "value": "urn:tag:service_options:place:dine_in"
+     },
+     {
+      "name": "Bright",
+      "tag_id": "urn:tag:ambience:qloo:bright",
+      "type": "urn:tag:ambience:qloo",
+      "value": "urn:tag:ambience:qloo:bright"
+     },
+     {
+      "name": "Healthy options",
+      "tag_id": "urn:tag:offerings:place:healthy_options",
+      "type": "urn:tag:offerings:place",
+      "value": "urn:tag:offerings:place:healthy_options"
+     },
+     {
+      "name": "Free street parking",
+      "tag_id": "urn:tag:parking:place:free_street_parking",
+      "type": "urn:tag:parking:place",
+      "value": "urn:tag:parking:place:free_street_parking"
+     },
+     {
+      "name": "American",
+      "tag_id": "urn:tag:cuisine:qloo:american",
+      "type": "urn:tag:cuisine:qloo",
+      "value": "urn:tag:cuisine:qloo:american"
+     },
+     {
+      "name": "Cozy",
+      "tag_id": "urn:tag:decor:qloo:cozy",
+      "type": "urn:tag:decor:qloo",
+      "value": "urn:tag:decor:qloo:cozy"
+     },
+     {
+      "name": "Private dining rooms",
+      "tag_id": "urn:tag:resy:collection:place:private_dining_rooms",
+      "type": "urn:tag:resy:collection:place",
+      "value": "urn:tag:resy:collection:place:private_dining_rooms"
+     },
+     {
+      "name": "Restaurant",
+      "tag_id": "urn:tag:genre:place:restaurant",
+      "type": "urn:tag:genre:place",
+      "value": "urn:tag:genre:place:restaurant"
+     },
+     {
+      "name": "Natural wine",
+      "tag_id": "urn:tag:resy:collection:place:natural_wine",
+      "type": "urn:tag:resy:collection:place",
+      "value": "urn:tag:resy:collection:place:natural_wine"
+     },
+     {
+      "name": "Gluten free",
+      "tag_id": "urn:tag:dietary_option:qloo:gluten_free",
+      "type": "urn:tag:dietary_option:qloo",
+      "value": "urn:tag:dietary_option:qloo:gluten_free"
+     },
+     {
+      "name": "Bread service",
+      "tag_id": "urn:tag:menu_highlight:qloo:bread_service",
+      "type": "urn:tag:menu_highlight:qloo",
+      "value": "urn:tag:menu_highlight:qloo:bread_service"
+     },
+     {
+      "name": "Mastercard",
+      "tag_id": "urn:tag:credit_card:place:mastercard",
+      "type": "urn:tag:credit_card:place",
+      "value": "urn:tag:credit_card:place:mastercard"
+     },
+     {
+      "name": "Pescatarian",
+      "tag_id": "urn:tag:dietary_option:qloo:pescatarian",
+      "type": "urn:tag:dietary_option:qloo",
+      "value": "urn:tag:dietary_option:qloo:pescatarian"
+     },
+     {
+      "name": "Authentic",
+      "tag_id": "urn:tag:decor:qloo:authentic",
+      "type": "urn:tag:decor:qloo",
+      "value": "urn:tag:decor:qloo:authentic"
+     },
+     {
+      "name": "Carrot crepe",
+      "tag_id": "urn:tag:menu_highlight:qloo:carrot_crepe",
+      "type": "urn:tag:menu_highlight:qloo",
+      "value": "urn:tag:menu_highlight:qloo:carrot_crepe"
+     },
+     {
+      "name": "Romantic",
+      "tag_id": "urn:tag:ambience:qloo:romantic",
+      "type": "urn:tag:ambience:qloo",
+      "value": "urn:tag:ambience:qloo:romantic"
+     },
+     {
+      "name": "American",
+      "tag_id": "urn:tag:genre:place:restaurant:american",
+      "type": "urn:tag:genre:place",
+      "value": "urn:tag:genre:place:restaurant:american"
+     },
+     {
+      "name": "Tasting menus under $125",
+      "tag_id": "urn:tag:resy:collection:place:tasting_menus_under_125",
+      "type": "urn:tag:resy:collection:place",
+      "value": "urn:tag:resy:collection:place:tasting_menus_under_125"
+     },
+     {
+      "name": "Stylish",
+      "tag_id": "urn:tag:decor:qloo:stylish",
+      "type": "urn:tag:decor:qloo",
+      "value": "urn:tag:decor:qloo:stylish"
+     },
+     {
+      "name": "Heated patio",
+      "tag_id": "urn:tag:setting:qloo:heated_patio",
+      "type": "urn:tag:setting:qloo",
+      "value": "urn:tag:setting:qloo:heated_patio"
+     },
+     {
+      "name": "Innovative",
+      "tag_id": "urn:tag:culinary_style:qloo:innovative",
+      "type": "urn:tag:culinary_style:qloo",
+      "value": "urn:tag:culinary_style:qloo:innovative"
+     },
+     {
+      "name": "Expensive",
+      "tag_id": "urn:tag:cost_description:place:expensive",
+      "type": "urn:tag:cost_description:place",
+      "value": "urn:tag:cost_description:place:expensive"
+     },
+     {
+      "name": "Alcohol",
+      "tag_id": "urn:tag:offerings:place:alcohol",
+      "type": "urn:tag:offerings:place",
+      "value": "urn:tag:offerings:place:alcohol"
+     },
+     {
+      "name": "Brooklyn museum",
+      "tag_id": "urn:tag:nearby_attraction:qloo:brooklyn_museum",
+      "type": "urn:tag:nearby_attraction:qloo",
+      "value": "urn:tag:nearby_attraction:qloo:brooklyn_museum"
+     },
+     {
+      "name": "Duck duo",
+      "tag_id": "urn:tag:menu_highlight:qloo:duck_duo",
+      "type": "urn:tag:menu_highlight:qloo",
+      "value": "urn:tag:menu_highlight:qloo:duck_duo"
+     },
+     {
+      "name": "Paid street parking",
+      "tag_id": "urn:tag:parking:place:paid_street_parking",
+      "type": "urn:tag:parking:place",
+      "value": "urn:tag:parking:place:paid_street_parking"
+     },
+     {
+      "name": "Counter service",
+      "tag_id": "urn:tag:service_type:qloo:counter_service",
+      "type": "urn:tag:service_type:qloo",
+      "value": "urn:tag:service_type:qloo:counter_service"
+     },
+     {
+      "name": "Fine dining enthusiasts",
+      "tag_id": "urn:tag:customer_identity:qloo:fine_dining_enthusiasts",
+      "type": "urn:tag:customer_identity:qloo",
+      "value": "urn:tag:customer_identity:qloo:fine_dining_enthusiasts"
+     },
+     {
+      "name": "Usually a wait",
+      "tag_id": "urn:tag:planning:place:usually_a_wait",
+      "type": "urn:tag:planning:place",
+      "value": "urn:tag:planning:place:usually_a_wait"
+     },
+     {
+      "name": "Chic",
+      "tag_id": "urn:tag:decor:qloo:chic",
+      "type": "urn:tag:decor:qloo",
+      "value": "urn:tag:decor:qloo:chic"
+     },
+     {
+      "name": "Wheelchair accessible restroom",
+      "tag_id": "urn:tag:accessibility:place:wheelchair_accessible_restroom",
+      "type": "urn:tag:accessibility:place",
+      "value": "urn:tag:accessibility:place:wheelchair_accessible_restroom"
+     },
+     {
+      "name": "Koi pond view",
+      "tag_id": "urn:tag:view:qloo:koi_pond_view",
+      "type": "urn:tag:view:qloo",
+      "value": "urn:tag:view:qloo:koi_pond_view"
+     },
+     {
+      "name": "Hipsteresque",
+      "tag_id": "urn:tag:neighborhood_characteristic:qloo:hipsteresque",
+      "type": "urn:tag:neighborhood_characteristic:qloo",
+      "value": "urn:tag:neighborhood_characteristic:qloo:hipsteresque"
+     },
+     {
+      "name": "Trendy",
+      "tag_id": "urn:tag:neighborhood_characteristic:qloo:trendy",
+      "type": "urn:tag:neighborhood_characteristic:qloo",
+      "value": "urn:tag:neighborhood_characteristic:qloo:trendy"
+     },
+     {
+      "name": "Kale crab rangoon",
+      "tag_id": "urn:tag:specialty_dish:place:kale_crab_rangoon",
+      "type": "urn:tag:specialty_dish:place",
+      "value": "urn:tag:specialty_dish:place:kale_crab_rangoon"
+     },
+     {
+      "name": "Seasonal",
+      "tag_id": "urn:tag:culinary_style:qloo:seasonal",
+      "type": "urn:tag:culinary_style:qloo",
+      "value": "urn:tag:culinary_style:qloo:seasonal"
+     },
+     {
+      "name": "Garden view",
+      "tag_id": "urn:tag:view:qloo:garden_view",
+      "type": "urn:tag:view:qloo",
+      "value": "urn:tag:view:qloo:garden_view"
+     },
+     {
+      "name": "Cozy",
+      "tag_id": "urn:tag:ambience:qloo:cozy",
+      "type": "urn:tag:ambience:qloo",
+      "value": "urn:tag:ambience:qloo:cozy"
+     },
+     {
+      "name": "Farm to table",
+      "tag_id": "urn:tag:cuisine:qloo:farm_to_table",
+      "type": "urn:tag:cuisine:qloo",
+      "value": "urn:tag:cuisine:qloo:farm_to_table"
+     },
+     {
+      "name": "Credit cards",
+      "tag_id": "urn:tag:payments:place:credit_cards",
+      "type": "urn:tag:payments:place",
+      "value": "urn:tag:payments:place:credit_cards"
+     },
+     {
+      "name": "Garden",
+      "tag_id": "urn:tag:amenity:qloo:garden",
+      "type": "urn:tag:amenity:qloo",
+      "value": "urn:tag:amenity:qloo:garden"
+     },
+     {
+      "name": "Rustic",
+      "tag_id": "urn:tag:decor:qloo:rustic",
+      "type": "urn:tag:decor:qloo",
+      "value": "urn:tag:decor:qloo:rustic"
+     },
+     {
+      "name": "Allergy friendly",
+      "tag_id": "urn:tag:dietary_option:qloo:allergy_friendly",
+      "type": "urn:tag:dietary_option:qloo",
+      "value": "urn:tag:dietary_option:qloo:allergy_friendly"
+     },
+     {
+      "name": "Place",
+      "tag_id": "urn:tag:genre:place",
+      "type": "urn:tag:genre:place",
+      "value": "urn:tag:genre:place"
+     },
+     {
+      "name": "Discover",
+      "tag_id": "urn:tag:credit_card:place:discover",
+      "type": "urn:tag:credit_card:place",
+      "value": "urn:tag:credit_card:place:discover"
+     },
+     {
+      "name": "Seating",
+      "tag_id": "urn:tag:dining_options:place:seating",
+      "type": "urn:tag:dining_options:place",
+      "value": "urn:tag:dining_options:place:seating"
+     },
+     {
+      "name": "S mores",
+      "tag_id": "urn:tag:menu_highlight:qloo:s_mores",
+      "type": "urn:tag:menu_highlight:qloo",
+      "value": "urn:tag:menu_highlight:qloo:s_mores"
+     },
+     {
+      "name": "Backyard garden",
+      "tag_id": "urn:tag:setting:qloo:backyard_garden",
+      "type": "urn:tag:setting:qloo",
+      "value": "urn:tag:setting:qloo:backyard_garden"
+     },
+     {
+      "name": "Carrot crepe",
+      "tag_id": "urn:tag:specialty_dish:place:carrot_crepe",
+      "type": "urn:tag:specialty_dish:place",
+      "value": "urn:tag:specialty_dish:place:carrot_crepe"
+     },
+     {
+      "name": "Staff wear masks",
+      "tag_id": "urn:tag:not_for_display:place:staff_wear_masks",
+      "type": "urn:tag:not_for_display:place",
+      "value": "urn:tag:not_for_display:place:staff_wear_masks"
+     },
+     {
+      "name": "Good for groups",
+      "tag_id": "urn:tag:resy:collection:place:good_for_groups",
+      "type": "urn:tag:resy:collection:place",
+      "value": "urn:tag:resy:collection:place:good_for_groups"
+     },
+     {
+      "name": "Outdoor seating",
+      "tag_id": "urn:tag:service_type:qloo:outdoor_seating",
+      "type": "urn:tag:service_type:qloo",
+      "value": "urn:tag:service_type:qloo:outdoor_seating"
+     },
+     {
+      "name": "Young professionals",
+      "tag_id": "urn:tag:customer_identity:qloo:young_professionals",
+      "type": "urn:tag:customer_identity:qloo",
+      "value": "urn:tag:customer_identity:qloo:young_professionals"
+     },
+     {
+      "name": "Reservations required",
+      "tag_id": "urn:tag:planning:place:reservations_required",
+      "type": "urn:tag:planning:place",
+      "value": "urn:tag:planning:place:reservations_required"
+     },
+     {
+      "name": "Events",
+      "tag_id": "urn:tag:resy:collection:place:events",
+      "type": "urn:tag:resy:collection:place",
+      "value": "urn:tag:resy:collection:place:events"
+     },
+     {
+      "name": "Counter service",
+      "tag_id": "urn:tag:dining_options:place:counter_service",
+      "type": "urn:tag:dining_options:place",
+      "value": "urn:tag:dining_options:place:counter_service"
+     },
+     {
+      "name": "Frozen yogurt with lavender and honey",
+      "tag_id": "urn:tag:specialty_dish:place:frozen_yogurt_with_lavender_and_honey",
+      "type": "urn:tag:specialty_dish:place",
+      "value": "urn:tag:specialty_dish:place:frozen_yogurt_with_lavender_and_honey"
+     },
+     {
+      "name": "30 34",
+      "tag_id": "urn:tag:age_range:qloo:30_34",
+      "type": "urn:tag:age_range:qloo",
+      "value": "urn:tag:age_range:qloo:30_34"
+     },
+     {
+      "name": "Walk ins",
+      "tag_id": "urn:tag:service_type:qloo:walk_ins",
+      "type": "urn:tag:service_type:qloo",
+      "value": "urn:tag:service_type:qloo:walk_ins"
+     },
+     {
+      "name": "Bar onsite",
+      "tag_id": "urn:tag:amenities:place:bar_onsite",
+      "type": "urn:tag:amenities:place",
+      "value": "urn:tag:amenities:place:bar_onsite"
+     },
+     {
+      "name": "Wheelchair accessible seating",
+      "tag_id": "urn:tag:accessibility:place:wheelchair_accessible_seating",
+      "type": "urn:tag:accessibility:place",
+      "value": "urn:tag:accessibility:place:wheelchair_accessible_seating"
+     },
+     {
+      "name": "Heated patio",
+      "tag_id": "urn:tag:amenity:qloo:heated_patio",
+      "type": "urn:tag:amenity:qloo",
+      "value": "urn:tag:amenity:qloo:heated_patio"
+     },
+     {
+      "name": "Specialty cocktails",
+      "tag_id": "urn:tag:beverage_offering:qloo:specialty_cocktails",
+      "type": "urn:tag:beverage_offering:qloo",
+      "value": "urn:tag:beverage_offering:qloo:specialty_cocktails"
+     },
+     {
+      "name": "Special occasion",
+      "tag_id": "urn:tag:visit_intent:qloo:special_occasion",
+      "type": "urn:tag:visit_intent:qloo",
+      "value": "urn:tag:visit_intent:qloo:special_occasion"
+     },
+     {
+      "name": "Restaurant",
+      "tag_id": "urn:tag:category:place:restaurant",
+      "type": "urn:tag:category:place",
+      "value": "urn:tag:category:place:restaurant"
+     },
+     {
+      "name": "Walkable",
+      "tag_id": "urn:tag:neighborhood_characteristic:qloo:walkable",
+      "type": "urn:tag:neighborhood_characteristic:qloo",
+      "value": "urn:tag:neighborhood_characteristic:qloo:walkable"
+     },
+     {
+      "name": "Lgbtq+ friendly",
+      "tag_id": "urn:tag:inclusivity:place:lgbtq_friendly",
+      "type": "urn:tag:inclusivity:place",
+      "value": "urn:tag:inclusivity:place:lgbtq_friendly"
+     },
+     {
+      "name": "Urban",
+      "tag_id": "urn:tag:setting:qloo:urban",
+      "type": "urn:tag:setting:qloo",
+      "value": "urn:tag:setting:qloo:urban"
+     },
+     {
+      "name": "Afternoon",
+      "tag_id": "urn:tag:time_of_day_fit:qloo:afternoon",
+      "type": "urn:tag:time_of_day_fit:qloo",
+      "value": "urn:tag:time_of_day_fit:qloo:afternoon"
+     },
+     {
+      "name": "Full bar",
+      "tag_id": "urn:tag:beverage_offering:qloo:full_bar",
+      "type": "urn:tag:beverage_offering:qloo",
+      "value": "urn:tag:beverage_offering:qloo:full_bar"
+     },
+     {
+      "name": "Accepts reservations",
+      "tag_id": "urn:tag:planning:place:accepts_reservations",
+      "type": "urn:tag:planning:place",
+      "value": "urn:tag:planning:place:accepts_reservations"
+     },
+     {
+      "name": "Modern",
+      "tag_id": "urn:tag:decor:qloo:modern",
+      "type": "urn:tag:decor:qloo",
+      "value": "urn:tag:decor:qloo:modern"
+     },
+     {
+      "name": "Seafood",
+      "tag_id": "urn:tag:cuisine:qloo:seafood",
+      "type": "urn:tag:cuisine:qloo",
+      "value": "urn:tag:cuisine:qloo:seafood"
+     },
+     {
+      "name": "Garden inspired",
+      "tag_id": "urn:tag:decor:qloo:garden_inspired",
+      "type": "urn:tag:decor:qloo",
+      "value": "urn:tag:decor:qloo:garden_inspired"
+     },
+     {
+      "name": "Urban",
+      "tag_id": "urn:tag:decor:qloo:urban",
+      "type": "urn:tag:decor:qloo",
+      "value": "urn:tag:decor:qloo:urban"
+     },
+     {
+      "name": "Small plates",
+      "tag_id": "urn:tag:offerings:place:small_plates",
+      "type": "urn:tag:offerings:place",
+      "value": "urn:tag:offerings:place:small_plates"
+     },
+     {
+      "name": "Vegetarian",
+      "tag_id": "urn:tag:dietary_option:qloo:vegetarian",
+      "type": "urn:tag:dietary_option:qloo",
+      "value": "urn:tag:dietary_option:qloo:vegetarian"
+     },
+     {
+      "name": "Contemporary",
+      "tag_id": "urn:tag:culinary_style:qloo:contemporary",
+      "type": "urn:tag:culinary_style:qloo",
+      "value": "urn:tag:culinary_style:qloo:contemporary"
+     },
+     {
+      "name": "Dine in",
+      "tag_id": "urn:tag:service_type:qloo:dine_in",
+      "type": "urn:tag:service_type:qloo",
+      "value": "urn:tag:service_type:qloo:dine_in"
+     },
+     {
+      "name": "Duck liver mousse",
+      "tag_id": "urn:tag:specialty_dish:place:duck_liver_mousse",
+      "type": "urn:tag:specialty_dish:place",
+      "value": "urn:tag:specialty_dish:place:duck_liver_mousse"
+     },
+     {
+      "name": "American express",
+      "tag_id": "urn:tag:credit_card:place:american_express",
+      "type": "urn:tag:credit_card:place",
+      "value": "urn:tag:credit_card:place:american_express"
+     },
+     {
+      "name": "Grilled scallops",
+      "tag_id": "urn:tag:specialty_dish:place:grilled_scallops",
+      "type": "urn:tag:specialty_dish:place",
+      "value": "urn:tag:specialty_dish:place:grilled_scallops"
+     },
+     {
+      "name": "Dessert",
+      "tag_id": "urn:tag:dining_options:place:dessert",
+      "type": "urn:tag:dining_options:place",
+      "value": "urn:tag:dining_options:place:dessert"
+     },
+     {
+      "name": "Evening",
+      "tag_id": "urn:tag:time_of_day_fit:qloo:evening",
+      "type": "urn:tag:time_of_day_fit:qloo",
+      "value": "urn:tag:time_of_day_fit:qloo:evening"
+     },
+     {
+      "name": "Bar service",
+      "tag_id": "urn:tag:service_type:qloo:bar_service",
+      "type": "urn:tag:service_type:qloo",
+      "value": "urn:tag:service_type:qloo:bar_service"
+     },
+     {
+      "name": "Chef counter",
+      "tag_id": "urn:tag:amenity:qloo:chef_counter",
+      "type": "urn:tag:amenity:qloo",
+      "value": "urn:tag:amenity:qloo:chef_counter"
+     },
+     {
+      "name": "Birthday",
+      "tag_id": "urn:tag:event:place:birthday",
+      "type": "urn:tag:event:place",
+      "value": "urn:tag:event:place:birthday"
+     },
+     {
+      "name": "25 29",
+      "tag_id": "urn:tag:age_range:qloo:25_29",
+      "type": "urn:tag:age_range:qloo",
+      "value": "urn:tag:age_range:qloo:25_29"
+     },
+     {
+      "name": "Takeout",
+      "tag_id": "urn:tag:service_options:place:takeout",
+      "type": "urn:tag:service_options:place",
+      "value": "urn:tag:service_options:place:takeout"
+     },
+     {
+      "name": "Restroom",
+      "tag_id": "urn:tag:amenities:place:restroom",
+      "type": "urn:tag:amenities:place",
+      "value": "urn:tag:amenities:place:restroom"
+     },
+     {
+      "name": "Couples",
+      "tag_id": "urn:tag:customer_identity:qloo:couples",
+      "type": "urn:tag:customer_identity:qloo",
+      "value": "urn:tag:customer_identity:qloo:couples"
+     },
+     {
+      "name": "Date night",
+      "tag_id": "urn:tag:event:place:date_night",
+      "type": "urn:tag:event:place",
+      "value": "urn:tag:event:place:date_night"
+     },
+     {
+      "name": "Groups of friends",
+      "tag_id": "urn:tag:customer_identity:qloo:groups_of_friends",
+      "type": "urn:tag:customer_identity:qloo",
+      "value": "urn:tag:customer_identity:qloo:groups_of_friends"
+     },
+     {
+      "name": "Parking",
+      "tag_id": "urn:tag:parking:place:parking",
+      "type": "urn:tag:parking:place",
+      "value": "urn:tag:parking:place:parking"
+     },
+     {
+      "name": "Tasting menu",
+      "tag_id": "urn:tag:offerings:place:tasting_menu",
+      "type": "urn:tag:offerings:place",
+      "value": "urn:tag:offerings:place:tasting_menu"
+     },
+     {
+      "name": "Vegan",
+      "tag_id": "urn:tag:dietary_option:qloo:vegan",
+      "type": "urn:tag:dietary_option:qloo",
+      "value": "urn:tag:dietary_option:qloo:vegan"
+     },
+     {
+      "name": "Wine",
+      "tag_id": "urn:tag:beverage_offering:qloo:wine",
+      "type": "urn:tag:beverage_offering:qloo",
+      "value": "urn:tag:beverage_offering:qloo:wine"
+     },
+     {
+      "name": "Delivery",
+      "tag_id": "urn:tag:service_type:qloo:delivery",
+      "type": "urn:tag:service_type:qloo",
+      "value": "urn:tag:service_type:qloo:delivery"
+     },
+     {
+      "name": "Seasonal cooking",
+      "tag_id": "urn:tag:interests:qloo:seasonal_cooking",
+      "type": "urn:tag:interests:qloo",
+      "value": "urn:tag:interests:qloo:seasonal_cooking"
+     },
+     {
+      "name": "Price level",
+      "tag_id": "urn:tag:payments:place:price_level",
+      "type": "urn:tag:payments:place",
+      "value": "urn:tag:payments:place:price_level"
+     },
+     {
+      "name": "Scallops",
+      "tag_id": "urn:tag:menu_highlight:qloo:scallops",
+      "type": "urn:tag:menu_highlight:qloo",
+      "value": "urn:tag:menu_highlight:qloo:scallops"
+     },
+     {
+      "name": "Debit cards",
+      "tag_id": "urn:tag:payments:place:debit_cards",
+      "type": "urn:tag:payments:place",
+      "value": "urn:tag:payments:place:debit_cards"
+     },
+     {
+      "name": "Dinner",
+      "tag_id": "urn:tag:dining_options:place:dinner",
+      "type": "urn:tag:dining_options:place",
+      "value": "urn:tag:dining_options:place:dinner"
+     },
+     {
+      "name": "Lobster crackers",
+      "tag_id": "urn:tag:menu_highlight:qloo:lobster_crackers",
+      "type": "urn:tag:menu_highlight:qloo",
+      "value": "urn:tag:menu_highlight:qloo:lobster_crackers"
+     },
+     {
+      "name": "Social community",
+      "tag_id": "urn:tag:activity_type:qloo:social_community",
+      "type": "urn:tag:activity_type:qloo",
+      "value": "urn:tag:activity_type:qloo:social_community"
+     },
+     {
+      "name": "Fine dining",
+      "tag_id": "urn:tag:interests:qloo:fine_dining",
+      "type": "urn:tag:interests:qloo",
+      "value": "urn:tag:interests:qloo:fine_dining"
+     },
+     {
+      "name": "Healthy options",
+      "tag_id": "urn:tag:dietary_option:qloo:healthy_options",
+      "type": "urn:tag:dietary_option:qloo",
+      "value": "urn:tag:dietary_option:qloo:healthy_options"
+     },
+     {
+      "name": "Private dining",
+      "tag_id": "urn:tag:service_type:qloo:private_dining",
+      "type": "urn:tag:service_type:qloo",
+      "value": "urn:tag:service_type:qloo:private_dining"
+     },
+     {
+      "name": "Vegetarian meals",
+      "tag_id": "urn:tag:offerings:place:vegetarian_options",
+      "type": "urn:tag:offerings:place",
+      "value": "urn:tag:offerings:place:vegetarian_options"
+     },
+     {
+      "name": "Locals",
+      "tag_id": "urn:tag:customer_identity:qloo:locals",
+      "type": "urn:tag:customer_identity:qloo",
+      "value": "urn:tag:customer_identity:qloo:locals"
+     },
+     {
+      "name": "Dine small",
+      "tag_id": "urn:tag:resy:collection:place:dine_small",
+      "type": "urn:tag:resy:collection:place",
+      "value": "urn:tag:resy:collection:place:dine_small"
+     },
+     {
+      "name": "Outdoor seating",
+      "tag_id": "urn:tag:service_options:place:outdoor_seating",
+      "type": "urn:tag:service_options:place",
+      "value": "urn:tag:service_options:place:outdoor_seating"
+     },
+     {
+      "name": "Outdoor seating",
+      "tag_id": "urn:tag:amenity:qloo:outdoor_seating",
+      "type": "urn:tag:amenity:qloo",
+      "value": "urn:tag:amenity:qloo:outdoor_seating"
+     },
+     {
+      "name": "Wheelchair accessible entrance",
+      "tag_id": "urn:tag:accessibility:place:wheelchair_accessible_entrance",
+      "type": "urn:tag:accessibility:place",
+      "value": "urn:tag:accessibility:place:wheelchair_accessible_entrance"
+     },
+     {
+      "name": "High chairs",
+      "tag_id": "urn:tag:children:place:high_chairs",
+      "type": "urn:tag:children:place",
+      "value": "urn:tag:children:place:high_chairs"
+     },
+     {
+      "name": "Casual",
+      "tag_id": "urn:tag:culinary_style:qloo:casual",
+      "type": "urn:tag:culinary_style:qloo",
+      "value": "urn:tag:culinary_style:qloo:casual"
+     },
+     {
+      "name": "New american",
+      "tag_id": "urn:tag:cuisine:qloo:new_american",
+      "type": "urn:tag:cuisine:qloo",
+      "value": "urn:tag:cuisine:qloo:new_american"
+     },
+     {
+      "name": "Scenic",
+      "tag_id": "urn:tag:neighborhood_characteristic:qloo:scenic",
+      "type": "urn:tag:neighborhood_characteristic:qloo",
+      "value": "urn:tag:neighborhood_characteristic:qloo:scenic"
+     },
+     {
+      "name": "Lunch",
+      "tag_id": "urn:tag:dining_options:place:lunch",
+      "type": "urn:tag:dining_options:place",
+      "value": "urn:tag:dining_options:place:lunch"
+     },
+     {
+      "name": "Seasonal tasting menus",
+      "tag_id": "urn:tag:activity_type:qloo:seasonal_tasting_menus",
+      "type": "urn:tag:activity_type:qloo",
+      "value": "urn:tag:activity_type:qloo:seasonal_tasting_menus"
+     },
+     {
+      "name": "Beer",
+      "tag_id": "urn:tag:beverage_offering:qloo:beer",
+      "type": "urn:tag:beverage_offering:qloo",
+      "value": "urn:tag:beverage_offering:qloo:beer"
+     },
+     {
+      "name": "Foodies",
+      "tag_id": "urn:tag:customer_identity:qloo:foodies",
+      "type": "urn:tag:customer_identity:qloo",
+      "value": "urn:tag:customer_identity:qloo:foodies"
+     },
+     {
+      "name": "35 44",
+      "tag_id": "urn:tag:age_range:qloo:35_44",
+      "type": "urn:tag:age_range:qloo",
+      "value": "urn:tag:age_range:qloo:35_44"
+     },
+     {
+      "name": "Table service",
+      "tag_id": "urn:tag:dining_options:place:table_service",
+      "type": "urn:tag:dining_options:place",
+      "value": "urn:tag:dining_options:place:table_service"
+     },
+     {
+      "name": "Artisanal",
+      "tag_id": "urn:tag:culinary_style:qloo:artisanal",
+      "type": "urn:tag:culinary_style:qloo",
+      "value": "urn:tag:culinary_style:qloo:artisanal"
+     },
+     {
+      "name": "Halal",
+      "tag_id": "urn:tag:dietary_option:qloo:halal",
+      "type": "urn:tag:dietary_option:qloo",
+      "value": "urn:tag:dietary_option:qloo:halal"
+     },
+     {
+      "name": "Central",
+      "tag_id": "urn:tag:neighborhood_characteristic:qloo:central",
+      "type": "urn:tag:neighborhood_characteristic:qloo",
+      "value": "urn:tag:neighborhood_characteristic:qloo:central"
+     },
+     {
+      "name": "Global dining access",
+      "tag_id": "urn:tag:resy:collection:place:global_dining_access",
+      "type": "urn:tag:resy:collection:place",
+      "value": "urn:tag:resy:collection:place:global_dining_access"
+     },
+     {
+      "name": "Takeout",
+      "tag_id": "urn:tag:service_type:qloo:takeout",
+      "type": "urn:tag:service_type:qloo",
+      "value": "urn:tag:service_type:qloo:takeout"
+     },
+     {
+      "name": "Picturesque",
+      "tag_id": "urn:tag:ambience:qloo:picturesque",
+      "type": "urn:tag:ambience:qloo",
+      "value": "urn:tag:ambience:qloo:picturesque"
+     },
+     {
+      "name": "Full bar",
+      "tag_id": "urn:tag:amenity:qloo:full_bar",
+      "type": "urn:tag:amenity:qloo",
+      "value": "urn:tag:amenity:qloo:full_bar"
+     },
+     {
+      "name": "Coffee and tea",
+      "tag_id": "urn:tag:beverage_offering:qloo:coffee_and_tea",
+      "type": "urn:tag:beverage_offering:qloo",
+      "value": "urn:tag:beverage_offering:qloo:coffee_and_tea"
+     },
+     {
+      "name": "Fine dining",
+      "tag_id": "urn:tag:culinary_style:qloo:fine_dining",
+      "type": "urn:tag:culinary_style:qloo",
+      "value": "urn:tag:culinary_style:qloo:fine_dining"
+     },
+     {
+      "name": "Organic dishes",
+      "tag_id": "urn:tag:offerings:place:organic_dishes",
+      "type": "urn:tag:offerings:place",
+      "value": "urn:tag:offerings:place:organic_dishes"
+     },
+     {
+      "name": "Kale crab rangoon",
+      "tag_id": "urn:tag:menu_highlight:qloo:kale_crab_rangoon",
+      "type": "urn:tag:menu_highlight:qloo",
+      "value": "urn:tag:menu_highlight:qloo:kale_crab_rangoon"
+     },
+     {
+      "name": "Lively",
+      "tag_id": "urn:tag:ambience:qloo:lively",
+      "type": "urn:tag:ambience:qloo",
+      "value": "urn:tag:ambience:qloo:lively"
+     },
+     {
+      "name": "Coffee",
+      "tag_id": "urn:tag:offerings:place:coffee",
+      "type": "urn:tag:offerings:place",
+      "value": "urn:tag:offerings:place:coffee"
+     },
+     {
+      "name": "Romantic",
+      "tag_id": "urn:tag:neighborhood_characteristic:qloo:romantic",
+      "type": "urn:tag:neighborhood_characteristic:qloo",
+      "value": "urn:tag:neighborhood_characteristic:qloo:romantic"
+     },
+     {
+      "name": "Dining drinking",
+      "tag_id": "urn:tag:activity_type:qloo:dining_drinking",
+      "type": "urn:tag:activity_type:qloo",
+      "value": "urn:tag:activity_type:qloo:dining_drinking"
+     },
+     {
+      "name": "Reservations",
+      "tag_id": "urn:tag:service_type:qloo:reservations",
+      "type": "urn:tag:service_type:qloo",
+      "value": "urn:tag:service_type:qloo:reservations"
+     },
+     {
+      "name": "Celebratory diners",
+      "tag_id": "urn:tag:customer_identity:qloo:celebratory_diners",
+      "type": "urn:tag:customer_identity:qloo",
+      "value": "urn:tag:customer_identity:qloo:celebratory_diners"
+     },
+     {
+      "name": "Wine",
+      "tag_id": "urn:tag:offerings:place:wine",
+      "type": "urn:tag:offerings:place",
+      "value": "urn:tag:offerings:place:wine"
+     },
+     {
+      "name": "Wi fi",
+      "tag_id": "urn:tag:amenities:place:wi_fi",
+      "type": "urn:tag:amenities:place",
+      "value": "urn:tag:amenities:place:wi_fi"
+     }
+    ]
+   },
+   {
+    "name": "Olmsted Center",
+    "entity_id": "9A15EE07-473A-4EF0-954D-CB95FEECD0F1",
+    "types": [
+     "urn:entity:place"
+    ],
+    "properties": {
+     "akas": [
+      {
+       "language": "",
+       "value": "Olmsted Center, 117-02 Shea Rd Corona, NY 11368"
+      }
+     ],
+     "address": "117-02 Shea Rd Corona, NY 11368",
+     "business_rating": 4.2,
+     "description": "Municipal office building serving as a city parks hub in Flushing, with a utilitarian presence along Roosevelt Avenue.",
+     "external": {
+      "google_place": {
+       "id": "5bef5e350cf070f3",
+       "place_id": "ChIJvew4QtxfwokR83DwDDVe71s"
+      }
+     },
+     "geocode": {
+      "city": "New York",
+      "admin1_region": "New York",
+      "admin2_region": "Queens County",
+      "country_code": "US",
+      "country": "United States",
+      "metro": "New York City"
+     },
+     "hours": {
+      "sunday": [
+       {
+        "closed": true
+       }
+      ],
+      "monday": [
+       {
+        "closed": false,
+        "opens": "T09:00:00",
+        "closes": "T17:00:00"
+       }
+      ],
+      "tuesday": [
+       {
+        "closed": false,
+        "opens": "T09:00:00",
+        "closes": "T17:00:00"
+       }
+      ],
+      "wednesday": [
+       {
+        "closed": false,
+        "opens": "T09:00:00",
+        "closes": "T17:00:00"
+       }
+      ],
+      "thursday": [
+       {
+        "closed": false,
+        "opens": "T09:00:00",
+        "closes": "T17:00:00"
+       }
+      ],
+      "friday": [
+       {
+        "closed": false,
+        "opens": "T09:00:00",
+        "closes": "T17:00:00"
+       }
+      ],
+      "saturday": [
+       {
+        "closed": true
+       }
+      ]
+     },
+     "image": {
+      "url": "https://images.qloo.com/i/9A15EE07-473A-4EF0-954D-CB95FEECD0F1-420x-auto.jpg"
+     },
+     "is_closed": false,
+     "phone": "+17187606600",
+     "price_range": {
+      "currency": "usd"
+     },
+     "website": "https://www.nycgovparks.org/opportunities/capital-projects/",
+     "primary_genre": {
+      "id": "urn:tag:genre:place:city_government_office",
+      "name": "City government office",
+      "type": "urn:tag:genre:place",
+      "akas": [
+       {
+        "language": "nb",
+        "value": "\"Bykontor\""
+       },
+       {
+        "language": "da",
+        "value": "\"Bykontor\""
+       },
+       {
+        "language": "ca",
+        "value": "\"Oficina del govern municipal\""
+       },
+       {
+        "language": "zh",
+        "value": "\"\u5e02\u653f\u5e9c\u529e\u516c\u5ba4\""
+       },
+       {
+        "language": "ar",
+        "value": "\"\u0645\u0643\u062a\u0628 \u062d\u0643\u0648\u0645\u0629 \u0627\u0644\u0645\u062f\u064a\u0646\u0629\""
+       },
+       {
+        "language": "de",
+        "value": "\"St\u00e4dtische Beh\u00f6rde\""
+       },
+       {
+        "language": "zh_tw",
+        "value": "\"\u5e02\u653f\u5e9c\u8fa6\u516c\u5ba4\""
+       },
+       {
+        "language": "de",
+        "value": "\"St\u00e4dtisches Amt\""
+       },
+       {
+        "language": "th",
+        "value": "\"\u0e2a\u0e33\u0e19\u0e31\u0e01\u0e07\u0e32\u0e19\u0e1a\u0e23\u0e34\u0e2b\u0e32\u0e23\u0e2a\u0e48\u0e27\u0e19\u0e40\u0e21\u0e37\u0e2d\u0e07\""
+       },
+       {
+        "language": "vi",
+        "value": "\"V\u0103n ph\u00f2ng ch\u00ednh quy\u1ec1n th\u00e0nh ph\u1ed1\""
+       },
+       {
+        "language": "nl",
+        "value": "\"Gemeentelijk kantoor\""
+       },
+       {
+        "language": "bs",
+        "value": "\"Ured gradske uprave\""
+       },
+       {
+        "language": "es",
+        "value": "\"Oficina gubernamental\""
+       },
+       {
+        "language": "sk",
+        "value": "\"Mestsk\u00fd \u00farad\""
+       },
+       {
+        "language": "ko",
+        "value": "\"\uc2dc\uccad \uc0ac\ubb34\uc2e4\""
+       },
+       {
+        "language": "sr",
+        "value": "\"\u041a\u0430\u043d\u0446\u0435\u043b\u0430\u0440\u0438\u0458\u0430 \u0433\u0440\u0430\u0434\u0441\u043a\u0435 \u0443\u043f\u0440\u0430\u0432\u0435\""
+       },
+       {
+        "language": "hi",
+        "value": "\"\u0928\u0917\u0930 \u0938\u0930\u0915\u093e\u0930\u0940 \u0915\u093e\u0930\u094d\u092f\u093e\u0932\u092f\""
+       },
+       {
+        "language": "lt",
+        "value": "\"Miesto vald\u017eios \u012fstaiga\""
+       },
+       {
+        "language": "km",
+        "value": "\"\u1780\u17b6\u179a\u17b7\u1799\u17b6\u179b\u17d0\u1799\u179a\u178a\u17d2\u178b\u1794\u17b6\u179b\u1780\u17d2\u179a\u17bb\u1784\""
+       },
+       {
+        "language": "ja",
+        "value": "\"\u5e02\u5f79\u6240\""
+       },
+       {
+        "language": "lv",
+        "value": "\"Pils\u0113tas p\u0101rvalde\""
+       },
+       {
+        "language": "he",
+        "value": "\"\u05de\u05e9\u05e8\u05d3\u05d9 \u05e2\u05d9\u05e8\u05d9\u05d9\u05d4\""
+       },
+       {
+        "language": "hr",
+        "value": "\"Gradski ured\""
+       },
+       {
+        "language": "bn",
+        "value": "\"\u09b6\u09b9\u09b0 \u09b8\u09b0\u0995\u09be\u09b0\u09bf \u0985\u09ab\u09bf\u09b8\""
+       },
+       {
+        "language": "es_la",
+        "value": "\"Oficina municipal\""
+       },
+       {
+        "language": "es_ar",
+        "value": "\"Oficina municipal\""
+       },
+       {
+        "language": "gl",
+        "value": "\"Oficina municipal\""
+       },
+       {
+        "language": "es",
+        "value": "\"Oficina municipal\""
+       },
+       {
+        "language": "te",
+        "value": "\"\u0c28\u0c17\u0c30 \u0c2a\u0c4d\u0c30\u0c2d\u0c41\u0c24\u0c4d\u0c35 \u0c15\u0c3e\u0c30\u0c4d\u0c2f\u0c3e\u0c32\u0c2f\u0c02\""
+       },
+       {
+        "language": "en_gb",
+        "value": "\"City government office\""
+       },
+       {
+        "language": "ro",
+        "value": "\"Prim\u0103rie\""
+       },
+       {
+        "language": "cs",
+        "value": "\"\u00da\u0159ad m\u011bstsk\u00e9 spr\u00e1vy\""
+       },
+       {
+        "language": "el",
+        "value": "\"\u0393\u03c1\u03b1\u03c6\u03b5\u03af\u03bf \u03b4\u03b7\u03bc\u03bf\u03c4\u03b9\u03ba\u03ae\u03c2 \u03b1\u03c1\u03c7\u03ae\u03c2\""
+       },
+       {
+        "language": "ka",
+        "value": "\"\u10e5\u10d0\u10da\u10d0\u10e5\u10d8\u10e1 \u10db\u10d4\u10e0\u10d8\u10d8\u10e1 \u10dd\u10e4\u10d8\u10e1\u10d8\""
+       },
+       {
+        "language": "ru",
+        "value": "\"\u041e\u0444\u0438\u0441 \u0433\u043e\u0440\u043e\u0434\u0441\u043a\u043e\u0439 \u0430\u0434\u043c\u0438\u043d\u0438\u0441\u0442\u0440\u0430\u0446\u0438\u0438\""
+       },
+       {
+        "language": "tr",
+        "value": "\"\u015eehir y\u00f6netim ofisi\""
+       },
+       {
+        "language": "it",
+        "value": "\"Ufficio comunale\""
+       },
+       {
+        "language": "fi",
+        "value": "\"Kaupungintalo\""
+       },
+       {
+        "language": "mk",
+        "value": "\"\u0413\u0440\u0430\u0434\u0441\u043a\u0430 \u043e\u043f\u0448\u0442\u0438\u043d\u0441\u043a\u0430 \u043a\u0430\u043d\u0446\u0435\u043b\u0430\u0440\u0438\u0458\u0430\""
+       },
+       {
+        "language": "sw",
+        "value": "\"Ofisi ya serikali ya jiji\""
+       },
+       {
+        "language": "pt",
+        "value": "\"\u00d3rg\u00e3o p\u00fablico municipal\""
+       },
+       {
+        "language": "pl",
+        "value": "\"Urz\u0105d miasta\""
+       },
+       {
+        "language": "kk",
+        "value": "\"\u049a\u0430\u043b\u0430\u043b\u044b\u049b \u04d9\u043a\u0456\u043c\u0434\u0456\u043a\""
+       },
+       {
+        "language": "my",
+        "value": "\"\u1019\u103c\u102d\u102f\u1037\u1010\u1031\u102c\u103a\u1021\u102f\u1015\u103a\u1001\u103b\u102f\u1015\u103a\u101b\u1031\u1038\u101b\u102f\u1036\u1038\""
+       },
+       {
+        "language": "pt_pt",
+        "value": "\"C\u00e2mara municipal\""
+       },
+       {
+        "language": "uk",
+        "value": "\"\u041c\u0456\u0441\u044c\u043a\u0430 \u0434\u0435\u0440\u0436\u0430\u0432\u043d\u0430 \u0443\u0441\u0442\u0430\u043d\u043e\u0432\u0430\""
+       },
+       {
+        "language": "hu",
+        "value": "\"V\u00e1rosh\u00e1za\""
+       },
+       {
+        "language": "az",
+        "value": "\"\u015e\u0259h\u0259r icra hakimiyy\u0259ti\""
+       },
+       {
+        "language": "sq",
+        "value": "\"Zyra e qeverisjes s\u00eb qytetit\""
+       },
+       {
+        "language": "id",
+        "value": "\"Kantor pemerintah kota\""
+       },
+       {
+        "language": "ms",
+        "value": "\"Pejabat kerajaan bandar\""
+       },
+       {
+        "language": "bg",
+        "value": "\"\u041e\u0444\u0438\u0441 \u043d\u0430 \u0433\u0440\u0430\u0434\u0441\u043a\u0430\u0442\u0430 \u0443\u043f\u0440\u0430\u0432\u0430\""
+       },
+       {
+        "language": "et",
+        "value": "\"Linnavalitsus\""
+       },
+       {
+        "language": "sl",
+        "value": "\"Mestna uprava\""
+       },
+       {
+        "language": "eu",
+        "value": "\"Udal bulegoa\""
+       },
+       {
+        "language": "af",
+        "value": "\"Stadsregeringskantoor\""
+       },
+       {
+        "language": "lo",
+        "value": "\"\u0eab\u0ec9\u0ead\u0e87\u0e81\u0eb2\u0e99\u0e9a\u0ecd\u0ea5\u0eb4\u0eab\u0eb2\u0e99\u0ec0\u0ea1\u0eb7\u0ead\u0e87\""
+       },
+       {
+        "language": "ta",
+        "value": "\"\u0ba8\u0b95\u0bb0 \u0b85\u0bb0\u0b9a\u0bc1 \u0b85\u0bb2\u0bc1\u0bb5\u0bb2\u0b95\u0bae\u0bcd\""
+       },
+       {
+        "language": "fr",
+        "value": "\"Bureau municipal\""
+       },
+       {
+        "language": "fr_ca",
+        "value": "\"Bureau municipal\""
+       },
+       {
+        "language": "sv",
+        "value": "\"Stadskontor\""
+       },
+       {
+        "language": "tl",
+        "value": "\"Opisina ng pamahalaang lungsod\""
+       }
+      ]
+     }
+    },
+    "disambiguation": "117-02 Shea Rd Corona, NY 11368",
+    "location": {
+     "lat": 40.7515591,
+     "lon": -73.8498279
+    },
+    "tags": [
+     {
+      "name": "City government office",
+      "tag_id": "urn:tag:genre:place:city_government_office",
+      "type": "urn:tag:genre:place",
+      "value": "urn:tag:genre:place:city_government_office"
+     },
+     {
+      "name": "Batteries",
+      "tag_id": "urn:tag:recycling:place:batteries",
+      "type": "urn:tag:recycling:place",
+      "value": "urn:tag:recycling:place:batteries"
+     },
+     {
+      "name": "Tourist attraction",
+      "tag_id": "urn:tag:genre:place:tourist_attraction",
+      "type": "urn:tag:genre:place",
+      "value": "urn:tag:genre:place:tourist_attraction"
+     },
+     {
+      "name": "Ink cartridges",
+      "tag_id": "urn:tag:recycling:place:ink_cartridges",
+      "type": "urn:tag:recycling:place",
+      "value": "urn:tag:recycling:place:ink_cartridges"
+     },
+     {
+      "name": "Wheelchair accessible parking lot",
+      "tag_id": "urn:tag:accessibility:place:wheelchair_accessible_parking_lot",
+      "type": "urn:tag:accessibility:place",
+      "value": "urn:tag:accessibility:place:wheelchair_accessible_parking_lot"
+     },
+     {
+      "name": "City government office",
+      "tag_id": "urn:tag:category:place:city_government_office",
+      "type": "urn:tag:category:place",
+      "value": "urn:tag:category:place:city_government_office"
+     },
+     {
+      "name": "Restroom",
+      "tag_id": "urn:tag:amenities:place:restroom",
+      "type": "urn:tag:amenities:place",
+      "value": "urn:tag:amenities:place:restroom"
+     },
+     {
+      "name": "Wheelchair accessible restroom",
+      "tag_id": "urn:tag:accessibility:place:wheelchair_accessible_restroom",
+      "type": "urn:tag:accessibility:place",
+      "value": "urn:tag:accessibility:place:wheelchair_accessible_restroom"
+     },
+     {
+      "name": "Place",
+      "tag_id": "urn:tag:genre:place",
+      "type": "urn:tag:genre:place",
+      "value": "urn:tag:genre:place"
+     },
+     {
+      "name": "Paid parking lot",
+      "tag_id": "urn:tag:parking:place:paid_parking_lot",
+      "type": "urn:tag:parking:place",
+      "value": "urn:tag:parking:place:paid_parking_lot"
+     },
+     {
+      "name": "Wheelchair accessible entrance",
+      "tag_id": "urn:tag:accessibility:place:wheelchair_accessible_entrance",
+      "type": "urn:tag:accessibility:place",
+      "value": "urn:tag:accessibility:place:wheelchair_accessible_entrance"
+     }
+    ]
+   },
+   {
+    "name": "Olmsted Flower Bed",
+    "entity_id": "35027A89-C1D8-499C-8E7E-BD8B3FDC96CD",
+    "types": [
+     "urn:entity:place"
+    ],
+    "properties": {
+     "akas": [
+      {
+       "language": "",
+       "value": "Olmsted Flower Bed, Center Dr. & East Dr New York, NY 10019"
+      }
+     ],
+     "address": "Center Dr. & East Dr New York, NY 10019",
+     "business_rating": 4.6,
+     "description": "A peaceful Central Park flower bed known for seasonal blooms, birds, and squirrels in a lively urban setting.",
+     "external": {
+      "google_place": {
+       "id": "9f48fa90f09b128",
+       "place_id": "ChIJT3o2avJYwokRKLEJD6mP9Ak"
+      }
+     },
+     "geocode": {
+      "city": "New York",
+      "admin1_region": "New York",
+      "admin2_region": "New York County",
+      "country_code": "US",
+      "country": "United States",
+      "metro": "New York City"
+     },
+     "hours": {
+      "sunday": [
+       {
+        "closed": false,
+        "opens": "T06:00:00",
+        "closes": "T01:00:00"
+       }
+      ],
+      "monday": [
+       {
+        "closed": false,
+        "opens": "T06:00:00",
+        "closes": "T01:00:00"
+       }
+      ],
+      "tuesday": [
+       {
+        "closed": false,
+        "opens": "T06:00:00",
+        "closes": "T01:00:00"
+       }
+      ],
+      "wednesday": [
+       {
+        "closed": false,
+        "opens": "T06:00:00",
+        "closes": "T01:00:00"
+       }
+      ],
+      "thursday": [
+       {
+        "closed": false,
+        "opens": "T06:00:00",
+        "closes": "T01:00:00"
+       }
+      ],
+      "friday": [
+       {
+        "closed": false,
+        "opens": "T06:00:00",
+        "closes": "T01:00:00"
+       }
+      ],
+      "saturday": [
+       {
+        "closed": false,
+        "opens": "T06:00:00",
+        "closes": "T01:00:00"
+       }
+      ]
+     },
+     "image": {
+      "url": "https://images.qloo.com/i/35027A89-C1D8-499C-8E7E-BD8B3FDC96CD-420x-auto.jpg"
+     },
+     "is_closed": false,
+     "phone": "+12123106600",
+     "price_range": {
+      "currency": "usd"
+     },
+     "website": "https://www.centralparknyc.org/attractions/olmsted-flower-bed",
+     "primary_genre": {
+      "id": "urn:tag:genre:place:garden",
+      "name": "Garden",
+      "type": "urn:tag:genre:place",
+      "akas": [
+       {
+        "language": "ka",
+        "value": "\"\u10d1\u10d0\u10e6\u10d8\""
+       },
+       {
+        "language": "my",
+        "value": "\"\u1025\u101a\u103b\u102c\u1009\u103a\""
+       },
+       {
+        "language": "ro",
+        "value": "\"Gr\u0103din\u0103\""
+       },
+       {
+        "language": "te",
+        "value": "\"\u0c24\u0c4b\u0c1f\""
+       },
+       {
+        "language": "tl",
+        "value": "\"Hardin\""
+       },
+       {
+        "language": "hi",
+        "value": "\"\u092c\u0917\u0940\u091a\u093e\""
+       },
+       {
+        "language": "zh_tw",
+        "value": "\"\u82b1\u5712\""
+       },
+       {
+        "language": "it",
+        "value": "\"Giardino\""
+       },
+       {
+        "language": "ar",
+        "value": "\"\u062d\u062f\u064a\u0642\u0629\""
+       },
+       {
+        "language": "bn",
+        "value": "\"\u09ac\u09be\u0997\u09be\u09a8\""
+       },
+       {
+        "language": "th",
+        "value": "\"\u0e2a\u0e27\u0e19\""
+       },
+       {
+        "language": "af",
+        "value": "\"Tuin\""
+       },
+       {
+        "language": "nl",
+        "value": "\"Tuin\""
+       },
+       {
+        "language": "fr_ca",
+        "value": "\"Jardin\""
+       },
+       {
+        "language": "fr",
+        "value": "\"Jardin\""
+       },
+       {
+        "language": "ms",
+        "value": "\"Taman\""
+       },
+       {
+        "language": "id",
+        "value": "\"Taman\""
+       },
+       {
+        "language": "mk",
+        "value": "\"\u0413\u0440\u0430\u0434\u0438\u043d\u0430\""
+       },
+       {
+        "language": "bg",
+        "value": "\"\u0413\u0440\u0430\u0434\u0438\u043d\u0430\""
+       },
+       {
+        "language": "de",
+        "value": "\"Garten\""
+       },
+       {
+        "language": "he",
+        "value": "\"\u05d2\u05df\""
+       },
+       {
+        "language": "cs",
+        "value": "\"Zahrada\""
+       },
+       {
+        "language": "tr",
+        "value": "\"Bah\u00e7e\""
+       },
+       {
+        "language": "bs",
+        "value": "\"Vrt\""
+       },
+       {
+        "language": "hr",
+        "value": "\"Vrt\""
+       },
+       {
+        "language": "sl",
+        "value": "\"Vrt\""
+       },
+       {
+        "language": "sw",
+        "value": "\"Bustani\""
+       },
+       {
+        "language": "gl",
+        "value": "\"Xard\u00edn\""
+       },
+       {
+        "language": "ko",
+        "value": "\"\uc815\uc6d0\""
+       },
+       {
+        "language": "hu",
+        "value": "\"Kert\""
+       },
+       {
+        "language": "et",
+        "value": "\"Aed\""
+       },
+       {
+        "language": "nb",
+        "value": "\"Hage\""
+       },
+       {
+        "language": "zh",
+        "value": "\"\u82b1\u56ed\""
+       },
+       {
+        "language": "lo",
+        "value": "\"\u0eaa\u0ea7\u0e99\""
+       },
+       {
+        "language": "vi",
+        "value": "\"V\u01b0\u1eddn\""
+       },
+       {
+        "language": "pl",
+        "value": "\"Ogr\u00f3d\""
+       },
+       {
+        "language": "sq",
+        "value": "\"Kopsht\""
+       },
+       {
+        "language": "en_gb",
+        "value": "\"Garden\""
+       },
+       {
+        "language": "fi",
+        "value": "\"Puutarha\""
+       },
+       {
+        "language": "sk",
+        "value": "\"Z\u00e1hrada\""
+       },
+       {
+        "language": "es_la",
+        "value": "\"Jard\u00edn\""
+       },
+       {
+        "language": "es_ar",
+        "value": "\"Jard\u00edn\""
+       },
+       {
+        "language": "es",
+        "value": "\"Jard\u00edn\""
+       },
+       {
+        "language": "ta",
+        "value": "\"\u0ba4\u0bcb\u0b9f\u0bcd\u0b9f\u0bae\u0bcd\""
+       },
+       {
+        "language": "eu",
+        "value": "\"Lorategi\""
+       },
+       {
+        "language": "ca",
+        "value": "\"Jard\u00ed\""
+       },
+       {
+        "language": "km",
+        "value": "\"\u179f\u17bd\u1793\u1785\u17d2\u1794\u17b6\u179a\""
+       },
+       {
+        "language": "da",
+        "value": "\"Have\""
+       },
+       {
+        "language": "el",
+        "value": "\"\u039a\u03ae\u03c0\u03bf\u03c2\""
+       },
+       {
+        "language": "ja",
+        "value": "\"\u5ead\u5712\""
+       },
+       {
+        "language": "lv",
+        "value": "\"D\u0101rzs\""
+       },
+       {
+        "language": "sv",
+        "value": "\"Tr\u00e4dg\u00e5rd\""
+       },
+       {
+        "language": "kk",
+        "value": "\"\u0411\u0430\u049b\""
+       },
+       {
+        "language": "pt_pt",
+        "value": "\"Jardim\""
+       },
+       {
+        "language": "pt",
+        "value": "\"Jardim\""
+       },
+       {
+        "language": "az",
+        "value": "\"Ba\u011f\""
+       },
+       {
+        "language": "lt",
+        "value": "\"Sodas\""
+       },
+       {
+        "language": "uk",
+        "value": "\"\u0421\u0430\u0434\""
+       },
+       {
+        "language": "ru",
+        "value": "\"\u0421\u0430\u0434\""
+       },
+       {
+        "language": "sr",
+        "value": "\"\u0412\u0440\u0442\""
+       }
+      ]
+     }
+    },
+    "disambiguation": "Center Dr. & East Dr New York, NY 10019",
+    "location": {
+     "lat": 40.76983,
+     "lon": -73.9725539
+    },
+    "tags": [
+     {
+      "name": "Place",
+      "tag_id": "urn:tag:genre:place",
+      "type": "urn:tag:genre:place",
+      "value": "urn:tag:genre:place"
+     },
+     {
+      "name": "Barbecue grill",
+      "tag_id": "urn:tag:amenities:place:barbecue_grill",
+      "type": "urn:tag:amenities:place",
+      "value": "urn:tag:amenities:place:barbecue_grill"
+     },
+     {
+      "name": "Skateboarding area",
+      "tag_id": "urn:tag:amenities:place:skateboarding_area",
+      "type": "urn:tag:amenities:place",
+      "value": "urn:tag:amenities:place:skateboarding_area"
+     },
+     {
+      "name": "Basketball court",
+      "tag_id": "urn:tag:amenities:place:basketball_court",
+      "type": "urn:tag:amenities:place",
+      "value": "urn:tag:amenities:place:basketball_court"
+     },
+     {
+      "name": "Garden",
+      "tag_id": "urn:tag:genre:place:garden",
+      "type": "urn:tag:genre:place",
+      "value": "urn:tag:genre:place:garden"
+     },
+     {
+      "name": "Wheelchair accessible entrance",
+      "tag_id": "urn:tag:accessibility:place:wheelchair_accessible_entrance",
+      "type": "urn:tag:accessibility:place",
+      "value": "urn:tag:accessibility:place:wheelchair_accessible_entrance"
+     },
+     {
+      "name": "Baseball field",
+      "tag_id": "urn:tag:amenities:place:baseball_field",
+      "type": "urn:tag:amenities:place",
+      "value": "urn:tag:amenities:place:baseball_field"
+     },
+     {
+      "name": "Tourist attraction",
+      "tag_id": "urn:tag:genre:place:tourist_attraction",
+      "type": "urn:tag:genre:place",
+      "value": "urn:tag:genre:place:tourist_attraction"
+     },
+     {
+      "name": "Swings",
+      "tag_id": "urn:tag:amenities:place:swings",
+      "type": "urn:tag:amenities:place",
+      "value": "urn:tag:amenities:place:swings"
+     },
+     {
+      "name": "Slides",
+      "tag_id": "urn:tag:amenities:place:slides",
+      "type": "urn:tag:amenities:place",
+      "value": "urn:tag:amenities:place:slides"
+     },
+     {
+      "name": "Garden",
+      "tag_id": "urn:tag:category:place:garden",
+      "type": "urn:tag:category:place",
+      "value": "urn:tag:category:place:garden"
+     },
+     {
+      "name": "Good for kids",
+      "tag_id": "urn:tag:children:place:good_for_kids",
+      "type": "urn:tag:children:place",
+      "value": "urn:tag:children:place:good_for_kids"
+     },
+     {
+      "name": "Has a tennis court",
+      "tag_id": "urn:tag:amenities:place:has_a_tennis_court",
+      "type": "urn:tag:amenities:place",
+      "value": "urn:tag:amenities:place:has_a_tennis_court"
+     },
+     {
+      "name": "Volleyball court",
+      "tag_id": "urn:tag:amenities:place:volleyball_court",
+      "type": "urn:tag:amenities:place",
+      "value": "urn:tag:amenities:place:volleyball_court"
+     }
+    ]
+   }
+  ]
+ }
+}

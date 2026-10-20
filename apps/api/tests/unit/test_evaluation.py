@@ -21,3 +21,15 @@ def test_blind_pairs_hide_the_side_and_score():
     assert blind_pairs(a, c, 10, seed=7) == rows  # reproducible
     key = {r["pair"]: r["a_is"] for r in rows}
     assert a_wins({1: key[1], 2: 3 - key[2], 3: 0}, key) == (1, 2)
+
+
+def test_stockist_metrics():
+    """EVL-04: recall@k, mean percentile rank (first 100, last 0), long tail, a fixed shuffle."""
+    from tasteroute_api.evaluation import hash_order, long_tail, mean_percentile_rank, recall_at_k
+
+    ranked = ["a", "b", "c", "d", "e"]
+    assert recall_at_k(ranked, {"a", "e"}, 2) == 0.5 and recall_at_k(ranked, set(), 2) is None
+    assert mean_percentile_rank(ranked, {"a"}) == 100 and mean_percentile_rank(ranked, {"e"}) == 0
+    assert mean_percentile_rank(ranked, {"a", "e", "zz"}) == 50
+    assert long_tail({"a", "e"}, ["a", "b"]) == {"e"}
+    assert hash_order(ranked, "x") == hash_order(list(reversed(ranked)), "x") != hash_order(ranked, "y")

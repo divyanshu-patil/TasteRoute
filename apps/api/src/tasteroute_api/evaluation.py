@@ -1,5 +1,6 @@
 """Metrics for the Qloo-on vs Qloo-off evaluation (docs/15-evaluation.md). Pure functions; scripts/evaluate.py does the IO."""
 
+import hashlib
 import random
 from typing import Any
 
@@ -35,3 +36,28 @@ def a_wins(answers: dict[int, int], key: dict[int, int]) -> tuple[int, int]:
     """answers: pair -> chosen side (1 or 2). Returns (A wins, pairs judged)."""
     judged = [p for p in answers if p in key and answers[p] in (1, 2)]
     return sum(answers[p] == key[p] for p in judged), len(judged)
+
+
+# Stockist backtest (docs/15-evaluation.md, EVL-04): every method ranks the same pool; truth = the brand's real accounts.
+
+def recall_at_k(ranked_ids: list[str], truth: set[str], k: int) -> float | None:
+    """Share of the truth found in the first k. None without truth."""
+    return round(len(set(ranked_ids[:k]) & truth) / len(truth), 3) if truth else None
+
+
+def mean_percentile_rank(ranked_ids: list[str], truth: set[str]) -> float | None:
+    """Mean of 100 × (1 − (rank − 1)/(N − 1)) over truth items in the ranking: first = 100, last = 0, random ≈ 50."""
+    pos = {v: i for i, v in enumerate(ranked_ids)}
+    n = len(ranked_ids)
+    vals = [100 * (1 - pos[t] / (n - 1)) for t in truth if t in pos] if n > 1 else []
+    return round(sum(vals) / len(vals), 1) if vals else None
+
+
+def long_tail(truth: set[str], popular_ids: list[str]) -> set[str]:
+    """Truth outside the popularity-only top list: venues taste has to find, not fame."""
+    return truth - set(popular_ids)
+
+
+def hash_order(ids: list[str], salt: str) -> list[str]:
+    """A fixed shuffle (and tie-break) that does not depend on any method's scores."""
+    return sorted(ids, key=lambda i: hashlib.sha1(f"{salt}:{i}".encode()).hexdigest())

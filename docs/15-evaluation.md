@@ -103,3 +103,16 @@ The brand's name is never in a Qloo signal or an LLM prompt.
 ### Success target
 
 **TasteRoute (Q-fit) beats the LLM on recall@30 in at least 3 of the 4 test brands.** The result is published whatever it is, in `docs/evaluation-stockists.md`, with where Qloo lost and why.
+
+### Changes after the dev run (2026-10-20, committed before the test run)
+
+The first dev run showed a flaw in the pool, not in any method. Its non-accounts were all top-50 venues (picked because they score high on Qloo affinity or popularity), while most accounts entered the pool only through `/search` (13 of 16 for Kings County Distillery). Any Qloo score then ranks accounts low by construction: the accounts' mean percentile rank was 23–33 for Q-fit, Q-raw and POP on both dev brands, below random. The LLM is not affected. Fixes:
+
+1. **Pool:** per venue type, Qloo's 500 best-known Brooklyn venues (popularity order, no signal, `page` 1–10 with `take=50`; paging verified to page 10). The comparables' and mass-market top 50s are no longer added.
+2. **Accounts:** an account counts only if it is in that pool (the app's name match and the same street number when both have one). `/search` is no longer used. Accounts and other venues are therefore picked the same way, by how well Qloo knows them.
+3. **LLM scores** are cached in `docs/eval/llm/` (per prompt version and pool) so the run can be checked without new calls.
+4. **Exploratory method Q-fit+LLM** (mean of the two positions) is reported but is not TasteRoute's ranking and not part of the success target.
+
+Nothing else changed: brands, split, comparables, venue types, the Q-fit formula, metrics and target are as pre-registered.
+
+Dev result with the frozen pipeline, for the record. Kings County Distillery (10 accounts in the pool): recall@30 Q-fit 20%, LLM 20%; mean percentile rank Q-fit 59, LLM 87. Wölffer Estate (7 accounts): recall@30 0% for every method; mean percentile rank Q-fit 51, LLM 72. **The LLM is ahead on dev.** Its top 10 reads venue names ("The Whiskey Annex", "Bass & Bourbon"). Both dev brands sell through distributors to ordinary bars, which a name says more about than taste does.
