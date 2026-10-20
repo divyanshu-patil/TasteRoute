@@ -11,6 +11,8 @@
   "Q-fit+LLM": 8,
   "Q-cult": 3,
   "Q-fit+C": 4,
+  "Q-heat": 7,
+  "Q-fit+H": 6,
   "RANDOM": 1.5
  },
  "wins": {
@@ -40,6 +42,8 @@
     "Q-fit+LLM": 0.1,
     "Q-cult": 0.0,
     "Q-fit+C": 0.1,
+    "Q-heat": 0.1,
+    "Q-fit+H": 0.0,
     "RANDOM": 0.034
    },
    "mpr": {
@@ -50,6 +54,8 @@
     "Q-fit+LLM": 80.1,
     "Q-cult": 56.5,
     "Q-fit+C": 62.5,
+    "Q-heat": 68.0,
+    "Q-fit+H": 70.2,
     "RANDOM": 50.0
    }
   },
@@ -72,6 +78,8 @@
     "Q-fit+LLM": 0.0,
     "Q-cult": 0.286,
     "Q-fit+C": 0.143,
+    "Q-heat": 0.0,
+    "Q-fit+H": 0.0,
     "RANDOM": 0.034
    },
    "mpr": {
@@ -82,6 +90,8 @@
     "Q-fit+LLM": 65.3,
     "Q-cult": 70.3,
     "Q-fit+C": 62.1,
+    "Q-heat": 49.4,
+    "Q-fit+H": 49.7,
     "RANDOM": 50.0
    }
   },
@@ -112,6 +122,8 @@
     "Q-fit+LLM": 0.0,
     "Q-cult": 0.0,
     "Q-fit+C": 0.0,
+    "Q-heat": 0.0,
+    "Q-fit+H": 0.0,
     "RANDOM": 0.032
    },
    "mpr": {
@@ -122,6 +134,8 @@
     "Q-fit+LLM": 86.4,
     "Q-cult": 66.3,
     "Q-fit+C": 74.1,
+    "Q-heat": 72.8,
+    "Q-fit+H": 79.4,
     "RANDOM": 50.0
    }
   },
@@ -144,6 +158,8 @@
     "Q-fit+LLM": 0.194,
     "Q-cult": 0.083,
     "Q-fit+C": 0.083,
+    "Q-heat": 0.139,
+    "Q-fit+H": 0.139,
     "RANDOM": 0.034
    },
    "mpr": {
@@ -154,6 +170,8 @@
     "Q-fit+LLM": 72.0,
     "Q-cult": 61.2,
     "Q-fit+C": 69.3,
+    "Q-heat": 62.7,
+    "Q-fit+H": 68.0,
     "RANDOM": 50.0
    }
   },
@@ -176,6 +194,8 @@
     "Q-fit+LLM": 0.143,
     "Q-cult": 0.0,
     "Q-fit+C": 0.143,
+    "Q-heat": 0.286,
+    "Q-fit+H": 0.143,
     "RANDOM": 0.028
    },
    "mpr": {
@@ -186,6 +206,8 @@
     "Q-fit+LLM": 72.5,
     "Q-cult": 60.2,
     "Q-fit+C": 66.7,
+    "Q-heat": 84.9,
+    "Q-fit+H": 81.7,
     "RANDOM": 50.0
    }
   }

@@ -29,6 +29,7 @@ from tasteroute_api.qloo import api
 from tasteroute_api.qloo.client import Trace
 from tasteroute_api.qloo.guards import guard_places
 from tasteroute_api.scoring import names, rank
+from tasteroute_api.services import route
 from tasteroute_api.services.drafts import short_name
 from tasteroute_api.services.resolve import best_match
 from tasteroute_api.settings import get_settings
@@ -38,7 +39,7 @@ CSV, POOLS, LLM_CACHE = ROOT / "docs/eval/stockists.csv", ROOT / "docs/eval/pool
 REPORT, WEB = ROOT / "docs/evaluation-stockists.md", ROOT / "apps/web/public/evaluation.json"
 CITY = {"query": "Brooklyn", "lat": 40.6526, "lon": -73.9497, "bbox": [40.5503390, -74.0566880, 40.7394340, -73.8329450]}
 PAGES, BATCH, POP_TOP = 10, 50, 50
-METHODS = ["Q-fit", "Q-raw", "POP", "LLM", "Q-fit+LLM", "Q-cult", "Q-fit+C"]
+METHODS = ["Q-fit", "Q-raw", "POP", "LLM", "Q-fit+LLM", "Q-cult", "Q-fit+C", "Q-heat", "Q-fit+H"]
 
 
 class Score(BaseModel):
@@ -152,8 +153,17 @@ async def llm_scores(svc: Any, b: dict[str, Any], comps: list[str], pool: list[d
     return got
 
 
+async def heat_lift(svc: Any, pack: Any, signal: list[str], pool: dict[str, dict[str, Any]], trace: Trace) -> dict[str, float]:
+    """Heatmap lift at each venue, as the app's taste route (pre-registered: "Taste heatmap" in docs/15-evaluation.md)."""
+    taste, _ = await api.heatmap(svc.qloo, city_query=CITY["query"], signal_ids=signal, trace=trace)
+    mass, _ = await api.heatmap(svc.qloo, city_query=CITY["query"], signal_ids=pack.baseline_entities, trace=trace)
+    cells = route.lift_cells(route.inside(taste, CITY["bbox"]), route.inside(mass, CITY["bbox"]))
+    return {i: route.lift_at(v["lat"], v["lon"], cells) for i, v in pool.items() if v["lat"] is not None and cells}
+
+
 def rankings(b: dict[str, Any], pool: dict[str, dict[str, Any]], target: dict[str, float], generic: dict[str, float],
-             llm: dict[str, int], cult: dict[str, float]) -> tuple[dict[str, list[str]], dict[str, rank.Scored]]:
+             llm: dict[str, int], cult: dict[str, float], heat: dict[str, float]
+             ) -> tuple[dict[str, list[str]], dict[str, rank.Scored]]:
     tie = {v: i for i, v in enumerate(hash_order(list(pool), b["key"]))}
     per_type = []
     for vt in b["types"]:
@@ -166,12 +176,15 @@ def rankings(b: dict[str, Any], pool: dict[str, dict[str, Any]], target: dict[st
         "POP": sorted(pool, key=lambda i: (-pool[i]["popularity"], tie[i])),
         "LLM": sorted(pool, key=lambda i: (-llm.get(i, -1), tie[i])),
         "Q-cult": sorted(pool, key=lambda i: (-cult.get(i, -1.0), tie[i])),
+        "Q-heat": sorted(pool, key=lambda i: (-heat.get(i, -2.0), tie[i])),
     }
     # Exploratory, not TasteRoute's ranking (added after the dev run): the mean of the Q-fit and LLM positions.
-    pos = {k: {v: r for r, v in enumerate(out[k])} for k in ("Q-fit", "LLM", "Q-cult")}
+    pos = {k: {v: r for r, v in enumerate(out[k])} for k in ("Q-fit", "LLM", "Q-cult", "Q-heat")}
     out["Q-fit+LLM"] = sorted(pool, key=lambda i: (pos["Q-fit"][i] + pos["LLM"][i], tie[i]))
     # Cultural fit (pre-registered for score plan E2): the mean of the Q-fit and Q-cult positions.
     out["Q-fit+C"] = sorted(pool, key=lambda i: (pos["Q-fit"][i] + pos["Q-cult"][i], tie[i]))
+    # Taste heatmap (pre-registered for the score plan): the mean of the Q-fit and Q-heat positions.
+    out["Q-fit+H"] = sorted(pool, key=lambda i: (pos["Q-fit"][i] + pos["Q-heat"][i], tie[i]))
     return out, fit
 
 
@@ -202,7 +215,8 @@ async def run_brand(svc: Any, pack: Any, b: dict[str, Any], rows: list[dict[str,
     llm = await llm_scores(svc, b, [n for _, n in comps], list(pool.values()))
     artists, _ = await api.taste_entities(svc.qloo, signal, take=5, trace=trace)
     cult, _ = await affinities(svc, ids, [a.entity_id for a in artists], trace)
-    order, fit = rankings(b, pool, target, generic, llm, cult)
+    heat = await heat_lift(svc, pack, signal, pool, trace)
+    order, fit = rankings(b, pool, target, generic, llm, cult, heat)
     POOLS.mkdir(parents=True, exist_ok=True)
     (POOLS / f"{b['key']}.json").write_text(json.dumps(
         [{"id": i, "name": pool[i]["name"], "type": pool[i]["type"], "neighborhood": pool[i]["neighborhood"],
@@ -250,6 +264,13 @@ national tastes (country singers for both whiskey and rosé fans), which say lit
 belongs in. Q-cult alone put 2 of 7 Wölffer Estate accounts in its top 30, where every other method found none; one \
 dev brand is not evidence.
 
+- **The taste heatmap did not help ranking either (checked under a rule written before it ran).** Q-fit+H averages \
+Q-fit with Q-heat (Qloo heatmap lift at each venue's location). It put 6 test accounts in its top 30, against 8 for \
+Q-fit and 8 for the LLM, and none of Kings County Distillery's against Q-fit's 2. So the heatmap stays a route and a map \
+layer and never changes fit. Q-heat alone had the best mean percentile rank for Casamara Club (85; LLM 70, Q-fit 69): \
+The Hop Shop is 25th by heatmap, 203rd by Q-fit and 592nd for the LLM. One brand is not evidence. Every venue near the \
+same heatmap cell gets the same lift, so the heatmap says which streets to walk, not which door to knock on.
+
 **What it means.** On these brands Qloo's taste signal finds about as many real accounts as an LLM that reads venue \
 names: 8 of 47 in the top 30 for Q-fit, 8 for the LLM, 10 for Q-raw, about 1.5 by chance. They find different ones \
 (Grand Army and June for Qloo, Lilia and Cecconi's for the LLM), so the app shows both (the LLM column on the results \
@@ -289,6 +310,9 @@ def report(res: list[dict[str, Any]], spent: dict[str, Any]) -> str:
         "| Q-cult | Qloo affinity with a music signal: the 5 artists the comparables' fans over-index on (added after the "
         "test run, pre-registered before it ran) |",
         "| Q-fit+C | The mean of the Q-fit and Q-cult positions; enters the app's fit only under the pre-registered rule |",
+        "| Q-heat | Qloo heatmap lift at the venue: comparables minus mass-market affinity in the nearest heatmap cell, as the "
+        "app's taste route (added after the music check, pre-registered before it ran) |",
+        "| Q-fit+H | The mean of the Q-fit and Q-heat positions; judged by the pre-registered rule |",
         "| RANDOM | Expected value |",
         "",
     ]

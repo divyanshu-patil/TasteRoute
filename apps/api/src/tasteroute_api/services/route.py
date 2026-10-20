@@ -28,6 +28,20 @@ def _m(a: dict[str, Any], b: dict[str, Any]) -> float:
     return haversine_m(a["lat"], a["lon"], b["lat"], b["lon"])
 
 
+def inside(cells: dict[str, tuple[float, float, float]], box: list[float] | None) -> dict[str, tuple[float, float, float]]:
+    return {g: c for g, c in cells.items() if not box or (box[0] <= c[0] <= box[2] and box[1] <= c[1] <= box[3])}
+
+
+def lift_cells(taste: dict[str, tuple[float, float, float]], mass: dict[str, tuple[float, float, float]]) -> list[Cell]:
+    """Per heatmap cell both calls return: the brand signal's affinity rank minus the mass-market brands' (D-23)."""
+    return [(lat, lon, t - mass[g][2]) for g, (lat, lon, t) in taste.items() if g in mass]
+
+
+def lift_at(lat: float, lon: float, cells: list[Cell]) -> float:
+    """The lift of the nearest cell."""
+    return min(cells, key=lambda c: haversine_m(lat, lon, c[0], c[1]))[2]
+
+
 def _walk(area: list[dict[str, Any]]) -> list[dict[str, Any]]:
     """Nearest-neighbour order from the best-ranked venue."""
     path, left = [area[0]], area[1:]
@@ -47,7 +61,7 @@ def plan(venues: list[dict[str, Any]], cells: list[Cell]) -> list[dict[str, Any]
         groups = [g for g in groups if g not in near] + [sorted([v, *(w for g in near for w in g)], key=lambda w: w["rank"])]
     areas: list[dict[str, Any]] = []
     for g in groups:
-        lift = sum(min(cells, key=lambda c: haversine_m(w["lat"], w["lon"], c[0], c[1]))[2] for w in g) / len(g) if cells else 0.0
+        lift = sum(lift_at(w["lat"], w["lon"], cells) for w in g) / len(g) if cells else 0.0
         named = Counter(w["nb"] for w in g if w.get("nb")).most_common(1)
         stops = _walk(g)
         areas.append({
@@ -81,16 +95,14 @@ async def taste_route(s: Services, run_id: str) -> dict[str, Any]:
     async def heat(ids: list[str]) -> tuple[dict[str, tuple[float, float, float]], str]:
         q = city.get("qloo_query") or city["name"]
         cells, call = await api.heatmap(s.qloo, city_query=q, signal_ids=ids, trace=trace)
-        inside = {g: c for g, c in cells.items() if not box or (box[0] <= c[0] <= box[2] and box[1] <= c[1] <= box[3])}
         alt = qualified_city(city)
-        if cells and not inside and alt and alt != q:  # a bare name can land in another city (QLO-12)
+        if cells and not inside(cells, box) and alt and alt != q:  # a bare name can land in another city (QLO-12)
             cells, call = await api.heatmap(s.qloo, city_query=alt, signal_ids=ids, trace=trace)
-            inside = {g: c for g, c in cells.items() if not box or (box[0] <= c[0] <= box[2] and box[1] <= c[1] <= box[3])}
-        return inside, call
+        return inside(cells, box), call
 
     taste, tcall = await heat([x["entity_id"] for x in (run["settings"] or {}).get("signal") or []])
     mass, mcall = await heat(pack_for(run["category"]).baseline_entities)
-    cells = [(lat, lon, t - mass[g][2]) for g, (lat, lon, t) in taste.items() if g in mass]
+    cells = lift_cells(taste, mass)
     route = {
         "areas": plan(venues, cells),
         "heat": [[round(lat, 5), round(lon, 5), round(lift, 3)] for lat, lon, lift in cells if lift > 0],

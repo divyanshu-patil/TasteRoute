@@ -1,8 +1,8 @@
 {
- "generated": "2026-10-20T06:42:11.796115+00:00",
+ "generated": "2026-10-20T12:16:03.666813+00:00",
  "spent": {
   "qloo": 0,
-  "qloo_cached": 428,
+  "qloo_cached": 438,
   "llm": 0
  },
  "brands": [
@@ -67,6 +67,13 @@
      "mpr": 56.5,
      "tail30": 0.0
     },
+    "Q-heat": {
+     "recall15": 0.0,
+     "recall30": 0.1,
+     "found30": 1,
+     "mpr": 68.0,
+     "tail30": 0.111
+    },
     "Q-fit+LLM": {
      "recall15": 0.1,
      "recall30": 0.1,
@@ -79,6 +86,13 @@
      "recall30": 0.1,
      "found30": 1,
      "mpr": 62.5,
+     "tail30": 0.0
+    },
+    "Q-fit+H": {
+     "recall15": 0.0,
+     "recall30": 0.0,
+     "found30": 0,
+     "mpr": 70.2,
      "tail30": 0.0
     },
     "RANDOM": {
@@ -104,6 +118,8 @@
      "Q-fit+LLM": 117,
      "Q-cult": 356,
      "Q-fit+C": 67,
+     "Q-heat": 552,
+     "Q-fit+H": 202,
      "taste_pct": 0.9707,
      "mass_pct": 0.2053,
      "drivers": [
@@ -122,6 +138,8 @@
      "Q-fit+LLM": 4,
      "Q-cult": 576,
      "Q-fit+C": 213,
+     "Q-heat": 403,
+     "Q-fit+H": 114,
      "taste_pct": 0.97,
      "mass_pct": 0.206,
      "drivers": [
@@ -140,6 +158,8 @@
      "Q-fit+LLM": 48,
      "Q-cult": 532,
      "Q-fit+C": 291,
+     "Q-heat": 282,
+     "Q-fit+H": 119,
      "taste_pct": 0.758,
      "mass_pct": 0.042,
      "drivers": [
@@ -158,6 +178,8 @@
      "Q-fit+LLM": 65,
      "Q-cult": 41,
      "Q-fit+C": 28,
+     "Q-heat": 455,
+     "Q-fit+H": 272,
      "taste_pct": 0.794,
      "mass_pct": 0.984,
      "drivers": [
@@ -176,6 +198,8 @@
      "Q-fit+LLM": 247,
      "Q-cult": 550,
      "Q-fit+C": 475,
+     "Q-heat": 539,
+     "Q-fit+H": 441,
      "taste_pct": 0.566,
      "mass_pct": 0.38,
      "drivers": [
@@ -194,6 +218,8 @@
      "Q-fit+LLM": 132,
      "Q-cult": 235,
      "Q-fit+C": 215,
+     "Q-heat": 189,
+     "Q-fit+H": 190,
      "taste_pct": 0.6,
      "mass_pct": 0.68,
      "drivers": [
@@ -212,6 +238,8 @@
      "Q-fit+LLM": 169,
      "Q-cult": 283,
      "Q-fit+C": 344,
+     "Q-heat": 167,
+     "Q-fit+H": 240,
      "taste_pct": 0.49,
      "mass_pct": 0.642,
      "drivers": [
@@ -230,6 +258,8 @@
      "Q-fit+LLM": 160,
      "Q-cult": 128,
      "Q-fit+C": 240,
+     "Q-heat": 113,
+     "Q-fit+H": 235,
      "taste_pct": 0.328,
      "mass_pct": 0.058,
      "drivers": [
@@ -248,6 +278,8 @@
      "Q-fit+LLM": 353,
      "Q-cult": 277,
      "Q-fit+C": 556,
+     "Q-heat": 29,
+     "Q-fit+H": 309,
      "taste_pct": 0.224,
      "mass_pct": 0.772,
      "drivers": [
@@ -266,6 +298,8 @@
      "Q-fit+LLM": 458,
      "Q-cult": 837,
      "Q-fit+C": 855,
+     "Q-heat": 78,
+     "Q-fit+H": 493,
      "taste_pct": 0.028,
      "mass_pct": 0.028,
      "drivers": []
@@ -957,6 +991,30 @@
      "Madeline's",
      "Kick Axe Throwing BROOKLYN",
      "The Whiskey Annex"
+    ],
+    "Q-heat": [
+     "Grand Army",
+     "Bijan's",
+     "Turtles all the way down",
+     "Trad Room",
+     "We Got Company",
+     "Puerto Viejo",
+     "Eris",
+     "Emblem",
+     "Scottadito Osteria Toscana",
+     "Popeyes Louisiana Kitchen"
+    ],
+    "Q-fit+H": [
+     "Grand Army",
+     "Insa",
+     "Trad Room",
+     "F&F Restaurant and Bar",
+     "La Palina",
+     "The Richardson",
+     "Bar Bruno",
+     "Frankies 457 Spuntino",
+     "Bati Ethiopian Kitchen",
+     "Bar Americano"
     ]
    }
   },
@@ -1021,6 +1079,13 @@
      "mpr": 70.3,
      "tail30": 0.286
     },
+    "Q-heat": {
+     "recall15": 0.0,
+     "recall30": 0.0,
+     "found30": 0,
+     "mpr": 49.4,
+     "tail30": 0.0
+    },
     "Q-fit+LLM": {
      "recall15": 0.0,
      "recall30": 0.0,
@@ -1034,6 +1099,13 @@
      "found30": 1,
      "mpr": 62.1,
      "tail30": 0.143
+    },
+    "Q-fit+H": {
+     "recall15": 0.0,
+     "recall30": 0.0,
+     "found30": 0,
+     "mpr": 49.7,
+     "tail30": 0.0
     },
     "RANDOM": {
      "recall15": 0.017,
@@ -1058,6 +1130,8 @@
      "Q-fit+LLM": 312,
      "Q-cult": 6,
      "Q-fit+C": 14,
+     "Q-heat": 82,
+     "Q-fit+H": 44,
      "taste_pct": 0.782,
      "mass_pct": 0.106,
      "drivers": [
@@ -1076,6 +1150,8 @@
      "Q-fit+LLM": 118,
      "Q-cult": 88,
      "Q-fit+C": 70,
+     "Q-heat": 427,
+     "Q-fit+H": 292,
      "taste_pct": 0.772,
      "mass_pct": 0.992,
      "drivers": [
@@ -1094,6 +1170,8 @@
      "Q-fit+LLM": 192,
      "Q-cult": 29,
      "Q-fit+C": 94,
+     "Q-heat": 789,
+     "Q-fit+H": 654,
      "taste_pct": 0.616,
      "mass_pct": 0.8747,
      "drivers": [
@@ -1112,6 +1190,8 @@
      "Q-fit+LLM": 195,
      "Q-cult": 549,
      "Q-fit+C": 530,
+     "Q-heat": 394,
+     "Q-fit+H": 360,
      "taste_pct": 0.516,
      "mass_pct": 0.38,
      "drivers": [
@@ -1130,6 +1210,8 @@
      "Q-fit+LLM": 355,
      "Q-cult": 745,
      "Q-fit+C": 743,
+     "Q-heat": 177,
+     "Q-fit+H": 322,
      "taste_pct": 0.352,
      "mass_pct": 0.324,
      "drivers": [
@@ -1148,6 +1230,8 @@
      "Q-fit+LLM": 551,
      "Q-cult": 297,
      "Q-fit+C": 497,
+     "Q-heat": 687,
+     "Q-fit+H": 729,
      "taste_pct": 0.308,
      "mass_pct": 0.848,
      "drivers": [
@@ -1166,6 +1250,8 @@
      "Q-fit+LLM": 410,
      "Q-cult": 111,
      "Q-fit+C": 378,
+     "Q-heat": 544,
+     "Q-fit+H": 683,
      "taste_pct": 0.248,
      "mass_pct": 0.808,
      "drivers": [
@@ -1365,6 +1451,30 @@
      "Gargiulo's",
      "Hotel Indigo Williamsburg - Brooklyn by IHG",
      "La Palina"
+    ],
+    "Q-heat": [
+     "Allswell",
+     "Delia's Lounge & Restaurant",
+     "Fushimi Bay Ridge",
+     "The New Bridgeview Diner",
+     "Cebu",
+     "Grand Army",
+     "Bijan's",
+     "French Louie",
+     "Sottocasa",
+     "The Soul Spot"
+    ],
+    "Q-fit+H": [
+     "Grand Army",
+     "Celestine",
+     "Le Boudoir",
+     "Main House",
+     "LORE",
+     "Vinegar Hill House",
+     "Bevacco",
+     "Chez Ma Tante",
+     "Cozy Royale",
+     "Sociale"
     ]
    }
   },
@@ -1445,6 +1555,13 @@
      "mpr": 66.3,
      "tail30": 0.0
     },
+    "Q-heat": {
+     "recall15": 0.0,
+     "recall30": 0.0,
+     "found30": 0,
+     "mpr": 72.8,
+     "tail30": 0.0
+    },
     "Q-fit+LLM": {
      "recall15": 0.0,
      "recall30": 0.0,
@@ -1457,6 +1574,13 @@
      "recall30": 0.0,
      "found30": 0,
      "mpr": 74.1,
+     "tail30": 0.0
+    },
+    "Q-fit+H": {
+     "recall15": 0.0,
+     "recall30": 0.0,
+     "found30": 0,
+     "mpr": 79.4,
      "tail30": 0.0
     },
     "RANDOM": {
@@ -1482,6 +1606,8 @@
      "Q-fit+LLM": 34,
      "Q-cult": 92,
      "Q-fit+C": 55,
+     "Q-heat": 398,
+     "Q-fit+H": 208,
      "taste_pct": 0.958,
      "mass_pct": 0.868,
      "drivers": [
@@ -1500,6 +1626,8 @@
      "Q-fit+LLM": 87,
      "Q-cult": 666,
      "Q-fit+C": 397,
+     "Q-heat": 74,
+     "Q-fit+H": 53,
      "taste_pct": 0.7096,
      "mass_pct": 0.1429,
      "drivers": [
@@ -1518,6 +1646,8 @@
      "Q-fit+LLM": 37,
      "Q-cult": 169,
      "Q-fit+C": 134,
+     "Q-heat": 445,
+     "Q-fit+H": 275,
      "taste_pct": 0.9,
      "mass_pct": 0.834,
      "drivers": [
@@ -1536,6 +1666,8 @@
      "Q-fit+LLM": 349,
      "Q-cult": 325,
      "Q-fit+C": 377,
+     "Q-heat": 94,
+     "Q-fit+H": 232,
      "taste_pct": 0.4941,
      "mass_pct": 0.3138,
      "drivers": [
@@ -1865,6 +1997,30 @@
      "The Four Horsemen",
      "Tea Bar",
      "Five Leaves"
+    ],
+    "Q-heat": [
+     "Ops",
+     "Variety Coffee Roasters",
+     "Early",
+     "KanaHashi",
+     "Absolute Coffee",
+     "The Bushwick Diner",
+     "L'imprimerie",
+     "White Castle",
+     "Grand Army",
+     "Brooklyn Habit"
+    ],
+    "Q-fit+H": [
+     "Vinegar Hill House",
+     "Ops",
+     "Cafe Grumpy - Park Slope",
+     "Allswell",
+     "Hungry Ghost",
+     "Home Frite",
+     "June",
+     "Golda",
+     "Ciao, Gloria",
+     "Campbell and Co - Williamsburg"
     ]
    }
   },
@@ -1929,6 +2085,13 @@
      "mpr": 61.2,
      "tail30": 0.107
     },
+    "Q-heat": {
+     "recall15": 0.056,
+     "recall30": 0.139,
+     "found30": 5,
+     "mpr": 62.7,
+     "tail30": 0.179
+    },
     "Q-fit+LLM": {
      "recall15": 0.139,
      "recall30": 0.194,
@@ -1942,6 +2105,13 @@
      "found30": 3,
      "mpr": 69.3,
      "tail30": 0.107
+    },
+    "Q-fit+H": {
+     "recall15": 0.056,
+     "recall30": 0.139,
+     "found30": 5,
+     "mpr": 68.0,
+     "tail30": 0.143
     },
     "RANDOM": {
      "recall15": 0.017,
@@ -1966,6 +2136,8 @@
      "Q-fit+LLM": 24,
      "Q-cult": 235,
      "Q-fit+C": 21,
+     "Q-heat": 20,
+     "Q-fit+H": 3,
      "taste_pct": 0.992,
      "mass_pct": 0.1973,
      "drivers": [
@@ -1984,6 +2156,8 @@
      "Q-fit+LLM": 9,
      "Q-cult": 270,
      "Q-fit+C": 33,
+     "Q-heat": 15,
+     "Q-fit+H": 2,
      "taste_pct": 0.994,
      "mass_pct": 0.206,
      "drivers": [
@@ -2002,6 +2176,8 @@
      "Q-fit+LLM": 1,
      "Q-cult": 399,
      "Q-fit+C": 87,
+     "Q-heat": 126,
+     "Q-fit+H": 24,
      "taste_pct": 1.0,
      "mass_pct": 0.2347,
      "drivers": [
@@ -2020,6 +2196,8 @@
      "Q-fit+LLM": 91,
      "Q-cult": 129,
      "Q-fit+C": 2,
+     "Q-heat": 89,
+     "Q-fit+H": 18,
      "taste_pct": 0.996,
      "mass_pct": 0.248,
      "drivers": [
@@ -2038,6 +2216,8 @@
      "Q-fit+LLM": 7,
      "Q-cult": 307,
      "Q-fit+C": 46,
+     "Q-heat": 614,
+     "Q-fit+H": 248,
      "taste_pct": 0.9867,
      "mass_pct": 0.2587,
      "drivers": [
@@ -2056,6 +2236,8 @@
      "Q-fit+LLM": 96,
      "Q-cult": 75,
      "Q-fit+C": 1,
+     "Q-heat": 624,
+     "Q-fit+H": 258,
      "taste_pct": 0.992,
      "mass_pct": 0.284,
      "drivers": [
@@ -2074,6 +2256,8 @@
      "Q-fit+LLM": 4,
      "Q-cult": 503,
      "Q-fit+C": 168,
+     "Q-heat": 557,
+     "Q-fit+H": 204,
      "taste_pct": 0.9813,
      "mass_pct": 0.256,
      "drivers": [
@@ -2092,6 +2276,8 @@
      "Q-fit+LLM": 12,
      "Q-cult": 396,
      "Q-fit+C": 122,
+     "Q-heat": 158,
+     "Q-fit+H": 46,
      "taste_pct": 0.872,
      "mass_pct": 0.17,
      "drivers": [
@@ -2110,6 +2296,8 @@
      "Q-fit+LLM": 138,
      "Q-cult": 786,
      "Q-fit+C": 461,
+     "Q-heat": 290,
+     "Q-fit+H": 86,
      "taste_pct": 0.832,
      "mass_pct": 0.122,
      "drivers": [
@@ -2128,6 +2316,8 @@
      "Q-fit+LLM": 143,
      "Q-cult": 688,
      "Q-fit+C": 379,
+     "Q-heat": 26,
+     "Q-fit+H": 19,
      "taste_pct": 0.826,
      "mass_pct": 0.144,
      "drivers": [
@@ -2146,6 +2336,8 @@
      "Q-fit+LLM": 20,
      "Q-cult": 780,
      "Q-fit+C": 462,
+     "Q-heat": 93,
+     "Q-fit+H": 34,
      "taste_pct": 0.822,
      "mass_pct": 0.138,
      "drivers": [
@@ -2164,6 +2356,8 @@
      "Q-fit+LLM": 42,
      "Q-cult": 367,
      "Q-fit+C": 121,
+     "Q-heat": 286,
+     "Q-fit+H": 89,
      "taste_pct": 0.866,
      "mass_pct": 0.288,
      "drivers": [
@@ -2182,6 +2376,8 @@
      "Q-fit+LLM": 43,
      "Q-cult": 403,
      "Q-fit+C": 175,
+     "Q-heat": 366,
+     "Q-fit+H": 151,
      "taste_pct": 0.7227,
      "mass_pct": 0.1013,
      "drivers": [
@@ -2200,6 +2396,8 @@
      "Q-fit+LLM": 103,
      "Q-cult": 529,
      "Q-fit+C": 288,
+     "Q-heat": 232,
+     "Q-fit+H": 87,
      "taste_pct": 0.982,
      "mass_pct": 0.988,
      "drivers": [
@@ -2218,6 +2416,8 @@
      "Q-fit+LLM": 168,
      "Q-cult": 519,
      "Q-fit+C": 303,
+     "Q-heat": 552,
+     "Q-fit+H": 305,
      "taste_pct": 0.712,
      "mass_pct": 0.132,
      "drivers": [
@@ -2236,6 +2436,8 @@
      "Q-fit+LLM": 101,
      "Q-cult": 218,
      "Q-fit+C": 84,
+     "Q-heat": 422,
+     "Q-fit+H": 224,
      "taste_pct": 0.92,
      "mass_pct": 0.9787,
      "drivers": [
@@ -2254,6 +2456,8 @@
      "Q-fit+LLM": 137,
      "Q-cult": 337,
      "Q-fit+C": 198,
+     "Q-heat": 429,
+     "Q-fit+H": 263,
      "taste_pct": 0.818,
      "mass_pct": 0.77,
      "drivers": [
@@ -2272,6 +2476,8 @@
      "Q-fit+LLM": 362,
      "Q-cult": 174,
      "Q-fit+C": 141,
+     "Q-heat": 312,
+     "Q-fit+H": 234,
      "taste_pct": 0.6853,
      "mass_pct": 0.944,
      "drivers": [
@@ -2290,6 +2496,8 @@
      "Q-fit+LLM": 190,
      "Q-cult": 372,
      "Q-fit+C": 319,
+     "Q-heat": 408,
+     "Q-fit+H": 321,
      "taste_pct": 0.6667,
      "mass_pct": 0.712,
      "drivers": [
@@ -2308,6 +2516,8 @@
      "Q-fit+LLM": 180,
      "Q-cult": 96,
      "Q-fit+C": 107,
+     "Q-heat": 18,
+     "Q-fit+H": 83,
      "taste_pct": 0.622,
      "mass_pct": 0.642,
      "drivers": [
@@ -2326,6 +2536,8 @@
      "Q-fit+LLM": 129,
      "Q-cult": 480,
      "Q-fit+C": 428,
+     "Q-heat": 590,
+     "Q-fit+H": 490,
      "taste_pct": 0.582,
      "mass_pct": 0.504,
      "drivers": [
@@ -2344,6 +2556,8 @@
      "Q-fit+LLM": 250,
      "Q-cult": 3,
      "Q-fit+C": 67,
+     "Q-heat": 7,
+     "Q-fit+H": 94,
      "taste_pct": 0.586,
      "mass_pct": 0.788,
      "drivers": [
@@ -2362,6 +2576,8 @@
      "Q-fit+LLM": 546,
      "Q-cult": 11,
      "Q-fit+C": 78,
+     "Q-heat": 73,
+     "Q-fit+H": 137,
      "taste_pct": 0.578,
      "mass_pct": 0.69,
      "drivers": [
@@ -2380,6 +2596,8 @@
      "Q-fit+LLM": 279,
      "Q-cult": 17,
      "Q-fit+C": 105,
+     "Q-heat": 376,
+     "Q-fit+H": 373,
      "taste_pct": 0.532,
      "mass_pct": 0.878,
      "drivers": [
@@ -2398,6 +2616,8 @@
      "Q-fit+LLM": 539,
      "Q-cult": 90,
      "Q-fit+C": 185,
+     "Q-heat": 360,
+     "Q-fit+H": 386,
      "taste_pct": 0.49,
      "mass_pct": 0.952,
      "drivers": [
@@ -2416,6 +2636,8 @@
      "Q-fit+LLM": 402,
      "Q-cult": 117,
      "Q-fit+C": 214,
+     "Q-heat": 50,
+     "Q-fit+H": 161,
      "taste_pct": 0.484,
      "mass_pct": 0.574,
      "drivers": [
@@ -2434,6 +2656,8 @@
      "Q-fit+LLM": 265,
      "Q-cult": 116,
      "Q-fit+C": 224,
+     "Q-heat": 394,
+     "Q-fit+H": 427,
      "taste_pct": 0.474,
      "mass_pct": 0.678,
      "drivers": [
@@ -2452,6 +2676,8 @@
      "Q-fit+LLM": 414,
      "Q-cult": 80,
      "Q-fit+C": 197,
+     "Q-heat": 67,
+     "Q-fit+H": 183,
      "taste_pct": 0.454,
      "mass_pct": 0.71,
      "drivers": [
@@ -2470,6 +2696,8 @@
      "Q-fit+LLM": 628,
      "Q-cult": 185,
      "Q-fit+C": 322,
+     "Q-heat": 342,
+     "Q-fit+H": 421,
      "taste_pct": 0.426,
      "mass_pct": 0.706,
      "drivers": [
@@ -2488,6 +2716,8 @@
      "Q-fit+LLM": 328,
      "Q-cult": 45,
      "Q-fit+C": 245,
+     "Q-heat": 619,
+     "Q-fit+H": 669,
      "taste_pct": 0.366,
      "mass_pct": 0.866,
      "drivers": [
@@ -2506,6 +2736,8 @@
      "Q-fit+LLM": 518,
      "Q-cult": 112,
      "Q-fit+C": 313,
+     "Q-heat": 288,
+     "Q-fit+H": 426,
      "taste_pct": 0.35,
      "mass_pct": 0.872,
      "drivers": [
@@ -2524,6 +2756,8 @@
      "Q-fit+LLM": 313,
      "Q-cult": 669,
      "Q-fit+C": 731,
+     "Q-heat": 675,
+     "Q-fit+H": 739,
      "taste_pct": 0.27,
      "mass_pct": 0.37,
      "drivers": [
@@ -2542,6 +2776,8 @@
      "Q-fit+LLM": 578,
      "Q-cult": 355,
      "Q-fit+C": 590,
+     "Q-heat": 364,
+     "Q-fit+H": 561,
      "taste_pct": 0.26,
      "mass_pct": 0.358,
      "drivers": [
@@ -2560,6 +2796,8 @@
      "Q-fit+LLM": 685,
      "Q-cult": 820,
      "Q-fit+C": 814,
+     "Q-heat": 815,
+     "Q-fit+H": 830,
      "taste_pct": 0.16,
      "mass_pct": 0.032,
      "drivers": [
@@ -2578,6 +2816,8 @@
      "Q-fit+LLM": 364,
      "Q-cult": 717,
      "Q-fit+C": 779,
+     "Q-heat": 556,
+     "Q-fit+H": 709,
      "taste_pct": 0.198,
      "mass_pct": 0.406,
      "drivers": [
@@ -2596,6 +2836,8 @@
      "Q-fit+LLM": 732,
      "Q-cult": 859,
      "Q-fit+C": 870,
+     "Q-heat": 551,
+     "Q-fit+H": 791,
      "taste_pct": 0.028,
      "mass_pct": 0.028,
      "drivers": []
@@ -3152,6 +3394,30 @@
      "Chavela's",
      "F&F Restaurant and Bar",
      "Petite Crevette"
+    ],
+    "Q-heat": [
+     "Ops",
+     "The Bilt Bar",
+     "McDonald's",
+     "Indian Kitchen",
+     "Ammazzacaffè",
+     "Tuffet",
+     "ORE BAR",
+     "POLYGON BROOKLYN",
+     "Walter's",
+     "Parklife"
+    ],
+    "Q-fit+H": [
+     "Ops",
+     "Vinegar Hill House",
+     "June",
+     "Insa",
+     "Ammazzacaffè",
+     "Glasserie",
+     "Chez Ma Tante",
+     "Allswell",
+     "F&F Restaurant and Bar",
+     "Colonia Verde"
     ]
    }
   },
@@ -3217,6 +3483,13 @@
      "mpr": 60.2,
      "tail30": 0.0
     },
+    "Q-heat": {
+     "recall15": 0.143,
+     "recall30": 0.286,
+     "found30": 2,
+     "mpr": 84.9,
+     "tail30": 0.286
+    },
     "Q-fit+LLM": {
      "recall15": 0.143,
      "recall30": 0.143,
@@ -3229,6 +3502,13 @@
      "recall30": 0.143,
      "found30": 1,
      "mpr": 66.7,
+     "tail30": 0.143
+    },
+    "Q-fit+H": {
+     "recall15": 0.143,
+     "recall30": 0.143,
+     "found30": 1,
+     "mpr": 81.7,
      "tail30": 0.143
     },
     "RANDOM": {
@@ -3254,6 +3534,8 @@
      "Q-fit+LLM": 13,
      "Q-cult": 159,
      "Q-fit+C": 20,
+     "Q-heat": 14,
+     "Q-fit+H": 1,
      "taste_pct": 0.998,
      "mass_pct": 0.24,
      "drivers": [
@@ -3272,6 +3554,8 @@
      "Q-fit+LLM": 152,
      "Q-cult": 304,
      "Q-fit+C": 196,
+     "Q-heat": 188,
+     "Q-fit+H": 92,
      "taste_pct": 0.932,
      "mass_pct": 0.958,
      "drivers": [
@@ -3290,6 +3574,8 @@
      "Q-fit+LLM": 359,
      "Q-cult": 187,
      "Q-fit+C": 127,
+     "Q-heat": 25,
+     "Q-fit+H": 39,
      "taste_pct": 0.862,
      "mass_pct": 0.752,
      "drivers": [
@@ -3308,6 +3594,8 @@
      "Q-fit+LLM": 194,
      "Q-cult": 534,
      "Q-fit+C": 418,
+     "Q-heat": 67,
+     "Q-fit+H": 104,
      "taste_pct": 0.644,
      "mass_pct": 0.358,
      "drivers": [
@@ -3326,6 +3614,8 @@
      "Q-fit+LLM": 243,
      "Q-cult": 201,
      "Q-fit+C": 239,
+     "Q-heat": 307,
+     "Q-fit+H": 258,
      "taste_pct": 0.73,
      "mass_pct": 0.74,
      "drivers": [
@@ -3344,6 +3634,8 @@
      "Q-fit+LLM": 398,
      "Q-cult": 599,
      "Q-fit+C": 537,
+     "Q-heat": 62,
+     "Q-fit+H": 172,
      "taste_pct": 0.448,
      "mass_pct": 0.036,
      "drivers": [
@@ -3362,6 +3654,8 @@
      "Q-fit+LLM": 743,
      "Q-cult": 1053,
      "Q-fit+C": 1003,
+     "Q-heat": 491,
+     "Q-fit+H": 733,
      "taste_pct": 0.2477,
      "mass_pct": 0.2477,
      "drivers": []
@@ -3603,6 +3897,30 @@
      "Hotel Delmano",
      "Pokito",
      "Ume"
+    ],
+    "Q-heat": [
+     "Public Records",
+     "Place des Fêtes",
+     "Maite",
+     "Bossa Nova Civic Club",
+     "Sunrise Deli & Grill",
+     "Mood Ring",
+     "POLYGON BROOKLYN",
+     "Met Foodmarkets of Greenpoint",
+     "McDonald's",
+     "Ammazzacaffè"
+    ],
+    "Q-fit+H": [
+     "Glasserie",
+     "Chez Ma Tante",
+     "Ammazzacaffè",
+     "Ops",
+     "Colonia Verde",
+     "Grand Army",
+     "Hart's",
+     "Casa Pública",
+     "Place des Fêtes",
+     "Leland Eating and Drinking House"
     ]
    }
   }
