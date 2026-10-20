@@ -60,5 +60,5 @@ Quality:
 - [ ] `/health` green on the deployed API
 - [ ] Secret scan clean; no keys in the web bundle
 - [ ] `pip-audit` and `pnpm audit` reviewed
-- [ ] Devpost fields filled from `17-judging.md`
+- [ ] Devpost fields filled in
 - [ ] Submitted at least 24 hours before the deadline

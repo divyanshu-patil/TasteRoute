@@ -54,7 +54,7 @@ Unit tests: progress reducer (replay ignored, failures), formatting, source-chip
 
 ## Phase 7: Submission — in progress 2026-10-19
 
-Done: README (hero and drawn flow in `assets/readme/`, real screenshots), MIT `LICENSE`, `docs/devpost.md`, CI (`.github/workflows/ci.yml`), Render blueprint (`render.yaml`). Project renamed to TasteRoute (package `tasteroute_api`, local DBs `tasteroute` / `tasteroute_test`).
+Done: README (hero and drawn flow in `assets/readme/`, real screenshots), MIT `LICENSE`, CI (`.github/workflows/ci.yml`), Render blueprint (`render.yaml`). Project renamed to TasteRoute (package `tasteroute_api`, local DBs `tasteroute` / `tasteroute_test`).
 
 Claims audit and end-to-end check: every judge-path step passes over HTTP (`scripts/e2e_smoke.py`, run 9c15f088). Passing: SEC-01 (secret scan clean), API-01 (contracts current; CI now fails on drift), QLO-07, LLM-06, REP-01, REP-02 (architecture diagram added to the README), REP-03 (clean clone). Fixed on the way: contact choice prefers the venue's own sales or main inbox and drops placeholder, script-embedded and other-domain emails (CON-03, CON-05); brand name read from the site's title (INT-01); a one-brand signal can reach high confidence (FIT-02, D-13a); comparables must fit the product, so "Bubbies" no longer matches "Bubbies Ice Cream" (ENT-03); city search returns 503 when Nominatim is down (REL-01); tests refuse non-loopback sockets (SEC-01). Docs corrected: the grounding validator checks names, numbers, evidence ids, the venue name and the opt-out line, not general claims.
 
