@@ -97,6 +97,15 @@ H3: Devpost: cited figures (Eightx, June 2026; ACSA and Park Street, October 6, 
 
 Probed first (3 calls, `docs/qloo-contract.md`): the heatmap needs a signal; the brand and mass-market heatmaps differ (Spearman 0.14). `POST /v1/runs/{id}/route` makes two heatmap calls, groups the top 15 into walkable areas, orders them by heatmap lift and stores the result (`runs.route`, new migration); `GET` returns it without calls. Results page: a "Taste route" card with the areas and their walks, a heatmap layer and per-area dashed walks on the map, a tour step; "Plan a taste route" on live runs. Sample: 7 areas, Bushwick first (+80), Carroll Gardens 8 venues on a 3.5 km walk; 2 Qloo calls. QLO-11 passes (D-34). Lighthouse rerun on the new sample: accessibility 100 on all 7 pages, performance 87–96.
 
+## Hosted timing and end-to-end check (G7, H4) — 2026-10-20
+
+`scripts/e2e_smoke.py` now prints the machine time from the description to ranked results, and has `--scout-only`. Against the hosted API:
+- **Full run (Brooklyn, pickle brand):** 33 of 34 checks passed. The failure was the script's own out-of-date check: `/health` says "configured" until a live Qloo call succeeds within 15 minutes (REL-04); the script now accepts it. To ranked results: 144 s (intake 3, Qloo matches 18, scout 123), via the agent; outreach for the top 6: 66 s, 3 of 6 with a public email and 3 drafts. Run `e9b40ca1`.
+- **Scout-only run (Chicago, coffee brand):** 120 s (intake 2, Qloo matches 17, scout 101). Run `ff56e335`.
+- **Third run (Los Angeles):** refused with 429 by the per-IP limit of 3 live runs a day. Earlier runs from the same network count toward it.
+
+The landing page said "about 90 seconds"; it now says "about 2 minutes". Calls: Qloo 26 live (12 + 14) and 17 cached, LLM 23 plus the third run's intake and Qloo matches (about 4), 24 page fetches, 2 Overpass.
+
 ## Heatmap backtest check — 2026-10-20
 
 Pre-registered in `docs/15-evaluation.md` ("Taste heatmap", commit `f242ab2`) before it ran. Q-fit+H (the mean of the Q-fit and heatmap-lift positions) put 6 test accounts in its top 30, against 8 for Q-fit and 8 for the LLM, and 0 of Kings County Distillery's against Q-fit's 2. **The rule failed:** the heatmap stays a route and a map layer and never changes fit. Published in `docs/evaluation-stockists.md`. The route's lift calculation is now shared with the check (`route.lift_cells`, `route.lift_at`). 5 live Qloo calls (the brands' heatmaps; the mass-market heatmap was cached), no LLM calls.
@@ -110,6 +119,7 @@ https://taste-route.vercel.app with the API at tasteroute.onrender.com. Main pus
 | Service | Calls |
 |---|---|
 | Qloo (score plan C–D) | 445 live: 5 probes (place search, page 5, page 10), 6 lift measurement, 4 baseline-brand searches and 1 paging probe, 429 stockist backtest (dev runs 170 + 64 + 35, test 150, re-runs cached) |
+| Qloo (hosted e2e and timing) | 26 live, 17 cached, plus the refused third run's matches |
 | Qloo (heatmap backtest check) | 5 live (433 cached) |
 | Qloo (score plan E3) | 5 live: 3 heatmap probes, 2 for the sample's route |
 | Qloo (score plan G–H) | 40 live: 9 sample reseed, 27 coverage cities (Brooklyn mostly cached), 4 mass-market readings for `evaluate.py` |

@@ -2,6 +2,10 @@
 Spends live calls (about 10 Qloo, 15-25 LLM, a few OSM and venue-site reads); prints what it spent.
 
     uv run python scripts/e2e_smoke.py [--api http://localhost:8000] [--city Brooklyn]
+    uv run python scripts/e2e_smoke.py --scout-only --city Chicago --description "..."   # time a run to ranked results
+
+Prints the machine time from the brand description to ranked results (intake, Qloo matches, scout): the landing page's
+timing (G7). Typing and clicking are not included.
 """
 
 import argparse
@@ -37,10 +41,12 @@ async def wait_for(c: httpx.AsyncClient, run_id: str, done: set[str], timeout: f
     return run
 
 
-async def main(api: str, city_q: str) -> None:
+async def main(api: str, city_q: str, description: str, scout_only: bool) -> None:
+    took: dict[str, float] = {}
     async with httpx.AsyncClient(base_url=api, timeout=120) as c:
         h = (await c.get("/health")).json()
-        check(h["status"] == "ok" and h["qloo"] == "ok", f"health: db {h['db']}, qloo {h['qloo']}, llm {h['llm']['provider']}")
+        check(h["status"] == "ok" and h["qloo"] in ("ok", "configured"),  # "ok" only after a live 200 in the last 15 min
+              f"health: db {h['db']}, qloo {h['qloo']}, llm {h['llm']['provider']}")
 
         token = (await c.post("/v1/workspaces/session", json={})).json()["workspace_token"]
         c.headers["X-Workspace-Token"] = token
@@ -56,7 +62,9 @@ async def main(api: str, city_q: str) -> None:
                 check(r.status_code in (401, 403, 404, 409), f"sample drafts are read-only ({r.status_code})")
 
         # 01 brand → 02 profile
-        intake = (await c.post("/v1/brands/intake", json={"description": DESCRIPTION})).json()
+        t = time.monotonic()
+        intake = (await c.post("/v1/brands/intake", json={"description": description})).json()
+        took["intake"] = time.monotonic() - t
         prof = intake["profile"]
         prods = [{k: p.get(k) or "" for k in ("name", "kind", "notes")} for p in prof.get("products") or []]
         check(bool(prods), f"intake drafted {prof.get('brand_name')!r} with products {[p['name'] for p in prods]}")
@@ -68,12 +76,14 @@ async def main(api: str, city_q: str) -> None:
         brand_id = r.json()["brand_id"]
 
         # 03 Qloo matches: resolve, then add one brand by search
+        t = time.monotonic()
         res = (await c.post(f"/v1/brands/{brand_id}/resolve")).json()
+        took["matches"] = time.monotonic() - t
         for x in res:
             print(f"     {x['status']}: {[e['name'] for e in x['entities']]} dropped {x['dropped']}")
         check(any(x["entities"] for x in res), "at least one product has Qloo entities")
-        found = (await c.get("/v1/qloo/search", params={"q": "Grillo's Pickles"})).json()
-        if check(bool(found), f"Qloo search found {[f['name'] for f in found[:3]]}"):
+        found = (await c.get("/v1/qloo/search", params={"q": "Grillo's Pickles"})).json() if description == DESCRIPTION else None
+        if found is not None and check(bool(found), f"Qloo search found {[f['name'] for f in found[:3]]}"):
             pid, add = res[0]["product_id"], found[0]
             keep = [{"entity_id": e["entity_id"], "source_call_id": e.get("source_call_id") or ""} for e in res[0]["entities"]]
             out = (await c.put(f"/v1/products/{pid}/entities",
@@ -83,6 +93,7 @@ async def main(api: str, city_q: str) -> None:
         # 04 city → run
         hit = (await c.get("/v1/cities/search", params={"q": city_q})).json()[0]
         city = {k: v for k, v in hit.items() if k not in ("label", "detail")}  # a CityHit is a City plus display text
+        t = time.monotonic()
         r = await c.post("/v1/runs", json={"brand_id": brand_id, "product_ids": [x["product_id"] for x in res],
                                            "city": city, "venue_types": ["cafe", "bar"]})
         if not check(r.status_code == 202, f"run started in {city['display_name'][:40]} ({r.status_code})"):
@@ -90,7 +101,10 @@ async def main(api: str, city_q: str) -> None:
                      else r.text)
         run_id = r.json()["run_id"]
         run = await wait_for(c, run_id, {"scouted"})
+        took["scout"] = time.monotonic() - t
         check(run["status"] == "scouted", f"scout {run['status']} via {run['orchestration']} ({run.get('error_code')})")
+        print(f"     timing: intake {took['intake']:.0f} s, Qloo matches {took['matches']:.0f} s, scout {took['scout']:.0f} s; "
+              f"to ranked results {sum(took.values()):.0f} s")
 
         page = (await c.get(f"/v1/runs/{run_id}/venues", params={"limit": 100})).json()
         rows = page["items"]
@@ -106,12 +120,19 @@ async def main(api: str, city_q: str) -> None:
         check(len(moved) == len(rows), "rescore without new calls")
         await c.post(f"/v1/runs/{run_id}/rescore", json={"target": 0.7, "lift": 0.3})
 
+        if scout_only:
+            run = (await c.get(f"/v1/runs/{run_id}")).json()
+            print(f"\nrun {run_id}\nlive calls: {run['counters']}")
+            sys.exit(1 if failures else 0)
+
         # Outreach: contacts and drafts for the top 6
+        t = time.monotonic()
         top = [v["venue_id"] for v in rows[:6]]
         r = await c.post(f"/v1/runs/{run_id}/contacts", json={"venue_ids": top})
         check(r.status_code in (200, 202), f"outreach started ({r.status_code})")
         run = await wait_for(c, run_id, {"done"})
         check(run["status"] == "done", f"outreach {run['status']} via {run['orchestration']}")
+        print(f"     timing: outreach for the top 6 {time.monotonic() - t:.0f} s")
         contacts = (await c.get(f"/v1/runs/{run_id}/contacts")).json()
         with_email = [x for x in contacts if x["contacts"]]
         for x in contacts:
@@ -148,5 +169,7 @@ if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("--api", default="http://localhost:8000")
     ap.add_argument("--city", default="Brooklyn")
+    ap.add_argument("--description", default=DESCRIPTION)
+    ap.add_argument("--scout-only", action="store_true", help="stop at ranked results (no contacts or drafts)")
     a = ap.parse_args()
-    asyncio.run(main(a.api, a.city))
+    asyncio.run(main(a.api, a.city, a.description, a.scout_only))

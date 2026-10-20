@@ -49,7 +49,7 @@ export default function Home() {
       <section className="wrap section stack">
         <div className="row between">
           <h2 className="display d-l">How it works</h2>
-          <p className="mono muted">3 STEPS · ABOUT 90 SECONDS</p>
+          <p className="mono muted">3 STEPS · ABOUT 2 MINUTES</p>
         </div>
         <div className="grid-3">
           {STEPS.map((s) => (
