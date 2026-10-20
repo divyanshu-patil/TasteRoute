@@ -11,7 +11,7 @@ const STEPS = [
   {
     n: "02",
     title: "Qloo ranks the venues",
-    body: "For every café and bar in your city, Qloo scores how much its guests share your customers' taste, then we subtract plain popularity so you see real fit, not foot traffic.",
+    body: "For every café and bar in your city, Qloo scores how much its guests share your customers' taste, then checks the same venues against mass-market brands so you see real fit, not a place everyone likes.",
   },
   {
     n: "03",
@@ -82,7 +82,7 @@ export default function Home() {
               <p className="mono" style={{ color: "#d1ffca" }}>
                 LIFT
               </p>
-              <p>We compare that with a popularity-only baseline. A busy tourist spot doesn&apos;t win just for being busy.</p>
+              <p>We ask Qloo the same question about mass-market brands like Coca-Cola and Starbucks. A venue wins when its guests lean toward brands like yours more than toward those. Chains are hidden unless you ask.</p>
             </div>
             <div className="stack-s">
               <p className="mono" style={{ color: "#fff" }}>

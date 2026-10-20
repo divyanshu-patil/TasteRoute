@@ -1,0 +1,1255 @@
+{
+ "request": {
+  "path": "/search",
+  "params": [
+   [
+    "query",
+    "Budweiser"
+   ],
+   [
+    "types",
+    "urn:entity:brand"
+   ],
+   [
+    "take",
+    "3"
+   ]
+  ]
+ },
+ "status": 200,
+ "body": {
+  "results": [
+   {
+    "name": "Budweiser",
+    "entity_id": "5FA9A50A-CA0E-45E3-AA86-9E81BF464BD9",
+    "types": [
+     "urn:entity:brand"
+    ],
+    "properties": {
+     "akas": [
+      {
+       "language": "zh",
+       "value": "\u767e\u5a01"
+      },
+      {
+       "language": "ru",
+       "value": "\u0411\u0430\u0434\u0432\u0430\u0439\u0437\u0435\u0440"
+      },
+      {
+       "language": "he",
+       "value": "\u05d1\u05d0\u05d3\u05d5\u05d5\u05d9\u05d6\u05e8"
+      },
+      {
+       "language": "sr",
+       "value": "Badvajzer"
+      },
+      {
+       "language": "ko",
+       "value": "\ubc84\ub4dc\uc640\uc774\uc800"
+      },
+      {
+       "language": "ja",
+       "value": "\u30d0\u30c9\u30ef\u30a4\u30b6\u30fc"
+      },
+      {
+       "language": "bg",
+       "value": "\u0411\u0443\u0434\u0432\u0430\u0439\u0437\u0435\u0440"
+      },
+      {
+       "language": "uk",
+       "value": "Budweiser"
+      },
+      {
+       "language": "pt",
+       "value": "Budweiser"
+      },
+      {
+       "language": "cs",
+       "value": "Budweiser"
+      },
+      {
+       "language": "da",
+       "value": "Budweiser"
+      },
+      {
+       "language": "id",
+       "value": "Budweiser"
+      },
+      {
+       "language": "no",
+       "value": "Budweiser"
+      },
+      {
+       "language": "fi",
+       "value": "Budweiser"
+      },
+      {
+       "language": "sl",
+       "value": "Budweiser"
+      },
+      {
+       "language": "ca",
+       "value": "Budweiser"
+      },
+      {
+       "language": "pt_pt",
+       "value": "Budweiser"
+      },
+      {
+       "language": "pl",
+       "value": "Budweiser"
+      },
+      {
+       "language": "nb",
+       "value": "Budweiser"
+      },
+      {
+       "language": "hu",
+       "value": "Budweiser"
+      },
+      {
+       "language": "tr",
+       "value": "Budweiser"
+      },
+      {
+       "language": "sv",
+       "value": "Budweiser"
+      },
+      {
+       "language": "ka",
+       "value": "\u10d1\u10e3\u10d3\u10d5\u10d0\u10d8\u10d6\u10d4\u10e0\u10d8"
+      },
+      {
+       "language": "en_au",
+       "value": "Bud"
+      },
+      {
+       "language": "nl",
+       "value": "Budweiser (Anheuser-Busch)"
+      },
+      {
+       "language": "ar",
+       "value": "\u0628\u062f\u0648\u064a\u0627\u064a\u0632\u0631"
+      },
+      {
+       "language": "th",
+       "value": "\u0e1a\u0e31\u0e14\u0e44\u0e27\u0e40\u0e0b\u0e2d\u0e23\u0e4c"
+      }
+     ],
+     "description": "Established in 1876 in St. Louis, Missouri, this brand has evolved into an iconic global symbol of American-style pale lager. It is recognized for its commitment to consistency and quality, maintaining its status as a staple choice for social gatherings and sporting events worldwide. Currently under the ownership of AB InBev, the brand balances a rich historical legacy with a vast distribution network that makes it ubiquitous in the beverage market. Its positioning emphasizes accessibility and communal enjoyment, appealing to a wide demographic of adults.",
+     "external": {
+      "facebook": {
+       "id": "Budweiser"
+      },
+      "instagram": {
+       "id": "budweiser"
+      },
+      "twitter": {
+       "id": "budweiser"
+      },
+      "wikidata": {
+       "id": "Q610672"
+      }
+     },
+     "founded_year": "1876",
+     "image": {
+      "url": "https://images.qloo.com/i/5FA9A50A-CA0E-45E3-AA86-9E81BF464BD9-420x-auto.jpg"
+     },
+     "inception": "1876-01-01",
+     "industry": [],
+     "manufacturer": "Anheuser-Busch InBev",
+     "official_site": "https://www.budweiser.com/",
+     "products": [],
+     "short_description": "Budweiser is a popular American-style lager beer known for its medium body, crisp flavor, and use of barley malt and premium hops.",
+     "short_descriptions": [
+      {
+       "language": "de",
+       "value": "Ein ikonisches amerikanisches Lagerbier, bekannt f\u00fcr seinen gleichbleibend frischen Geschmack und seine tiefe Verwurzelung in der globalen Geselligkeitskultur."
+      },
+      {
+       "language": "en",
+       "value": "An iconic American-style pale lager known for its consistent, crisp taste and deep-rooted heritage in social celebrations worldwide."
+      },
+      {
+       "language": "es",
+       "value": "Una ic\u00f3nica cerveza tipo lager americana conocida por su sabor fresco y constante, as\u00ed como por su profundo legado en celebraciones sociales en todo el mundo."
+      },
+      {
+       "language": "fr",
+       "value": "Une lager am\u00e9ricaine embl\u00e9matique, reconnue pour son go\u00fbt constant et rafra\u00eechissant, profond\u00e9ment ancr\u00e9e dans la culture des c\u00e9l\u00e9brations sociales internationales."
+      }
+     ],
+     "subsidiary": []
+    },
+    "popularity": 0.9714108931870964,
+    "disambiguation": "",
+    "tags": [
+     {
+      "name": "Anheuser-Busch beer brands",
+      "tag_id": "urn:tag:wikipedia_category:anheuser_busch_beer_brands",
+      "type": "urn:tag:wikipedia_category"
+     },
+     {
+      "name": "Beer",
+      "tag_id": "urn:tag:genre:brand:wine_and_spirits:beer",
+      "type": "urn:tag:genre:brand"
+     },
+     {
+      "name": "1876 introductions",
+      "tag_id": "urn:tag:wikipedia_category:1876_introductions",
+      "type": "urn:tag:wikipedia_category"
+     },
+     {
+      "name": "1876 establishments in the United States",
+      "tag_id": "urn:tag:wikipedia_category:1876_establishments_in_the_united_states",
+      "type": "urn:tag:wikipedia_category"
+     },
+     {
+      "name": "Other",
+      "tag_id": "urn:tag:genre:brand:wine_and_spirits:beer:other",
+      "type": "urn:tag:genre:brand"
+     },
+     {
+      "name": "Wine & Spirits",
+      "tag_id": "urn:tag:genre:brand:wine_and_spirits",
+      "type": "urn:tag:genre:brand"
+     },
+     {
+      "name": "Red And White Branding",
+      "tag_id": "urn:tag:aesthetic_property:qloo:red_and_white_branding",
+      "type": "urn:tag:aesthetic_property:qloo"
+     },
+     {
+      "name": "Classic Serif Typography",
+      "tag_id": "urn:tag:aesthetic_property:qloo:classic_serif_typography",
+      "type": "urn:tag:aesthetic_property:qloo"
+     },
+     {
+      "name": "Traditional Labeling",
+      "tag_id": "urn:tag:aesthetic_property:qloo:traditional_labeling",
+      "type": "urn:tag:aesthetic_property:qloo"
+     },
+     {
+      "name": "Minimalist Industrial Design",
+      "tag_id": "urn:tag:aesthetic_property:qloo:minimalist_industrial_design",
+      "type": "urn:tag:aesthetic_property:qloo"
+     },
+     {
+      "name": "Community Building",
+      "tag_id": "urn:tag:lifestyle:qloo:community_building",
+      "type": "urn:tag:lifestyle:qloo"
+     },
+     {
+      "name": "Celebrating Achievements",
+      "tag_id": "urn:tag:lifestyle:qloo:celebrating_achievements",
+      "type": "urn:tag:lifestyle:qloo"
+     },
+     {
+      "name": "National Pride",
+      "tag_id": "urn:tag:lifestyle:qloo:national_pride",
+      "type": "urn:tag:lifestyle:qloo"
+     },
+     {
+      "name": "CPG",
+      "tag_id": "urn:tag:brand_subtype:qloo:cpg",
+      "type": "urn:tag:brand_subtype:qloo"
+     },
+     {
+      "name": "Product Brand",
+      "tag_id": "urn:tag:brand_type:qloo:product_brand",
+      "type": "urn:tag:brand_type:qloo"
+     },
+     {
+      "name": "B2C",
+      "tag_id": "urn:tag:business_model:qloo:b2c",
+      "type": "urn:tag:business_model:qloo"
+     },
+     {
+      "name": "Miller Lite",
+      "tag_id": "urn:tag:competitor_brand:qloo:miller_lite",
+      "type": "urn:tag:competitor_brand:qloo"
+     },
+     {
+      "name": "Coors Banquet",
+      "tag_id": "urn:tag:competitor_brand:qloo:coors_banquet",
+      "type": "urn:tag:competitor_brand:qloo"
+     },
+     {
+      "name": "Corona",
+      "tag_id": "urn:tag:competitor_brand:qloo:corona",
+      "type": "urn:tag:competitor_brand:qloo"
+     },
+     {
+      "name": "Heineken",
+      "tag_id": "urn:tag:competitor_brand:qloo:heineken",
+      "type": "urn:tag:competitor_brand:qloo"
+     },
+     {
+      "name": "Social",
+      "tag_id": "urn:tag:consumption_context:qloo:social",
+      "type": "urn:tag:consumption_context:qloo"
+     },
+     {
+      "name": "At Home",
+      "tag_id": "urn:tag:consumption_context:qloo:at_home",
+      "type": "urn:tag:consumption_context:qloo"
+     },
+     {
+      "name": "Outdoor",
+      "tag_id": "urn:tag:consumption_context:qloo:outdoor",
+      "type": "urn:tag:consumption_context:qloo"
+     },
+     {
+      "name": "Dinner",
+      "tag_id": "urn:tag:consumption_context:qloo:dinner",
+      "type": "urn:tag:consumption_context:qloo"
+     },
+     {
+      "name": "Everyday",
+      "tag_id": "urn:tag:consumption_context:qloo:everyday",
+      "type": "urn:tag:consumption_context:qloo"
+     },
+     {
+      "name": "Heritage",
+      "tag_id": "urn:tag:core_value:qloo:heritage",
+      "type": "urn:tag:core_value:qloo"
+     },
+     {
+      "name": "Consistency",
+      "tag_id": "urn:tag:core_value:qloo:consistency",
+      "type": "urn:tag:core_value:qloo"
+     },
+     {
+      "name": "Quality",
+      "tag_id": "urn:tag:core_value:qloo:quality",
+      "type": "urn:tag:core_value:qloo"
+     },
+     {
+      "name": "Unity",
+      "tag_id": "urn:tag:core_value:qloo:unity",
+      "type": "urn:tag:core_value:qloo"
+     },
+     {
+      "name": "Sports Culture",
+      "tag_id": "urn:tag:cultural_relevance:qloo:sports_culture",
+      "type": "urn:tag:cultural_relevance:qloo"
+     },
+     {
+      "name": "American Identity",
+      "tag_id": "urn:tag:cultural_relevance:qloo:american_identity",
+      "type": "urn:tag:cultural_relevance:qloo"
+     },
+     {
+      "name": "Music Culture",
+      "tag_id": "urn:tag:cultural_relevance:qloo:music_culture",
+      "type": "urn:tag:cultural_relevance:qloo"
+     },
+     {
+      "name": "Social Drinkers",
+      "tag_id": "urn:tag:customer_segment:qloo:social_drinkers",
+      "type": "urn:tag:customer_segment:qloo"
+     },
+     {
+      "name": "Sports Enthusiasts",
+      "tag_id": "urn:tag:customer_segment:qloo:sports_enthusiasts",
+      "type": "urn:tag:customer_segment:qloo"
+     },
+     {
+      "name": "Casual Home Entertainers",
+      "tag_id": "urn:tag:customer_segment:qloo:casual_home_entertainers",
+      "type": "urn:tag:customer_segment:qloo"
+     },
+     {
+      "name": "Supermarkets",
+      "tag_id": "urn:tag:distribution_channel:qloo:supermarkets",
+      "type": "urn:tag:distribution_channel:qloo"
+     },
+     {
+      "name": "Convenience Stores",
+      "tag_id": "urn:tag:distribution_channel:qloo:convenience_stores",
+      "type": "urn:tag:distribution_channel:qloo"
+     },
+     {
+      "name": "Food Service",
+      "tag_id": "urn:tag:distribution_channel:qloo:food_service",
+      "type": "urn:tag:distribution_channel:qloo"
+     },
+     {
+      "name": "Wholesale",
+      "tag_id": "urn:tag:distribution_channel:qloo:wholesale",
+      "type": "urn:tag:distribution_channel:qloo"
+     },
+     {
+      "name": "Approachable",
+      "tag_id": "urn:tag:emotional_tone:qloo:approachable",
+      "type": "urn:tag:emotional_tone:qloo"
+     },
+     {
+      "name": "Reliable",
+      "tag_id": "urn:tag:emotional_tone:qloo:reliable",
+      "type": "urn:tag:emotional_tone:qloo"
+     },
+     {
+      "name": "Sociable",
+      "tag_id": "urn:tag:emotional_tone:qloo:sociable",
+      "type": "urn:tag:emotional_tone:qloo"
+     },
+     {
+      "name": "Nostalgic",
+      "tag_id": "urn:tag:emotional_tone:qloo:nostalgic",
+      "type": "urn:tag:emotional_tone:qloo"
+     },
+     {
+      "name": "Crisp",
+      "tag_id": "urn:tag:flavor_profile:qloo:crisp",
+      "type": "urn:tag:flavor_profile:qloo"
+     },
+     {
+      "name": "Refreshing",
+      "tag_id": "urn:tag:flavor_profile:qloo:refreshing",
+      "type": "urn:tag:flavor_profile:qloo"
+     },
+     {
+      "name": "Malty",
+      "tag_id": "urn:tag:flavor_profile:qloo:malty",
+      "type": "urn:tag:flavor_profile:qloo"
+     },
+     {
+      "name": "Food & Beverage",
+      "tag_id": "urn:tag:industry:qloo:food_beverage",
+      "type": "urn:tag:industry:qloo"
+     },
+     {
+      "name": "Alcoholic Beverages",
+      "tag_id": "urn:tag:industry:qloo:alcoholic_beverages",
+      "type": "urn:tag:industry:qloo"
+     },
+     {
+      "name": "Sports Athletes",
+      "tag_id": "urn:tag:influencer_appeal:qloo:sports_athletes",
+      "type": "urn:tag:influencer_appeal:qloo"
+     },
+     {
+      "name": "Music Artists",
+      "tag_id": "urn:tag:influencer_appeal:qloo:music_artists",
+      "type": "urn:tag:influencer_appeal:qloo"
+     },
+     {
+      "name": "Everyday Cultural Icons",
+      "tag_id": "urn:tag:influencer_appeal:qloo:everyday_cultural_icons",
+      "type": "urn:tag:influencer_appeal:qloo"
+     },
+     {
+      "name": "Barley Malt",
+      "tag_id": "urn:tag:ingredient_focus:qloo:barley_malt",
+      "type": "urn:tag:ingredient_focus:qloo"
+     },
+     {
+      "name": "Rice",
+      "tag_id": "urn:tag:ingredient_focus:qloo:rice",
+      "type": "urn:tag:ingredient_focus:qloo"
+     },
+     {
+      "name": "Hops",
+      "tag_id": "urn:tag:ingredient_focus:qloo:hops",
+      "type": "urn:tag:ingredient_focus:qloo"
+     },
+     {
+      "name": "Sports Spectating",
+      "tag_id": "urn:tag:interest_adjacency:qloo:sports_spectating",
+      "type": "urn:tag:interest_adjacency:qloo"
+     },
+     {
+      "name": "Music Festivals",
+      "tag_id": "urn:tag:interest_adjacency:qloo:music_festivals",
+      "type": "urn:tag:interest_adjacency:qloo"
+     },
+     {
+      "name": "Tailgating",
+      "tag_id": "urn:tag:interest_adjacency:qloo:tailgating",
+      "type": "urn:tag:interest_adjacency:qloo"
+     },
+     {
+      "name": "Socializing",
+      "tag_id": "urn:tag:interest_adjacency:qloo:socializing",
+      "type": "urn:tag:interest_adjacency:qloo"
+     },
+     {
+      "name": "Grilling",
+      "tag_id": "urn:tag:interest_adjacency:qloo:grilling",
+      "type": "urn:tag:interest_adjacency:qloo"
+     },
+     {
+      "name": "United States",
+      "tag_id": "urn:tag:key_market:qloo:united_states",
+      "type": "urn:tag:key_market:qloo"
+     },
+     {
+      "name": "Global",
+      "tag_id": "urn:tag:key_market:qloo:global",
+      "type": "urn:tag:key_market:qloo"
+     },
+     {
+      "name": "Lager",
+      "tag_id": "urn:tag:keyword:qloo:lager",
+      "type": "urn:tag:keyword:qloo"
+     },
+     {
+      "name": "Beer",
+      "tag_id": "urn:tag:keyword:qloo:beer",
+      "type": "urn:tag:keyword:qloo"
+     },
+     {
+      "name": "King Of Beers",
+      "tag_id": "urn:tag:keyword:qloo:king_of_beers",
+      "type": "urn:tag:keyword:qloo"
+     },
+     {
+      "name": "Socializing",
+      "tag_id": "urn:tag:keyword:qloo:socializing",
+      "type": "urn:tag:keyword:qloo"
+     },
+     {
+      "name": "Heritage",
+      "tag_id": "urn:tag:keyword:qloo:heritage",
+      "type": "urn:tag:keyword:qloo"
+     },
+     {
+      "name": "FIFA World Cup",
+      "tag_id": "urn:tag:partnership:qloo:fifa_world_cup",
+      "type": "urn:tag:partnership:qloo"
+     },
+     {
+      "name": "NBA",
+      "tag_id": "urn:tag:partnership:qloo:nba",
+      "type": "urn:tag:partnership:qloo"
+     },
+     {
+      "name": "MLB",
+      "tag_id": "urn:tag:partnership:qloo:mlb",
+      "type": "urn:tag:partnership:qloo"
+     },
+     {
+      "name": "Super Bowl",
+      "tag_id": "urn:tag:partnership:qloo:super_bowl",
+      "type": "urn:tag:partnership:qloo"
+     },
+     {
+      "name": "Socializing",
+      "tag_id": "urn:tag:lifestyle:qloo:socializing",
+      "type": "urn:tag:lifestyle:qloo"
+     },
+     {
+      "name": "Watching Sports",
+      "tag_id": "urn:tag:lifestyle:qloo:watching_sports",
+      "type": "urn:tag:lifestyle:qloo"
+     },
+     {
+      "name": "Backyard Barbecues",
+      "tag_id": "urn:tag:lifestyle:qloo:backyard_barbecues",
+      "type": "urn:tag:lifestyle:qloo"
+     },
+     {
+      "name": "Relaxing",
+      "tag_id": "urn:tag:lifestyle:qloo:relaxing",
+      "type": "urn:tag:lifestyle:qloo"
+     },
+     {
+      "name": "Mainstream",
+      "tag_id": "urn:tag:market_archetype:qloo:mainstream",
+      "type": "urn:tag:market_archetype:qloo"
+     },
+     {
+      "name": "Heritage",
+      "tag_id": "urn:tag:market_archetype:qloo:heritage",
+      "type": "urn:tag:market_archetype:qloo"
+     },
+     {
+      "name": "Glass Bottle",
+      "tag_id": "urn:tag:packaging_format:qloo:glass_bottle",
+      "type": "urn:tag:packaging_format:qloo"
+     },
+     {
+      "name": "Can",
+      "tag_id": "urn:tag:packaging_format:qloo:can",
+      "type": "urn:tag:packaging_format:qloo"
+     },
+     {
+      "name": "",
+      "tag_id": "urn:tag:personal_style:qloo:",
+      "type": "urn:tag:personal_style:qloo"
+     },
+     {
+      "name": "$",
+      "tag_id": "urn:tag:price_level:qloo:_",
+      "type": "urn:tag:price_level:qloo"
+     },
+     {
+      "name": "Beer",
+      "tag_id": "urn:tag:product_category:qloo:beer",
+      "type": "urn:tag:product_category:qloo"
+     },
+     {
+      "name": "Alcoholic Beverages",
+      "tag_id": "urn:tag:product_category:qloo:alcoholic_beverages",
+      "type": "urn:tag:product_category:qloo"
+     },
+     {
+      "name": "Budweiser Lager",
+      "tag_id": "urn:tag:product_line:qloo:budweiser_lager",
+      "type": "urn:tag:product_line:qloo"
+     },
+     {
+      "name": "Budweiser Select",
+      "tag_id": "urn:tag:product_line:qloo:budweiser_select",
+      "type": "urn:tag:product_line:qloo"
+     },
+     {
+      "name": "Budweiser Zero",
+      "tag_id": "urn:tag:product_line:qloo:budweiser_zero",
+      "type": "urn:tag:product_line:qloo"
+     },
+     {
+      "name": "Budweiser Chelada",
+      "tag_id": "urn:tag:product_line:qloo:budweiser_chelada",
+      "type": "urn:tag:product_line:qloo"
+     },
+     {
+      "name": "Budweiser",
+      "tag_id": "urn:tag:product_service:qloo:budweiser",
+      "type": "urn:tag:product_service:qloo"
+     },
+     {
+      "name": "Budweiser Select",
+      "tag_id": "urn:tag:product_service:qloo:budweiser_select",
+      "type": "urn:tag:product_service:qloo"
+     },
+     {
+      "name": "Budweiser Zero",
+      "tag_id": "urn:tag:product_service:qloo:budweiser_zero",
+      "type": "urn:tag:product_service:qloo"
+     },
+     {
+      "name": "Budweiser Lager",
+      "tag_id": "urn:tag:signature_product:qloo:budweiser_lager",
+      "type": "urn:tag:signature_product:qloo"
+     },
+     {
+      "name": "Pabst Blue Ribbon",
+      "tag_id": "urn:tag:similar_brand:qloo:pabst_blue_ribbon",
+      "type": "urn:tag:similar_brand:qloo"
+     },
+     {
+      "name": "Stella Artois",
+      "tag_id": "urn:tag:similar_brand:qloo:stella_artois",
+      "type": "urn:tag:similar_brand:qloo"
+     },
+     {
+      "name": "Yuengling",
+      "tag_id": "urn:tag:similar_brand:qloo:yuengling",
+      "type": "urn:tag:similar_brand:qloo"
+     },
+     {
+      "name": "Smart Barley Program",
+      "tag_id": "urn:tag:sustainability_initiative:qloo:smart_barley_program",
+      "type": "urn:tag:sustainability_initiative:qloo"
+     },
+     {
+      "name": "Renewable Energy",
+      "tag_id": "urn:tag:sustainability_initiative:qloo:renewable_energy",
+      "type": "urn:tag:sustainability_initiative:qloo"
+     },
+     {
+      "name": "Water Conservation",
+      "tag_id": "urn:tag:sustainability_initiative:qloo:water_conservation",
+      "type": "urn:tag:sustainability_initiative:qloo"
+     },
+     {
+      "name": "Adults",
+      "tag_id": "urn:tag:target_age_group:qloo:adults",
+      "type": "urn:tag:target_age_group:qloo"
+     },
+     {
+      "name": "Middle-Aged",
+      "tag_id": "urn:tag:target_age_group:qloo:middle_aged",
+      "type": "urn:tag:target_age_group:qloo"
+     },
+     {
+      "name": "Seniors",
+      "tag_id": "urn:tag:target_age_group:qloo:seniors",
+      "type": "urn:tag:target_age_group:qloo"
+     },
+     {
+      "name": "Gender-Neutral",
+      "tag_id": "urn:tag:target_gender:qloo:gender_neutral",
+      "type": "urn:tag:target_gender:qloo"
+     },
+     {
+      "name": "Low to Medium",
+      "tag_id": "urn:tag:target_income_level:qloo:low_to_medium",
+      "type": "urn:tag:target_income_level:qloo"
+     },
+     {
+      "name": "Medium",
+      "tag_id": "urn:tag:target_income_level:qloo:medium",
+      "type": "urn:tag:target_income_level:qloo"
+     },
+     {
+      "name": "Moderate",
+      "tag_id": "urn:tag:taste_intensity:qloo:moderate",
+      "type": "urn:tag:taste_intensity:qloo"
+     }
+    ]
+   },
+   {
+    "name": "Bud Light",
+    "entity_id": "3077ED84-313B-4DBE-975A-D32D59982B64",
+    "types": [
+     "urn:entity:brand"
+    ],
+    "properties": {
+     "akas": [
+      {
+       "language": "en_au",
+       "value": "Budweiser Light"
+      }
+     ],
+     "description": "Bud Light is a leading American light lager renowned for its crisp, clean taste and status as a staple for social occasions. Since its introduction in 1982, the brand has maintained a strong presence through massive sports partnerships and consistent messaging centered on enjoyment and ease. It is owned by Anheuser-Busch and serves as a primary choice for millions of consumers seeking an affordable, refreshing beer. The brand is deeply ingrained in the American cultural landscape, particularly within the contexts of sports and communal celebration.",
+     "external": {
+      "instagram": {
+       "id": "budlight"
+      },
+      "twitter": {
+       "id": "budlight"
+      },
+      "wikidata": {
+       "id": "Q106910786"
+      }
+     },
+     "founded_year": "1982",
+     "short_description": "Bud Light is a popular American light lager beer brand known for its easy-to-drink taste and widely marketed by Anheuser-Busch.",
+     "short_descriptions": [
+      {
+       "language": "de",
+       "value": "Ein leichtes, s\u00fcffiges amerikanisches Lagerbier, das f\u00fcr ungezwungene soziale Anl\u00e4sse und unkomplizierten Genuss steht."
+      },
+      {
+       "language": "en",
+       "value": "A light, easy-drinking American lager designed for casual social occasions and wide-ranging consumer appeal."
+      },
+      {
+       "language": "fr",
+       "value": "Une bi\u00e8re blonde l\u00e9g\u00e8re et facile \u00e0 boire, con\u00e7ue pour les moments de convivialit\u00e9 et appr\u00e9ci\u00e9e pour son go\u00fbt rafra\u00eechissant."
+      },
+      {
+       "language": "es",
+       "value": "Una cerveza tipo lager estadounidense, ligera y f\u00e1cil de beber, dise\u00f1ada para momentos sociales informales y para disfrutar con amigos."
+      }
+     ],
+     "image": {
+      "url": "https://images.qloo.com/i/3077ED84-313B-4DBE-975A-D32D59982B64-420x-auto.jpg"
+     }
+    },
+    "popularity": 0.9497465715109085,
+    "disambiguation": "",
+    "tags": [
+     {
+      "name": "Beer",
+      "tag_id": "urn:tag:genre:brand:wine_and_spirits:beer",
+      "type": "urn:tag:genre:brand"
+     },
+     {
+      "name": "Wine & Spirits",
+      "tag_id": "urn:tag:genre:brand:wine_and_spirits",
+      "type": "urn:tag:genre:brand"
+     },
+     {
+      "name": "Minimalist Branding",
+      "tag_id": "urn:tag:aesthetic_property:qloo:minimalist_branding",
+      "type": "urn:tag:aesthetic_property:qloo"
+     },
+     {
+      "name": "Blue and White Color Palette",
+      "tag_id": "urn:tag:aesthetic_property:qloo:blue_and_white_color_palette",
+      "type": "urn:tag:aesthetic_property:qloo"
+     },
+     {
+      "name": "Iconic Typography",
+      "tag_id": "urn:tag:aesthetic_property:qloo:iconic_typography",
+      "type": "urn:tag:aesthetic_property:qloo"
+     },
+     {
+      "name": "Clean Graphic Design",
+      "tag_id": "urn:tag:aesthetic_property:qloo:clean_graphic_design",
+      "type": "urn:tag:aesthetic_property:qloo"
+     },
+     {
+      "name": "The Ultimate Party Atmosphere",
+      "tag_id": "urn:tag:lifestyle:qloo:the_ultimate_party_atmosphere",
+      "type": "urn:tag:lifestyle:qloo"
+     },
+     {
+      "name": "Effortless Socializing",
+      "tag_id": "urn:tag:lifestyle:qloo:effortless_socializing",
+      "type": "urn:tag:lifestyle:qloo"
+     },
+     {
+      "name": "Memorable Shared Experiences",
+      "tag_id": "urn:tag:lifestyle:qloo:memorable_shared_experiences",
+      "type": "urn:tag:lifestyle:qloo"
+     },
+     {
+      "name": "CPG",
+      "tag_id": "urn:tag:brand_subtype:qloo:cpg",
+      "type": "urn:tag:brand_subtype:qloo"
+     },
+     {
+      "name": "Product Brand",
+      "tag_id": "urn:tag:brand_type:qloo:product_brand",
+      "type": "urn:tag:brand_type:qloo"
+     },
+     {
+      "name": "B2C",
+      "tag_id": "urn:tag:business_model:qloo:b2c",
+      "type": "urn:tag:business_model:qloo"
+     },
+     {
+      "name": "Coors Light",
+      "tag_id": "urn:tag:competitor_brand:qloo:coors_light",
+      "type": "urn:tag:competitor_brand:qloo"
+     },
+     {
+      "name": "Miller Lite",
+      "tag_id": "urn:tag:competitor_brand:qloo:miller_lite",
+      "type": "urn:tag:competitor_brand:qloo"
+     },
+     {
+      "name": "Michelob Ultra",
+      "tag_id": "urn:tag:competitor_brand:qloo:michelob_ultra",
+      "type": "urn:tag:competitor_brand:qloo"
+     },
+     {
+      "name": "Everyday",
+      "tag_id": "urn:tag:consumption_context:qloo:everyday",
+      "type": "urn:tag:consumption_context:qloo"
+     },
+     {
+      "name": "Social",
+      "tag_id": "urn:tag:consumption_context:qloo:social",
+      "type": "urn:tag:consumption_context:qloo"
+     },
+     {
+      "name": "At Home",
+      "tag_id": "urn:tag:consumption_context:qloo:at_home",
+      "type": "urn:tag:consumption_context:qloo"
+     },
+     {
+      "name": "On-the-Go",
+      "tag_id": "urn:tag:consumption_context:qloo:on_the_go",
+      "type": "urn:tag:consumption_context:qloo"
+     },
+     {
+      "name": "Outdoor",
+      "tag_id": "urn:tag:consumption_context:qloo:outdoor",
+      "type": "urn:tag:consumption_context:qloo"
+     },
+     {
+      "name": "Inclusivity",
+      "tag_id": "urn:tag:core_value:qloo:inclusivity",
+      "type": "urn:tag:core_value:qloo"
+     },
+     {
+      "name": "Consistency",
+      "tag_id": "urn:tag:core_value:qloo:consistency",
+      "type": "urn:tag:core_value:qloo"
+     },
+     {
+      "name": "Social Connection",
+      "tag_id": "urn:tag:core_value:qloo:social_connection",
+      "type": "urn:tag:core_value:qloo"
+     },
+     {
+      "name": "Sports Culture",
+      "tag_id": "urn:tag:cultural_relevance:qloo:sports_culture",
+      "type": "urn:tag:cultural_relevance:qloo"
+     },
+     {
+      "name": "American Pub Culture",
+      "tag_id": "urn:tag:cultural_relevance:qloo:american_pub_culture",
+      "type": "urn:tag:cultural_relevance:qloo"
+     },
+     {
+      "name": "Festival Culture",
+      "tag_id": "urn:tag:cultural_relevance:qloo:festival_culture",
+      "type": "urn:tag:cultural_relevance:qloo"
+     },
+     {
+      "name": "Sports Fans",
+      "tag_id": "urn:tag:customer_segment:qloo:sports_fans",
+      "type": "urn:tag:customer_segment:qloo"
+     },
+     {
+      "name": "College Students",
+      "tag_id": "urn:tag:customer_segment:qloo:college_students",
+      "type": "urn:tag:customer_segment:qloo"
+     },
+     {
+      "name": "Casual Drinkers",
+      "tag_id": "urn:tag:customer_segment:qloo:casual_drinkers",
+      "type": "urn:tag:customer_segment:qloo"
+     },
+     {
+      "name": "Low Calorie",
+      "tag_id": "urn:tag:dietary_attribute:qloo:low_calorie",
+      "type": "urn:tag:dietary_attribute:qloo"
+     },
+     {
+      "name": "Low Carb",
+      "tag_id": "urn:tag:dietary_attribute:qloo:low_carb",
+      "type": "urn:tag:dietary_attribute:qloo"
+     },
+     {
+      "name": "Supermarkets",
+      "tag_id": "urn:tag:distribution_channel:qloo:supermarkets",
+      "type": "urn:tag:distribution_channel:qloo"
+     },
+     {
+      "name": "Hypermarkets",
+      "tag_id": "urn:tag:distribution_channel:qloo:hypermarkets",
+      "type": "urn:tag:distribution_channel:qloo"
+     },
+     {
+      "name": "Convenience Stores",
+      "tag_id": "urn:tag:distribution_channel:qloo:convenience_stores",
+      "type": "urn:tag:distribution_channel:qloo"
+     },
+     {
+      "name": "Drug Stores",
+      "tag_id": "urn:tag:distribution_channel:qloo:drug_stores",
+      "type": "urn:tag:distribution_channel:qloo"
+     },
+     {
+      "name": "Club Stores",
+      "tag_id": "urn:tag:distribution_channel:qloo:club_stores",
+      "type": "urn:tag:distribution_channel:qloo"
+     },
+     {
+      "name": "Food Service",
+      "tag_id": "urn:tag:distribution_channel:qloo:food_service",
+      "type": "urn:tag:distribution_channel:qloo"
+     },
+     {
+      "name": "Accessible",
+      "tag_id": "urn:tag:emotional_tone:qloo:accessible",
+      "type": "urn:tag:emotional_tone:qloo"
+     },
+     {
+      "name": "Casual",
+      "tag_id": "urn:tag:emotional_tone:qloo:casual",
+      "type": "urn:tag:emotional_tone:qloo"
+     },
+     {
+      "name": "Sociable",
+      "tag_id": "urn:tag:emotional_tone:qloo:sociable",
+      "type": "urn:tag:emotional_tone:qloo"
+     },
+     {
+      "name": "Unpretentious",
+      "tag_id": "urn:tag:emotional_tone:qloo:unpretentious",
+      "type": "urn:tag:emotional_tone:qloo"
+     },
+     {
+      "name": "Lighthearted",
+      "tag_id": "urn:tag:emotional_tone:qloo:lighthearted",
+      "type": "urn:tag:emotional_tone:qloo"
+     },
+     {
+      "name": "Crisp",
+      "tag_id": "urn:tag:flavor_profile:qloo:crisp",
+      "type": "urn:tag:flavor_profile:qloo"
+     },
+     {
+      "name": "Light",
+      "tag_id": "urn:tag:flavor_profile:qloo:light",
+      "type": "urn:tag:flavor_profile:qloo"
+     },
+     {
+      "name": "Refreshing",
+      "tag_id": "urn:tag:flavor_profile:qloo:refreshing",
+      "type": "urn:tag:flavor_profile:qloo"
+     },
+     {
+      "name": "Food & Beverage",
+      "tag_id": "urn:tag:industry:qloo:food_beverage",
+      "type": "urn:tag:industry:qloo"
+     },
+     {
+      "name": "Alcoholic Beverages",
+      "tag_id": "urn:tag:industry:qloo:alcoholic_beverages",
+      "type": "urn:tag:industry:qloo"
+     },
+     {
+      "name": "Sports Broadcasters",
+      "tag_id": "urn:tag:influencer_appeal:qloo:sports_broadcasters",
+      "type": "urn:tag:influencer_appeal:qloo"
+     },
+     {
+      "name": "Tailgating Enthusiasts",
+      "tag_id": "urn:tag:influencer_appeal:qloo:tailgating_enthusiasts",
+      "type": "urn:tag:influencer_appeal:qloo"
+     },
+     {
+      "name": "Lifestyle Content Creators",
+      "tag_id": "urn:tag:influencer_appeal:qloo:lifestyle_content_creators",
+      "type": "urn:tag:influencer_appeal:qloo"
+     },
+     {
+      "name": "Music Festival Hosts",
+      "tag_id": "urn:tag:influencer_appeal:qloo:music_festival_hosts",
+      "type": "urn:tag:influencer_appeal:qloo"
+     },
+     {
+      "name": "Barley Malt",
+      "tag_id": "urn:tag:ingredient_focus:qloo:barley_malt",
+      "type": "urn:tag:ingredient_focus:qloo"
+     },
+     {
+      "name": "Rice",
+      "tag_id": "urn:tag:ingredient_focus:qloo:rice",
+      "type": "urn:tag:ingredient_focus:qloo"
+     },
+     {
+      "name": "Hops",
+      "tag_id": "urn:tag:ingredient_focus:qloo:hops",
+      "type": "urn:tag:ingredient_focus:qloo"
+     },
+     {
+      "name": "Water",
+      "tag_id": "urn:tag:ingredient_focus:qloo:water",
+      "type": "urn:tag:ingredient_focus:qloo"
+     },
+     {
+      "name": "Sports Viewing",
+      "tag_id": "urn:tag:interest_adjacency:qloo:sports_viewing",
+      "type": "urn:tag:interest_adjacency:qloo"
+     },
+     {
+      "name": "Tailgating",
+      "tag_id": "urn:tag:interest_adjacency:qloo:tailgating",
+      "type": "urn:tag:interest_adjacency:qloo"
+     },
+     {
+      "name": "Bar Culture",
+      "tag_id": "urn:tag:interest_adjacency:qloo:bar_culture",
+      "type": "urn:tag:interest_adjacency:qloo"
+     },
+     {
+      "name": "Live Music",
+      "tag_id": "urn:tag:interest_adjacency:qloo:live_music",
+      "type": "urn:tag:interest_adjacency:qloo"
+     },
+     {
+      "name": "Outdoor Recreation",
+      "tag_id": "urn:tag:interest_adjacency:qloo:outdoor_recreation",
+      "type": "urn:tag:interest_adjacency:qloo"
+     },
+     {
+      "name": "United States",
+      "tag_id": "urn:tag:key_market:qloo:united_states",
+      "type": "urn:tag:key_market:qloo"
+     },
+     {
+      "name": "Lager",
+      "tag_id": "urn:tag:keyword:qloo:lager",
+      "type": "urn:tag:keyword:qloo"
+     },
+     {
+      "name": "Beer",
+      "tag_id": "urn:tag:keyword:qloo:beer",
+      "type": "urn:tag:keyword:qloo"
+     },
+     {
+      "name": "Refreshment",
+      "tag_id": "urn:tag:keyword:qloo:refreshment",
+      "type": "urn:tag:keyword:qloo"
+     },
+     {
+      "name": "Social",
+      "tag_id": "urn:tag:keyword:qloo:social",
+      "type": "urn:tag:keyword:qloo"
+     },
+     {
+      "name": "Light",
+      "tag_id": "urn:tag:keyword:qloo:light",
+      "type": "urn:tag:keyword:qloo"
+     },
+     {
+      "name": "NFL",
+      "tag_id": "urn:tag:partnership:qloo:nfl",
+      "type": "urn:tag:partnership:qloo"
+     },
+     {
+      "name": "Major League Baseball",
+      "tag_id": "urn:tag:partnership:qloo:major_league_baseball",
+      "type": "urn:tag:partnership:qloo"
+     },
+     {
+      "name": "UFC",
+      "tag_id": "urn:tag:partnership:qloo:ufc",
+      "type": "urn:tag:partnership:qloo"
+     },
+     {
+      "name": "Backyard Parties",
+      "tag_id": "urn:tag:lifestyle:qloo:backyard_parties",
+      "type": "urn:tag:lifestyle:qloo"
+     },
+     {
+      "name": "Sports Events",
+      "tag_id": "urn:tag:lifestyle:qloo:sports_events",
+      "type": "urn:tag:lifestyle:qloo"
+     },
+     {
+      "name": "Beach Days",
+      "tag_id": "urn:tag:lifestyle:qloo:beach_days",
+      "type": "urn:tag:lifestyle:qloo"
+     },
+     {
+      "name": "Weekend Relaxation",
+      "tag_id": "urn:tag:lifestyle:qloo:weekend_relaxation",
+      "type": "urn:tag:lifestyle:qloo"
+     },
+     {
+      "name": "Mainstream",
+      "tag_id": "urn:tag:market_archetype:qloo:mainstream",
+      "type": "urn:tag:market_archetype:qloo"
+     },
+     {
+      "name": "Bottle",
+      "tag_id": "urn:tag:packaging_format:qloo:bottle",
+      "type": "urn:tag:packaging_format:qloo"
+     },
+     {
+      "name": "Can",
+      "tag_id": "urn:tag:packaging_format:qloo:can",
+      "type": "urn:tag:packaging_format:qloo"
+     },
+     {
+      "name": "Multi-Pack",
+      "tag_id": "urn:tag:packaging_format:qloo:multi_pack",
+      "type": "urn:tag:packaging_format:qloo"
+     },
+     {
+      "name": "null",
+      "tag_id": "urn:tag:personal_style:qloo:null",
+      "type": "urn:tag:personal_style:qloo"
+     },
+     {
+      "name": "$",
+      "tag_id": "urn:tag:price_level:qloo:_",
+      "type": "urn:tag:price_level:qloo"
+     },
+     {
+      "name": "Beverages",
+      "tag_id": "urn:tag:product_category:qloo:beverages",
+      "type": "urn:tag:product_category:qloo"
+     },
+     {
+      "name": "Beer",
+      "tag_id": "urn:tag:product_category:qloo:beer",
+      "type": "urn:tag:product_category:qloo"
+     },
+     {
+      "name": "Bud Light Lime",
+      "tag_id": "urn:tag:product_line:qloo:bud_light_lime",
+      "type": "urn:tag:product_line:qloo"
+     },
+     {
+      "name": "Bud Light Next",
+      "tag_id": "urn:tag:product_line:qloo:bud_light_next",
+      "type": "urn:tag:product_line:qloo"
+     },
+     {
+      "name": "Bud Light Seltzer",
+      "tag_id": "urn:tag:product_line:qloo:bud_light_seltzer",
+      "type": "urn:tag:product_line:qloo"
+     },
+     {
+      "name": "Light Lager",
+      "tag_id": "urn:tag:product_service:qloo:light_lager",
+      "type": "urn:tag:product_service:qloo"
+     },
+     {
+      "name": "Seltzer",
+      "tag_id": "urn:tag:product_service:qloo:seltzer",
+      "type": "urn:tag:product_service:qloo"
+     },
+     {
+      "name": "Beer",
+      "tag_id": "urn:tag:product_service:qloo:beer",
+      "type": "urn:tag:product_service:qloo"
+     },
+     {
+      "name": "Bud Light Lager",
+      "tag_id": "urn:tag:signature_product:qloo:bud_light_lager",
+      "type": "urn:tag:signature_product:qloo"
+     },
+     {
+      "name": "Corona Light",
+      "tag_id": "urn:tag:similar_brand:qloo:corona_light",
+      "type": "urn:tag:similar_brand:qloo"
+     },
+     {
+      "name": "Busch Light",
+      "tag_id": "urn:tag:similar_brand:qloo:busch_light",
+      "type": "urn:tag:similar_brand:qloo"
+     },
+     {
+      "name": "Water Stewardship",
+      "tag_id": "urn:tag:sustainability_initiative:qloo:water_stewardship",
+      "type": "urn:tag:sustainability_initiative:qloo"
+     },
+     {
+      "name": "Renewable Energy",
+      "tag_id": "urn:tag:sustainability_initiative:qloo:renewable_energy",
+      "type": "urn:tag:sustainability_initiative:qloo"
+     },
+     {
+      "name": "Young Adults",
+      "tag_id": "urn:tag:target_age_group:qloo:young_adults",
+      "type": "urn:tag:target_age_group:qloo"
+     },
+     {
+      "name": "Adults",
+      "tag_id": "urn:tag:target_age_group:qloo:adults",
+      "type": "urn:tag:target_age_group:qloo"
+     },
+     {
+      "name": "Middle-Aged",
+      "tag_id": "urn:tag:target_age_group:qloo:middle_aged",
+      "type": "urn:tag:target_age_group:qloo"
+     },
+     {
+      "name": "Gender-Neutral",
+      "tag_id": "urn:tag:target_gender:qloo:gender_neutral",
+      "type": "urn:tag:target_gender:qloo"
+     },
+     {
+      "name": "Low to Medium",
+      "tag_id": "urn:tag:target_income_level:qloo:low_to_medium",
+      "type": "urn:tag:target_income_level:qloo"
+     },
+     {
+      "name": "Medium",
+      "tag_id": "urn:tag:target_income_level:qloo:medium",
+      "type": "urn:tag:target_income_level:qloo"
+     },
+     {
+      "name": "Mild",
+      "tag_id": "urn:tag:taste_intensity:qloo:mild",
+      "type": "urn:tag:taste_intensity:qloo"
+     }
+    ]
+   }
+  ]
+ }
+}

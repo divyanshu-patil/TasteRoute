@@ -28,6 +28,7 @@ class EntityQuery(_M):
     affinity: float | None = None
     distance: float | None = None
     explainability: dict[str, list[ExplainItem]] | None = None
+    measurements: dict[str, float | None] = Field(default_factory=dict)  # audience_growth: undocumented scale (RNK-10)
 
 
 class Place(_M):
@@ -43,6 +44,10 @@ class Place(_M):
     @property
     def affinity(self) -> float | None:
         return self.query.affinity if self.query else None
+
+    @property
+    def audience_growth(self) -> float | None:
+        return self.query.measurements.get("audience_growth") if self.query else None
 
     def explain(self) -> list[ExplainItem]:
         if not self.query or not self.query.explainability:

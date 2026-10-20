@@ -1999,6 +1999,14 @@
       },
       "VenuePage": {
         "properties": {
+          "hidden": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "description": "Venues left out unless show_hidden: chain, signal_brand_venue (RNK-09)",
+            "title": "Hidden",
+            "type": "object"
+          },
           "items": {
             "items": {
               "$ref": "#/components/schemas/VenueRow"
@@ -2029,6 +2037,7 @@
       "VenueRow": {
         "properties": {
           "baseline_pct": {
+            "description": "Mass-market taste percentile at the same venues; the popularity percentile for runs scored before D-23 (then popularity_pct is null)",
             "title": "Baseline Pct",
             "type": "number"
           },
@@ -2105,6 +2114,18 @@
               }
             ],
             "title": "Neighborhood"
+          },
+          "popularity_pct": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "The venue's own Qloo popularity percentile, display only",
+            "title": "Popularity Pct"
           },
           "rank": {
             "title": "Rank",
@@ -3611,6 +3632,18 @@
               "minimum": 0,
               "title": "Offset",
               "type": "integer"
+            }
+          },
+          {
+            "description": "Include chains and venues of brands you resemble (RNK-09)",
+            "in": "query",
+            "name": "show_hidden",
+            "required": false,
+            "schema": {
+              "default": false,
+              "description": "Include chains and venues of brands you resemble (RNK-09)",
+              "title": "Show Hidden",
+              "type": "boolean"
             }
           }
         ],

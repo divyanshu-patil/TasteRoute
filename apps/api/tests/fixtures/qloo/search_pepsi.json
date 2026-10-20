@@ -1,0 +1,1870 @@
+{
+ "request": {
+  "path": "/search",
+  "params": [
+   [
+    "query",
+    "Pepsi"
+   ],
+   [
+    "types",
+    "urn:entity:brand"
+   ],
+   [
+    "take",
+    "3"
+   ]
+  ]
+ },
+ "status": 200,
+ "body": {
+  "results": [
+   {
+    "name": "Pepsi",
+    "entity_id": "957B527A-CF2C-4283-A2FD-3F49741DF5DE",
+    "types": [
+     "urn:entity:brand"
+    ],
+    "properties": {
+     "akas": [
+      {
+       "language": "hi",
+       "value": "\u092a\u0947\u092a\u094d\u0938\u0940"
+      },
+      {
+       "language": "ml",
+       "value": "\u0d2a\u0d46\u0d2a\u0d4d\u0d38\u0d3f"
+      },
+      {
+       "language": "bn",
+       "value": "\u09aa\u09c7\u09aa\u09b8\u09bf"
+      },
+      {
+       "language": "he",
+       "value": "\u05e4\u05e4\u05e1\u05d9"
+      },
+      {
+       "language": "zh",
+       "value": "\u767e\u4e8b\u53ef\u4e50"
+      },
+      {
+       "language": "kk",
+       "value": "\u041f\u0435\u043f\u0441\u0438"
+      },
+      {
+       "language": "ru",
+       "value": "\u041f\u0435\u043f\u0441\u0438"
+      },
+      {
+       "language": "bg",
+       "value": "\u041f\u0435\u043f\u0441\u0438"
+      },
+      {
+       "language": "sr",
+       "value": "\u041f\u0435\u043f\u0441\u0438"
+      },
+      {
+       "language": "mk",
+       "value": "\u041f\u0435\u043f\u0441\u0438"
+      },
+      {
+       "language": "ta",
+       "value": "\u0baa\u0bc6\u0baa\u0bcd\u0b9a\u0bbf"
+      },
+      {
+       "language": "ko",
+       "value": "\ud3a9\uc2dc"
+      },
+      {
+       "language": "my",
+       "value": "\u1015\u1000\u103a\u1005\u102e"
+      },
+      {
+       "language": "km",
+       "value": "\u1794\u17c9\u17b7\u1794\u179f\u17ca\u17b8"
+      },
+      {
+       "language": "uk",
+       "value": "\u041f\u0435\u043f\u0441\u0456"
+      },
+      {
+       "language": "ka",
+       "value": "\u10de\u10d4\u10de\u10e1\u10d8"
+      },
+      {
+       "language": "lo",
+       "value": "\u0ec0\u0e9b\u0e9a\u0e8a\u0eb5"
+      },
+      {
+       "language": "it",
+       "value": "Pepsi-Cola"
+      },
+      {
+       "language": "de",
+       "value": "Pepsi-Cola"
+      },
+      {
+       "language": "nl",
+       "value": "Pepsi-Cola"
+      },
+      {
+       "language": "es",
+       "value": "Pepsi-Cola"
+      },
+      {
+       "language": "es_ar",
+       "value": "Pepsi-Cola"
+      },
+      {
+       "language": "en_au",
+       "value": "Pepsi-Cola"
+      },
+      {
+       "language": "fr",
+       "value": "Pepsi-Cola"
+      },
+      {
+       "language": "ar",
+       "value": "\u0628\u064a\u0628\u0633\u064a"
+      },
+      {
+       "language": "sq",
+       "value": "Pepsi"
+      },
+      {
+       "language": "lv",
+       "value": "Pepsi"
+      },
+      {
+       "language": "bs",
+       "value": "Pepsi"
+      },
+      {
+       "language": "hr",
+       "value": "Pepsi"
+      },
+      {
+       "language": "cs",
+       "value": "Pepsi"
+      },
+      {
+       "language": "el",
+       "value": "Pepsi"
+      },
+      {
+       "language": "et",
+       "value": "Pepsi"
+      },
+      {
+       "language": "da",
+       "value": "Pepsi"
+      },
+      {
+       "language": "nn",
+       "value": "Pepsi"
+      },
+      {
+       "language": "id",
+       "value": "Pepsi"
+      },
+      {
+       "language": "ro",
+       "value": "Pepsi"
+      },
+      {
+       "language": "ms",
+       "value": "Pepsi"
+      },
+      {
+       "language": "no",
+       "value": "Pepsi"
+      },
+      {
+       "language": "vi",
+       "value": "Pepsi"
+      },
+      {
+       "language": "fi",
+       "value": "Pepsi"
+      },
+      {
+       "language": "az",
+       "value": "Pepsi"
+      },
+      {
+       "language": "eu",
+       "value": "Pepsi"
+      },
+      {
+       "language": "gl",
+       "value": "Pepsi"
+      },
+      {
+       "language": "ca",
+       "value": "Pepsi"
+      },
+      {
+       "language": "lt",
+       "value": "Pepsi"
+      },
+      {
+       "language": "sk",
+       "value": "Pepsi"
+      },
+      {
+       "language": "nb",
+       "value": "Pepsi"
+      },
+      {
+       "language": "hu",
+       "value": "Pepsi"
+      },
+      {
+       "language": "sv",
+       "value": "Pepsi"
+      }
+     ],
+     "description": "An iconic, globally available carbonated soft drink that stands as a flagship product of its parent corporation. With a history rooted in bold, refreshing cola flavors, the brand has maintained its position through heavy investment in music, sports, and entertainment partnerships. It serves as a mass-market staple appealing to a wide demographic looking for classic refreshment in casual and social settings. The brand continues to innovate with zero-sugar variants and modern packaging to remain relevant to contemporary consumer tastes.",
+     "external": {
+      "instagram": {
+       "id": "pepsiturkiye"
+      },
+      "twitter": {
+       "id": "pepsiturkiye"
+      },
+      "wikidata": {
+       "id": "Q50407282"
+      }
+     },
+     "founded_year": "1893",
+     "image": {
+      "url": "https://images.qloo.com/i/957B527A-CF2C-4283-A2FD-3F49741DF5DE-420x-auto.jpg"
+     },
+     "short_description": "Pepsi is a global beverage brand known for its popular cola soft drinks and other flavored beverages.",
+     "short_descriptions": [
+      {
+       "language": "fr",
+       "value": "Une boisson gazeuse mondialement reconnue pour son go\u00fbt audacieux, son caract\u00e8re rafra\u00eechissant et son int\u00e9gration profonde dans la culture pop et le divertissement."
+      },
+      {
+       "language": "en",
+       "value": "A globally recognized carbonated soft drink known for its bold taste, refreshing nature, and deep integration into pop culture and entertainment."
+      },
+      {
+       "language": "es",
+       "value": "Un refresco carbonatado reconocido mundialmente por su sabor audaz, su naturaleza refrescante y su profunda integraci\u00f3n en la cultura pop y el entretenimiento."
+      },
+      {
+       "language": "de",
+       "value": "Ein weltweit bekanntes kohlens\u00e4urehaltiges Erfrischungsgetr\u00e4nk, das f\u00fcr seinen kr\u00e4ftigen Geschmack und seine tiefe Verwurzelung in der Popkultur bekannt ist."
+      }
+     ]
+    },
+    "popularity": 0.997016494041464,
+    "disambiguation": "",
+    "tags": [
+     {
+      "name": "Food & Beverage",
+      "tag_id": "urn:tag:genre:brand:food_and_beverage",
+      "type": "urn:tag:genre:brand"
+     },
+     {
+      "name": "Carbonated",
+      "tag_id": "urn:tag:genre:brand:food_and_beverage:drinks:carbonated",
+      "type": "urn:tag:genre:brand"
+     },
+     {
+      "name": "Drinks",
+      "tag_id": "urn:tag:genre:brand:food_and_beverage:drinks",
+      "type": "urn:tag:genre:brand"
+     },
+     {
+      "name": "Blue And Red Branding",
+      "tag_id": "urn:tag:aesthetic_property:qloo:blue_and_red_branding",
+      "type": "urn:tag:aesthetic_property:qloo"
+     },
+     {
+      "name": "Iconic Globe Logo",
+      "tag_id": "urn:tag:aesthetic_property:qloo:iconic_globe_logo",
+      "type": "urn:tag:aesthetic_property:qloo"
+     },
+     {
+      "name": "Bold Typography",
+      "tag_id": "urn:tag:aesthetic_property:qloo:bold_typography",
+      "type": "urn:tag:aesthetic_property:qloo"
+     },
+     {
+      "name": "Vibrant Visuals",
+      "tag_id": "urn:tag:aesthetic_property:qloo:vibrant_visuals",
+      "type": "urn:tag:aesthetic_property:qloo"
+     },
+     {
+      "name": "Concert Going",
+      "tag_id": "urn:tag:lifestyle:qloo:concert_going",
+      "type": "urn:tag:lifestyle:qloo"
+     },
+     {
+      "name": "Sporting Events",
+      "tag_id": "urn:tag:lifestyle:qloo:sporting_events",
+      "type": "urn:tag:lifestyle:qloo"
+     },
+     {
+      "name": "Living In The Moment",
+      "tag_id": "urn:tag:lifestyle:qloo:living_in_the_moment",
+      "type": "urn:tag:lifestyle:qloo"
+     },
+     {
+      "name": "Trend Setting",
+      "tag_id": "urn:tag:lifestyle:qloo:trend_setting",
+      "type": "urn:tag:lifestyle:qloo"
+     },
+     {
+      "name": "CPG",
+      "tag_id": "urn:tag:brand_subtype:qloo:cpg",
+      "type": "urn:tag:brand_subtype:qloo"
+     },
+     {
+      "name": "Product Brand",
+      "tag_id": "urn:tag:brand_type:qloo:product_brand",
+      "type": "urn:tag:brand_type:qloo"
+     },
+     {
+      "name": "B2C",
+      "tag_id": "urn:tag:business_model:qloo:b2c",
+      "type": "urn:tag:business_model:qloo"
+     },
+     {
+      "name": "Coca-Cola",
+      "tag_id": "urn:tag:competitor_brand:qloo:coca_cola",
+      "type": "urn:tag:competitor_brand:qloo"
+     },
+     {
+      "name": "Dr Pepper",
+      "tag_id": "urn:tag:competitor_brand:qloo:dr_pepper",
+      "type": "urn:tag:competitor_brand:qloo"
+     },
+     {
+      "name": "RC Cola",
+      "tag_id": "urn:tag:competitor_brand:qloo:rc_cola",
+      "type": "urn:tag:competitor_brand:qloo"
+     },
+     {
+      "name": "Everyday",
+      "tag_id": "urn:tag:consumption_context:qloo:everyday",
+      "type": "urn:tag:consumption_context:qloo"
+     },
+     {
+      "name": "Social",
+      "tag_id": "urn:tag:consumption_context:qloo:social",
+      "type": "urn:tag:consumption_context:qloo"
+     },
+     {
+      "name": "At Home",
+      "tag_id": "urn:tag:consumption_context:qloo:at_home",
+      "type": "urn:tag:consumption_context:qloo"
+     },
+     {
+      "name": "On-the-Go",
+      "tag_id": "urn:tag:consumption_context:qloo:on_the_go",
+      "type": "urn:tag:consumption_context:qloo"
+     },
+     {
+      "name": "Snacking",
+      "tag_id": "urn:tag:consumption_context:qloo:snacking",
+      "type": "urn:tag:consumption_context:qloo"
+     },
+     {
+      "name": "Lunch",
+      "tag_id": "urn:tag:consumption_context:qloo:lunch",
+      "type": "urn:tag:consumption_context:qloo"
+     },
+     {
+      "name": "Dinner",
+      "tag_id": "urn:tag:consumption_context:qloo:dinner",
+      "type": "urn:tag:consumption_context:qloo"
+     },
+     {
+      "name": "Fun",
+      "tag_id": "urn:tag:core_value:qloo:fun",
+      "type": "urn:tag:core_value:qloo"
+     },
+     {
+      "name": "Authenticity",
+      "tag_id": "urn:tag:core_value:qloo:authenticity",
+      "type": "urn:tag:core_value:qloo"
+     },
+     {
+      "name": "Youthfulness",
+      "tag_id": "urn:tag:core_value:qloo:youthfulness",
+      "type": "urn:tag:core_value:qloo"
+     },
+     {
+      "name": "Optimism",
+      "tag_id": "urn:tag:core_value:qloo:optimism",
+      "type": "urn:tag:core_value:qloo"
+     },
+     {
+      "name": "Music Culture",
+      "tag_id": "urn:tag:cultural_relevance:qloo:music_culture",
+      "type": "urn:tag:cultural_relevance:qloo"
+     },
+     {
+      "name": "Sports Culture",
+      "tag_id": "urn:tag:cultural_relevance:qloo:sports_culture",
+      "type": "urn:tag:cultural_relevance:qloo"
+     },
+     {
+      "name": "Pop Culture",
+      "tag_id": "urn:tag:cultural_relevance:qloo:pop_culture",
+      "type": "urn:tag:cultural_relevance:qloo"
+     },
+     {
+      "name": "Urban Consumers",
+      "tag_id": "urn:tag:customer_segment:qloo:urban_consumers",
+      "type": "urn:tag:customer_segment:qloo"
+     },
+     {
+      "name": "Music Enthusiasts",
+      "tag_id": "urn:tag:customer_segment:qloo:music_enthusiasts",
+      "type": "urn:tag:customer_segment:qloo"
+     },
+     {
+      "name": "Sports Fans",
+      "tag_id": "urn:tag:customer_segment:qloo:sports_fans",
+      "type": "urn:tag:customer_segment:qloo"
+     },
+     {
+      "name": "Casual Diners",
+      "tag_id": "urn:tag:customer_segment:qloo:casual_diners",
+      "type": "urn:tag:customer_segment:qloo"
+     },
+     {
+      "name": "Dairy-Free",
+      "tag_id": "urn:tag:dietary_attribute:qloo:dairy_free",
+      "type": "urn:tag:dietary_attribute:qloo"
+     },
+     {
+      "name": "Gluten-Free",
+      "tag_id": "urn:tag:dietary_attribute:qloo:gluten_free",
+      "type": "urn:tag:dietary_attribute:qloo"
+     },
+     {
+      "name": "Supermarkets",
+      "tag_id": "urn:tag:distribution_channel:qloo:supermarkets",
+      "type": "urn:tag:distribution_channel:qloo"
+     },
+     {
+      "name": "Hypermarkets",
+      "tag_id": "urn:tag:distribution_channel:qloo:hypermarkets",
+      "type": "urn:tag:distribution_channel:qloo"
+     },
+     {
+      "name": "Convenience Stores",
+      "tag_id": "urn:tag:distribution_channel:qloo:convenience_stores",
+      "type": "urn:tag:distribution_channel:qloo"
+     },
+     {
+      "name": "Drug Stores",
+      "tag_id": "urn:tag:distribution_channel:qloo:drug_stores",
+      "type": "urn:tag:distribution_channel:qloo"
+     },
+     {
+      "name": "Club Stores",
+      "tag_id": "urn:tag:distribution_channel:qloo:club_stores",
+      "type": "urn:tag:distribution_channel:qloo"
+     },
+     {
+      "name": "Food Service",
+      "tag_id": "urn:tag:distribution_channel:qloo:food_service",
+      "type": "urn:tag:distribution_channel:qloo"
+     },
+     {
+      "name": "Vending",
+      "tag_id": "urn:tag:distribution_channel:qloo:vending",
+      "type": "urn:tag:distribution_channel:qloo"
+     },
+     {
+      "name": "Energetic",
+      "tag_id": "urn:tag:emotional_tone:qloo:energetic",
+      "type": "urn:tag:emotional_tone:qloo"
+     },
+     {
+      "name": "Playful",
+      "tag_id": "urn:tag:emotional_tone:qloo:playful",
+      "type": "urn:tag:emotional_tone:qloo"
+     },
+     {
+      "name": "Bold",
+      "tag_id": "urn:tag:emotional_tone:qloo:bold",
+      "type": "urn:tag:emotional_tone:qloo"
+     },
+     {
+      "name": "Confident",
+      "tag_id": "urn:tag:emotional_tone:qloo:confident",
+      "type": "urn:tag:emotional_tone:qloo"
+     },
+     {
+      "name": "Sweet",
+      "tag_id": "urn:tag:flavor_profile:qloo:sweet",
+      "type": "urn:tag:flavor_profile:qloo"
+     },
+     {
+      "name": "Crisp",
+      "tag_id": "urn:tag:flavor_profile:qloo:crisp",
+      "type": "urn:tag:flavor_profile:qloo"
+     },
+     {
+      "name": "Citrus Notes",
+      "tag_id": "urn:tag:flavor_profile:qloo:citrus_notes",
+      "type": "urn:tag:flavor_profile:qloo"
+     },
+     {
+      "name": "Food & Beverage",
+      "tag_id": "urn:tag:industry:qloo:food_beverage",
+      "type": "urn:tag:industry:qloo"
+     },
+     {
+      "name": "Consumer Packaged Goods",
+      "tag_id": "urn:tag:industry:qloo:consumer_packaged_goods",
+      "type": "urn:tag:industry:qloo"
+     },
+     {
+      "name": "Music Artists",
+      "tag_id": "urn:tag:influencer_appeal:qloo:music_artists",
+      "type": "urn:tag:influencer_appeal:qloo"
+     },
+     {
+      "name": "Professional Athletes",
+      "tag_id": "urn:tag:influencer_appeal:qloo:professional_athletes",
+      "type": "urn:tag:influencer_appeal:qloo"
+     },
+     {
+      "name": "Content Creators",
+      "tag_id": "urn:tag:influencer_appeal:qloo:content_creators",
+      "type": "urn:tag:influencer_appeal:qloo"
+     },
+     {
+      "name": "Cultural Trendsetters",
+      "tag_id": "urn:tag:influencer_appeal:qloo:cultural_trendsetters",
+      "type": "urn:tag:influencer_appeal:qloo"
+     },
+     {
+      "name": "Carbonated Water",
+      "tag_id": "urn:tag:ingredient_focus:qloo:carbonated_water",
+      "type": "urn:tag:ingredient_focus:qloo"
+     },
+     {
+      "name": "High Fructose Corn Syrup",
+      "tag_id": "urn:tag:ingredient_focus:qloo:high_fructose_corn_syrup",
+      "type": "urn:tag:ingredient_focus:qloo"
+     },
+     {
+      "name": "Pop Culture",
+      "tag_id": "urn:tag:interest_adjacency:qloo:pop_culture",
+      "type": "urn:tag:interest_adjacency:qloo"
+     },
+     {
+      "name": "Music Festivals",
+      "tag_id": "urn:tag:interest_adjacency:qloo:music_festivals",
+      "type": "urn:tag:interest_adjacency:qloo"
+     },
+     {
+      "name": "Fast Food",
+      "tag_id": "urn:tag:interest_adjacency:qloo:fast_food",
+      "type": "urn:tag:interest_adjacency:qloo"
+     },
+     {
+      "name": "Sports Entertainment",
+      "tag_id": "urn:tag:interest_adjacency:qloo:sports_entertainment",
+      "type": "urn:tag:interest_adjacency:qloo"
+     },
+     {
+      "name": "Digital Trends",
+      "tag_id": "urn:tag:interest_adjacency:qloo:digital_trends",
+      "type": "urn:tag:interest_adjacency:qloo"
+     },
+     {
+      "name": "United States",
+      "tag_id": "urn:tag:key_market:qloo:united_states",
+      "type": "urn:tag:key_market:qloo"
+     },
+     {
+      "name": "Global",
+      "tag_id": "urn:tag:key_market:qloo:global",
+      "type": "urn:tag:key_market:qloo"
+     },
+     {
+      "name": "Cola",
+      "tag_id": "urn:tag:keyword:qloo:cola",
+      "type": "urn:tag:keyword:qloo"
+     },
+     {
+      "name": "Refreshment",
+      "tag_id": "urn:tag:keyword:qloo:refreshment",
+      "type": "urn:tag:keyword:qloo"
+     },
+     {
+      "name": "Pop Culture",
+      "tag_id": "urn:tag:keyword:qloo:pop_culture",
+      "type": "urn:tag:keyword:qloo"
+     },
+     {
+      "name": "Carbonated",
+      "tag_id": "urn:tag:keyword:qloo:carbonated",
+      "type": "urn:tag:keyword:qloo"
+     },
+     {
+      "name": "Beverage",
+      "tag_id": "urn:tag:keyword:qloo:beverage",
+      "type": "urn:tag:keyword:qloo"
+     },
+     {
+      "name": "National Football League",
+      "tag_id": "urn:tag:partnership:qloo:national_football_league",
+      "type": "urn:tag:partnership:qloo"
+     },
+     {
+      "name": "UEFA Champions League",
+      "tag_id": "urn:tag:partnership:qloo:uefa_champions_league",
+      "type": "urn:tag:partnership:qloo"
+     },
+     {
+      "name": "Major Music Artists",
+      "tag_id": "urn:tag:partnership:qloo:major_music_artists",
+      "type": "urn:tag:partnership:qloo"
+     },
+     {
+      "name": "Socializing",
+      "tag_id": "urn:tag:lifestyle:qloo:socializing",
+      "type": "urn:tag:lifestyle:qloo"
+     },
+     {
+      "name": "Dining Out",
+      "tag_id": "urn:tag:lifestyle:qloo:dining_out",
+      "type": "urn:tag:lifestyle:qloo"
+     },
+     {
+      "name": "Entertainment",
+      "tag_id": "urn:tag:lifestyle:qloo:entertainment",
+      "type": "urn:tag:lifestyle:qloo"
+     },
+     {
+      "name": "Casual Living",
+      "tag_id": "urn:tag:lifestyle:qloo:casual_living",
+      "type": "urn:tag:lifestyle:qloo"
+     },
+     {
+      "name": "Mainstream",
+      "tag_id": "urn:tag:market_archetype:qloo:mainstream",
+      "type": "urn:tag:market_archetype:qloo"
+     },
+     {
+      "name": "Bottle",
+      "tag_id": "urn:tag:packaging_format:qloo:bottle",
+      "type": "urn:tag:packaging_format:qloo"
+     },
+     {
+      "name": "Plastic Bottle",
+      "tag_id": "urn:tag:packaging_format:qloo:plastic_bottle",
+      "type": "urn:tag:packaging_format:qloo"
+     },
+     {
+      "name": "Can",
+      "tag_id": "urn:tag:packaging_format:qloo:can",
+      "type": "urn:tag:packaging_format:qloo"
+     },
+     {
+      "name": "Multi-Pack",
+      "tag_id": "urn:tag:packaging_format:qloo:multi_pack",
+      "type": "urn:tag:packaging_format:qloo"
+     },
+     {
+      "name": "$",
+      "tag_id": "urn:tag:price_level:qloo:_",
+      "type": "urn:tag:price_level:qloo"
+     },
+     {
+      "name": "Beverages",
+      "tag_id": "urn:tag:product_category:qloo:beverages",
+      "type": "urn:tag:product_category:qloo"
+     },
+     {
+      "name": "Soft Drinks",
+      "tag_id": "urn:tag:product_category:qloo:soft_drinks",
+      "type": "urn:tag:product_category:qloo"
+     },
+     {
+      "name": "Pepsi",
+      "tag_id": "urn:tag:product_line:qloo:pepsi",
+      "type": "urn:tag:product_line:qloo"
+     },
+     {
+      "name": "Diet Pepsi",
+      "tag_id": "urn:tag:product_line:qloo:diet_pepsi",
+      "type": "urn:tag:product_line:qloo"
+     },
+     {
+      "name": "Pepsi Zero Sugar",
+      "tag_id": "urn:tag:product_line:qloo:pepsi_zero_sugar",
+      "type": "urn:tag:product_line:qloo"
+     },
+     {
+      "name": "Pepsi Wild Cherry",
+      "tag_id": "urn:tag:product_line:qloo:pepsi_wild_cherry",
+      "type": "urn:tag:product_line:qloo"
+     },
+     {
+      "name": "Cola",
+      "tag_id": "urn:tag:product_service:qloo:cola",
+      "type": "urn:tag:product_service:qloo"
+     },
+     {
+      "name": "Zero Sugar Cola",
+      "tag_id": "urn:tag:product_service:qloo:zero_sugar_cola",
+      "type": "urn:tag:product_service:qloo"
+     },
+     {
+      "name": "Diet Cola",
+      "tag_id": "urn:tag:product_service:qloo:diet_cola",
+      "type": "urn:tag:product_service:qloo"
+     },
+     {
+      "name": "Pepsi Cola",
+      "tag_id": "urn:tag:signature_product:qloo:pepsi_cola",
+      "type": "urn:tag:signature_product:qloo"
+     },
+     {
+      "name": "Diet Pepsi",
+      "tag_id": "urn:tag:signature_product:qloo:diet_pepsi",
+      "type": "urn:tag:signature_product:qloo"
+     },
+     {
+      "name": "Pepsi Zero Sugar",
+      "tag_id": "urn:tag:signature_product:qloo:pepsi_zero_sugar",
+      "type": "urn:tag:signature_product:qloo"
+     },
+     {
+      "name": "Mountain Dew",
+      "tag_id": "urn:tag:similar_brand:qloo:mountain_dew",
+      "type": "urn:tag:similar_brand:qloo"
+     },
+     {
+      "name": "7UP",
+      "tag_id": "urn:tag:similar_brand:qloo:7up",
+      "type": "urn:tag:similar_brand:qloo"
+     },
+     {
+      "name": "Sprite",
+      "tag_id": "urn:tag:similar_brand:qloo:sprite",
+      "type": "urn:tag:similar_brand:qloo"
+     },
+     {
+      "name": "Pepsi Zero Sugar",
+      "tag_id": "urn:tag:subsidiary:qloo:pepsi_zero_sugar",
+      "type": "urn:tag:subsidiary:qloo"
+     },
+     {
+      "name": "Diet Pepsi",
+      "tag_id": "urn:tag:subsidiary:qloo:diet_pepsi",
+      "type": "urn:tag:subsidiary:qloo"
+     },
+     {
+      "name": "Plastic Reduction",
+      "tag_id": "urn:tag:sustainability_initiative:qloo:plastic_reduction",
+      "type": "urn:tag:sustainability_initiative:qloo"
+     },
+     {
+      "name": "Eco-Friendly Packaging",
+      "tag_id": "urn:tag:sustainability_initiative:qloo:eco_friendly_packaging",
+      "type": "urn:tag:sustainability_initiative:qloo"
+     },
+     {
+      "name": "Reduced Carbon Emissions",
+      "tag_id": "urn:tag:sustainability_initiative:qloo:reduced_carbon_emissions",
+      "type": "urn:tag:sustainability_initiative:qloo"
+     },
+     {
+      "name": "Water Conservation",
+      "tag_id": "urn:tag:sustainability_initiative:qloo:water_conservation",
+      "type": "urn:tag:sustainability_initiative:qloo"
+     },
+     {
+      "name": "Teens",
+      "tag_id": "urn:tag:target_age_group:qloo:teens",
+      "type": "urn:tag:target_age_group:qloo"
+     },
+     {
+      "name": "Young Adults",
+      "tag_id": "urn:tag:target_age_group:qloo:young_adults",
+      "type": "urn:tag:target_age_group:qloo"
+     },
+     {
+      "name": "Adults",
+      "tag_id": "urn:tag:target_age_group:qloo:adults",
+      "type": "urn:tag:target_age_group:qloo"
+     },
+     {
+      "name": "Gender-Neutral",
+      "tag_id": "urn:tag:target_gender:qloo:gender_neutral",
+      "type": "urn:tag:target_gender:qloo"
+     },
+     {
+      "name": "Low to Medium",
+      "tag_id": "urn:tag:target_income_level:qloo:low_to_medium",
+      "type": "urn:tag:target_income_level:qloo"
+     },
+     {
+      "name": "Medium",
+      "tag_id": "urn:tag:target_income_level:qloo:medium",
+      "type": "urn:tag:target_income_level:qloo"
+     },
+     {
+      "name": "Medium to High",
+      "tag_id": "urn:tag:target_income_level:qloo:medium_to_high",
+      "type": "urn:tag:target_income_level:qloo"
+     },
+     {
+      "name": "Bold",
+      "tag_id": "urn:tag:taste_intensity:qloo:bold",
+      "type": "urn:tag:taste_intensity:qloo"
+     }
+    ]
+   },
+   {
+    "name": "Pepsi Max",
+    "entity_id": "EBD8C20D-690B-448F-A86D-6491FC6D2B8C",
+    "types": [
+     "urn:entity:brand"
+    ],
+    "properties": {
+     "akas": [],
+     "description": "A world-renowned soft drink brand recognized for its signature cola flavor and iconic branding. As a flagship product of its parent company, it maintains a strong presence in global markets through massive marketing campaigns and sports sponsorships. The brand targets a wide demographic, focusing on youthful energy, fun, and modern pop culture. It continues to innovate its product range, including various zero-sugar and diet alternatives to meet changing consumer preferences.",
+     "external": {
+      "instagram": {
+       "id": "pepsimaxuk"
+      },
+      "twitter": {
+       "id": "pepsimaxuk"
+      }
+     },
+     "founded_year": "1893",
+     "short_description": "Pepsi Max is a sugar-free, maximum taste cola beverage available primarily in Asian, European, and Australia/New Zealand markets.",
+     "short_descriptions": [
+      {
+       "language": "fr",
+       "value": "Une marque de soda gazeux mondialement connue pour son go\u00fbt audacieux et son ancrage profond dans la culture pop et la musique."
+      },
+      {
+       "language": "en",
+       "value": "A globally recognized carbonated soft drink brand known for its bold flavor and deep roots in pop culture and music."
+      },
+      {
+       "language": "es",
+       "value": "Una marca de refrescos carbonatados reconocida mundialmente por su sabor intenso y su profunda conexi\u00f3n con la cultura pop y la m\u00fasica."
+      },
+      {
+       "language": "de",
+       "value": "Eine weltweit bekannte Marke f\u00fcr kohlens\u00e4urehaltige Erfrischungsgetr\u00e4nke, die f\u00fcr ihren kr\u00e4ftigen Geschmack und ihre Verbindung zur Popkultur und Musik steht."
+      }
+     ],
+     "image": {
+      "url": "https://images.qloo.com/i/EBD8C20D-690B-448F-A86D-6491FC6D2B8C-420x-auto.jpg"
+     }
+    },
+    "popularity": 0.49883880591954705,
+    "disambiguation": "",
+    "tags": [
+     {
+      "name": "Bold Blue",
+      "tag_id": "urn:tag:aesthetic_property:qloo:bold_blue",
+      "type": "urn:tag:aesthetic_property:qloo"
+     },
+     {
+      "name": "Minimalist Globe Logo",
+      "tag_id": "urn:tag:aesthetic_property:qloo:minimalist_globe_logo",
+      "type": "urn:tag:aesthetic_property:qloo"
+     },
+     {
+      "name": "Dynamic Typography",
+      "tag_id": "urn:tag:aesthetic_property:qloo:dynamic_typography",
+      "type": "urn:tag:aesthetic_property:qloo"
+     },
+     {
+      "name": "High-Contrast Visuals",
+      "tag_id": "urn:tag:aesthetic_property:qloo:high_contrast_visuals",
+      "type": "urn:tag:aesthetic_property:qloo"
+     },
+     {
+      "name": "High-Energy Living",
+      "tag_id": "urn:tag:lifestyle:qloo:high_energy_living",
+      "type": "urn:tag:lifestyle:qloo"
+     },
+     {
+      "name": "Iconic Pop Culture Moments",
+      "tag_id": "urn:tag:lifestyle:qloo:iconic_pop_culture_moments",
+      "type": "urn:tag:lifestyle:qloo"
+     },
+     {
+      "name": "Music and Performance",
+      "tag_id": "urn:tag:lifestyle:qloo:music_and_performance",
+      "type": "urn:tag:lifestyle:qloo"
+     },
+     {
+      "name": "CPG",
+      "tag_id": "urn:tag:brand_subtype:qloo:cpg",
+      "type": "urn:tag:brand_subtype:qloo"
+     },
+     {
+      "name": "Product Brand",
+      "tag_id": "urn:tag:brand_type:qloo:product_brand",
+      "type": "urn:tag:brand_type:qloo"
+     },
+     {
+      "name": "B2C",
+      "tag_id": "urn:tag:business_model:qloo:b2c",
+      "type": "urn:tag:business_model:qloo"
+     },
+     {
+      "name": "Coca-Cola",
+      "tag_id": "urn:tag:competitor_brand:qloo:coca_cola",
+      "type": "urn:tag:competitor_brand:qloo"
+     },
+     {
+      "name": "Dr Pepper",
+      "tag_id": "urn:tag:competitor_brand:qloo:dr_pepper",
+      "type": "urn:tag:competitor_brand:qloo"
+     },
+     {
+      "name": "Everyday",
+      "tag_id": "urn:tag:consumption_context:qloo:everyday",
+      "type": "urn:tag:consumption_context:qloo"
+     },
+     {
+      "name": "Social",
+      "tag_id": "urn:tag:consumption_context:qloo:social",
+      "type": "urn:tag:consumption_context:qloo"
+     },
+     {
+      "name": "On-the-Go",
+      "tag_id": "urn:tag:consumption_context:qloo:on_the_go",
+      "type": "urn:tag:consumption_context:qloo"
+     },
+     {
+      "name": "Snacking",
+      "tag_id": "urn:tag:consumption_context:qloo:snacking",
+      "type": "urn:tag:consumption_context:qloo"
+     },
+     {
+      "name": "Lunch",
+      "tag_id": "urn:tag:consumption_context:qloo:lunch",
+      "type": "urn:tag:consumption_context:qloo"
+     },
+     {
+      "name": "Dinner",
+      "tag_id": "urn:tag:consumption_context:qloo:dinner",
+      "type": "urn:tag:consumption_context:qloo"
+     },
+     {
+      "name": "Innovation",
+      "tag_id": "urn:tag:core_value:qloo:innovation",
+      "type": "urn:tag:core_value:qloo"
+     },
+     {
+      "name": "Celebration",
+      "tag_id": "urn:tag:core_value:qloo:celebration",
+      "type": "urn:tag:core_value:qloo"
+     },
+     {
+      "name": "Fun",
+      "tag_id": "urn:tag:core_value:qloo:fun",
+      "type": "urn:tag:core_value:qloo"
+     },
+     {
+      "name": "Refreshment",
+      "tag_id": "urn:tag:core_value:qloo:refreshment",
+      "type": "urn:tag:core_value:qloo"
+     },
+     {
+      "name": "Pop Culture",
+      "tag_id": "urn:tag:cultural_relevance:qloo:pop_culture",
+      "type": "urn:tag:cultural_relevance:qloo"
+     },
+     {
+      "name": "Hip-Hop",
+      "tag_id": "urn:tag:cultural_relevance:qloo:hip_hop",
+      "type": "urn:tag:cultural_relevance:qloo"
+     },
+     {
+      "name": "Sports Sponsorships",
+      "tag_id": "urn:tag:cultural_relevance:qloo:sports_sponsorships",
+      "type": "urn:tag:cultural_relevance:qloo"
+     },
+     {
+      "name": "Urban Consumers",
+      "tag_id": "urn:tag:customer_segment:qloo:urban_consumers",
+      "type": "urn:tag:customer_segment:qloo"
+     },
+     {
+      "name": "Gen Z",
+      "tag_id": "urn:tag:customer_segment:qloo:gen_z",
+      "type": "urn:tag:customer_segment:qloo"
+     },
+     {
+      "name": "Millennials",
+      "tag_id": "urn:tag:customer_segment:qloo:millennials",
+      "type": "urn:tag:customer_segment:qloo"
+     },
+     {
+      "name": "Fast Food Diners",
+      "tag_id": "urn:tag:customer_segment:qloo:fast_food_diners",
+      "type": "urn:tag:customer_segment:qloo"
+     },
+     {
+      "name": "Gluten-Free",
+      "tag_id": "urn:tag:dietary_attribute:qloo:gluten_free",
+      "type": "urn:tag:dietary_attribute:qloo"
+     },
+     {
+      "name": "Vegan",
+      "tag_id": "urn:tag:dietary_attribute:qloo:vegan",
+      "type": "urn:tag:dietary_attribute:qloo"
+     },
+     {
+      "name": "Sugar-Free",
+      "tag_id": "urn:tag:dietary_attribute:qloo:sugar_free",
+      "type": "urn:tag:dietary_attribute:qloo"
+     },
+     {
+      "name": "No Artificial Ingredients",
+      "tag_id": "urn:tag:dietary_attribute:qloo:no_artificial_ingredients",
+      "type": "urn:tag:dietary_attribute:qloo"
+     },
+     {
+      "name": "Supermarkets",
+      "tag_id": "urn:tag:distribution_channel:qloo:supermarkets",
+      "type": "urn:tag:distribution_channel:qloo"
+     },
+     {
+      "name": "Hypermarkets",
+      "tag_id": "urn:tag:distribution_channel:qloo:hypermarkets",
+      "type": "urn:tag:distribution_channel:qloo"
+     },
+     {
+      "name": "Convenience Stores",
+      "tag_id": "urn:tag:distribution_channel:qloo:convenience_stores",
+      "type": "urn:tag:distribution_channel:qloo"
+     },
+     {
+      "name": "Food Service",
+      "tag_id": "urn:tag:distribution_channel:qloo:food_service",
+      "type": "urn:tag:distribution_channel:qloo"
+     },
+     {
+      "name": "Vending",
+      "tag_id": "urn:tag:distribution_channel:qloo:vending",
+      "type": "urn:tag:distribution_channel:qloo"
+     },
+     {
+      "name": "Bold",
+      "tag_id": "urn:tag:emotional_tone:qloo:bold",
+      "type": "urn:tag:emotional_tone:qloo"
+     },
+     {
+      "name": "Energetic",
+      "tag_id": "urn:tag:emotional_tone:qloo:energetic",
+      "type": "urn:tag:emotional_tone:qloo"
+     },
+     {
+      "name": "Youthful",
+      "tag_id": "urn:tag:emotional_tone:qloo:youthful",
+      "type": "urn:tag:emotional_tone:qloo"
+     },
+     {
+      "name": "Optimistic",
+      "tag_id": "urn:tag:emotional_tone:qloo:optimistic",
+      "type": "urn:tag:emotional_tone:qloo"
+     },
+     {
+      "name": "Sweet",
+      "tag_id": "urn:tag:flavor_profile:qloo:sweet",
+      "type": "urn:tag:flavor_profile:qloo"
+     },
+     {
+      "name": "Citrus Notes",
+      "tag_id": "urn:tag:flavor_profile:qloo:citrus_notes",
+      "type": "urn:tag:flavor_profile:qloo"
+     },
+     {
+      "name": "Spiced Cola",
+      "tag_id": "urn:tag:flavor_profile:qloo:spiced_cola",
+      "type": "urn:tag:flavor_profile:qloo"
+     },
+     {
+      "name": "Food & Beverage",
+      "tag_id": "urn:tag:industry:qloo:food_beverage",
+      "type": "urn:tag:industry:qloo"
+     },
+     {
+      "name": "Consumer Packaged Goods",
+      "tag_id": "urn:tag:industry:qloo:consumer_packaged_goods",
+      "type": "urn:tag:industry:qloo"
+     },
+     {
+      "name": "Soft Drinks",
+      "tag_id": "urn:tag:industry:qloo:soft_drinks",
+      "type": "urn:tag:industry:qloo"
+     },
+     {
+      "name": "Sports Athletes",
+      "tag_id": "urn:tag:influencer_appeal:qloo:sports_athletes",
+      "type": "urn:tag:influencer_appeal:qloo"
+     },
+     {
+      "name": "Music Stars",
+      "tag_id": "urn:tag:influencer_appeal:qloo:music_stars",
+      "type": "urn:tag:influencer_appeal:qloo"
+     },
+     {
+      "name": "Lifestyle Creators",
+      "tag_id": "urn:tag:influencer_appeal:qloo:lifestyle_creators",
+      "type": "urn:tag:influencer_appeal:qloo"
+     },
+     {
+      "name": "Dancers",
+      "tag_id": "urn:tag:influencer_appeal:qloo:dancers",
+      "type": "urn:tag:influencer_appeal:qloo"
+     },
+     {
+      "name": "Carbonated Water",
+      "tag_id": "urn:tag:ingredient_focus:qloo:carbonated_water",
+      "type": "urn:tag:ingredient_focus:qloo"
+     },
+     {
+      "name": "Caramel Color",
+      "tag_id": "urn:tag:ingredient_focus:qloo:caramel_color",
+      "type": "urn:tag:ingredient_focus:qloo"
+     },
+     {
+      "name": "Natural Flavors",
+      "tag_id": "urn:tag:ingredient_focus:qloo:natural_flavors",
+      "type": "urn:tag:ingredient_focus:qloo"
+     },
+     {
+      "name": "Music Festivals",
+      "tag_id": "urn:tag:interest_adjacency:qloo:music_festivals",
+      "type": "urn:tag:interest_adjacency:qloo"
+     },
+     {
+      "name": "Sports Fandom",
+      "tag_id": "urn:tag:interest_adjacency:qloo:sports_fandom",
+      "type": "urn:tag:interest_adjacency:qloo"
+     },
+     {
+      "name": "Gaming",
+      "tag_id": "urn:tag:interest_adjacency:qloo:gaming",
+      "type": "urn:tag:interest_adjacency:qloo"
+     },
+     {
+      "name": "Pop Culture",
+      "tag_id": "urn:tag:interest_adjacency:qloo:pop_culture",
+      "type": "urn:tag:interest_adjacency:qloo"
+     },
+     {
+      "name": "Streetwear",
+      "tag_id": "urn:tag:interest_adjacency:qloo:streetwear",
+      "type": "urn:tag:interest_adjacency:qloo"
+     },
+     {
+      "name": "United Kingdom",
+      "tag_id": "urn:tag:key_market:qloo:united_kingdom",
+      "type": "urn:tag:key_market:qloo"
+     },
+     {
+      "name": "United States",
+      "tag_id": "urn:tag:key_market:qloo:united_states",
+      "type": "urn:tag:key_market:qloo"
+     },
+     {
+      "name": "Global",
+      "tag_id": "urn:tag:key_market:qloo:global",
+      "type": "urn:tag:key_market:qloo"
+     },
+     {
+      "name": "Cola",
+      "tag_id": "urn:tag:keyword:qloo:cola",
+      "type": "urn:tag:keyword:qloo"
+     },
+     {
+      "name": "Carbonated",
+      "tag_id": "urn:tag:keyword:qloo:carbonated",
+      "type": "urn:tag:keyword:qloo"
+     },
+     {
+      "name": "Refreshment",
+      "tag_id": "urn:tag:keyword:qloo:refreshment",
+      "type": "urn:tag:keyword:qloo"
+     },
+     {
+      "name": "Pop Culture",
+      "tag_id": "urn:tag:keyword:qloo:pop_culture",
+      "type": "urn:tag:keyword:qloo"
+     },
+     {
+      "name": "Soft Drink",
+      "tag_id": "urn:tag:keyword:qloo:soft_drink",
+      "type": "urn:tag:keyword:qloo"
+     },
+     {
+      "name": "UEFA Champions League",
+      "tag_id": "urn:tag:partnership:qloo:uefa_champions_league",
+      "type": "urn:tag:partnership:qloo"
+     },
+     {
+      "name": "NFL",
+      "tag_id": "urn:tag:partnership:qloo:nfl",
+      "type": "urn:tag:partnership:qloo"
+     },
+     {
+      "name": "Major Music Artists",
+      "tag_id": "urn:tag:partnership:qloo:major_music_artists",
+      "type": "urn:tag:partnership:qloo"
+     },
+     {
+      "name": "Socializing",
+      "tag_id": "urn:tag:lifestyle:qloo:socializing",
+      "type": "urn:tag:lifestyle:qloo"
+     },
+     {
+      "name": "On-the-Go",
+      "tag_id": "urn:tag:lifestyle:qloo:on_the_go",
+      "type": "urn:tag:lifestyle:qloo"
+     },
+     {
+      "name": "Casual Dining",
+      "tag_id": "urn:tag:lifestyle:qloo:casual_dining",
+      "type": "urn:tag:lifestyle:qloo"
+     },
+     {
+      "name": "Mainstream",
+      "tag_id": "urn:tag:market_archetype:qloo:mainstream",
+      "type": "urn:tag:market_archetype:qloo"
+     },
+     {
+      "name": "Challenger",
+      "tag_id": "urn:tag:market_archetype:qloo:challenger",
+      "type": "urn:tag:market_archetype:qloo"
+     },
+     {
+      "name": "Bottle",
+      "tag_id": "urn:tag:packaging_format:qloo:bottle",
+      "type": "urn:tag:packaging_format:qloo"
+     },
+     {
+      "name": "Plastic Bottle",
+      "tag_id": "urn:tag:packaging_format:qloo:plastic_bottle",
+      "type": "urn:tag:packaging_format:qloo"
+     },
+     {
+      "name": "Can",
+      "tag_id": "urn:tag:packaging_format:qloo:can",
+      "type": "urn:tag:packaging_format:qloo"
+     },
+     {
+      "name": "Multi-Pack",
+      "tag_id": "urn:tag:packaging_format:qloo:multi_pack",
+      "type": "urn:tag:packaging_format:qloo"
+     },
+     {
+      "name": "null",
+      "tag_id": "urn:tag:personal_style:qloo:null",
+      "type": "urn:tag:personal_style:qloo"
+     },
+     {
+      "name": "$",
+      "tag_id": "urn:tag:price_level:qloo:_",
+      "type": "urn:tag:price_level:qloo"
+     },
+     {
+      "name": "Beverages",
+      "tag_id": "urn:tag:product_category:qloo:beverages",
+      "type": "urn:tag:product_category:qloo"
+     },
+     {
+      "name": "Carbonated Soft Drinks",
+      "tag_id": "urn:tag:product_category:qloo:carbonated_soft_drinks",
+      "type": "urn:tag:product_category:qloo"
+     },
+     {
+      "name": "Pepsi",
+      "tag_id": "urn:tag:product_line:qloo:pepsi",
+      "type": "urn:tag:product_line:qloo"
+     },
+     {
+      "name": "Pepsi Max",
+      "tag_id": "urn:tag:product_line:qloo:pepsi_max",
+      "type": "urn:tag:product_line:qloo"
+     },
+     {
+      "name": "Diet Pepsi",
+      "tag_id": "urn:tag:product_line:qloo:diet_pepsi",
+      "type": "urn:tag:product_line:qloo"
+     },
+     {
+      "name": "Pepsi Zero Sugar",
+      "tag_id": "urn:tag:product_line:qloo:pepsi_zero_sugar",
+      "type": "urn:tag:product_line:qloo"
+     },
+     {
+      "name": "Cola",
+      "tag_id": "urn:tag:product_service:qloo:cola",
+      "type": "urn:tag:product_service:qloo"
+     },
+     {
+      "name": "Diet Cola",
+      "tag_id": "urn:tag:product_service:qloo:diet_cola",
+      "type": "urn:tag:product_service:qloo"
+     },
+     {
+      "name": "Zero Sugar Cola",
+      "tag_id": "urn:tag:product_service:qloo:zero_sugar_cola",
+      "type": "urn:tag:product_service:qloo"
+     },
+     {
+      "name": "Flavored Cola",
+      "tag_id": "urn:tag:product_service:qloo:flavored_cola",
+      "type": "urn:tag:product_service:qloo"
+     },
+     {
+      "name": "Pepsi Cola",
+      "tag_id": "urn:tag:signature_product:qloo:pepsi_cola",
+      "type": "urn:tag:signature_product:qloo"
+     },
+     {
+      "name": "Pepsi Max",
+      "tag_id": "urn:tag:signature_product:qloo:pepsi_max",
+      "type": "urn:tag:signature_product:qloo"
+     },
+     {
+      "name": "Sprite",
+      "tag_id": "urn:tag:similar_brand:qloo:sprite",
+      "type": "urn:tag:similar_brand:qloo"
+     },
+     {
+      "name": "Fanta",
+      "tag_id": "urn:tag:similar_brand:qloo:fanta",
+      "type": "urn:tag:similar_brand:qloo"
+     },
+     {
+      "name": "Recycled Plastic Bottles",
+      "tag_id": "urn:tag:sustainability_initiative:qloo:recycled_plastic_bottles",
+      "type": "urn:tag:sustainability_initiative:qloo"
+     },
+     {
+      "name": "Eco-Friendly Packaging",
+      "tag_id": "urn:tag:sustainability_initiative:qloo:eco_friendly_packaging",
+      "type": "urn:tag:sustainability_initiative:qloo"
+     },
+     {
+      "name": "Reduced Carbon Emissions",
+      "tag_id": "urn:tag:sustainability_initiative:qloo:reduced_carbon_emissions",
+      "type": "urn:tag:sustainability_initiative:qloo"
+     },
+     {
+      "name": "Water Conservation",
+      "tag_id": "urn:tag:sustainability_initiative:qloo:water_conservation",
+      "type": "urn:tag:sustainability_initiative:qloo"
+     },
+     {
+      "name": "Teens",
+      "tag_id": "urn:tag:target_age_group:qloo:teens",
+      "type": "urn:tag:target_age_group:qloo"
+     },
+     {
+      "name": "Young Adults",
+      "tag_id": "urn:tag:target_age_group:qloo:young_adults",
+      "type": "urn:tag:target_age_group:qloo"
+     },
+     {
+      "name": "Adults",
+      "tag_id": "urn:tag:target_age_group:qloo:adults",
+      "type": "urn:tag:target_age_group:qloo"
+     },
+     {
+      "name": "Gender-Neutral",
+      "tag_id": "urn:tag:target_gender:qloo:gender_neutral",
+      "type": "urn:tag:target_gender:qloo"
+     },
+     {
+      "name": "Low",
+      "tag_id": "urn:tag:target_income_level:qloo:low",
+      "type": "urn:tag:target_income_level:qloo"
+     },
+     {
+      "name": "Low to Medium",
+      "tag_id": "urn:tag:target_income_level:qloo:low_to_medium",
+      "type": "urn:tag:target_income_level:qloo"
+     },
+     {
+      "name": "Medium",
+      "tag_id": "urn:tag:target_income_level:qloo:medium",
+      "type": "urn:tag:target_income_level:qloo"
+     },
+     {
+      "name": "Bold",
+      "tag_id": "urn:tag:taste_intensity:qloo:bold",
+      "type": "urn:tag:taste_intensity:qloo"
+     }
+    ]
+   },
+   {
+    "name": "Pepsi Wild Cherry",
+    "entity_id": "F22AF8FD-B3EA-4F57-83B8-0D5BFC6958C8",
+    "types": [
+     "urn:entity:brand"
+    ],
+    "properties": {
+     "akas": [],
+     "description": "Pepsi Wild Cherry is a prominent flavor variant of the classic cola, celebrated for its sweet and crisp taste profile enhanced with bold cherry notes. It caters to a wide audience of soda lovers looking for a flavorful twist on a staple refreshment. As part of the extensive PepsiCo portfolio, it maintains broad distribution across retail and food service channels, securing its place as a go-to choice for casual consumption and social occasions.",
+     "external": {},
+     "founded_year": "1988",
+     "short_description": "Pepsi Wild Cherry is a cherry-flavored variant of Pepsi cola known for its unique cherry flavor and sweet, crisp taste.",
+     "short_descriptions": [
+      {
+       "language": "en",
+       "value": "A bold, fruit-forward twist on a classic cola, delivering a crisp and sweet cherry-infused refreshment."
+      },
+      {
+       "language": "es",
+       "value": "Una audaz versi\u00f3n afrutada de un refresco cl\u00e1sico que ofrece un sabor refrescante, dulce y con un toque distintivo a cereza."
+      },
+      {
+       "language": "fr",
+       "value": "Une interpr\u00e9tation audacieuse et fruit\u00e9e d'un cola classique, offrant une exp\u00e9rience rafra\u00eechissante et sucr\u00e9e au go\u00fbt de cerise."
+      },
+      {
+       "language": "de",
+       "value": "Eine gewagte, fruchtige Variante eines klassischen Colas, die f\u00fcr ihre knackige S\u00fc\u00dfe und den unverwechselbaren Kirschgeschmack bekannt ist."
+      }
+     ],
+     "image": {
+      "url": "https://images.qloo.com/i/F22AF8FD-B3EA-4F57-83B8-0D5BFC6958C8-420x-auto.jpg"
+     }
+    },
+    "popularity": 0.3335,
+    "disambiguation": "",
+    "tags": [
+     {
+      "name": "Food & Beverage",
+      "tag_id": "urn:tag:genre:brand:food_and_beverage",
+      "type": "urn:tag:genre:brand"
+     },
+     {
+      "name": "Bold Red Palette",
+      "tag_id": "urn:tag:aesthetic_property:qloo:bold_red_palette",
+      "type": "urn:tag:aesthetic_property:qloo"
+     },
+     {
+      "name": "Dynamic Branding",
+      "tag_id": "urn:tag:aesthetic_property:qloo:dynamic_branding",
+      "type": "urn:tag:aesthetic_property:qloo"
+     },
+     {
+      "name": "Iconic Script Typography",
+      "tag_id": "urn:tag:aesthetic_property:qloo:iconic_script_typography",
+      "type": "urn:tag:aesthetic_property:qloo"
+     },
+     {
+      "name": "Fun-Loving",
+      "tag_id": "urn:tag:lifestyle:qloo:fun_loving",
+      "type": "urn:tag:lifestyle:qloo"
+     },
+     {
+      "name": "Energetic",
+      "tag_id": "urn:tag:lifestyle:qloo:energetic",
+      "type": "urn:tag:lifestyle:qloo"
+     },
+     {
+      "name": "CPG",
+      "tag_id": "urn:tag:brand_subtype:qloo:cpg",
+      "type": "urn:tag:brand_subtype:qloo"
+     },
+     {
+      "name": "Product Brand",
+      "tag_id": "urn:tag:brand_type:qloo:product_brand",
+      "type": "urn:tag:brand_type:qloo"
+     },
+     {
+      "name": "B2C",
+      "tag_id": "urn:tag:business_model:qloo:b2c",
+      "type": "urn:tag:business_model:qloo"
+     },
+     {
+      "name": "Coca-Cola Cherry",
+      "tag_id": "urn:tag:competitor_brand:qloo:coca_cola_cherry",
+      "type": "urn:tag:competitor_brand:qloo"
+     },
+     {
+      "name": "Dr Pepper Cherry",
+      "tag_id": "urn:tag:competitor_brand:qloo:dr_pepper_cherry",
+      "type": "urn:tag:competitor_brand:qloo"
+     },
+     {
+      "name": "Cherry Sprite",
+      "tag_id": "urn:tag:competitor_brand:qloo:cherry_sprite",
+      "type": "urn:tag:competitor_brand:qloo"
+     },
+     {
+      "name": "Everyday",
+      "tag_id": "urn:tag:consumption_context:qloo:everyday",
+      "type": "urn:tag:consumption_context:qloo"
+     },
+     {
+      "name": "At Home",
+      "tag_id": "urn:tag:consumption_context:qloo:at_home",
+      "type": "urn:tag:consumption_context:qloo"
+     },
+     {
+      "name": "On-the-Go",
+      "tag_id": "urn:tag:consumption_context:qloo:on_the_go",
+      "type": "urn:tag:consumption_context:qloo"
+     },
+     {
+      "name": "Social",
+      "tag_id": "urn:tag:consumption_context:qloo:social",
+      "type": "urn:tag:consumption_context:qloo"
+     },
+     {
+      "name": "Snacking",
+      "tag_id": "urn:tag:consumption_context:qloo:snacking",
+      "type": "urn:tag:consumption_context:qloo"
+     },
+     {
+      "name": "Accessibility",
+      "tag_id": "urn:tag:core_value:qloo:accessibility",
+      "type": "urn:tag:core_value:qloo"
+     },
+     {
+      "name": "Refreshment",
+      "tag_id": "urn:tag:core_value:qloo:refreshment",
+      "type": "urn:tag:core_value:qloo"
+     },
+     {
+      "name": "Fun",
+      "tag_id": "urn:tag:core_value:qloo:fun",
+      "type": "urn:tag:core_value:qloo"
+     },
+     {
+      "name": "Pop Culture",
+      "tag_id": "urn:tag:cultural_relevance:qloo:pop_culture",
+      "type": "urn:tag:cultural_relevance:qloo"
+     },
+     {
+      "name": "Fast Food Culture",
+      "tag_id": "urn:tag:cultural_relevance:qloo:fast_food_culture",
+      "type": "urn:tag:cultural_relevance:qloo"
+     },
+     {
+      "name": "Gen Z Consumers",
+      "tag_id": "urn:tag:customer_segment:qloo:gen_z_consumers",
+      "type": "urn:tag:customer_segment:qloo"
+     },
+     {
+      "name": "Casual Soda Drinkers",
+      "tag_id": "urn:tag:customer_segment:qloo:casual_soda_drinkers",
+      "type": "urn:tag:customer_segment:qloo"
+     },
+     {
+      "name": "Flavor Seekers",
+      "tag_id": "urn:tag:customer_segment:qloo:flavor_seekers",
+      "type": "urn:tag:customer_segment:qloo"
+     },
+     {
+      "name": "Gluten-Free",
+      "tag_id": "urn:tag:dietary_attribute:qloo:gluten_free",
+      "type": "urn:tag:dietary_attribute:qloo"
+     },
+     {
+      "name": "Supermarkets",
+      "tag_id": "urn:tag:distribution_channel:qloo:supermarkets",
+      "type": "urn:tag:distribution_channel:qloo"
+     },
+     {
+      "name": "Hypermarkets",
+      "tag_id": "urn:tag:distribution_channel:qloo:hypermarkets",
+      "type": "urn:tag:distribution_channel:qloo"
+     },
+     {
+      "name": "Convenience Stores",
+      "tag_id": "urn:tag:distribution_channel:qloo:convenience_stores",
+      "type": "urn:tag:distribution_channel:qloo"
+     },
+     {
+      "name": "Drug Stores",
+      "tag_id": "urn:tag:distribution_channel:qloo:drug_stores",
+      "type": "urn:tag:distribution_channel:qloo"
+     },
+     {
+      "name": "Food Service",
+      "tag_id": "urn:tag:distribution_channel:qloo:food_service",
+      "type": "urn:tag:distribution_channel:qloo"
+     },
+     {
+      "name": "Vending",
+      "tag_id": "urn:tag:distribution_channel:qloo:vending",
+      "type": "urn:tag:distribution_channel:qloo"
+     },
+     {
+      "name": "Bold",
+      "tag_id": "urn:tag:emotional_tone:qloo:bold",
+      "type": "urn:tag:emotional_tone:qloo"
+     },
+     {
+      "name": "Refreshing",
+      "tag_id": "urn:tag:emotional_tone:qloo:refreshing",
+      "type": "urn:tag:emotional_tone:qloo"
+     },
+     {
+      "name": "Playful",
+      "tag_id": "urn:tag:emotional_tone:qloo:playful",
+      "type": "urn:tag:emotional_tone:qloo"
+     },
+     {
+      "name": "Classic",
+      "tag_id": "urn:tag:emotional_tone:qloo:classic",
+      "type": "urn:tag:emotional_tone:qloo"
+     },
+     {
+      "name": "Sweet",
+      "tag_id": "urn:tag:flavor_profile:qloo:sweet",
+      "type": "urn:tag:flavor_profile:qloo"
+     },
+     {
+      "name": "Fruity",
+      "tag_id": "urn:tag:flavor_profile:qloo:fruity",
+      "type": "urn:tag:flavor_profile:qloo"
+     },
+     {
+      "name": "Tart",
+      "tag_id": "urn:tag:flavor_profile:qloo:tart",
+      "type": "urn:tag:flavor_profile:qloo"
+     },
+     {
+      "name": "Food & Beverage",
+      "tag_id": "urn:tag:industry:qloo:food_beverage",
+      "type": "urn:tag:industry:qloo"
+     },
+     {
+      "name": "Soft Drinks",
+      "tag_id": "urn:tag:industry:qloo:soft_drinks",
+      "type": "urn:tag:industry:qloo"
+     },
+     {
+      "name": "Food Content Creators",
+      "tag_id": "urn:tag:influencer_appeal:qloo:food_content_creators",
+      "type": "urn:tag:influencer_appeal:qloo"
+     },
+     {
+      "name": "Lifestyle Vloggers",
+      "tag_id": "urn:tag:influencer_appeal:qloo:lifestyle_vloggers",
+      "type": "urn:tag:influencer_appeal:qloo"
+     },
+     {
+      "name": "Gaming Streamers",
+      "tag_id": "urn:tag:influencer_appeal:qloo:gaming_streamers",
+      "type": "urn:tag:influencer_appeal:qloo"
+     },
+     {
+      "name": "Real Cherry Flavor",
+      "tag_id": "urn:tag:ingredient_focus:qloo:real_cherry_flavor",
+      "type": "urn:tag:ingredient_focus:qloo"
+     },
+     {
+      "name": "Gaming",
+      "tag_id": "urn:tag:interest_adjacency:qloo:gaming",
+      "type": "urn:tag:interest_adjacency:qloo"
+     },
+     {
+      "name": "Snacking",
+      "tag_id": "urn:tag:interest_adjacency:qloo:snacking",
+      "type": "urn:tag:interest_adjacency:qloo"
+     },
+     {
+      "name": "Movie Nights",
+      "tag_id": "urn:tag:interest_adjacency:qloo:movie_nights",
+      "type": "urn:tag:interest_adjacency:qloo"
+     },
+     {
+      "name": "Music Festivals",
+      "tag_id": "urn:tag:interest_adjacency:qloo:music_festivals",
+      "type": "urn:tag:interest_adjacency:qloo"
+     },
+     {
+      "name": "Tailgating",
+      "tag_id": "urn:tag:interest_adjacency:qloo:tailgating",
+      "type": "urn:tag:interest_adjacency:qloo"
+     },
+     {
+      "name": "United States",
+      "tag_id": "urn:tag:key_market:qloo:united_states",
+      "type": "urn:tag:key_market:qloo"
+     },
+     {
+      "name": "Canada",
+      "tag_id": "urn:tag:key_market:qloo:canada",
+      "type": "urn:tag:key_market:qloo"
+     },
+     {
+      "name": "Cherry Cola",
+      "tag_id": "urn:tag:keyword:qloo:cherry_cola",
+      "type": "urn:tag:keyword:qloo"
+     },
+     {
+      "name": "Carbonated Soda",
+      "tag_id": "urn:tag:keyword:qloo:carbonated_soda",
+      "type": "urn:tag:keyword:qloo"
+     },
+     {
+      "name": "Refreshing Beverage",
+      "tag_id": "urn:tag:keyword:qloo:refreshing_beverage",
+      "type": "urn:tag:keyword:qloo"
+     },
+     {
+      "name": "Fruit-Infused",
+      "tag_id": "urn:tag:keyword:qloo:fruit_infused",
+      "type": "urn:tag:keyword:qloo"
+     },
+     {
+      "name": "Classic Soda",
+      "tag_id": "urn:tag:keyword:qloo:classic_soda",
+      "type": "urn:tag:keyword:qloo"
+     },
+     {
+      "name": "Everyday Consumption",
+      "tag_id": "urn:tag:lifestyle:qloo:everyday_consumption",
+      "type": "urn:tag:lifestyle:qloo"
+     },
+     {
+      "name": "Socializing",
+      "tag_id": "urn:tag:lifestyle:qloo:socializing",
+      "type": "urn:tag:lifestyle:qloo"
+     },
+     {
+      "name": "Casual Dining",
+      "tag_id": "urn:tag:lifestyle:qloo:casual_dining",
+      "type": "urn:tag:lifestyle:qloo"
+     },
+     {
+      "name": "Mainstream",
+      "tag_id": "urn:tag:market_archetype:qloo:mainstream",
+      "type": "urn:tag:market_archetype:qloo"
+     },
+     {
+      "name": "Bottle",
+      "tag_id": "urn:tag:packaging_format:qloo:bottle",
+      "type": "urn:tag:packaging_format:qloo"
+     },
+     {
+      "name": "Can",
+      "tag_id": "urn:tag:packaging_format:qloo:can",
+      "type": "urn:tag:packaging_format:qloo"
+     },
+     {
+      "name": "Multi-Pack",
+      "tag_id": "urn:tag:packaging_format:qloo:multi_pack",
+      "type": "urn:tag:packaging_format:qloo"
+     },
+     {
+      "name": "$",
+      "tag_id": "urn:tag:price_level:qloo:_",
+      "type": "urn:tag:price_level:qloo"
+     },
+     {
+      "name": "Beverages",
+      "tag_id": "urn:tag:product_category:qloo:beverages",
+      "type": "urn:tag:product_category:qloo"
+     },
+     {
+      "name": "Pepsi",
+      "tag_id": "urn:tag:product_line:qloo:pepsi",
+      "type": "urn:tag:product_line:qloo"
+     },
+     {
+      "name": "Pepsi Zero Sugar Wild Cherry",
+      "tag_id": "urn:tag:product_line:qloo:pepsi_zero_sugar_wild_cherry",
+      "type": "urn:tag:product_line:qloo"
+     },
+     {
+      "name": "Carbonated Soft Drink",
+      "tag_id": "urn:tag:product_service:qloo:carbonated_soft_drink",
+      "type": "urn:tag:product_service:qloo"
+     },
+     {
+      "name": "Pepsi Wild Cherry",
+      "tag_id": "urn:tag:signature_product:qloo:pepsi_wild_cherry",
+      "type": "urn:tag:signature_product:qloo"
+     },
+     {
+      "name": "Pepsi Wild Cherry Zero Sugar",
+      "tag_id": "urn:tag:signature_product:qloo:pepsi_wild_cherry_zero_sugar",
+      "type": "urn:tag:signature_product:qloo"
+     },
+     {
+      "name": "Mountain Dew",
+      "tag_id": "urn:tag:similar_brand:qloo:mountain_dew",
+      "type": "urn:tag:similar_brand:qloo"
+     },
+     {
+      "name": "Fanta",
+      "tag_id": "urn:tag:similar_brand:qloo:fanta",
+      "type": "urn:tag:similar_brand:qloo"
+     },
+     {
+      "name": "7Up",
+      "tag_id": "urn:tag:similar_brand:qloo:7up",
+      "type": "urn:tag:similar_brand:qloo"
+     },
+     {
+      "name": "Teens",
+      "tag_id": "urn:tag:target_age_group:qloo:teens",
+      "type": "urn:tag:target_age_group:qloo"
+     },
+     {
+      "name": "Young Adults",
+      "tag_id": "urn:tag:target_age_group:qloo:young_adults",
+      "type": "urn:tag:target_age_group:qloo"
+     },
+     {
+      "name": "Adults",
+      "tag_id": "urn:tag:target_age_group:qloo:adults",
+      "type": "urn:tag:target_age_group:qloo"
+     },
+     {
+      "name": "Gender-Neutral",
+      "tag_id": "urn:tag:target_gender:qloo:gender_neutral",
+      "type": "urn:tag:target_gender:qloo"
+     },
+     {
+      "name": "Low to Medium",
+      "tag_id": "urn:tag:target_income_level:qloo:low_to_medium",
+      "type": "urn:tag:target_income_level:qloo"
+     },
+     {
+      "name": "Medium",
+      "tag_id": "urn:tag:target_income_level:qloo:medium",
+      "type": "urn:tag:target_income_level:qloo"
+     },
+     {
+      "name": "Medium to High",
+      "tag_id": "urn:tag:target_income_level:qloo:medium_to_high",
+      "type": "urn:tag:target_income_level:qloo"
+     },
+     {
+      "name": "Bold",
+      "tag_id": "urn:tag:taste_intensity:qloo:bold",
+      "type": "urn:tag:taste_intensity:qloo"
+     }
+    ]
+   }
+  ]
+ }
+}

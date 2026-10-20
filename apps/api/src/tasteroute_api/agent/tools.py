@@ -12,9 +12,9 @@ from ..qloo.client import stored_response
 from ..qloo.compact import tag_kind
 from ..qloo.guards import guard_places
 from ..qloo.models import InsightsBody, Place
-from ..scoring import SCORING_VERSION, rank
-from ..scoring.fit import best_product
-from ..scoring.reasons import distinctive, reason
+from ..scoring import SCORING_VERSION, buyability, rank
+from ..scoring.fit import FitThresholds, best_product, zscores
+from ..scoring.reasons import distinctive, plain_tags, reason
 from .context import RunContext
 
 FATAL_QLOO = {"qloo_auth", "qloo_unconfigured", "qloo_budget_exceeded"}
@@ -96,24 +96,61 @@ async def rank_venues(ctx: RunContext, venue_types: list[str] | None = None, max
     city_q = ctx.city.get("qloo_query") or ctx.city["name"]
     trace = ctx.trace("rank_venues")
 
-    async def one(vt: str) -> tuple[str, str, str]:
+    generic = ctx.pack.baseline_entities if ctx.pack.baseline_signal == "fixed_entities" else []
+
+    async def one(vt: str) -> tuple[str, dict[str, str]]:
         vtype = ctx.pack.venue_type(vt)
         assert vtype is not None
         ids = [s["qloo_entity_id"] for s in signal]
+        if generic:  # the same venues under mass-market brands (D-23): same number of calls, the second needs the first
+            body, tcall, _ = await api.place_insights(ctx.svc.qloo, city_query=city_q, tags=vtype.qloo_tags, signal_ids=ids,
+                                                      explain=True, trace=trace)
+            venues = [p.entity_id for p in body.results.entities]
+            _, gcall, _ = await api.place_insights(ctx.svc.qloo, results_ids=venues, signal_ids=generic, trace=trace)
+            return vt, {"target": tcall, "generic": gcall}
         (_, tcall, _), (_, bcall, _) = await asyncio.gather(
             api.place_insights(ctx.svc.qloo, city_query=city_q, tags=vtype.qloo_tags, signal_ids=ids, explain=True, trace=trace),
             api.place_insights(ctx.svc.qloo, city_query=city_q, tags=vtype.qloo_tags, trace=trace),
         )
-        return vt, tcall, bcall
+        return vt, {"target": tcall, "baseline": bcall}
 
     calls = await asyncio.gather(*[one(vt) for vt in types])
-    ctx.settings_json["calls"] = {vt: {"target": t, "baseline": b} for vt, t, b in calls}
+    ctx.settings_json["calls"] = dict(calls)
     ctx.settings_json["signal"] = [{"entity_id": s["qloo_entity_id"], "name": s["name"]} for s in signal]
     ctx.settings_json.setdefault("weights", {"target": rank.Weights().target, "lift": rank.Weights().lift})
     ctx.settings_json["scoring_version"] = SCORING_VERSION
     await ctx.save_settings()
     summary = await score_from_stored(ctx, max_venues=max_venues)
     return summary
+
+
+def _products_text(ctx: RunContext, pid: str | None = None) -> str:
+    ps = [ctx.products[pid]] if pid else list(ctx.products.values())
+    return " ".join(str(p.get(k) or "") for p in ps for k in ("name", "kind", "notes"))
+
+
+def _buyability_flags(ctx: RunContext, per_type: list[list[rank.Scored]], places: dict[str, Place]) -> str:
+    """Adds chain, signal_brand_venue and maker_competitor flags (RNK-09); returns the warning naming what is hidden."""
+    b = ctx.pack.buyability
+    chain = buyability.chains({vid: p.name for vid, p in places.items()}, b.chains)
+    signal = [s["name"] for s in ctx.settings_json.get("signal") or []]
+    makers = [(m.kinds, m.tags) for m in b.makers]
+    text = _products_text(ctx)
+    for rows in per_type:
+        for s in rows:
+            p = places[s.venue_id]
+            s.flags += [f for f, on in (
+                ("chain", s.venue_id in chain),
+                ("signal_brand_venue", buyability.own_brand(p.name, signal)),
+                ("maker_competitor", buyability.maker({t.id for t in p.tags}, text, makers)),
+                ("rising", (p.audience_growth or 0) > 0),  # RNK-10: display only, fit never uses it
+            ) if on and f not in s.flags]
+    n = {f: len({s.venue_id for rows in per_type for s in rows if f in s.flags}) for f in buyability.HIDDEN}
+    if not any(n.values()):
+        return ""
+    names = sorted({places[s.venue_id].name for rows in per_type for s in rows if set(s.flags) & set(buyability.HIDDEN)})
+    return (f"Hidden by default, listed after the rest: {n['chain']} chain venues and {n['signal_brand_venue']} venues of "
+            f"brands you resemble ({', '.join(names[:8])}{'…' if len(names) > 8 else ''}).")
 
 
 async def load_places(ctx: RunContext, call_id: str) -> InsightsBody:
@@ -134,11 +171,8 @@ async def score_from_stored(ctx: RunContext, *, max_venues: int | None = None, e
         vtype = ctx.pack.venue_type(vt)
         tags = vtype.qloo_tags if vtype else None
         target = await load_places(ctx, c["target"])
-        base = await load_places(ctx, c["baseline"])
         gt = guard_places(target.results.entities, required_tags=tags, bbox=ctx.city.get("bbox"))
-        gb = guard_places(base.results.entities, required_tags=tags, bbox=ctx.city.get("bbox"))
-        for g in (gt, gb):
-            warnings += [("guard_drops", f"{vt}: {m}") for m in g.warnings]
+        warnings += [("guard_drops", f"{vt}: {m}") for m in gt.warnings]
         if not gt.kept:
             warnings.append(("type_empty", f"No {vt} venues found; skipped."))
             continue
@@ -146,14 +180,30 @@ async def score_from_stored(ctx: RunContext, *, max_venues: int | None = None, e
             rank.Candidate(p.entity_id, p.affinity, p.popularity, rank.support([(x.entity_id, x.score) for x in p.explain()]))
             for p in gt.kept
         ]
-        scored = rank.score_type(vt, cands, [p.entity_id for p in gb.kept], {p.entity_id: p.popularity for p in gb.kept}, weights,
-                                  signals=len(ctx.settings_json.get("signal") or []) or 2)
+        signals = len(ctx.settings_json.get("signal") or []) or 2
+        if "generic" in c:
+            aff = {p.entity_id: p.affinity for p in (await load_places(ctx, c["generic"])).results.entities
+                   if p.affinity is not None}
+            scored = rank.score_against_generic(vt, cands, aff, weights, signals=signals)
+            missing = sum("generic_missing" in s.flags for s in scored)
+            if missing > 0.2 * len(scored):
+                warnings.append(("baseline_partial", f"{vt}: Qloo gave no mass-market reading for {missing} of {len(scored)} "
+                                                     "venues; they count as the lowest."))
+        else:  # scored before D-23: popularity baseline
+            gb = guard_places((await load_places(ctx, c["baseline"])).results.entities, required_tags=tags,
+                              bbox=ctx.city.get("bbox"))
+            warnings += [("guard_drops", f"{vt}: {m}") for m in gb.warnings]
+            scored = rank.score_type(vt, cands, [p.entity_id for p in gb.kept], {p.entity_id: p.popularity for p in gb.kept},
+                                     weights, signals=signals)
+            baseline_counts[vt] = len(gb.kept)
         per_type.append(scored)
         by_type[vt] = len(scored)
-        baseline_counts[vt] = len(gb.kept)
         for p in gt.kept:
             places.setdefault(p.entity_id, p)
-    merged = rank.merge(per_type, cap)
+    hidden = _buyability_flags(ctx, per_type, places)
+    if hidden:
+        warnings.append(("hidden_venues", hidden))
+    merged = rank.merge(per_type, cap, buyability.HIDDEN)
     if not merged:
         raise NoVenues()
     warnings += [("low_coverage", m) for m in rank.coverage_warnings(len(merged), baseline_counts)]
@@ -174,8 +224,9 @@ async def score_from_stored(ctx: RunContext, *, max_venues: int | None = None, e
             )
             await con.execute(
                 "insert into venue_scores (run_id, venue_id, venue_type, target_pct, baseline_pct, lift, fit, confidence, "
-                "flags, rank) values ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10)",
+                "flags, rank, popularity_pct) values ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11)",
                 ctx.rid, vid, s.venue_type, s.target_pct, s.baseline_pct, s.lift, s.fit, s.confidence, s.flags, s.rank,
+                s.popularity_pct,
             )
     ctx.settings_json["by_type"] = by_type
     await ctx.save_settings()
@@ -193,7 +244,7 @@ async def score_from_stored(ctx: RunContext, *, max_venues: int | None = None, e
 
 async def _ranked(ctx: RunContext) -> list[dict[str, Any]]:
     rows = await ctx.pool.fetch(
-        "select vs.*, v.qloo_entity_id, v.name from venue_scores vs join venues v on v.id = vs.venue_id "
+        "select vs.*, v.qloo_entity_id, v.name, v.tags from venue_scores vs join venues v on v.id = vs.venue_id "
         "where vs.run_id = $1 order by vs.rank",
         ctx.rid,
     )
@@ -214,6 +265,8 @@ async def match_products(ctx: RunContext) -> dict[str, Any]:
         by_product[str(e["product_id"])].append(e["qloo_entity_id"])
 
     pct: dict[str, dict[str, float]] = defaultdict(dict)  # venue_id -> product_id -> percentile
+    z: dict[str, dict[str, float]] = defaultdict(dict)  # venue_id -> product_id -> standardised affinity
+    raw: dict[str, dict[str, float]] = defaultdict(dict)  # venue_id -> product_id -> Qloo affinity
     fit_calls: dict[str, dict[str, str]] = defaultdict(dict)
     unscored: list[str] = []
     trace = ctx.trace("match_products")
@@ -223,9 +276,12 @@ async def match_products(ctx: RunContext) -> dict[str, Any]:
             ctx.svc.qloo, results_ids=[r["qloo_entity_id"] for r in rows], signal_ids=by_product[pid], trace=trace
         )
         aff = {p.entity_id: p.affinity or 0.0 for p in body.results.entities}
-        p_ = rank.percentiles({r["qloo_entity_id"]: aff.get(r["qloo_entity_id"], 0.0) for r in rows})
+        here = {r["qloo_entity_id"]: aff.get(r["qloo_entity_id"], 0.0) for r in rows}
+        p_, z_ = rank.percentiles(here), zscores(here)
         for r in rows:
-            pct[str(r["venue_id"])][pid] = round(p_[r["qloo_entity_id"]], 4)
+            vid = str(r["venue_id"])
+            pct[vid][pid] = round(p_[r["qloo_entity_id"]], 4)
+            z[vid][pid], raw[vid][pid] = z_[r["qloo_entity_id"]], here[r["qloo_entity_id"]]
         fit_calls[pid][vt] = call_id
 
     for pid in by_product:
@@ -235,26 +291,41 @@ async def match_products(ctx: RunContext) -> dict[str, Any]:
             if e.code in FATAL_QLOO:
                 raise
             unscored.append(pid)
-            for v in pct.values():
-                v.pop(pid, None)
+            for d in (pct, z, raw):
+                for v in d.values():
+                    v.pop(pid, None)
             await ctx.warn("product_unscored", f"{ctx.products[pid]['name']} could not be scored ({e.code}); excluded from best product.")
 
     best_counts: dict[str, int] = defaultdict(int)
+    th = FitThresholds()
+    b = ctx.pack.buyability
+    wet = {pid for pid in by_product if buyability.alcoholic(_products_text(ctx, pid), b.alcohol_keywords)}
     async with ctx.pool.acquire() as con, con.transaction():
         await con.execute("delete from venue_product_fit where run_id = $1", ctx.rid)
         for r in ranked:
             vid = str(r["venue_id"])
-            fit = best_product(pct.get(vid, {}))
+            zs = z.get(vid, {})
+            tags = {t.get("id") for t in r["tags"] or []}
+            if wet & set(zs) and (r["venue_type"] in b.licence_venue_types or tags & set(b.licence_tags)):
+                dry = {pid: v for pid, v in zs.items() if pid not in wet}
+                if dry:  # a café or bakery: lead with a product it can sell without a liquor licence
+                    zs = dry
+                elif "check_licence" not in r["flags"]:
+                    await con.execute("update venue_scores set flags = array_append(flags, 'check_licence') "
+                                      "where run_id = $1 and venue_id = $2", ctx.rid, r["venue_id"])
+            fit = best_product(zs, raw.get(vid, {}), th)
             if fit.best:
                 best_counts[ctx.products[fit.best]["name"]] += 1
             for pid, value in pct.get(vid, {}).items():
                 await con.execute(
-                    "insert into venue_product_fit (run_id, venue_id, product_id, percentile, is_best, margin, label) "
-                    "values ($1,$2,$3,$4,$5,$6,$7)",
+                    "insert into venue_product_fit (run_id, venue_id, product_id, percentile, is_best, margin, label, "
+                    "affinity) values ($1,$2,$3,$4,$5,$6,$7,$8)",
                     ctx.rid, r["venue_id"], _uuid(pid), value, pid == fit.best, fit.margin if pid == fit.best else None,
-                    fit.label if pid == fit.best else None,
+                    fit.label if pid == fit.best else None, raw[vid].get(pid),
                 )
     ctx.settings_json["fit_calls"] = fit_calls
+    ctx.settings_json["fit_thresholds"] = {"method": "zscore", "clear_z": th.clear_z, "clear_raw": th.clear_raw,
+                                           "close_z": th.close_z}
     ctx.settings_json["unscored_products"] = unscored
     await ctx.save_settings()
     return {"scored_products": len(by_product) - len(unscored), "best_product_counts": dict(best_counts),
@@ -285,9 +356,10 @@ async def attach_evidence(ctx: RunContext, top_n: int = 30) -> dict[str, Any]:
     for f in fits:
         fit_by_venue[str(f["venue_id"])].append(dict(f))
 
+    drop = ctx.pack.reasons.drop + [v.label for v in ctx.pack.venue_types]
     overlap = {
-        r["qloo_entity_id"]: [aud[t.id].name for t in sorted(
-            (t for t in places[r["qloo_entity_id"]].tags if t.id in aud), key=lambda t: -aud[t.id].affinity)]
+        r["qloo_entity_id"]: plain_tags([aud[t.id].name for t in sorted(
+            (t for t in places[r["qloo_entity_id"]].tags if t.id in aud), key=lambda t: -aud[t.id].affinity)], drop)
         for r in ranked if r["qloo_entity_id"] in places
     }
     overlap = distinctive(overlap)
@@ -302,9 +374,12 @@ async def attach_evidence(ctx: RunContext, top_n: int = 30) -> dict[str, Any]:
         p = pl
         tc = _uuid(target_call[qid])
         vid = r["venue_id"]
-        evidence.append((vid, "qloo_affinity", "Qloo taste fit and popularity baseline", {
+        generic = r["popularity_pct"] is not None
+        evidence.append((vid, "qloo_affinity", "Qloo taste fit vs mass-market taste" if generic
+                         else "Qloo taste fit and popularity baseline", {
             "affinity": p.affinity, "popularity": p.popularity, "target_pct": float(r["target_pct"]),
-            "baseline_pct": float(r["baseline_pct"]), "lift": float(r["lift"]), "fit": float(r["fit"])}, "qloo", tc))
+            "baseline_pct": float(r["baseline_pct"]), "lift": float(r["lift"]), "fit": float(r["fit"]),
+            **({"baseline": "mass_market", "popularity_pct": float(r["popularity_pct"])} if generic else {})}, "qloo", tc))
         drivers = sorted(p.explain(), key=lambda x: -x.score)
         if drivers:
             evidence.append((vid, "qloo_explanation", "Which of your brands' fans drive this match", {
@@ -326,16 +401,18 @@ async def attach_evidence(ctx: RunContext, top_n: int = 30) -> dict[str, Any]:
         runner = sorted((f for f in vf if not f["is_best"]), key=lambda f: -float(f["percentile"]))
         if best:
             fc = (ctx.settings_json.get("fit_calls") or {}).get(str(best["product_id"]), {}).get(r["venue_type"])
-            evidence.append((vid, "inference", f"Best product: {best['product_name']}", {
+            evidence.append((vid, "qloo_product_fit", f"Best product (Qloo, per product): {best['product_name']}", {
                 "product_id": str(best["product_id"]), "label": best["label"],
                 "margin": float(best["margin"]) if best["margin"] is not None else None,
-                "percentiles": {f["product_name"]: float(f["percentile"]) for f in vf}}, "inference", _uuid(fc)))
+                "percentiles": {f["product_name"]: float(f["percentile"]) for f in vf},
+                "affinities": {f["product_name"]: f["affinity"] for f in vf if f["affinity"] is not None}}, "qloo", _uuid(fc)))
         text = reason(
             audience_overlap=ov, crowd=crowd, interests=interests,
             driver_names=[names.get(d.entity_id, "") for d in drivers[:2]],
             best_product=best["product_name"] if best else None,
             runner_up=runner[0]["product_name"] if runner else None,
             label=best["label"] if best else "unscored",
+            phrases=ctx.pack.reasons.phrases,
         )
         reasons.append((ctx.rid, vid, text))
     async with ctx.pool.acquire() as con, con.transaction():

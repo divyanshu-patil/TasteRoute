@@ -10,7 +10,7 @@ import { Tour, type TourStep } from "../../../components/tour";
 import { Banner, ConfidenceBadge, EmptyState, ErrorPanel, Skeleton, Tip } from "../../../components/ui";
 import { VenueMap, type Pin } from "../../../components/venue-map";
 import { ApiError, api, type S } from "../../../lib/api";
-import { CONTACT_STATUS, FIT_LABEL, SCOUT_STEPS, km, kmText, liftText, pct, venueTypeLabel } from "../../../lib/format";
+import { CONTACT_STATUS, FIT_LABEL, FLAG_CHIP, LIFT_TIP_MASS, SCOUT_STEPS, km, kmText, liftText, pct, venueTypeLabel } from "../../../lib/format";
 import { cancelOutreach, startOutreach, startingOutreach } from "../../../lib/outreach";
 import { useRun } from "../../../lib/use-run";
 
@@ -27,7 +27,7 @@ const TOUR: TourStep[] = [
   { target: "stats", title: "What the run did", body: "How many venues Qloo scored, how many are high confidence, and the Qloo calls it took. Cached calls reuse a stored answer." },
   { target: "signal", title: "The taste signal", body: "Qloo matched each product to brands it knows, or to real comparable brands when a product is too new. Venues rank by how much their guests share these brands' fans' taste." },
   { target: "map", title: "Where they are", body: "Every ranked venue. The top 10 are numbered by rank, venues you select turn yellow, and the mint pin is your business, if you set one. Open a pin for its scores and distance." },
-  { target: "table", title: "Fit and lift", body: "Fit is 70% taste (Qloo affinity percentile) and 30% lift. Lift is taste minus Qloo's popularity percentile, so a venue doesn't rank high just for being busy." },
+  { target: "table", title: "Fit and lift", body: "Fit is 70% taste (Qloo affinity percentile for your brands) and 30% lift. Lift compares the same venues under mass-market brands like Coca-Cola and Starbucks, so a venue doesn't rank high just because everyone likes it. Chains are hidden unless you show them." },
   { target: "reason", title: "Why each venue", body: "Open a reason to see what Qloo said and what is our inference. Each label links to the call in the trace." },
   { target: "weights", title: "Re-weight for free", body: "Shift the balance between taste and lift. Scores are recomputed from stored answers, with no new Qloo calls." },
 ];
@@ -44,16 +44,17 @@ export default function RunPage() {
   const [shown, setShown] = useState(PAGE);
   const [selected, setSelected] = useState<string[]>([]);
   const [actionError, setActionError] = useState<string | null>(null);
+  const [showHidden, setShowHidden] = useState(false);
 
   const ready = run && ["scouted", "done", "outreach_running"].includes(run.status);
   useEffect(() => {
     if (!ready) return;
     let alive = true;
-    api<S["VenuePage"]>(`/v1/runs/${id}/venues?limit=100`).then((p) => alive && setPage(p)).catch(() => undefined);
+    api<S["VenuePage"]>(`/v1/runs/${id}/venues?limit=100${showHidden ? "&show_hidden=true" : ""}`).then((p) => alive && setPage(p)).catch(() => undefined);
     return () => {
       alive = false;
     };
-  }, [id, ready]);
+  }, [id, ready, showHidden]);
 
   const base = run?.base ?? null;
   const away = useCallback(
@@ -114,13 +115,16 @@ export default function RunPage() {
 
   const counters = run?.counters as Record<string, number> | undefined;
   const items = page?.items ?? [];
+  const mass = items.some((v) => v.popularity_pct != null);
+  const hidden = page?.hidden ?? {};
+  const nHidden = (hidden.chain ?? 0) + (hidden.signal_brand_venue ?? 0);
   const hasFilters = !!(type || conf || product);
   const signal = Object.values((run?.resolution ?? {}) as Record<string, { entities: string[] }>).flatMap((r) => r.entities);
   const pins = useMemo<Pin[]>(
     () => rows.filter((v) => v.lat != null && v.lon != null).map((v): Pin => ({
       id: v.venue_id, lat: v.lat as number, lon: v.lon as number, label: String(v.rank), title: `${v.rank}. ${v.name}`,
       on: selected.includes(v.venue_id), dot: v.rank > 10 && !selected.includes(v.venue_id),
-      sub: `${venueTypeLabel(v.venue_type)} · fit ${pct(v.fit)} · ${liftText(v.lift)}${base ? ` · ${kmText(away(v))} from you` : ""}`,
+      sub: `${venueTypeLabel(v.venue_type)} · fit ${pct(v.fit)} · ${liftText(v.lift, v.popularity_pct != null)}${base ? ` · ${kmText(away(v))} from you` : ""}`,
       href: `/runs/${id}/venues/${v.venue_id}`,
     })).concat(base ? [{ id: "base", lat: base.lat, lon: base.lon, label: "You", title: base.label, sub: base.detail, base: true }] : []),
     [rows, selected, id, base, away],
@@ -209,6 +213,11 @@ export default function RunPage() {
                     {base && <option value="near">Nearest to you</option>}
                   </select>
                 </label>
+                {(nHidden > 0 || showHidden) && (
+                  <button className="btn-ghost btn-sm" aria-pressed={showHidden} onClick={() => { setShowHidden(!showHidden); setShown(PAGE); }}>
+                    {showHidden ? "Hide chains" : `Show chains (${hidden.chain ?? 0})${hidden.signal_brand_venue ? ` and brands you resemble (${hidden.signal_brand_venue})` : ""}`}
+                  </button>
+                )}
               </div>
               {!run.is_demo && (
                 <div className="stack-s" data-tour="weights">
@@ -264,8 +273,8 @@ export default function RunPage() {
                     )}
                     <th scope="col">#</th>
                     <th scope="col">Venue</th>
-                    <th scope="col"><Tip label="Fit">0–100. 70% how strongly the venue&apos;s guests share your taste (Qloo affinity percentile), 30% how far that beats a popularity-only baseline.</Tip></th>
-                    <th scope="col"><Tip label="Lift">How much higher this venue ranks for your taste than for plain popularity. Positive means a real taste match, not just a busy place.</Tip></th>
+                    <th scope="col"><Tip label="Fit">{mass ? "0–100. 70% how strongly the venue's guests share your taste (Qloo affinity percentile), 30% how far that beats their taste for mass-market brands." : "0–100. 70% how strongly the venue's guests share your taste (Qloo affinity percentile), 30% how far that beats a popularity-only baseline."}</Tip></th>
+                    <th scope="col"><Tip label="Lift">{mass ? LIFT_TIP_MASS : "How much higher this venue ranks for your taste than for plain popularity. Positive means a real taste match, not just a busy place."}</Tip></th>
                     <th scope="col">Confidence</th>
                     <th scope="col">Best product</th>
                     <th scope="col">Why</th>
@@ -286,14 +295,21 @@ export default function RunPage() {
                         <td className="cell-wide">
                           <Link className="venue-name" href={`/runs/${id}/venues/${v.venue_id}`}>{v.name}</Link>
                           <div className="mono faint">{venueTypeLabel(v.venue_type)}{v.neighborhood ? ` · ${v.neighborhood}` : ""}{base && away(v) < Infinity ? ` · ${kmText(away(v))}` : ""}</div>
+                          {v.flags.some((f) => FLAG_CHIP[f]) && (
+                            <div className="row" style={{ gap: 4, marginTop: 4 }}>
+                              {v.flags.filter((f) => FLAG_CHIP[f]).map((f) => <span key={f} className="tag tag-line">{FLAG_CHIP[f]}</span>)}
+                            </div>
+                          )}
                         </td>
                         <td data-label="Fit" className="num">
                           <span className="score">{pct(v.fit)}</span>
                           <div className="fitbar" aria-hidden="true"><span style={{ width: `${pct(v.fit)}%` }} /></div>
                         </td>
                         <td data-label="Lift">
-                          <Tip label={<span className={v.lift > 0.005 ? "lift-up" : "lift-flat"}>{liftText(v.lift)}</span>}>
-                            {`Taste percentile ${pct(v.target_pct)} vs popularity percentile ${pct(v.baseline_pct)}.`}
+                          <Tip label={<span className={v.lift > 0.005 ? "lift-up" : "lift-flat"}>{liftText(v.lift, v.popularity_pct != null)}</span>}>
+                            {v.popularity_pct != null
+                              ? `Taste percentile ${pct(v.target_pct)} vs mass-market taste percentile ${pct(v.baseline_pct)}. Popularity (Qloo) ${pct(v.popularity_pct)}.`
+                              : `Taste percentile ${pct(v.target_pct)} vs popularity percentile ${pct(v.baseline_pct)}.`}
                           </Tip>
                         </td>
                         <td data-label="Confidence"><ConfidenceBadge level={v.confidence} /></td>

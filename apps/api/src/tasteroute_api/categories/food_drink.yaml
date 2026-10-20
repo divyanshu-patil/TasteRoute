@@ -20,8 +20,12 @@ venue_types:
     label: Delis and specialty food shops
     qloo_tags: ["urn:tag:category:place:deli"]
     osm: { key: shop, value: deli }
-baseline_signal: none
-baseline_entities: []
+# Lift compares the same venues under your brands and under mass-market food and drink brands (D-23). Ids verified with
+# /search on 2026-10-20 (docs/qloo-contract.md): Coca-Cola, Pepsi, Budweiser, Starbucks, Dunkin' Donuts.
+baseline_signal: fixed_entities
+baseline_entities: [A539C8C9-4733-41A9-911A-11AC2B6D475A, 957B527A-CF2C-4283-A2FD-3F49741DF5DE,
+                    5FA9A50A-CA0E-45E3-AA86-9E81BF464BD9, B13C02E3-BA3C-4B39-85B4-ACF12FEBC892,
+                    5E978F43-4450-4F41-8EE4-A0421E8EC178]
 reason_tag_kinds: [interests, customer_identity, beverage_offering, menu_highlight, culinary_style]
 pitch_style:
   noun: stockist
@@ -31,3 +35,24 @@ pitch_style:
   forbidden_claims: [award, award-winning, organic, certified, best, "#1", top-rated, sold out, bestseller, best-selling,
                      stocked by, already stock, already stocked, guaranteed, guarantee, risk-free, discount, "% off",
                      half off, forever, healthy, healthiest, cure, cures]
+# RNK-09 (D-25). Tag ids are from recorded Brooklyn place responses (tests/fixtures/qloo).
+buyability:
+  chains: [Starbucks, "Dunkin'", Pret A Manger, Le Pain Quotidien, Joe & The Juice, Blue Bottle Coffee, Joe Coffee,
+           Gregorys Coffee, Bluestone Lane, "% Arabica", Tim Hortons, "Peet's Coffee", Think Coffee, Birch Coffee,
+           Sweetgreen, Chipotle, "McDonald's", Whole Foods Market, "Trader Joe's", Jewel-Osco, "Mariano's", 7-Eleven,
+           Duane Reade, CVS]
+  makers:
+    - { kinds: [coffee, espresso, cold brew], tags: ["urn:tag:category:place:coffee_roastery"] }
+    - { kinds: [beer, ale, lager, ipa, stout], tags: ["urn:tag:category:place:brewery"] }
+  alcohol_keywords: [aperitivo, aperitif, amaro, wine, beer, ale, lager, cider, spirit, gin, vodka, rum, whiskey, whisky,
+                     tequila, mezcal, vermouth, liqueur, cocktail, hard seltzer, long drink]
+  licence_venue_types: [cafe, deli]
+  licence_tags: ["urn:tag:category:place:bakery", "urn:tag:category:place:pastry_shop"]
+# EVD-05: reasons in plain English. Lower-case tag names as Qloo returns them.
+reasons:
+  drop: [cafe, café, coffee shop, coffee store, espresso bar, bar, bar + grill, restaurant, lunch restaurant, deli,
+         tourist attraction, hotel, ice cream shop, food, drinks]
+  phrases: {american: American food, italian: Italian food, french: French food, mediterranean: Mediterranean food,
+            european: European food, mexican: Mexican food, japanese: Japanese food, chinese: Chinese food,
+            thai: Thai food, indian: Indian food, korean: Korean food, vegan: vegan food, vegetarian: vegetarian food,
+            breakfast: breakfast, brunch: brunch}

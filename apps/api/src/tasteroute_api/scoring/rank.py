@@ -1,4 +1,5 @@
-"""Venue ranking: percentile, lift over a popularity baseline, fit, confidence (F03; D-03, D-13)."""
+"""Venue ranking: percentile, lift over mass-market taste at the same venues, fit, confidence (F03; D-03, D-13, D-23).
+Runs scored before D-23 used a popularity baseline (`score_type`); `/rescore` keeps that path for them."""
 
 from dataclasses import dataclass, field
 from typing import Literal
@@ -43,6 +44,7 @@ class Scored:
     confidence: Confidence
     flags: list[str] = field(default_factory=list)
     rank: int = 0
+    popularity_pct: float | None = None  # each venue's own Qloo popularity, display only
 
 
 def percentiles(values: dict[str, float]) -> dict[str, float]:
@@ -117,14 +119,46 @@ def score_type(
     return out
 
 
-def merge(per_type: list[list[Scored]], max_venues: int) -> list[Scored]:
-    """De-duplicate across venue types (keep the best fit), sort by fit, keep the top N, assign ranks."""
+def score_against_generic(
+    venue_type: str,
+    target: list[Candidate],
+    generic: dict[str, float],
+    w: Weights = Weights(),
+    th: Thresholds = Thresholds(),
+    signals: int = 2,
+) -> list[Scored]:
+    """Score one venue type against mass-market taste at the same venues (D-23): target_pct ranks the brand-signal
+    affinity, baseline_pct the generic-signal affinity, both within this type's venues; lift = target - generic.
+    A venue missing from the generic response gets the lowest generic affinity and the flag `generic_missing`."""
+    if not target:
+        return []
+    if all(c.affinity is not None for c in target):
+        tpct = percentiles({c.venue_id: float(c.affinity or 0.0) for c in target})
+    else:
+        tpct = order_percentiles([c.venue_id for c in target])
+    floor = min(generic.values(), default=0.0)
+    gpct = percentiles({c.venue_id: generic.get(c.venue_id, floor) for c in target})
+    ppct = percentiles({c.venue_id: c.popularity for c in target})
+    out = []
+    for c in target:
+        t, g = round(tpct[c.venue_id], 4), round(gpct[c.venue_id], 4)
+        lv = lift(t, g)
+        flags = [] if c.venue_id in generic else ["generic_missing"]
+        out.append(Scored(c.venue_id, venue_type, t, g, lv, fit(t, lv, w), confidence(t, lv, c.support, th, signals), flags,
+                          popularity_pct=round(ppct[c.venue_id], 4)))
+    return out
+
+
+def merge(per_type: list[list[Scored]], max_venues: int, hidden: tuple[str, ...] = ()) -> list[Scored]:
+    """De-duplicate across venue types (keep the best fit), sort by fit, keep the top N, assign ranks. Venues with a
+    `hidden` flag (chains, D-25) rank after every shown venue, so the shown list is numbered 1..n without gaps."""
     best: dict[str, Scored] = {}
     for rows in per_type:
         for s in rows:
             if s.venue_id not in best or s.fit > best[s.venue_id].fit:
                 best[s.venue_id] = s
-    ranked = sorted(best.values(), key=lambda s: (-s.fit, -s.target_pct, s.venue_id))[:max_venues]
+    ranked = sorted(best.values(), key=lambda s: (bool(set(s.flags) & set(hidden)), -s.fit, -s.target_pct, s.venue_id))
+    ranked = ranked[:max_venues]
     for i, s in enumerate(ranked, 1):
         s.rank = i
     return ranked

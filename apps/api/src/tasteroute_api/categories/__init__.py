@@ -29,6 +29,28 @@ class PitchStyle(BaseModel):
     forbidden_claims: list[str] = Field(default_factory=list)  # phrases a draft may never use (DRF-08)
 
 
+class Maker(BaseModel):
+    kinds: list[str] = Field(min_length=1)  # words in a product's name or kind
+    tags: list[str] = Field(min_length=1)  # Qloo place tags of a venue that makes it
+
+
+class Buyability(BaseModel):
+    """RNK-09: flags for venues a founder wouldn't pitch. Tag ids must be verified from recorded Qloo responses."""
+
+    chains: list[str] = Field(default_factory=list)
+    makers: list[Maker] = Field(default_factory=list)
+    alcohol_keywords: list[str] = Field(default_factory=list)
+    licence_venue_types: list[str] = Field(default_factory=list)
+    licence_tags: list[str] = Field(default_factory=list)
+
+
+class Reasons(BaseModel):
+    """EVD-05: tags that only repeat what kind of venue it is are dropped; common tags get a readable phrase."""
+
+    drop: list[str] = Field(default_factory=list)
+    phrases: dict[str, str] = Field(default_factory=dict)
+
+
 class Pack(BaseModel):
     id: str
     label: str
@@ -39,6 +61,8 @@ class Pack(BaseModel):
     baseline_entities: list[str] = Field(default_factory=list)
     reason_tag_kinds: list[str] = Field(min_length=1)
     pitch_style: PitchStyle
+    buyability: Buyability = Field(default_factory=Buyability)
+    reasons: Reasons = Field(default_factory=Reasons)
 
     def venue_type(self, vid: str) -> VenueType | None:
         return next((v for v in self.venue_types if v.id == vid), None)

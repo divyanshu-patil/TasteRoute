@@ -32,6 +32,10 @@ Each criterion has an ID, a measurable statement, how it is checked, and a prior
 | RNK-04 | Every venue has a confidence label from documented thresholds, explained in the UI | Unit test + UI check | MVP |
 | RNK-05 | Fewer than 15 venues or low baseline overlap triggers a coverage notice | Unit test | MVP |
 | RNK-06 | At most `MAX_VENUES_PER_RUN` venues are stored per run | Unit test | MVP |
+| RNK-07 | Lift compares the same venues under the brand signal and under the pack's mass-market brands; a venue high on both ranks below one high only for the brand; missing generic readings are flagged | Unit test `test_lift_against_mass_market_taste_at_the_same_venues` | MVP |
+| RNK-08 | Runs scored before D-23 keep their numbers on rescore, and stored target + popularity calls still score with the old method | API test `test_rescore_keeps_the_popularity_baseline_for_old_runs` | MVP |
+| RNK-09 | Chains and venues of brands in the signal are hidden by default, counted and rank after the rest; makers of what you sell are flagged; a café or deli leads with a non-alcoholic product when one exists | Unit tests `test_buyability_flags`, `test_hidden_venues_rank_after_shown_ones`; API test `test_chains_are_hidden_and_counted_and_cafes_lead_with_a_dry_product` | MVP |
+| RNK-10 | A positive Qloo `audience_growth` shows "Rising (Qloo)" and never changes fit | Unit test `test_audience_growth_is_read_and_mostly_zero` | Stretch |
 
 ## Product fit (F04)
 
@@ -40,6 +44,7 @@ Each criterion has an ID, a measurable statement, how it is checked, and a prior
 | FIT-01 | Each venue has a percentile for every scored product | API test | MVP |
 | FIT-02 | Best product and label (clear, close, tie, single_product) follow the documented margins | Unit tests | MVP |
 | FIT-03 | A failed product query marks only that product unscored | Integration test | MVP |
+| FIT-04 | The best product is the highest standardised Qloo affinity among the type's venues; raw affinities are stored and shown; the pick is labelled Qloo, per product | Unit test `test_best_product_by_standardised_affinity`; API test `test_scout_run_end_to_end` | MVP |
 
 ## Evidence (F05)
 
@@ -49,6 +54,7 @@ Each criterion has an ID, a measurable statement, how it is checked, and a prior
 | EVD-02 | Every evidence item links to an existing trace row | Integration test | MVP |
 | EVD-03 | Inferences are labelled as inferences in API and UI | Unit test + UI check | MVP |
 | EVD-04 | OpenStreetMap and contact-source evidence carry the `external_calls` id they came from; a second outreach pass leaves one row per evidence item | API test `test_outreach_evidence_links_its_call_and_never_duplicates` | MVP |
+| EVD-05 | Reasons never list the venue's own type as a match and read in plain English | Unit test `test_reasons_never_list_the_venue_type_and_read_plainly` | MVP |
 
 ## Contacts (F06)
 
@@ -138,6 +144,7 @@ Each criterion has an ID, a measurable statement, how it is checked, and a prior
 | QLO-06 | Responses are cached by normalised key and reused within TTL | Integration test | MVP |
 | QLO-07 | `docs/qloo-contract.md` exists with verified parameters and fixtures for every endpoint used | Review | MVP |
 | QLO-08 | The per-run live-call cap holds under parallel calls (10 parallel calls, cap 5 → at most 5 live) | `test_parallel_calls_never_exceed_the_run_cap` | MVP |
+| QLO-10 | Insights paging (`page=2` with `take=50`) is verified and recorded | Probe + `docs/qloo-contract.md` | Stretch |
 
 ## LLM (cross-cutting)
 

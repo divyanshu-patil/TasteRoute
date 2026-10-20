@@ -1237,6 +1237,13 @@ export interface components {
         };
         /** VenuePage */
         VenuePage: {
+            /**
+             * Hidden
+             * @description Venues left out unless show_hidden: chain, signal_brand_venue (RNK-09)
+             */
+            hidden?: {
+                [key: string]: number;
+            };
             /** Items */
             items: components["schemas"]["VenueRow"][];
             /** Total */
@@ -1246,7 +1253,10 @@ export interface components {
         };
         /** VenueRow */
         VenueRow: {
-            /** Baseline Pct */
+            /**
+             * Baseline Pct
+             * @description Mass-market taste percentile at the same venues; the popularity percentile for runs scored before D-23 (then popularity_pct is null)
+             */
             baseline_pct: number;
             best_product: components["schemas"]["BestProduct"] | null;
             /** Confidence */
@@ -1269,6 +1279,11 @@ export interface components {
             name: string;
             /** Neighborhood */
             neighborhood: string | null;
+            /**
+             * Popularity Pct
+             * @description The venue's own Qloo popularity percentile, display only
+             */
+            popularity_pct?: number | null;
             /** Rank */
             rank: number;
             /** Reason */
@@ -2248,6 +2263,8 @@ export interface operations {
                 sort?: string;
                 limit?: number;
                 offset?: number;
+                /** @description Include chains and venues of brands you resemble (RNK-09) */
+                show_hidden?: boolean;
             };
             header?: never;
             path: {

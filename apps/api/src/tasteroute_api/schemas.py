@@ -239,7 +239,9 @@ class VenueRow(BaseModel):
     fit: float
     lift: float
     target_pct: float
-    baseline_pct: float
+    baseline_pct: float = Field(description="Mass-market taste percentile at the same venues; the popularity percentile "
+                                            "for runs scored before D-23 (then popularity_pct is null)")
+    popularity_pct: float | None = Field(default=None, description="The venue's own Qloo popularity percentile, display only")
     confidence: str
     flags: list[str]
     best_product: BestProduct | None
@@ -252,6 +254,8 @@ class VenuePage(BaseModel):
     items: list[VenueRow]
     total: int
     warnings: list[str]
+    hidden: dict[str, int] = Field(default_factory=dict,
+                                   description="Venues left out unless show_hidden: chain, signal_brand_venue (RNK-09)")
 
 
 class EvidenceOut(BaseModel):

@@ -51,6 +51,7 @@ Params used and verified:
 | `filter.results.entities` | comma list of place ids | Restricts results to those places; every requested place is scored. Used for per-product fit (F04) |
 | `feature.explainability` | `true` | Adds `query.explainability` per entity and aggregate. No extra call |
 | `take` | ≤ 50 | |
+| `page` | `2`, `3`, … | **Verified 2026-10-20** (1 call, `insights_bk_coffee_baseline_page2.json`): with `take=50`, page 2 returns the next 50 venues, no overlap with page 1, popularity continuing downward (0.917 → 0.913). Not used by runs yet (QLO-10) |
 
 Response: `{"success": true, "results": {"entities": [Place]}, "query": {...}}`.
 
@@ -64,6 +65,7 @@ Place fields used (after compaction):
 | `popularity` | 0–1. **The baseline (no signal) is ordered by this field**; target results also carry it |
 | `query.affinity` | 0–1, present only when a signal is sent. Target ordering |
 | `query.distance` | metres from the locality |
+| `query.measurements.audience_growth` | **Undocumented** (not in Qloo's public docs as of 2026-10-20). Recorded values: mostly `0` (62–98% of venues per response), the rest look like standardised changes (±1, ±1.73, −2). Shown only as a "Rising (Qloo)" chip when positive; never used in fit (RNK-10) |
 | `query.explainability["signal.interests.entities"]` | `[{entity_id, score}]` per input entity, normalised 0–1 |
 | `tags[]` | `{id, name}`; kinds kept: category, genre, menu_highlight, beverage_offering, customer_identity, interests, ambience, culinary_style, cuisine, specialty_dish, setting, decor, visit_intent, age_range, neighborhood_characteristic |
 | `properties.website` | Present for 82–100% of venues per type in Brooklyn (F06 step 1a) |
@@ -72,6 +74,20 @@ Place fields used (after compaction):
 | `properties.short_description`, `keywords` | Display only |
 
 Baseline response: same shape, `query.affinity` absent, sorted by `popularity` descending.
+
+### Mass-market baseline (D-23, RNK-07)
+
+Since scoring version `2026-10-20.1`, lift compares the same venues under a generic signal instead of a separate popularity query: `filter.results.entities=<the target call's venue ids>` with `signal.interests.entities` set to the pack's `baseline_entities`. Ids verified with `/search` on 2026-10-20 (4 calls; Dunkin' from an earlier fixture):
+
+| Brand | Entity id | Qloo popularity |
+|---|---|---|
+| Coca-Cola | `A539C8C9-4733-41A9-911A-11AC2B6D475A` | 0.9989 |
+| Pepsi | `957B527A-CF2C-4283-A2FD-3F49741DF5DE` | 0.997 |
+| Budweiser | `5FA9A50A-CA0E-45E3-AA86-9E81BF464BD9` | 0.9714 |
+| Starbucks | `B13C02E3-BA3C-4B39-85B4-ACF12FEBC892` | 0.9998 |
+| Dunkin' Donuts | `5E978F43-4450-4F41-8EE4-A0421E8EC178` | 0.9953 |
+
+Same number of calls per type as before (target, then generic). A venue missing from the generic response counts as the lowest generic affinity (`generic_missing`); over 20% missing warns `baseline_partial`.
 
 ## `GET /v2/insights` for tags (audience taste, F05)
 

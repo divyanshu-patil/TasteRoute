@@ -28,6 +28,14 @@ def test_recorded_fixtures_parse_and_pass_guards():
     assert len(g.kept) == 50 and not g.warnings
 
 
+def test_audience_growth_is_read_and_mostly_zero():
+    """RNK-10: query.measurements.audience_growth (undocumented scale, values like ±1.73); most venues read 0."""
+    ps = places("insights_bk_coffee_baseline.json")
+    growth = [p.audience_growth for p in ps]
+    assert all(g is not None for g in growth) and growth.count(0) > len(ps) / 2
+    assert {p.name for p in ps if (p.audience_growth or 0) > 0} == {"Cafe Colette", "McDonald's", "Doughnut Plant"}
+
+
 def test_guard_drops_outside_city_and_wrong_type():
     ps = places("insights_bk_coffee_baseline_strict.json")[:10]
     moved = [p.model_copy(update={"location": p.location.model_copy(update={"lat": 51.5, "lon": -0.12})}) for p in ps[:4]]

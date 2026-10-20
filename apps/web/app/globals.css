@@ -276,11 +276,10 @@ table.t { width: 100%; border-collapse: collapse; font-size: 14px; }
 .tabs a[aria-current="page"] { background: var(--black); color: var(--white); }
 
 /* ---------- bars ---------- */
-.bar { display: grid; grid-template-columns: minmax(120px, 200px) 1fr 48px; gap: 12px; align-items: center; }
-.bar .track { height: 12px; background: var(--mist); border-radius: 12px; overflow: hidden; }
-.bar .fill { height: 100%; background: var(--black); border-radius: 12px; }
-.bar.best .fill { background: var(--black); }
-.bar .fill.alt { background: var(--ash); }
+.pfit { display: grid; grid-template-columns: minmax(120px, 200px) 1fr 48px; gap: 12px; align-items: center; }
+.pfit .track { height: 12px; background: var(--mist); border-radius: 12px; overflow: hidden; }
+.pfit .fill { height: 100%; background: var(--black); border-radius: 12px; }
+.pfit .fill.alt { background: var(--ash); }
 
 /* ---------- evidence ---------- */
 .evidence { display: grid; gap: 12px; }

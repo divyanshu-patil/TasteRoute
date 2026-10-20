@@ -9,23 +9,25 @@ import { Tour, type TourStep } from "../../../../../components/tour";
 import { ConfidenceBadge, ContactSource, ErrorPanel, Skeleton, SourceChip, Tip } from "../../../../../components/ui";
 import { VenueMap, type Pin } from "../../../../../components/venue-map";
 import { ApiError, api, type S } from "../../../../../lib/api";
-import { CONFIDENCE, CONTACT_STATUS, FIT_LABEL, km, kmText, liftText, pct, venueTypeLabel } from "../../../../../lib/format";
+import { CONFIDENCE, CONTACT_STATUS, FIT_LABEL, FLAG_CHIP, LIFT_TIP_MASS, km, kmText, liftText, pct, venueTypeLabel } from "../../../../../lib/format";
 
 const TOUR: TourStep[] = [
-  { target: "venue-scores", title: "One venue, all its numbers", body: "Fit and lift, and the two Qloo percentiles behind them: taste for your brands' fans, and plain popularity." },
+  { target: "venue-scores", title: "One venue, all its numbers", body: "Fit and lift, and the Qloo percentiles behind them: taste for your brands' fans, the same venues' taste for mass-market brands, and plain popularity." },
   { target: "why", title: "The reason", body: "Built from Qloo's explanation: which of your brands' fans drive the match and who goes here. Labels show what came from Qloo." },
-  { target: "product-fit", title: "Which product to lead with", body: "A separate Qloo query per product. The longest bar is the one to pitch first; \"close call\" means the gap is small." },
+  { target: "product-fit", title: "Which product to lead with", body: "A separate Qloo query per product. The lead product is the one this venue stands out most for among its type; \"close call\" means the gap is small." },
   { target: "evidence", title: "Every source", body: "Each item says whether it came from Qloo, the public web or our inference, and the map shows where the venue is." },
 ];
 
-type Fit = { product_id: string; name: string; percentile: number; is_best: boolean; label: string | null; margin: number | null };
+type Fit = { product_id: string; name: string; percentile: number; affinity: number | null; is_best: boolean; label: string | null; margin: number | null };
 
 function EvidenceBody({ e }: { e: S["EvidenceOut"] }) {
   const v = e.value as Record<string, unknown>;
   const list = (k: string) => (Array.isArray(v[k]) ? (v[k] as unknown[]) : []);
   switch (e.type) {
     case "qloo_affinity":
-      return <p className="small muted">Taste percentile {pct(Number(v.target_pct))} · popularity percentile {pct(Number(v.baseline_pct))} · Qloo affinity {Number(v.affinity ?? 0).toFixed(3)} · popularity {Number(v.popularity ?? 0).toFixed(3)}</p>;
+      return v.baseline === "mass_market"
+        ? <p className="small muted">Taste percentile {pct(Number(v.target_pct))} · mass-market taste percentile {pct(Number(v.baseline_pct))} · popularity percentile {pct(Number(v.popularity_pct))} · Qloo affinity {Number(v.affinity ?? 0).toFixed(3)} · popularity {Number(v.popularity ?? 0).toFixed(3)}</p>
+        : <p className="small muted">Taste percentile {pct(Number(v.target_pct))} · popularity percentile {pct(Number(v.baseline_pct))} · Qloo affinity {Number(v.affinity ?? 0).toFixed(3)} · popularity {Number(v.popularity ?? 0).toFixed(3)}</p>;
     case "qloo_explanation":
       return (
         <div className="chips">
@@ -88,8 +90,11 @@ export default function VenuePage() {
           <span className="tag tag-mist">{venueTypeLabel(v.venue_type)}</span>
           {v.neighborhood && <span className="tag tag-mist">{v.neighborhood}</span>}
           <ConfidenceBadge level={v.confidence} />
+          {v.flags.filter((f) => FLAG_CHIP[f]).map((f) => <span key={f} className="tag tag-line">{FLAG_CHIP[f]}</span>)}
         </div>
         <h1 className="display d-l">{v.name}</h1>
+        {v.flags.includes("signal_brand_venue") && <p className="muted">This is one of the brands you resemble, so it is hidden from the list by default.</p>}
+        {v.flags.includes("maker_competitor") && <p className="muted">Qloo tags this venue as a maker of what you sell, so it may be a competitor rather than a stockist.</p>}
         <p className="muted">
           {d.address}
           {here && d.base && <> · {kmText(km(d.base, here))} from your business</>}
@@ -99,9 +104,13 @@ export default function VenuePage() {
 
       <section className="grid-4" data-tour="venue-scores">
         <div className="stat"><span className="label"><Tip label="Fit">0.7 × taste percentile + 0.3 × positive lift, as 0–100.</Tip></span><span className="v">{pct(v.fit)}</span><span className="mono faint">out of 100</span></div>
-        <div className="stat"><span className="label"><Tip label="Lift">Taste percentile minus popularity percentile. Positive means the match is about taste, not footfall.</Tip></span><span className="v">{pct(v.lift) > 0 ? "+" : ""}{pct(v.lift)}</span><span className="mono faint">{liftText(v.lift)}</span></div>
+        <div className="stat"><span className="label"><Tip label="Lift">{v.popularity_pct != null ? `${LIFT_TIP_MASS}: taste percentile minus mass-market taste percentile.` : "Taste percentile minus popularity percentile. Positive means the match is about taste, not footfall."}</Tip></span><span className="v">{pct(v.lift) > 0 ? "+" : ""}{pct(v.lift)}</span><span className="mono faint">{liftText(v.lift, v.popularity_pct != null)}</span></div>
         <div className="stat"><span className="label">Taste percentile</span><span className="v">{pct(v.target_pct)}</span><span className="mono faint">among {venueTypeLabel(v.venue_type).toLowerCase()} venues, from Qloo affinity</span></div>
-        <div className="stat"><span className="label">Popularity percentile</span><span className="v">{pct(v.baseline_pct)}</span><span className="mono faint">Qloo popularity baseline{v.flags.includes("not_in_baseline") ? " · not in the top 50" : ""}</span></div>
+        {v.popularity_pct != null ? (
+          <div className="stat"><span className="label">Popularity (Qloo)</span><span className="v">{pct(v.popularity_pct)}</span><span className="mono faint">percentile · mass-market taste {pct(v.baseline_pct)}{v.flags.includes("generic_missing") ? " (no reading)" : ""}</span></div>
+        ) : (
+          <div className="stat"><span className="label">Popularity percentile</span><span className="v">{pct(v.baseline_pct)}</span><span className="mono faint">Qloo popularity baseline{v.flags.includes("not_in_baseline") ? " · not in the top 50" : ""}</span></div>
+        )}
       </section>
 
       <section className="grid-2">
@@ -113,17 +122,17 @@ export default function VenuePage() {
         <div className="card stack" data-tour="product-fit">
           <div className="row between">
             <h2 className="h2">Product fit</h2>
-            <SourceChip kind="inference" />
+            <span className="tag">Qloo, per product</span>
           </div>
           {fits.length === 0 && <p className="muted">Not scored.</p>}
           {fits.map((f) => (
-            <div key={f.product_id} className="bar">
+            <div key={f.product_id} className="pfit">
               <span style={{ fontWeight: f.is_best ? 600 : 450 }}>{f.name}{f.is_best && <span className="mono faint"> · {FIT_LABEL[f.label ?? ""]}</span>}</span>
-              <span className="track" role="img" aria-label={`${f.name}: ${pct(f.percentile)} percentile`}><span className={`fill ${f.is_best ? "" : "alt"}`} style={{ width: `${pct(f.percentile)}%`, display: "block" }} /></span>
-              <span className="mono">{pct(f.percentile)}</span>
+              <span className="track" role="img" aria-label={`${f.name}: ${pct(f.percentile)} out of 100`}><span className={`fill ${f.is_best ? "" : "alt"}`} style={{ width: `${pct(f.percentile)}%`, display: "block" }} /></span>
+              <Tip label={<span className="mono">{pct(f.percentile)}</span>}>{f.affinity != null ? `Qloo affinity ${f.affinity.toFixed(3)} for ${f.name}` : `Percentile ${pct(f.percentile)}`}</Tip>
             </div>
           ))}
-          <p className="small faint">Each bar is this venue&apos;s percentile for one product, from a separate Qloo query using only that product&apos;s brands.</p>
+          <p className="small faint">Each score (0–100) is this venue&apos;s percentile for one product among its type, from a separate Qloo query using only that product&apos;s brands. The lead product is the one this venue stands out most for{fits.some((f) => f.affinity != null) ? ", by standardised Qloo affinity" : ""}.</p>
         </div>
       </section>
 

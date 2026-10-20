@@ -1,9 +1,22 @@
 export const pct = (v: number) => Math.round(v * 100);
 
-export function liftText(lift: number): string {
+/** Lift against mass-market taste at the same venues (runs scored since D-23), else against plain popularity. */
+export function liftText(lift: number, massMarket = false): string {
   const n = pct(lift);
-  return n > 0 ? `+${n} vs typical` : n === 0 ? "typical" : `${n} vs typical`;
+  const vs = massMarket ? "vs mass-market taste" : "vs typical";
+  return n > 0 ? `+${n} ${vs}` : n === 0 ? (massMarket ? "level with mass-market taste" : "typical") : `${n} ${vs}`;
 }
+
+export const LIFT_TIP_MASS = "How much more this venue's guests lean toward brands like yours than toward mass-market brands (Qloo)";
+
+/** Chips for buyability flags (RNK-09); scores are never changed by them. */
+export const FLAG_CHIP: Record<string, string> = {
+  chain: "Chain",
+  signal_brand_venue: "One of the brands you resemble",
+  maker_competitor: "Makes what you make",
+  check_licence: "Check licence · our inference",
+  rising: "Rising (Qloo)",
+};
 
 export const CONFIDENCE: Record<string, string> = {
   high: "Top 20% taste fit, clearly above a typical venue, backed by at least two of your reference brands (or by your own brand when Qloo knows it and it is the only one).",

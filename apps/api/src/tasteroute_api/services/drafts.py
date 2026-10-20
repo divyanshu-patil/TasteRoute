@@ -60,7 +60,7 @@ def short_name(name: str) -> str:
 def evidence_text(e: dict[str, Any]) -> str:
     v = e["value"]
     if e["type"] == "qloo_tag_overlap":
-        return "Guests over-index on " + ", ".join(v.get("tags", []))
+        return "Known for " + ", ".join(v.get("tags", [])) + ", which fans of your brands over-index on"
     if e["type"] == "qloo_explanation":
         return "Fans of " + ", ".join(d["name"] for d in v.get("drivers", [])) + " like this venue"
     if e["type"] == "qloo_venue_profile":
@@ -97,7 +97,7 @@ def signature(b: Bundle) -> str:
 async def build_bundle(ctx: RunContext, venue: dict[str, Any], contact: dict[str, Any]) -> Bundle:
     ev = await ctx.pool.fetch(
         "select id, type, label, value from venue_evidence where run_id = $1 and venue_id = $2 "
-        "and type in ('qloo_tag_overlap','qloo_explanation','qloo_venue_profile','inference') order by type",
+        "and type in ('qloo_tag_overlap','qloo_explanation','qloo_venue_profile','qloo_product_fit','inference') order by type",
         ctx.rid, venue["venue_id"],
     )
     best = await ctx.pool.fetchrow(
@@ -135,7 +135,7 @@ def _join(items: list[str]) -> str:
 
 def template_draft(b: Bundle) -> PitchOut:
     """Built only from the bundle's own words and values, so it always passes the validator."""
-    prefs = ("Guests over-index", "Crowd", "Fans of")
+    prefs = ("Known for", "Crowd", "Fans of")
     cite = sorted((i for i, t in b.evidence.items() if t.startswith(prefs) and b.evidence_values.get(i)),
                   key=lambda i: next(n for n, p in enumerate(prefs) if b.evidence[i].startswith(p)))[:1]
     taste_line = ""
@@ -147,7 +147,8 @@ def template_draft(b: Bundle) -> PitchOut:
         elif text.startswith("Crowd"):
             taste_line = f" Qloo's taste data on guests at {b.venue_name} mentions {_join([v.lower() for v in values])}."
         else:
-            taste_line = f" Qloo's taste data shows guests here over-index on {_join([v.lower() for v in values])}."
+            taste_line = (f" {b.venue_name} is known for {_join([v.lower() for v in values])}, which Qloo's taste data "
+                          "shows fans of brands like ours over-index on.")
     body = (
         f"Hi {b.venue_name} team,\n\n"
         f"{intro(b)}.{taste_line}\n\n"

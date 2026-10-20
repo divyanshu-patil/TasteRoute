@@ -14,7 +14,7 @@ from tasteroute_api.errors import LLMUnavailable
 from tasteroute_api.services import runs as run_service
 
 from .. import conftest
-from ..conftest import BRAND, SPECIALTY, make_brand, scout
+from ..conftest import BRAND, BROOKLYN, SPECIALTY, make_brand, scout
 
 
 async def test_resolve_uses_qloo_ids_only(client, ws, svc):
@@ -50,8 +50,11 @@ async def test_scout_run_end_to_end(client, ws, svc, fake_qloo):
     detail = (await client.get(f"/v1/runs/{run_id}/venues/{venues[0]['venue_id']}", headers=ws)).json()
     assert len(detail["product_fit"]) == 2  # FIT-01
     kinds = {e["type"] for e in detail["evidence"]}
-    assert {"qloo_affinity", "qloo_venue_profile", "inference"} <= kinds
+    assert {"qloo_affinity", "qloo_venue_profile", "qloo_product_fit"} <= kinds
     assert all(e["source_kind"] == "inference" for e in detail["evidence"] if e["type"] == "inference")  # EVD-03
+    pf = next(e for e in detail["evidence"] if e["type"] == "qloo_product_fit")  # FIT-04: from Qloo per-product calls
+    assert pf["source_kind"] == "qloo" and len(pf["value"]["affinities"]) == 2
+    assert all(f["affinity"] is not None for f in detail["product_fit"])
 
     trace = (await client.get(f"/v1/runs/{run_id}/trace", headers=ws)).json()
     qloo = [t for t in trace if t["kind"] == "qloo"]
@@ -130,6 +133,62 @@ async def test_rescore_changes_order_without_qloo_calls(client, ws, svc, fake_ql
     lifts = [max(v["lift"], 0) for v in items]
     assert lifts == sorted(lifts, reverse=True)
     assert len(fake_qloo.requests) == n
+
+
+async def test_rescore_keeps_the_popularity_baseline_for_old_runs(client, ws, svc):
+    """RNK-08: /rescore only re-weights stored percentiles, so old runs keep their numbers; scoring a run whose stored
+    calls are target + popularity baseline (before D-23, or a pack with no generic brands) uses the old method."""
+    from tasteroute_api.agent.context import RunContext
+    from tasteroute_api.agent.tools import score_from_stored
+    from tasteroute_api.categories import default_pack
+    from tasteroute_api.qloo.client import stored_response
+    from tasteroute_api.qloo.guards import guard_places
+    from tasteroute_api.qloo.models import InsightsBody
+    from tasteroute_api.scoring import rank
+
+    run_id = await scout(client, ws, await make_brand(client, ws, svc))
+    rid = uuid.UUID(run_id)
+    st = await svc.pool.fetchval("select settings from runs where id = $1", rid)
+    assert st["calls"]["cafe"].keys() == {"target", "generic"}  # new runs: mass-market taste
+    st["calls"] = {"cafe": {"target": st["calls"]["cafe"]["target"], "baseline": st["calls"]["cafe"]["target"]}}
+    await svc.pool.execute("update runs set settings = $2 where id = $1", rid, st)
+    before = await svc.pool.fetch("select venue_id, target_pct, lift from venue_scores where run_id = $1 order by venue_id", rid)
+    r = await client.post(f"/v1/runs/{run_id}/rescore", headers=ws, json={"target": 0.4, "lift": 0.6})
+    assert r.status_code == 200 and before == await svc.pool.fetch(
+        "select venue_id, target_pct, lift from venue_scores where run_id = $1 order by venue_id", rid)
+    ctx = await RunContext.load(svc, run_id)
+    ctx.settings_json["weights"] = {"target": 0.7, "lift": 0.3}
+    await score_from_stored(ctx, emit_warnings=False)
+    assert all(v["popularity_pct"] is None for v in (await client.get(f"/v1/runs/{run_id}/venues", headers=ws)).json()["items"])
+
+    tags = default_pack().venue_type("cafe").qloo_tags
+    kept = guard_places(InsightsBody.model_validate(await stored_response(svc.pool, st["calls"]["cafe"]["target"]))
+                        .results.entities, required_tags=tags, bbox=BROOKLYN["bbox"]).kept
+    cands = [rank.Candidate(p.entity_id, p.affinity, p.popularity, rank.support([(x.entity_id, x.score) for x in p.explain()]))
+             for p in kept]
+    want = {s.venue_id: s.fit for s in rank.score_type("cafe", cands, [p.entity_id for p in kept],
+                                                        {p.entity_id: p.popularity for p in kept}, signals=len(st["signal"]))}
+    got = {x["qloo_entity_id"]: float(x["fit"]) for x in await svc.pool.fetch(
+        "select v.qloo_entity_id, vs.fit from venue_scores vs join venues v on v.id = vs.venue_id where vs.run_id = $1", rid)}
+    assert got and all(got[k] == want[k] for k in got)
+
+
+async def test_chains_are_hidden_and_counted_and_cafes_lead_with_a_dry_product(client, ws, svc):
+    """RNK-09: chain venues leave the default list and are counted; with show_hidden they come back after the rest.
+    At a café, an alcoholic product never leads when a non-alcoholic one was scored."""
+    brand = await make_brand(client, ws, svc)
+    pid = brand["product_ids"][-1]
+    await svc.pool.execute("update products set kind = 'aperitivo' where id = $1", uuid.UUID(pid))
+    run_id = await scout(client, ws, brand)
+    page = (await client.get(f"/v1/runs/{run_id}/venues", headers=ws)).json()
+    every = (await client.get(f"/v1/runs/{run_id}/venues?show_hidden=true", headers=ws)).json()
+    hidden = [v for v in every["items"] if {"chain", "signal_brand_venue"} & set(v["flags"])]
+    assert page["hidden"].get("chain") and len(every["items"]) - len(page["items"]) == len(hidden)
+    assert not any({"chain", "signal_brand_venue"} & set(v["flags"]) for v in page["items"])
+    assert [v["rank"] for v in page["items"]] == list(range(1, len(page["items"]) + 1))
+    assert all(v["best_product"]["product_id"] != pid for v in every["items"] if v["best_product"])
+    warnings = (await client.get(f"/v1/runs/{run_id}", headers=ws)).json()["warnings"]
+    assert any("chain venues" in w for w in warnings)
 
 
 async def test_outreach_contacts_drafts_approve_export(client, ws, svc):
@@ -253,9 +312,10 @@ async def test_cancel_stops_outreach(client, ws, svc, monkeypatch):
     brand = await make_brand(client, ws, svc)
     run_id = await scout(client, ws, brand)
     venues = (await client.get(f"/v1/runs/{run_id}/venues", headers=ws)).json()["items"]
-    stopped = asyncio.Event()
+    started, stopped = asyncio.Event(), asyncio.Event()
 
     async def slow_phase(*_: object) -> None:  # an outreach that would run for an hour
+        started.set()
         try:
             await asyncio.sleep(3600)
         finally:
@@ -265,6 +325,7 @@ async def test_cancel_stops_outreach(client, ws, svc, monkeypatch):
     r = await client.post(f"/v1/runs/{run_id}/contacts", headers=ws, json={"venue_ids": [venues[0]["venue_id"]]})
     assert r.json()["status"] == "outreach_running"
     assert (await client.get(f"/v1/runs/{run_id}", headers=ws)).json()["status"] == "outreach_running"  # before any work ran
+    await asyncio.wait_for(started.wait(), 5)
     r = await client.post(f"/v1/runs/{run_id}/cancel", headers=ws)
     assert r.status_code == 202 and r.json()["status"] == "scouted"
     assert stopped.is_set()  # the background work stopped, not just the status

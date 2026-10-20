@@ -37,7 +37,7 @@ from ..schemas import (
     VenueRow,
     Weights,
 )
-from ..scoring import SCORING_VERSION, rank
+from ..scoring import SCORING_VERSION, buyability, rank
 from ..security import EVENTS_TTL_S, ip_hash, sign_events, verify_events, workspace_id
 from ..services import runs as run_service
 from ..services.contacts import is_suppressed, suppression_sets
@@ -178,6 +178,7 @@ def _row(r: Any) -> VenueRow:
         venue_id=str(r["venue_id"]), rank=r["rank"], name=r["name"], venue_type=r["venue_type"],
         neighborhood=r["neighborhood"], lat=r["lat"], lon=r["lon"], fit=float(r["fit"]), lift=float(r["lift"]), target_pct=float(r["target_pct"]),
         baseline_pct=float(r["baseline_pct"]), confidence=r["confidence"], flags=list(r["flags"]),
+        popularity_pct=float(r["popularity_pct"]) if r["popularity_pct"] is not None else None,
         best_product=BestProduct(product_id=str(r["best_product_id"]), name=r["best_product_name"], label=r["best_label"],
                                  margin=float(r["best_margin"]) if r["best_margin"] is not None else None)
         if r["best_product_id"] else None,
@@ -189,9 +190,16 @@ def _row(r: Any) -> VenueRow:
 async def venues(run_id: str, type: str | None = None, confidence: str | None = Query(None, pattern="^(high|medium|low)$"),
                  product_id: str | None = None, sort: str = Query("fit", pattern="^(fit|lift)$"),
                  limit: int = Query(100, ge=1, le=100), offset: int = Query(0, ge=0),
+                 show_hidden: bool = Query(False, description="Include chains and venues of brands you resemble (RNK-09)"),
                  ws: str = Depends(workspace_id), s: Services = Depends(svc)) -> VenuePage:
     r = await get_run(s, ws, run_id)
     sql, args = VENUE_SQL, [r["id"]]
+    hidden = {f: n for f, n in await s.pool.fetch(
+        "select f, count(*) from venue_scores, unnest(flags) f where run_id = $1 and f = any($2::text[]) group by f",
+        r["id"], list(buyability.HIDDEN))}
+    if not show_hidden:
+        args.append(list(buyability.HIDDEN))
+        sql += f" and not (vs.flags && ${len(args)}::text[])"
     if type:
         args.append(type)
         sql += f" and vs.venue_type = ${len(args)}"
@@ -202,7 +210,8 @@ async def venues(run_id: str, type: str | None = None, confidence: str | None = 
         args.append(as_uuid(product_id))
         sql += f" and bp.product_id = ${len(args)}"
     rows = await s.pool.fetch(sql + (" order by vs.lift desc, vs.rank" if sort == "lift" else " order by vs.rank"), *args)
-    return VenuePage(items=[_row(x) for x in rows[offset: offset + limit]], total=len(rows), warnings=await _warnings(s, r["id"]))
+    return VenuePage(items=[_row(x) for x in rows[offset: offset + limit]], total=len(rows), warnings=await _warnings(s, r["id"]),
+                     hidden=hidden)
 
 
 def _masked(c: dict[str, Any], demo: bool) -> dict[str, Any]:
@@ -224,7 +233,7 @@ async def venue_detail(run_id: str, venue_id: str, ws: str = Depends(workspace_i
     if v is None:
         raise NotFound("Venue not found in this run")
     fits = await s.pool.fetch(
-        "select f.product_id::text, p.name, f.percentile, f.is_best, f.label, f.margin from venue_product_fit f "
+        "select f.product_id::text, p.name, f.percentile, f.affinity, f.is_best, f.label, f.margin from venue_product_fit f "
         "join products p on p.id = f.product_id where f.run_id = $1 and f.venue_id = $2 order by f.percentile desc",
         r["id"], v["venue_id"])
     ev = await s.pool.fetch("select * from venue_evidence where run_id = $1 and venue_id = $2 order by captured_at, type",
@@ -264,7 +273,7 @@ async def rescore(run_id: str, body: Weights, ws: str = Depends(workspace_id), s
                               [(r["id"], vid, f, i) for i, (vid, f, _) in enumerate(scored, 1)])
         await con.execute("update runs set settings = settings || $2::jsonb where id = $1", r["id"],
                           {"weights": {"target": w.target, "lift": w.lift}})
-    return await venues(run_id, None, None, None, "fit", 100, 0, ws, s)
+    return await venues(run_id, None, None, None, "fit", 100, 0, False, ws, s)
 
 
 # ---------------------------------------------------------------- trace (AGT-05)
