@@ -116,3 +116,14 @@ The first dev run showed a flaw in the pool, not in any method. Its non-accounts
 Nothing else changed: brands, split, comparables, venue types, the Q-fit formula, metrics and target are as pre-registered.
 
 Dev result with the frozen pipeline, for the record. Kings County Distillery (10 accounts in the pool): recall@30 Q-fit 20%, LLM 20%; mean percentile rank Q-fit 59, LLM 87. Wölffer Estate (7 accounts): recall@30 0% for every method; mean percentile rank Q-fit 51, LLM 72. **The LLM is ahead on dev.** Its top 10 reads venue names ("The Whiskey Annex", "Bass & Bourbon"). Both dev brands sell through distributors to ordinary bars, which a name says more about than taste does.
+
+### Cultural fit (score plan E2; pre-registered 2026-10-20, before it was run on any brand)
+
+Written after the main test result above and before any cultural-fit number existed. It is a second look at the same brands, so it can't change the main result; it decides only whether cultural fit enters TasteRoute's `fit`.
+
+| Method | How |
+|---|---|
+| Q-cult | Qloo affinity over the pool with a music signal: the 5 artists that fans of the comparables over-index on most (one insights call, `filter.type=urn:entity:artist`, signal = the comparables) |
+| Q-fit+C | The mean of the Q-fit and Q-cult positions (the same rule as Q-fit+LLM; no weights to tune) |
+
+**Rule:** cultural fit enters `fit` only if Q-fit+C puts more test accounts in its top 30 than Q-fit (summed over the scored test brands) **and** no fewer on either dev brand. Otherwise it stays an explanation (a reason clause and a venue card) and does not change any score. Same pools, accounts, metrics and tie-break as above.
