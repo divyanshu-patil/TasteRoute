@@ -208,6 +208,9 @@ Each criterion has an ID, a measurable statement, how it is checked, and a prior
 | UI-04 | Keyboard-only completion of Flow A; Lighthouse accessibility ≥ 90; works at 360 px | Lighthouse + manual | MVP |
 | UI-05 | Copy never says "will buy" or "demand"; inferences labelled | Text search | MVP |
 | UI-06 | `/evaluation` shows the backtest (totals, per-brand table, an account only Qloo ranked high, method and limits) and is linked from the landing page and footer | Manual check | MVP |
+| UI-07 | The venue page's product-fit bars use their own `.pfit` class, separate from the progress `.bar` | Text search | MVP |
+| UI-08 | Map: a "Skip map" link comes first; numbered pins take focus in rank order; venues below the top 10 (dots) are out of the tab order; every pin's hit area is at least 24 px | Headless Chrome check (pin order, focusable count, dot size) | MVP |
+| UI-09 | Failed fetches show an error with Retry, never an endless skeleton or a false empty state: results venues, `/runs` ("Can't reach the TasteRoute API"), an unknown venue ("Venue not found" with a back link); `/start` maps a bad website to "Enter a full address like https://yourbrand.com" | Manual with the API stopped | MVP |
 
 ## Evaluation, repo and submission
 

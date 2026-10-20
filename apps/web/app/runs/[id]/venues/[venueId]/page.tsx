@@ -9,7 +9,7 @@ import { Tour, type TourStep } from "../../../../../components/tour";
 import { ConfidenceBadge, ContactSource, ErrorPanel, Skeleton, SourceChip, Tip } from "../../../../../components/ui";
 import { VenueMap, type Pin } from "../../../../../components/venue-map";
 import { ApiError, api, type S } from "../../../../../lib/api";
-import { CONFIDENCE, CONTACT_STATUS, FIT_LABEL, FLAG_CHIP, LIFT_TIP_MASS, km, kmText, liftText, pct, venueTypeLabel } from "../../../../../lib/format";
+import { CONFIDENCE, CONTACT_STATUS, FIT_LABEL, FIT_TIP, FLAG_CHIP, LIFT_TIP_MASS, km, kmText, liftText, pct, venueTypeLabel } from "../../../../../lib/format";
 
 const TOUR: TourStep[] = [
   { target: "venue-scores", title: "One venue, all its numbers", body: "Fit and lift, and the Qloo percentiles behind them: taste for your brands' fans, the same venues' taste for mass-market brands, and plain popularity." },
@@ -71,7 +71,16 @@ export default function VenuePage() {
     };
   }, [id, venueId]);
 
-  if (error) return <div className="wrap">{error.status === 404 ? <NotFoundPanel /> : <ErrorPanel code={error.code} title={error.title} />}</div>;
+  if (error) return (
+    <div className="wrap">
+      {error.status === 404 && error.detail.startsWith("Run") ? <NotFoundPanel /> : (
+        <ErrorPanel code={error.code} title={error.status === 404 ? "Venue not found" : error.status === 0 ? "Can't reach the TasteRoute API" : error.title}>
+          <p>{error.status === 404 ? "This venue isn't in this run's list." : error.detail || "Try again in a moment."}</p>
+          <div className="row"><Link className="btn" href={`/runs/${id}`}>← Back to results</Link></div>
+        </ErrorPanel>
+      )}
+    </div>
+  );
   if (!d) return <div className="wrap"><Skeleton rows={8} /></div>;
   const v = d.venue;
   const here = d.lat != null && d.lon != null ? { lat: d.lat, lon: d.lon } : null;
@@ -128,7 +137,7 @@ export default function VenuePage() {
           {fits.length === 0 && <p className="muted">Not scored.</p>}
           {fits.map((f) => (
             <div key={f.product_id} className="pfit">
-              <span style={{ fontWeight: f.is_best ? 600 : 450 }}>{f.name}{f.is_best && <span className="mono faint"> · {FIT_LABEL[f.label ?? ""]}</span>}</span>
+              <span style={{ fontWeight: f.is_best ? 600 : 450 }}>{f.name}{f.is_best && <span className="mono faint"> · {FIT_TIP[f.label ?? ""] ? <Tip label={FIT_LABEL[f.label ?? ""]}>{FIT_TIP[f.label ?? ""] ?? ""}</Tip> : FIT_LABEL[f.label ?? ""]}</span>}</span>
               <span className="track" role="img" aria-label={`${f.name}: ${pct(f.percentile)} out of 100`}><span className={`fill ${f.is_best ? "" : "alt"}`} style={{ width: `${pct(f.percentile)}%`, display: "block" }} /></span>
               <Tip label={<span className="mono">{pct(f.percentile)}</span>}>{f.affinity != null ? `Qloo affinity ${f.affinity.toFixed(3)} for ${f.name}` : `Percentile ${pct(f.percentile)}`}</Tip>
             </div>

@@ -2,7 +2,7 @@
 
 import "maplibre-gl/dist/maplibre-gl.css";
 import type * as ML from "maplibre-gl";
-import { useEffect, useRef } from "react";
+import { useEffect, useId, useRef } from "react";
 import { mapStyle } from "../lib/map-style";
 
 export type Pin = { id: string; lat: number; lon: number; label: string; title: string; sub?: string; href?: string; on?: boolean; dot?: boolean; base?: boolean };
@@ -14,6 +14,7 @@ const esc = (s: string) => s.replace(/[&<>"']/g, (c) => `&#${c.charCodeAt(0)};`)
 /** MapLibre map in the design system. `bounds` ([s, w, n, e]) is outlined and framed, else it shows the world; `onPick` makes a click choose a point. */
 export function VenueMap({ pins, label, height = 380, bounds, onPick }: Props) {
   const el = useRef<HTMLDivElement>(null);
+  const after = `after-map-${useId().replace(/:/g, "")}`;
   const lib = useRef<typeof ML | null>(null);
   const map = useRef<ML.Map | null>(null);
   const markers = useRef<ML.Marker[]>([]);
@@ -46,17 +47,18 @@ export function VenueMap({ pins, label, height = 380, bounds, onPick }: Props) {
     const box = area.current?.length === 4 ? (area.current as Box) : null;
     outline(m, box);
     for (const mk of markers.current) mk.remove();
-    markers.current = [...pts].reverse().map((p) => { // rank 1 added last, on top
+    markers.current = pts.map((p, i) => { // added in list order, so Tab follows the rank; stacking puts rank 1 on top
       const node = document.createElement("div");
       node.className = p.dot ? "pin-dot" : p.base ? "pin pin-base" : `pin${p.on ? " pin-on" : ""}`;
       node.textContent = p.dot ? "" : p.label;
       node.title = p.title;
-      node.style.zIndex = String(p.dot ? 1 : p.base ? 4 : p.on ? 3 : 2);
+      node.style.zIndex = String(p.dot ? 1 : p.base ? 3000 : (p.on ? 2000 : 1000) - i);
       const popup = new ml.Popup({ offset: 18, maxWidth: "280px" })
         .setHTML(`<strong>${esc(p.title)}</strong>${p.sub ? `<br><span class="mono">${esc(p.sub)}</span>` : ""}${p.href ? `<br><a href="${esc(p.href)}">Open venue →</a>` : ""}`);
       const mk = new ml.Marker({ element: node }).setLngLat([p.lon, p.lat]).setPopup(popup).addTo(m); // Enter or Space opens it
       node.setAttribute("role", "button");
       node.setAttribute("aria-label", p.title);
+      if (p.dot) node.setAttribute("tabindex", "-1"); // venues below the top 10 are in the table; keyboard users skip them here
       return mk;
     });
     const ids = pts.map((p) => p.id).join(), where = `${box}|${el.current?.clientWidth}`;
@@ -118,5 +120,11 @@ export function VenueMap({ pins, label, height = 380, bounds, onPick }: Props) {
     draw();
   }, [pins, bounds, onPick]);
 
-  return <div ref={el} className={`map${onPick ? " map-pick" : ""}`} style={{ height }} role="region" aria-label={label} />;
+  return (
+    <div style={{ position: "relative" }}>
+      <a className="skip-map" href={`#${after}`}>Skip map</a>
+      <div ref={el} className={`map${onPick ? " map-pick" : ""}`} style={{ height }} role="region" aria-label={label} />
+      <span id={after} tabIndex={-1} />
+    </div>
+  );
 }

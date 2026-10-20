@@ -31,6 +31,14 @@ export const FIT_LABEL: Record<string, string> = {
   single_product: "only product",
   unscored: "not scored",
 };
+/** What each label means: the gap between this venue's two best products, in standard deviations among its type. */
+export const FIT_TIP: Record<string, string> = {
+  clear: "This venue stands out for this product by at least 0.75 standard deviations more than for your next product, among venues of its type (Qloo).",
+  close: "This product leads, but by less than 0.75 standard deviations: the next product would also suit (Qloo).",
+  tie: "Your top two products are within 0.25 standard deviations here: either would suit (Qloo).",
+  single_product: "Only one product was scored.",
+  unscored: "Qloo had no reading for this venue's products.",
+};
 
 export const CONTACT_STATUS: Record<string, string> = {
   found: "Email found",

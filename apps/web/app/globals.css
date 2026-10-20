@@ -282,8 +282,8 @@ table.t { width: 100%; border-collapse: collapse; font-size: 14px; }
 .pfit .fill.alt { background: var(--ash); }
 
 /* ---------- evidence ---------- */
-.evidence { display: grid; gap: 12px; }
-.ev { background: var(--mist); border-radius: var(--r-card-sm); padding: 16px 20px; display: grid; gap: 10px; }
+.evidence { display: grid; grid-template-columns: minmax(0, 1fr); gap: 12px; }
+.ev { background: var(--mist); border-radius: var(--r-card-sm); padding: 16px 20px; display: grid; grid-template-columns: minmax(0, 1fr); gap: 10px; }
 .ev .chips { display: flex; gap: 6px; flex-wrap: wrap; }
 
 /* ---------- drafts ---------- */
@@ -359,7 +359,10 @@ table.t { width: 100%; border-collapse: collapse; font-size: 14px; }
 .pin { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; background: var(--black); color: var(--white); border: 2px solid var(--white); font: 500 12px/1 var(--font-mono); letter-spacing: -0.03em; cursor: pointer; }
 .pin-on { background: var(--yellow); color: var(--black); border-color: var(--black); }
 .pin-base { width: auto; padding: 0 10px; border-radius: var(--r-btn); background: var(--mint); color: var(--black); border-color: var(--black); }
-.pin-dot { display: block; width: 12px; height: 12px; border-radius: 50%; background: var(--slate); border: 2px solid var(--white); cursor: pointer; }
+.pin-dot { display: block; width: 24px; height: 24px; border-radius: 50%; cursor: pointer; /* a 14px dot in a 24px target */
+  background: radial-gradient(circle, var(--slate) 0 5px, var(--white) 5px 7px, transparent 7px); }
+.skip-map { position: absolute; left: 12px; top: 12px; z-index: 5; background: var(--black); color: var(--white); padding: 8px 14px; border-radius: var(--r-btn); }
+.skip-map:not(:focus) { width: 1px; height: 1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 .pin:focus-visible, .pin-dot:focus-visible { outline: 3px solid var(--black); outline-offset: 2px; }
 
 /* Tour: one flat black card; the step's element gets a black outline */

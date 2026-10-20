@@ -10,7 +10,7 @@ import { Tour, type TourStep } from "../../../components/tour";
 import { Banner, ConfidenceBadge, EmptyState, ErrorPanel, Skeleton, Tip } from "../../../components/ui";
 import { VenueMap, type Pin } from "../../../components/venue-map";
 import { ApiError, api, type S } from "../../../lib/api";
-import { CONTACT_STATUS, FIT_LABEL, FLAG_CHIP, LIFT_TIP_MASS, SCOUT_STEPS, km, kmText, liftText, pct, venueTypeLabel } from "../../../lib/format";
+import { CONTACT_STATUS, FIT_LABEL, FIT_TIP, FLAG_CHIP, LIFT_TIP_MASS, SCOUT_STEPS, km, kmText, liftText, pct, venueTypeLabel } from "../../../lib/format";
 import { cancelOutreach, startOutreach, startingOutreach } from "../../../lib/outreach";
 import { useRun } from "../../../lib/use-run";
 
@@ -46,16 +46,21 @@ export default function RunPage() {
   const [actionError, setActionError] = useState<string | null>(null);
   const [showHidden, setShowHidden] = useState(false);
   const [llmBusy, setLlmBusy] = useState(false);
+  const [pageError, setPageError] = useState<ApiError | null>(null);
+  const [attempt, setAttempt] = useState(0);
 
   const ready = run && ["scouted", "done", "outreach_running"].includes(run.status);
   useEffect(() => {
     if (!ready) return;
     let alive = true;
-    api<S["VenuePage"]>(`/v1/runs/${id}/venues?limit=100${showHidden ? "&show_hidden=true" : ""}`).then((p) => alive && setPage(p)).catch(() => undefined);
+    setPageError(null);
+    api<S["VenuePage"]>(`/v1/runs/${id}/venues?limit=100${showHidden ? "&show_hidden=true" : ""}`)
+      .then((p) => alive && setPage(p))
+      .catch((e: unknown) => alive && setPageError(e instanceof ApiError ? e : new ApiError(0, "network", "Can't reach the TasteRoute API", "")));
     return () => {
       alive = false;
     };
-  }, [id, ready, showHidden]);
+  }, [id, ready, showHidden, attempt]);
 
   const base = run?.base ?? null;
   const away = useCallback(
@@ -271,7 +276,12 @@ export default function RunPage() {
             </p>
           )}
 
-          {!page ? (
+          {pageError && !page ? (
+            <ErrorPanel code={pageError.code} title={pageError.status === 0 ? "Can't reach the TasteRoute API" : "Couldn't load the venues"}>
+              <p className="muted">{pageError.detail || "Check your connection and try again."}</p>
+              <div className="row"><button className="btn" onClick={() => setAttempt(attempt + 1)}>Retry</button></div>
+            </ErrorPanel>
+          ) : !page ? (
             <Skeleton rows={10} />
           ) : rows.length === 0 ? (
             <EmptyState title={hasFilters ? "No venues match these filters" : "No venues"}>
@@ -349,7 +359,9 @@ export default function RunPage() {
                           {v.best_product ? (
                             <>
                               <div style={{ fontWeight: 500 }}>{v.best_product.name}</div>
-                              <div className="mono faint">{FIT_LABEL[v.best_product.label ?? ""] ?? ""}</div>
+                              <div className="mono faint">
+                                {FIT_TIP[v.best_product.label ?? ""] ? <Tip label={FIT_LABEL[v.best_product.label ?? ""] ?? ""}>{FIT_TIP[v.best_product.label ?? ""] ?? ""}</Tip> : FIT_LABEL[v.best_product.label ?? ""] ?? ""}
+                              </div>
                             </>
                           ) : <span className="faint">–</span>}
                         </td>
