@@ -102,7 +102,7 @@ def validate(subject: str, body: str, cited_ids: list[str], b: Bundle) -> list[s
     if b.venue_name.lower() not in body.lower():
         errors.append("must address the venue by its exact name")
     allowed = b.allowed_text()
-    allowed_words = set(re.findall(r"[a-z0-9'’&.-]+", allowed))
+    allowed_words = {w.strip(".-’'") for w in re.findall(r"[a-z0-9'’&.-]+", allowed)}  # stripped like the tokens below ("Co.")
     allowed_numbers = set(NUMBER.findall(allowed))
     values = [v.lower() for v in b.values()]
     for text in (subject, body):

@@ -1,15 +1,17 @@
 """Seed the read-only sample run with REAL Qloo, Ollama Cloud and OSM calls (F10). Spends live calls.
 
 uv run python scripts/seed_demo.py [--outreach 8]
+uv run python scripts/seed_demo.py --redraft RUN_ID   # rewrite the drafts of an existing sample's contacted venues
 Prints the run id for DEMO_RUN_ID and how many live calls were spent.
 """
 
 import argparse
 import asyncio
+import uuid
 
 from tasteroute_api import db
 from tasteroute_api.categories import pack_for
-from tasteroute_api.main import build_services, close_services
+from tasteroute_api.main import Services, build_services, close_services
 from tasteroute_api.qloo.client import Trace
 from tasteroute_api.scoring import SCORING_VERSION
 from tasteroute_api.services import compare
@@ -20,6 +22,7 @@ from tasteroute_api.settings import get_settings
 
 # D-10: a fictional brand, entered by description; its products resolve through real comparables.
 BRAND = "Fieldnote Drinks Co."
+SENDER = "Sam"
 DESCRIPTION = (
     "Fieldnote Drinks Co. is a small Brooklyn maker of craft drinks for cafés and bars: a slow-steeped nitro cold brew, "
     "a raw ginger kombucha, and a bitter-orange aperitivo for spritzes. Small-batch, premium, made in Red Hook."
@@ -37,16 +40,30 @@ BASE = {"label": "Greenpoint", "detail": "Brooklyn, New York, United States", "l
 TYPES = ["cafe", "bar"]
 
 
-async def main(outreach: int) -> None:
+async def redraft(svc: Services, run_id: str) -> None:
+    """After a prompt or sender change: same venues, contacts and evidence, new drafts."""
+    pool = svc.pool
+    await pool.execute("update brands set profile = profile || $2 where id = (select brand_id from runs where id = $1)",
+                       uuid.UUID(run_id), {"sender_name": SENDER})
+    ids = [str(r["venue_id"]) for r in await pool.fetch("select distinct venue_id from drafts where run_id = $1", uuid.UUID(run_id))]
+    await run_service.run_outreach(svc, run_id, ids, drafts_only=True)
+    print(f"redrafted {len(ids)} venues")
+
+
+async def main(outreach: int, redo: str | None) -> None:
     s = get_settings()
     pool = await db.open_pool(s.database_url, s.db_statement_cache_size)
     svc = build_services(s, pool)
     try:
         t0 = await pool.fetchval("select now()")
+        if redo:
+            await redraft(svc, redo)
+            print("llm calls:", await pool.fetchval("select count(*) from llm_calls where created_at >= $1", t0))
+            return
         ws = await pool.fetchval("select id from workspaces where kind = 'demo' order by created_at limit 1") \
             or await pool.fetchval("insert into workspaces (kind) values ('demo') returning id")
         proposal = await propose(svc, None, DESCRIPTION)
-        profile = {**proposal["profile"], "sender_name": "Sam at Fieldnote"}
+        profile = {**proposal["profile"], "sender_name": SENDER}
         profile.pop("products", None)
         profile.pop("brand_name", None)
         pack = pack_for("food_drink" if profile.get("category") != "fashion" else "fashion")
@@ -97,4 +114,6 @@ async def main(outreach: int) -> None:
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("--outreach", type=int, default=8, help="top venues to find contacts and drafts for")
-    asyncio.run(main(ap.parse_args().outreach))
+    ap.add_argument("--redraft", metavar="RUN_ID", help="only rewrite the drafts of this existing run")
+    a = ap.parse_args()
+    asyncio.run(main(a.outreach, a.redraft))

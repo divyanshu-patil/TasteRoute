@@ -264,8 +264,9 @@ def _buyability_flags(ctx: RunContext, per_type: list[list[rank.Scored]], places
     if not any(n.values()):
         return ""
     names = sorted({places[s.venue_id].name for rows in per_type for s in rows if set(s.flags) & set(buyability.HIDDEN)})
-    return (f"Hidden by default, listed after the rest: {n['chain']} chain venues and {n['signal_brand_venue']} venues of "
-            f"brands you resemble ({', '.join(names[:8])}{'…' if len(names) > 8 else ''}).")
+    counts = [f"{k} {what}" for k, what in ((n["chain"], "chain venues"), (n["signal_brand_venue"], "venues of brands you resemble")) if k]
+    return (f"Hidden by default, listed after the rest: {' and '.join(counts)} "
+            f"({', '.join(names[:8])}{'…' if len(names) > 8 else ''}).")
 
 
 async def load_places(ctx: RunContext, call_id: str) -> InsightsBody:

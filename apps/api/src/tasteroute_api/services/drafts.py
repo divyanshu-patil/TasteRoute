@@ -93,6 +93,12 @@ def intro(b: Bundle) -> str:
     return f"We're {b.brand_name}" if b.sender_name.endswith(" team") else f"I'm {b.sender_name} from {b.brand_name}"
 
 
+def kind_unless_named(name: str, kind: str) -> str:
+    """The product's kind, or "" when the name already says it ("Nitro Cold Brew" is a cold brew coffee), so drafts
+    don't write "our Nitro Cold Brew cold brew coffee"."""
+    return "" if set(kind.lower().split()) & set(name.lower().split()) else kind
+
+
 def signature(b: Bundle) -> str:
     """The sender, then the business postal address when set (CAN-SPAM, DRF-09)."""
     return b.sender_name + (f"\n{b.postal_address}" if b.postal_address else "")
@@ -119,7 +125,7 @@ async def build_bundle(ctx: RunContext, venue: dict[str, Any], contact: dict[str
         sender_name=profile.get("sender_name") or team_name(ctx.brand["name"]),
         product_names=[p["name"] for p in ctx.products.values()],
         best_product=lead["name"],
-        best_product_kind=lead.get("kind") or "",
+        best_product_kind=kind_unless_named(lead["name"], lead.get("kind") or ""),
         brand_one_liner=profile.get("one_liner") or "",
         reason=venue.get("reason") or "",
         evidence={str(e["id"]): evidence_text(dict(e)) for e in ev},

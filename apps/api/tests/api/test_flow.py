@@ -253,6 +253,7 @@ async def test_chains_are_hidden_and_counted_and_cafes_lead_with_a_dry_product(c
     assert all(v["best_product"]["product_id"] != pid for v in every["items"] if v["best_product"])
     warnings = (await client.get(f"/v1/runs/{run_id}", headers=ws)).json()["warnings"]
     assert any("chain venues" in w for w in warnings)
+    assert not any(" 0 " in w for w in warnings if "Hidden by default" in w)  # zero counts are left out
 
 
 async def test_outreach_contacts_drafts_approve_export(client, ws, svc):

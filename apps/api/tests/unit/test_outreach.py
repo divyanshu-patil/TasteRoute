@@ -21,7 +21,7 @@ from tasteroute_api.services.contacts import (
     venue_addresses,
     venue_inbox,
 )
-from tasteroute_api.services.drafts import next_status, short_name, template_draft
+from tasteroute_api.services.drafts import kind_unless_named, next_status, short_name, template_draft
 from tasteroute_api.services.export import CSV_COLUMNS, MAILTO_BODY_MAX, mailto, mask, to_csv
 
 OPT_OUT = "If you'd rather not hear from me, reply 'no thanks' and I won't contact you again."
@@ -47,6 +47,17 @@ GOOD = (f"Hi Oslo Coffee Roasters team,\n\nI'm Mara from Fieldnote Coffee. Your 
 
 def test_validator_accepts_grounded_draft():
     assert validate("Cold Brew Concentrate for Oslo Coffee Roasters", GOOD, ["e1"], bundle()) == []
+
+
+def test_kind_left_out_when_the_name_says_it():
+    assert kind_unless_named("Nitro Cold Brew", "cold brew coffee") == ""
+    assert kind_unless_named("Ginger Kombucha", "kombucha") == ""
+    assert kind_unless_named("House Espresso", "coffee beans") == "coffee beans"
+
+
+def test_validator_accepts_a_brand_name_ending_in_a_period():
+    body = GOOD.replace("Fieldnote Coffee.", "Fieldnote Drinks Co., we make cold brew.")
+    assert validate("Cold Brew Concentrate", body, ["e1"], bundle(brand_name="Fieldnote Drinks Co.")) == []
 
 
 @pytest.mark.parametrize(("subject", "body", "ids", "needle"), [
