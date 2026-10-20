@@ -3,6 +3,7 @@
 </p>
 
 <p align="center">
+  <a href="https://taste-route.vercel.app/sample?tour=1"><strong>Live demo</strong></a> ·
   <a href="./docs/evaluation-results.md">Evaluation</a> ·
   <a href="#run-it-locally">Run it locally</a> ·
   <a href="./docs/00-product-brief.md">Product brief</a> ·
