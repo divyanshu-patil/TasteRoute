@@ -11,6 +11,7 @@ import uuid
 from collections.abc import Awaitable, Callable, Sequence
 from dataclasses import dataclass
 from datetime import UTC, datetime, timedelta
+from email.utils import parsedate_to_datetime
 from typing import Any
 
 import asyncpg
@@ -30,6 +31,7 @@ Params = Sequence[tuple[str, str]]
 Emit = Callable[[str, dict[str, Any]], Awaitable[None]]
 RETRY_STATUS = {429, 502, 503, 504}
 BACKOFF = (0.5, 1.0, 2.0)
+MAX_RETRY_AFTER = 30.0
 
 
 class TokenBucket:
@@ -71,6 +73,20 @@ class QlooResult:
     cache_hit: bool
 
 
+def retry_after(value: str | None, cap: float = MAX_RETRY_AFTER) -> float:
+    """Seconds from a Retry-After header (seconds or an HTTP date), capped (REL-06). 0 when absent or unreadable."""
+    if not value:
+        return 0.0
+    try:
+        secs = float(value)
+    except ValueError:
+        try:
+            secs = (parsedate_to_datetime(value) - datetime.now(UTC)).total_seconds()
+        except (TypeError, ValueError):
+            return 0.0
+    return min(max(secs, 0.0), cap)
+
+
 def cache_key(path: str, params: Params) -> str:
     norm = json.dumps(["GET", path, sorted((k, v) for k, v in params)])
     return hashlib.sha256(norm.encode()).hexdigest()
@@ -107,6 +123,10 @@ class QlooClient:
         self.http = http or httpx.AsyncClient(base_url=base_url, timeout=timeout)
         self.bucket = bucket or TokenBucket(rps)
         self.sleep = sleep
+        # Live calls started but not yet recorded, per run, so parallel calls can't overshoot the run cap (QLO-08).
+        # ponytail: per-process lock; move the counter into Postgres if the API ever runs more than one instance
+        self._inflight: dict[str, int] = {}
+        self._budget_lock = asyncio.Lock()
 
     @property
     def configured(self) -> bool:
@@ -132,21 +152,29 @@ class QlooClient:
             call_id = await self._record(trace, path, params_json, key, True, 200, 0, result_count(body), None, None)
             return QlooResult(body, call_id, True)
 
-        if trace.run_id:
-            used = await self.pool.fetchval(
-                "select count(*) from qloo_calls where run_id = $1 and cache_hit = false", uuid.UUID(trace.run_id)
+        run = trace.run_id
+        if run:
+            async with self._budget_lock:
+                used = await self.pool.fetchval(
+                    "select count(*) from qloo_calls where run_id = $1 and cache_hit = false", uuid.UUID(run)
+                )
+                if used + self._inflight.get(run, 0) >= self.max_calls_per_run:
+                    raise QlooBudgetExceeded(f"This run reached its limit of {self.max_calls_per_run} live Qloo calls.")
+                self._inflight[run] = self._inflight.get(run, 0) + 1
+        try:
+            status, body, ms = await self._fetch(path, params)
+            if status != 200:
+                await self._record(trace, path, params_json, key, False, status, ms, 0, None, None)
+                raise self._error(status, body)
+            compact = compact_response(body)
+            call_id = await self._record(
+                trace, path, params_json, key, False, 200, ms, result_count(compact), compact, datetime.now(UTC) + self.ttl
             )
-            if used >= self.max_calls_per_run:
-                raise QlooBudgetExceeded(f"This run reached its limit of {self.max_calls_per_run} live Qloo calls.")
-
-        status, body, ms = await self._fetch(path, params)
-        if status != 200:
-            await self._record(trace, path, params_json, key, False, status, ms, 0, None, None)
-            raise self._error(status, body)
-        compact = compact_response(body)
-        call_id = await self._record(
-            trace, path, params_json, key, False, 200, ms, result_count(compact), compact, datetime.now(UTC) + self.ttl
-        )
+        finally:
+            if run:
+                self._inflight[run] -= 1
+                if not self._inflight[run]:
+                    del self._inflight[run]
         return QlooResult(compact, call_id, False)
 
     async def _fetch(self, path: str, params: Params) -> tuple[int, Any, int]:
@@ -154,6 +182,7 @@ class QlooClient:
         for attempt, delay in enumerate(BACKOFF):
             await self.bucket.acquire()
             t = time.perf_counter()
+            wait = delay + random.uniform(0, delay / 2)
             try:
                 r = await self.http.get(path, params=list(params), headers={"X-Api-Key": self.api_key})
                 ms = int((time.perf_counter() - t) * 1000)
@@ -164,12 +193,13 @@ class QlooClient:
                 last = (r.status_code, body, ms)
                 if r.status_code not in RETRY_STATUS:
                     return last
+                wait = max(wait, retry_after(r.headers.get("retry-after")))
             except httpx.TimeoutException:
                 last = (504, {"_raw": "timeout"}, int((time.perf_counter() - t) * 1000))
             except httpx.TransportError as e:
                 last = (503, {"_raw": type(e).__name__}, int((time.perf_counter() - t) * 1000))
             if attempt < len(BACKOFF) - 1:
-                await self.sleep(delay + random.uniform(0, delay / 2))
+                await self.sleep(wait)
         return last
 
     @staticmethod

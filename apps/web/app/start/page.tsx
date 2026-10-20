@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useCallback, useRef, useState } from "react";
 import { BasePicker, LocationPicker } from "../../components/location-picker";
@@ -29,7 +30,13 @@ type Place = S["Place"];
 
 const STEP_NAMES = ["Your brand", "Profile", "Qloo matches", "City"];
 
+// Errors that mean "no live run for you right now": the sample is the way in.
+const SAMPLE_CODES = ["daily_capacity", "rate_limited", "qloo_budget_exceeded"];
+
 function message(e: unknown): string {
+  if (e instanceof ApiError && e.code === "validation_error" && e.detail.includes("website_url")) {
+    return "Enter a full address like https://yourbrand.com";
+  }
   if (e instanceof ApiError) return e.detail || e.title;
   return "Something went wrong. Please try again.";
 }
@@ -39,6 +46,7 @@ export default function Start() {
   const [step, setStep] = useState(1);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [toSample, setToSample] = useState(false);
 
   // step 1
   const [mode, setMode] = useState<"url" | "describe">("url");
@@ -70,10 +78,12 @@ export default function Start() {
   const run = async (fn: () => Promise<void>) => {
     setBusy(true);
     setError(null);
+    setToSample(false);
     try {
       await fn();
     } catch (e) {
       setError(message(e));
+      setToSample(e instanceof ApiError && SAMPLE_CODES.includes(e.code));
     } finally {
       setBusy(false);
     }
@@ -192,7 +202,17 @@ export default function Start() {
         </h1>
       </div>
 
-      {error && <Banner tone="warn">{error}</Banner>}
+      {error && (
+        <Banner tone="warn">
+          {error}
+          {toSample && (
+            <>
+              {" "}
+              <Link href="/sample">Open the sample run</Link>
+            </>
+          )}
+        </Banner>
+      )}
 
       {step === 1 && (
         <section className="card-lg stack" aria-labelledby="s1">

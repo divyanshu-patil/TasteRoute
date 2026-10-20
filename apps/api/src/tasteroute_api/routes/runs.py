@@ -14,8 +14,7 @@ from sse_starlette.sse import EventSourceResponse
 
 from ..agent.context import Services
 from ..categories import UNSUPPORTED, pack_for
-from ..errors import AppError, Conflict, NotFound, QlooBudgetExceeded, RateLimited, ValidationFailed
-from ..qloo.client import monthly_live_calls
+from ..errors import AppError, Conflict, NotFound, RateLimited, ValidationFailed
 from ..schemas import (
     Accepted,
     BestProduct,
@@ -23,6 +22,7 @@ from ..schemas import (
     ContactStatusOut,
     DraftOut,
     DraftPatch,
+    EventsToken,
     EvidenceOut,
     RunCreated,
     RunIn,
@@ -38,13 +38,13 @@ from ..schemas import (
     Weights,
 )
 from ..scoring import SCORING_VERSION, rank
-from ..security import ip_hash, workspace_id
+from ..security import EVENTS_TTL_S, ip_hash, sign_events, verify_events, workspace_id
 from ..services import runs as run_service
 from ..services.contacts import is_suppressed, suppression_sets
 from ..services.drafts import DraftLocked, next_status
 from ..services.export import mailto, mask, to_csv
 from ..services.intake import UnsupportedBusiness
-from .deps import as_uuid, get_run, svc
+from .deps import as_uuid, daily_capacity, get_run, qloo_gate, svc
 
 router = APIRouter(prefix="/v1")
 TERMINAL = {"scouted", "done", "failed"}
@@ -73,8 +73,8 @@ async def create_run(body: RunIn, request: Request, ws: str = Depends(workspace_
         iph, uuid.UUID(ws))
     if 0 < s.settings.public_runs_per_ip_per_day <= used:  # 0 = no limit (local use)
         raise RateLimited(f"Live runs are limited to {s.settings.public_runs_per_ip_per_day} per day. The sample run is always available.")
-    if s.qloo.configured and await monthly_live_calls(s.pool) >= 0.8 * s.settings.qloo_monthly_limit:
-        raise QlooBudgetExceeded("The monthly Qloo budget is nearly used. Please explore the sample run instead.")
+    await daily_capacity(s)
+    await qloo_gate(s)
     city = {**body.city.model_dump(), "qloo_query": body.city.name}
     settings = {"entity_ids_by_product": body.entity_ids_by_product or {},
                 "weights": {"target": rank.Weights().target, "lift": rank.Weights().lift},
@@ -122,11 +122,19 @@ async def get_run_out(run_id: str, ws: str = Depends(workspace_id), s: Services 
     )
 
 
-@router.get("/runs/{run_id}/events")
-async def events(run_id: str, request: Request, last_event_id: int = 0, ws: str = Depends(workspace_id),
-                 s: Services = Depends(svc)) -> EventSourceResponse:
-    """SSE with replay: resumes after Last-Event-ID (header) or ?last_event_id= (AGT-04)."""
+@router.post("/runs/{run_id}/events-token", response_model=EventsToken)
+async def events_token(run_id: str, ws: str = Depends(workspace_id), s: Services = Depends(svc)) -> EventsToken:
+    """The credential for one run's event stream, for 10 minutes (SEC-10)."""
     r = await get_run(s, ws, run_id)
+    return EventsToken(token=sign_events(str(r["id"])), expires_in=EVENTS_TTL_S)
+
+
+@router.get("/runs/{run_id}/events")
+async def events(run_id: str, request: Request, token: str = Query(""), last_event_id: int = 0,
+                 s: Services = Depends(svc)) -> EventSourceResponse:
+    """SSE with replay: resumes after Last-Event-ID (header) or ?last_event_id= (AGT-04). Takes only an events token."""
+    verify_events(token, str(as_uuid(run_id)))
+    r = {"id": as_uuid(run_id)}
     last = int(request.headers.get("last-event-id") or last_event_id or 0)
 
     async def gen() -> Any:

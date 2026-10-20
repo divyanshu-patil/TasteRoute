@@ -2,6 +2,8 @@
 
 import hashlib
 import hmac
+import logging
+import time
 import uuid
 
 from fastapi import Request
@@ -9,6 +11,8 @@ from fastapi import Request
 from .db import pool
 from .errors import InvalidWorkspace
 from .settings import get_settings
+
+log = logging.getLogger("tasteroute.security")
 
 
 def _sig(workspace_id: str) -> str:
@@ -33,9 +37,37 @@ def verify(token: str | None) -> str:
     return ws
 
 
+EVENTS_TTL_S = 600
+
+
+def sign_events(run_id: str, ttl: int = EVENTS_TTL_S) -> str:
+    """A short-lived token for one run's SSE stream (SEC-10). EventSource can't send headers, so it travels in the URL
+    and lands in access logs; unlike the workspace token it opens nothing else and expires in 10 minutes."""
+    exp = int(time.time()) + ttl
+    return f"{run_id}.{exp}.{_sig(f'events:{run_id}.{exp}')}"
+
+
+def verify_events(token: str | None, run_id: str) -> None:
+    try:
+        rid, exp, sig = (token or "").split(".")
+        expired = int(exp) < time.time()
+    except ValueError as e:
+        raise InvalidWorkspace("Invalid or expired event token") from e
+    if rid != run_id or expired or not hmac.compare_digest(sig, _sig(f"events:{rid}.{exp}")):
+        raise InvalidWorkspace("Invalid or expired event token")
+
+
 def client_ip(request: Request) -> str:
-    fwd = request.headers.get("x-forwarded-for")
-    return fwd.split(",")[0].strip() if fwd else (request.client.host if request.client else "unknown")
+    """The address our own proxy saw (SEC-05). The leftmost X-Forwarded-For entries are whatever the client sent, so only
+    the entry `trusted_proxy_hops` from the right is trusted; with no trusted proxy, the socket's peer."""
+    hops = get_settings().trusted_proxy_hops
+    fwd = [p.strip() for p in request.headers.get("x-forwarded-for", "").split(",") if p.strip()]
+    # Shape only, IPs hashed: with LOG_LEVEL=debug and one spoofed request, shows how many entries the host appends
+    # (docs/16-runbook.md). ponytail: remove once TRUSTED_PROXY_HOPS is confirmed on the host.
+    log.debug("x-forwarded-for shape: %s", [hashlib.sha256(p.encode()).hexdigest()[:6] for p in fwd])
+    if hops > 0 and len(fwd) >= hops:
+        return fwd[-hops]
+    return request.client.host if request.client else "unknown"
 
 
 def ip_hash(request: Request) -> str:
@@ -44,8 +76,8 @@ def ip_hash(request: Request) -> str:
 
 
 async def workspace_id(request: Request) -> str:
-    """FastAPI dependency: header X-Workspace-Token, or ?token= for EventSource."""
-    ws = verify(request.headers.get("x-workspace-token") or request.query_params.get("token"))
+    """FastAPI dependency: header X-Workspace-Token (never a query parameter, so it stays out of access logs)."""
+    ws = verify(request.headers.get("x-workspace-token"))
     found = await pool().fetchval(
         "update workspaces set last_seen_at = now() where id = $1 returning id", uuid.UUID(ws)
     )

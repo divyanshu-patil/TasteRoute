@@ -22,6 +22,11 @@ class SessionOut(BaseModel):
     workspace_id: str
 
 
+class EventsToken(BaseModel):
+    token: str = Field(description="Signed for one run, valid for expires_in seconds; the only credential the SSE stream takes")
+    expires_in: int
+
+
 class LoginIn(In):
     access_token: str = Field(min_length=10, max_length=4096, description="Supabase Auth access token")
     workspace_token: str | None = None

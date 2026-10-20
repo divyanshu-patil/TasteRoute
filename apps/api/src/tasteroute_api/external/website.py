@@ -7,9 +7,11 @@ import socket
 from collections.abc import Awaitable, Callable
 from dataclasses import dataclass, field
 from html import unescape
+from typing import Any
 from urllib.parse import unquote, urljoin, urlparse
 from urllib.robotparser import RobotFileParser
 
+import httpcore
 import httpx
 import tldextract
 
@@ -17,6 +19,7 @@ from ..errors import AppError
 
 MAX_BYTES = 1_500_000
 MAX_REDIRECTS = 3
+DEADLINE_S = 20.0  # a whole fetch (redirects, robots.txt and body), on top of each read's timeout
 MAX_CHARS = 12_000
 PAGE_HINTS = re.compile(r"about|shop|product|menu|story|range|our-", re.I)
 # Pages where a venue publishes its address, best first: contact pages, then trade and events, then about and visit.
@@ -93,6 +96,39 @@ def _is_ip(host: str) -> bool:
         return False
 
 
+class PinnedBackend(httpcore.AsyncNetworkBackend):
+    """Resolves the host once, at connect time, refuses private addresses and connects to the address it checked, so a
+    DNS rebind between check_url and connect can't reach the internal network (SEC-09). TLS still verifies the hostname."""
+
+    def __init__(self, resolver: Resolver | None = None) -> None:
+        self.resolver = resolver
+        self.inner = httpcore.AnyIOBackend()
+
+    async def connect_tcp(self, host: str, port: int, timeout: float | None = None, local_address: str | None = None,
+                          socket_options: Any = None) -> httpcore.AsyncNetworkStream:
+        try:
+            ips = [host.strip("[]")] if _is_ip(host) else await (self.resolver or system_resolver)(host)
+        except OSError as e:
+            raise httpcore.ConnectError(f"could not resolve {host}") from e
+        if not ips or not all(ip_allowed(ip) for ip in ips):
+            raise UrlNotAllowed("That address points to a private or reserved network")
+        return await self.inner.connect_tcp(ips[0], port, timeout, local_address, socket_options)
+
+    async def connect_unix_socket(self, path: str, timeout: float | None = None,
+                                  socket_options: Any = None) -> httpcore.AsyncNetworkStream:
+        raise UrlNotAllowed("Unix sockets are not allowed")
+
+    async def sleep(self, seconds: float) -> None:
+        await self.inner.sleep(seconds)
+
+
+def pinned_client(user_agent: str, resolver: Resolver | None = None) -> httpx.AsyncClient:
+    """The client for user-supplied URLs (brand and venue sites): every connection goes through PinnedBackend."""
+    transport = httpx.AsyncHTTPTransport()
+    transport._pool = httpcore.AsyncConnectionPool(ssl_context=httpx.create_ssl_context(), network_backend=PinnedBackend(resolver))
+    return httpx.AsyncClient(transport=transport, timeout=20, headers={"User-Agent": user_agent})
+
+
 @dataclass
 class Page:
     url: str
@@ -107,14 +143,24 @@ class SiteText:
 
 
 class WebsiteReader:
-    def __init__(self, http: httpx.AsyncClient, resolver: Resolver | None = None, timeout: float = 12.0) -> None:
+    def __init__(self, http: httpx.AsyncClient, resolver: Resolver | None = None, timeout: float = 12.0,
+                 deadline: float = DEADLINE_S) -> None:
         self.http = http
         self.resolver = resolver
         self.timeout = timeout
+        self.deadline = deadline
         self._robots: dict[str, RobotFileParser | None] = {}
 
-    async def fetch(self, url: str, *, check_robots: bool = True) -> Page:
-        """GET with SSRF checks on every hop, at most 3 redirects, html only, 1.5 MB cap."""
+    async def fetch(self, url: str, *, check_robots: bool = True, want: str = "html") -> Page:
+        """GET with SSRF checks on every hop, at most 3 redirects, `want` content type only, 1.5 MB cap, and one
+        deadline for the whole fetch so a slow-drip server can't hold a run (SEC-09)."""
+        try:
+            async with asyncio.timeout(self.deadline):
+                return await self._fetch(url, check_robots, want)
+        except TimeoutError as e:
+            raise WebsiteUnreadable("The site took too long to respond") from e
+
+    async def _fetch(self, url: str, check_robots: bool, want: str) -> Page:
         for _ in range(MAX_REDIRECTS + 1):
             await check_url(url, self.resolver)
             if check_robots and not await self._robots_ok(url):
@@ -127,7 +173,7 @@ class WebsiteReader:
                     ctype = r.headers.get("content-type", "")
                     if r.status_code == 403 or r.headers.get("cf-mitigated"):
                         raise WebsiteUnreadable(f"{BLOCKED}. Describe your brand instead.")
-                    if r.status_code != 200 or "html" not in ctype:
+                    if r.status_code != 200 or want not in ctype:
                         raise WebsiteUnreadable(f"Site returned {r.status_code} {ctype.split(';')[0]}".strip())
                     buf = b""
                     async for chunk in r.aiter_bytes():
@@ -144,12 +190,10 @@ class WebsiteReader:
         base = f"{p.scheme}://{p.netloc}"
         if base not in self._robots:
             rp: RobotFileParser | None = None
-            try:
-                await check_url(base + "/robots.txt", self.resolver)
-                r = await self.http.get(base + "/robots.txt", timeout=self.timeout, follow_redirects=False)
-                if r.status_code == 200 and len(r.content) < 500_000:
-                    rp = RobotFileParser()
-                    rp.parse(r.text.splitlines())
+            try:  # same guard, redirect checks and size cap as a page
+                robots = await self._fetch(base + "/robots.txt", False, "text")
+                rp = RobotFileParser()
+                rp.parse(robots.html.splitlines())
             except (httpx.HTTPError, AppError):
                 rp = None
             self._robots[base] = rp

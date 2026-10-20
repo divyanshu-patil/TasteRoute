@@ -39,7 +39,8 @@ class Services:
     pool: asyncpg.Pool
     qloo: QlooClient
     llm: LLM
-    http: httpx.AsyncClient  # external services (OSM, Hunter, websites)
+    http: httpx.AsyncClient  # external services (OSM, Hunter, Gmail, sign-in)
+    web: httpx.AsyncClient  # user-supplied URLs (brand and venue sites), connections pinned to checked public IPs
 
 
 @dataclass

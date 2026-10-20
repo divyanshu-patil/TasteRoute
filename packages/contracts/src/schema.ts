@@ -390,11 +390,31 @@ export interface paths {
         };
         /**
          * Events
-         * @description SSE with replay: resumes after Last-Event-ID (header) or ?last_event_id= (AGT-04).
+         * @description SSE with replay: resumes after Last-Event-ID (header) or ?last_event_id= (AGT-04). Takes only an events token.
          */
         get: operations["events_v1_runs__run_id__events_get"];
         put?: never;
         post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/runs/{run_id}/events-token": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Events Token
+         * @description The credential for one run's event stream, for 10 minutes (SEC-10).
+         */
+        post: operations["events_token_v1_runs__run_id__events_token_post"];
         delete?: never;
         options?: never;
         head?: never;
@@ -840,6 +860,16 @@ export interface components {
             entity_id: string;
             /** Source Call Id */
             source_call_id: string;
+        };
+        /** EventsToken */
+        EventsToken: {
+            /** Expires In */
+            expires_in: number;
+            /**
+             * Token
+             * @description Signed for one run, valid for expires_in seconds; the only credential the SSE stream takes
+             */
+            token: string;
         };
         /** EvidenceOut */
         EvidenceOut: {
@@ -2042,6 +2072,7 @@ export interface operations {
     events_v1_runs__run_id__events_get: {
         parameters: {
             query?: {
+                token?: string;
                 last_event_id?: number;
             };
             header?: never;
@@ -2059,6 +2090,37 @@ export interface operations {
                 };
                 content: {
                     "application/json": unknown;
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    events_token_v1_runs__run_id__events_token_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                run_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["EventsToken"];
                 };
             };
             /** @description Validation Error */

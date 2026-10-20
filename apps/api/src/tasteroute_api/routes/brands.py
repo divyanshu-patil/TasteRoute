@@ -25,7 +25,7 @@ from ..schemas import (
 from ..security import workspace_id
 from ..services.intake import propose
 from ..services.resolve import resolve_product, validate_entity
-from .deps import as_uuid, rate, svc
+from .deps import as_uuid, qloo_gate, rate, svc
 
 router = APIRouter(prefix="/v1")
 log = logging.getLogger("tasteroute.brands")
@@ -106,8 +106,10 @@ async def patch_brand(brand_id: str, body: BrandPatch, ws: str = Depends(workspa
 
 
 @router.post("/brands/{brand_id}/resolve", response_model=list[ResolutionOut])
-async def resolve(brand_id: str, ws: str = Depends(workspace_id), s: Services = Depends(svc)) -> list[ResolutionOut]:
+async def resolve(brand_id: str, request: Request, ws: str = Depends(workspace_id), s: Services = Depends(svc)) -> list[ResolutionOut]:
     b = await _brand(s, ws, brand_id)
+    rate(request, "resolve", 20, 3600)
+    await qloo_gate(s)
     pack = pack_for(b["category"])
     out = []
     for p in await s.pool.fetch("select * from products where brand_id = $1 order by position", b["id"]):

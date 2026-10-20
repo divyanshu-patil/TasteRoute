@@ -11,6 +11,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from . import __version__, db, errors
 from .agent.context import Services
+from .external.website import pinned_client
 from .llm import LLM, make_provider
 from .qloo.client import QlooClient
 from .routes import brands, core, runs
@@ -24,7 +25,8 @@ def build_services(s: Settings, pool: asyncpg.Pool) -> Services:
         timeout=s.qloo_timeout_seconds, cache_ttl_hours=s.qloo_cache_ttl_hours, max_calls_per_run=s.qloo_max_calls_per_run,
     )
     http = httpx.AsyncClient(timeout=20, headers={"User-Agent": s.osm_user_agent})
-    return Services(settings=s, pool=pool, qloo=qloo, llm=LLM(make_provider(s), pool, s), http=http)
+    return Services(settings=s, pool=pool, qloo=qloo, llm=LLM(make_provider(s), pool, s), http=http,
+                    web=pinned_client(s.osm_user_agent))
 
 
 async def close_services(svc: Services) -> None:
@@ -32,14 +34,24 @@ async def close_services(svc: Services) -> None:
     await svc.qloo.aclose()
     await svc.llm.provider.aclose()
     await svc.http.aclose()
+    await svc.web.aclose()
+
+
+def check_production(s: Settings) -> None:
+    """Refuse to boot production with the default session secret: anyone could sign workspace tokens (SEC-08)."""
+    if s.app_env == "production" and s.session_secret.get_secret_value() in ("", "change-me"):
+        raise RuntimeError("SESSION_SECRET is unset or 'change-me'. Set a long random value before starting in production.")
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI) -> AsyncIterator[None]:
     s = get_settings()
     logging.basicConfig(level=s.log_level.upper())
+    check_production(s)
     pool = await db.open_pool(s.database_url, s.db_statement_cache_size)
     app.state.svc = build_services(s, pool)
+    if n := await run_service.sweep_interrupted(app.state.svc):
+        logging.getLogger("tasteroute").info("closed %d runs interrupted by a restart", n)
     yield
     await close_services(app.state.svc)
     await db.close_pool()

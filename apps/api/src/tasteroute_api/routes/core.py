@@ -29,7 +29,7 @@ from ..schemas import (
     VenueTypeOut,
 )
 from ..security import sign, verify, workspace_id
-from .deps import rate, svc
+from .deps import qloo_gate, rate, svc
 
 router = APIRouter()
 
@@ -48,11 +48,24 @@ async def health(s: Services = Depends(svc)) -> HealthOut:
     return HealthOut(
         status="ok" if db == "ok" else "degraded",
         db=db,
-        qloo="ok" if s.qloo.configured else "unconfigured",
+        qloo=await qloo_health(s) if db == "ok" else ("configured" if s.qloo.configured else "unconfigured"),
         llm={"provider": s.llm.name, "model": s.llm.model, "tools_ok": bool(tools_ok)},
         hunter="ok" if s.settings.hunter_api_key.get_secret_value() else "unconfigured",
         version=__version__,
     )
+
+
+async def qloo_health(s: Services) -> str:
+    """From the latest live Qloo call, never a new one (REL-04): `ok` after a 200 in the last 15 minutes, `auth_failed`
+    when the latest was refused, otherwise just `configured` (a key is set, nothing proves it works yet)."""
+    if not s.qloo.configured:
+        return "unconfigured"
+    last = await s.pool.fetchrow(
+        "select status, created_at > now() - interval '15 minutes' as recent from qloo_calls "
+        "where cache_hit = false order by created_at desc limit 1")
+    if last and last["status"] in (401, 403):
+        return "auth_failed"
+    return "ok" if last and last["status"] == 200 and last["recent"] else "configured"
 
 
 @router.post("/v1/workspaces/session", response_model=SessionOut)
@@ -192,6 +205,7 @@ async def qloo_search(request: Request, q: str = Query(min_length=2, max_length=
     rate(request, "search", 30, 60)
     if not type.startswith("urn:entity:"):
         raise ValidationFailed("type must be a Qloo entity type")
+    await qloo_gate(s)
     brands, call_id = await api.search(s.qloo, q, [type], Trace(step="manual_search"), take=8)
     return [QlooSearchItem(entity_id=b.entity_id, name=b.name, type=(b.types or [type])[0], popularity=b.popularity,
                            source_call_id=call_id) for b in brands]

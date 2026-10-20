@@ -55,7 +55,7 @@ async def propose(svc: Services, website_url: str | None, description: str | Non
     text, pages, notice = "", [], None
     if website_url:
         await check_url(website_url)  # url_not_allowed before any network call (SEC-02)
-        reader = WebsiteReader(svc.http, timeout=svc.settings.website_fetch_timeout_seconds)
+        reader = WebsiteReader(svc.web, timeout=svc.settings.website_fetch_timeout_seconds)
 
         async def fetch() -> tuple[int, Any]:
             try:

@@ -190,7 +190,7 @@ async def find_contacts(ctx: RunContext, venue_ids: list[str]) -> dict[str, Any]
     hunter_key = s.hunter_api_key.get_secret_value()
     hunter_used = int(await ctx.pool.fetchval(
         "select count(*) from external_calls where run_id = $1 and service = 'hunter' and cache_hit = false", ctx.rid))
-    reader = WebsiteReader(ctx.svc.http, timeout=s.website_fetch_timeout_seconds)
+    reader = WebsiteReader(ctx.svc.web, timeout=s.website_fetch_timeout_seconds)
     osm_cache: dict[str, list[dict[str, Any]]] = {}
     counts = {"found": 0, "none": 0, "limit_reached": 0, "suppressed": 0, "skipped_social": 0, "error": 0}
 

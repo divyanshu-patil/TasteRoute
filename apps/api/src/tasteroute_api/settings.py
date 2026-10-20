@@ -52,6 +52,8 @@ class Settings(BaseSettings):
     demo_mode_enabled: bool = True
     demo_run_id: str = ""
     public_runs_per_ip_per_day: int = 3  # live runs per visitor (IP or workspace) per rolling 24 h; 0 = no limit
+    public_runs_per_day_global: int = 40  # live runs by everyone per rolling 24 h (demo runs excluded); 0 = no limit
+    trusted_proxy_hops: int = 0  # proxies in front of the API that append to X-Forwarded-For (Render: 1); 0 = use the socket
     max_venues_per_run: int = 60
     max_outreach_venues_per_run: int = 25
     pack_fashion_enabled: bool = False

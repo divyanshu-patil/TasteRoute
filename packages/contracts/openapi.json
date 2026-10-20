@@ -903,6 +903,25 @@
         "title": "EntityRef",
         "type": "object"
       },
+      "EventsToken": {
+        "properties": {
+          "expires_in": {
+            "title": "Expires In",
+            "type": "integer"
+          },
+          "token": {
+            "description": "Signed for one run, valid for expires_in seconds; the only credential the SSE stream takes",
+            "title": "Token",
+            "type": "string"
+          }
+        },
+        "required": [
+          "token",
+          "expires_in"
+        ],
+        "title": "EventsToken",
+        "type": "object"
+      },
       "EvidenceOut": {
         "properties": {
           "captured_at": {
@@ -3242,7 +3261,7 @@
     },
     "/v1/runs/{run_id}/events": {
       "get": {
-        "description": "SSE with replay: resumes after Last-Event-ID (header) or ?last_event_id= (AGT-04).",
+        "description": "SSE with replay: resumes after Last-Event-ID (header) or ?last_event_id= (AGT-04). Takes only an events token.",
         "operationId": "events_v1_runs__run_id__events_get",
         "parameters": [
           {
@@ -3251,6 +3270,16 @@
             "required": true,
             "schema": {
               "title": "Run Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "token",
+            "required": false,
+            "schema": {
+              "default": "",
+              "title": "Token",
               "type": "string"
             }
           },
@@ -3286,6 +3315,46 @@
           }
         },
         "summary": "Events"
+      }
+    },
+    "/v1/runs/{run_id}/events-token": {
+      "post": {
+        "description": "The credential for one run's event stream, for 10 minutes (SEC-10).",
+        "operationId": "events_token_v1_runs__run_id__events_token_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "run_id",
+            "required": true,
+            "schema": {
+              "title": "Run Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventsToken"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Events Token"
       }
     },
     "/v1/runs/{run_id}/export.csv": {

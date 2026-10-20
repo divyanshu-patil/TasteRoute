@@ -93,9 +93,11 @@ async def test_sse_replays_from_last_event_id(client, ws, svc):
     brand = await make_brand(client, ws, svc)
     run_id = await scout(client, ws, brand)
 
+    token = (await client.post(f"/v1/runs/{run_id}/events-token", headers=ws)).json()["token"]
+
     async def read(headers):
         out = []
-        async with client.stream("GET", f"/v1/runs/{run_id}/events", headers=headers) as r:
+        async with client.stream("GET", f"/v1/runs/{run_id}/events", headers=headers, params={"token": token}) as r:
             event = {}
             async for line in r.aiter_lines():
                 if line.startswith("id:"):
@@ -113,7 +115,7 @@ async def test_sse_replays_from_last_event_id(client, ws, svc):
     assert {"tool_call", "step_done", "qloo_call", "phase_done"} <= set(types)
     ids = [e["id"] for e in events if "id" in e]
     mid = ids[len(ids) // 2]
-    replay = await read({**ws, "Last-Event-ID": str(mid)})
+    replay = await read({"Last-Event-ID": str(mid)})
     assert [e["id"] for e in replay if "id" in e] == [i for i in ids if i > mid]
 
 

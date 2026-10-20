@@ -67,6 +67,23 @@ async def _fail(svc: Services, run_id: str, phase: str, e: AppError, status: str
     await emit_event(svc.pool, run_id, "failed", {"phase": phase, "code": e.code, "message": e.detail})
 
 
+INTERRUPTED = "The server restarted during this run. Start it again; cached Qloo calls make it cheap."
+
+
+async def sweep_interrupted(svc: Services) -> int:
+    """On startup: runs with no activity for 15 minutes can't still be running (one instance), so they are closed
+    (REL-05). A scout becomes `failed`; an interrupted outreach keeps its ranking, like any outreach failure."""
+    rows = await svc.pool.fetch(
+        "select id::text, status from runs r where status in ('queued','running','outreach_running') and "
+        "coalesce((select max(e.created_at) from run_events e where e.run_id = r.id), r.created_at) "
+        "< now() - interval '15 minutes'")
+    for r in rows:
+        outreach = r["status"] == "outreach_running"
+        await _fail(svc, r["id"], "outreach" if outreach else "scout", AppError(INTERRUPTED, code="interrupted"),
+                    "scouted" if outreach else "failed")
+    return len(rows)
+
+
 async def run_scout(svc: Services, run_id: str) -> None:
     rid = uuid.UUID(run_id)
     await svc.pool.execute("update runs set status = 'running', phase = 'scout', started_at = now() where id = $1", rid)
