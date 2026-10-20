@@ -15,6 +15,8 @@ type Brand = {
   recall30?: Record<string, number | null>;
 };
 
+type Pick = { venue: string; brand: string; q_fit_rank: number; llm_rank: number };
+
 const pct = (x: number | null | undefined) => (x == null ? "–" : `${Math.round(x * 100)}%`);
 const nth = (n: number) => `${n}${n % 100 >= 11 && n % 100 <= 13 ? "th" : ["th", "st", "nd", "rd"][n % 10] ?? "th"}`;
 
@@ -22,6 +24,14 @@ export default function Evaluation() {
   const brands = ev.brands as Brand[];
   const f = ev.featured;
   const found = ev.found_top30 as Record<string, number>;
+  const ov = ev.overlap as Record<"qloo_only" | "llm_only" | "both", Pick[]>;
+  const tail = ev.long_tail;
+  const reach = ov.qloo_only.length + ov.llm_only.length + ov.both.length;
+  const cols = [
+    { key: "qloo_only", title: "Only TasteRoute found", note: "in its top 30, not the LLM's" },
+    { key: "llm_only", title: "Only the LLM found", note: "in its top 30, not TasteRoute's" },
+    { key: "both", title: "Both found", note: "in both top 30s" },
+  ] as const;
   return (
     <div className="wrap stack" style={{ gap: 40, paddingBottom: 80 }}>
       <div className="stack" style={{ gap: 24 }}>
@@ -116,6 +126,42 @@ export default function Evaluation() {
         </div>
       </section>
 
+      <section className="stack-s" aria-labelledby="diff-h">
+        <h2 id="diff-h" className="h2">Different accounts</h2>
+        <p className="small muted" style={{ maxWidth: "75ch" }}>
+          The test brands&apos; accounts in each top 30. The two lists share {ov.both.length}; together they reach {reach} of{" "}
+          {ev.accounts} accounts, either alone {found["Q-fit"]}. Ranks are out of each brand&apos;s pool of about 900 venues.
+        </p>
+        <div className="grid-3">
+          {cols.map((c) => (
+            <div key={c.key} className="card stack-s">
+              <p className="mono">{c.title.toUpperCase()}</p>
+              <p className="v" style={{ fontSize: 40, lineHeight: 1 }}>{ov[c.key].length}</p>
+              <p className="small muted">{c.note}</p>
+              <ul className="stack-s" style={{ listStyle: "none", padding: 0, margin: 0 }}>
+                {ov[c.key].map((p) => (
+                  <li key={`${p.brand}-${p.venue}`}>
+                    <span style={{ fontWeight: 500 }}>{p.venue}</span>
+                    <span className="small muted"> · {p.brand}</span>
+                    <p className="mono faint small">TasteRoute {nth(p.q_fit_rank)} · LLM {nth(p.llm_rank)}</p>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+        <p className="small" style={{ maxWidth: "75ch" }}>
+          <strong>Less-known venues.</strong> {tail.accounts} of the {ev.accounts} accounts are outside Qloo&apos;s {tail.top} best-known
+          venues. In the top 30: TasteRoute {tail.found_top30["Q-fit"]}, Qloo taste only {tail.found_top30["Q-raw"]}, the LLM{" "}
+          {tail.found_top30["LLM"]}. We chose this measure before the test; the numbers are small.
+        </p>
+        <p className="small muted" style={{ maxWidth: "75ch" }}>
+          Noticed after the test, so an observation rather than a result: the LLM&apos;s own finds often say what they sell in their
+          name (&ldquo;Vini &amp; Olii&rdquo;, &ldquo;Cafe&rdquo;). Several of TasteRoute&apos;s don&apos;t (June, Grand Army), and the LLM ranks those
+          about 100th and 280th.
+        </p>
+      </section>
+
       <section className="card stack-s">
         <p className="mono">AN ACCOUNT QLOO FOUND AND THE LLM MISSED</p>
         <h2 className="h2">{f.venue}</h2>
@@ -133,6 +179,7 @@ export default function Evaluation() {
           <li>Our mass-market check counts Starbucks and Dunkin&apos;, which pushed real coffee accounts down for a coffee roaster. Qloo&apos;s taste score alone did better on this test.</li>
           <li>If Qloo doesn&apos;t know the brands you resemble (small natural-wine producers here), there is no taste signal to rank with.</li>
           <li>Music taste did not help. Ranking also by the artists your comparables&apos; fans like found 4 test accounts in the top 30, against 8, so it only explains a match and never changes fit. We wrote that rule down before running it.</li>
+          <li>Qloo&apos;s heatmap did not help either. Ranking also by where your comparables&apos; fans concentrate found 6 test accounts in the top 30, against 8, so it orders the taste route and never changes fit. That rule was also written down first.</li>
         </ul>
       </section>
 

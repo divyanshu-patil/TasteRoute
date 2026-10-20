@@ -367,6 +367,19 @@ def web_summary(res: list[dict[str, Any]]) -> dict[str, Any]:
     scored = [r for r in res if not r.get("not_scored")]
     test = [r for r in scored if r["split"] == "test"]
     found = {k: sum(r["metrics"][k]["found30"] for r in test) for k in [*METHODS, "RANDOM"]}
+    # Which test accounts each method's top 30 holds: only Q-fit's, only the LLM's, or both.
+    overlap: dict[str, list[dict[str, Any]]] = {"qloo_only": [], "llm_only": [], "both": []}
+    for r in test:
+        for s in r["stockists"]:
+            q, llm = s["Q-fit"] <= 30, s["LLM"] <= 30
+            if q or llm:
+                overlap["both" if q and llm else "qloo_only" if q else "llm_only"].append(
+                    {"venue": s["name"], "brand": r["brand"], "q_fit_rank": s["Q-fit"], "llm_rank": s["LLM"]})
+    for v in overlap.values():
+        v.sort(key=lambda x: x["q_fit_rank"])
+    # Pre-registered long-tail metric: accounts outside POP's top 50.
+    tail = sum(r["metrics"]["tail"] for r in test)
+    tail_found = {k: sum(round(r["metrics"][k]["tail30"] * r["metrics"]["tail"]) for r in test) for k in ("Q-fit", "Q-raw", "LLM")}
     # An account in Q-fit's top 30 that the LLM ranked lowest.
     feat_brand, feat = max(((r, s) for r in test for s in r["stockists"] if s["Q-fit"] <= 30), key=lambda rs: rs[1]["LLM"])
     return {
@@ -378,6 +391,8 @@ def web_summary(res: list[dict[str, Any]]) -> dict[str, Any]:
         "wins": {"q_fit": sum(r["metrics"]["Q-fit"]["recall30"] > r["metrics"]["LLM"]["recall30"] for r in test),
                  "llm": sum(r["metrics"]["Q-fit"]["recall30"] < r["metrics"]["LLM"]["recall30"] for r in test),
                  "ties": sum(r["metrics"]["Q-fit"]["recall30"] == r["metrics"]["LLM"]["recall30"] for r in test)},
+        "overlap": overlap,
+        "long_tail": {"accounts": tail, "top": POP_TOP, "found_top30": tail_found},
         "target": "TasteRoute beats the LLM on recall@30 in 3 of 4 test brands",
         "target_met": False,
         "brands": [{"brand": r["brand"], "split": r["split"], "what": r["description"], "comparables": r["comparables"],

@@ -20,6 +20,101 @@
   "llm": 1,
   "ties": 1
  },
+ "overlap": {
+  "qloo_only": [
+   {
+    "venue": "June",
+    "brand": "St. Agrestis",
+    "q_fit_rank": 2,
+    "llm_rank": 101
+   },
+   {
+    "venue": "Vinegar Hill House",
+    "brand": "St. Agrestis",
+    "q_fit_rank": 3,
+    "llm_rank": 46
+   },
+   {
+    "venue": "Grand Army",
+    "brand": "St. Agrestis",
+    "q_fit_rank": 9,
+    "llm_rank": 284
+   },
+   {
+    "venue": "Glasserie",
+    "brand": "Casamara Club",
+    "q_fit_rank": 10,
+    "llm_rank": 37
+   },
+   {
+    "venue": "Madeline's",
+    "brand": "St. Agrestis",
+    "q_fit_rank": 22,
+    "llm_rank": 283
+   }
+  ],
+  "llm_only": [
+   {
+    "venue": "Locanda Vini & Olii",
+    "brand": "St. Agrestis",
+    "q_fit_rank": 62,
+    "llm_rank": 7
+   },
+   {
+    "venue": "Montesacro",
+    "brand": "St. Agrestis",
+    "q_fit_rank": 84,
+    "llm_rank": 12
+   },
+   {
+    "venue": "La Vara",
+    "brand": "St. Agrestis",
+    "q_fit_rank": 127,
+    "llm_rank": 30
+   },
+   {
+    "venue": "Petee's Café",
+    "brand": "Parlor Coffee",
+    "q_fit_rank": 157,
+    "llm_rank": 23
+   },
+   {
+    "venue": "Cafe Colette",
+    "brand": "St. Agrestis",
+    "q_fit_rank": 349,
+    "llm_rank": 28
+   }
+  ],
+  "both": [
+   {
+    "venue": "Lilia",
+    "brand": "St. Agrestis",
+    "q_fit_rank": 5,
+    "llm_rank": 1
+   },
+   {
+    "venue": "Five Leaves",
+    "brand": "St. Agrestis",
+    "q_fit_rank": 20,
+    "llm_rank": 22
+   },
+   {
+    "venue": "Cecconi's DUMBO",
+    "brand": "St. Agrestis",
+    "q_fit_rank": 23,
+    "llm_rank": 2
+   }
+  ]
+ },
+ "long_tail": {
+  "accounts": 39,
+  "top": 50,
+  "found_top30": {
+   "Q-fit": 5,
+   "Q-raw": 7,
+   "LLM": 4
+  }
+ },
  "target": "TasteRoute beats the LLM on recall@30 in 3 of 4 test brands",
  "target_met": false,
  "brands": [
