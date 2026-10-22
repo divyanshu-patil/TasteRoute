@@ -1,6 +1,8 @@
 """Ollama Cloud (https://ollama.com/api/chat) with Gemma 4. Verified in docs/llm-contract.md."""
 
 import asyncio
+import json
+from collections.abc import AsyncIterator
 from typing import Any
 
 import httpx
@@ -74,3 +76,31 @@ class OllamaCloudProvider:
                 usage={"input_tokens": data.get("prompt_eval_count", 0), "output_tokens": data.get("eval_count", 0)},
             )
         raise LLMUnavailable("LLM failed after retry")
+
+    async def stream(
+        self, messages: list[dict[str, Any]], *, temperature: float, max_tokens: int, timeout: float
+    ) -> AsyncIterator[str | dict[str, int]]:
+        """NDJSON from /api/chat with stream=true: one {"message": {"content"}} per chunk, then "done" with the counts."""
+        if not self.api_key:
+            raise LLMUnavailable("OLLAMA_API_KEY is not set")
+        body = {"model": self.model, "messages": messages, "stream": True,
+                "options": {"temperature": temperature, "num_predict": max_tokens}}
+        try:
+            async with self.http.stream("POST", "/api/chat", json=body, timeout=timeout,
+                                        headers={"Authorization": f"Bearer {self.api_key}"}) as r:
+                if r.status_code != 200:
+                    raise LLMUnavailable(f"LLM returned {r.status_code}")
+                async for line in r.aiter_lines():
+                    if not line.strip():
+                        continue
+                    data = json.loads(line)
+                    if data.get("error"):
+                        raise LLMUnavailable("LLM stream failed")
+                    if text := (data.get("message") or {}).get("content"):
+                        yield text
+                    if data.get("done"):
+                        yield {"input_tokens": data.get("prompt_eval_count", 0), "output_tokens": data.get("eval_count", 0)}
+        except httpx.TimeoutException as e:
+            raise LLMUnavailable("LLM timed out") from e
+        except httpx.TransportError as e:
+            raise LLMUnavailable(f"LLM unreachable ({type(e).__name__})") from e

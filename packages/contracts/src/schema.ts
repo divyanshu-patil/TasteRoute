@@ -325,6 +325,27 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/v1/runs/{run_id}/ask": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Ask
+         * @description A question about this run, answered by the LLM from its stored results only (the ranked venues and route),
+         *     streamed as it is written. No Qloo or web calls; the sample run can be asked too.
+         */
+        post: operations["ask_v1_runs__run_id__ask_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/v1/runs/{run_id}/cancel": {
         parameters: {
             query?: never;
@@ -669,6 +690,26 @@ export interface components {
             workspace_id: string;
             /** Workspace Token */
             workspace_token: string;
+        };
+        /** AskIn */
+        AskIn: {
+            /**
+             * History
+             * @description Earlier turns, oldest first
+             */
+            history?: components["schemas"]["AskTurn"][];
+            /** Question */
+            question: string;
+        };
+        /** AskTurn */
+        AskTurn: {
+            /** Content */
+            content: string;
+            /**
+             * Role
+             * @enum {string}
+             */
+            role: "user" | "assistant";
         };
         /** BestProduct */
         BestProduct: {
@@ -2010,6 +2051,41 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["RunOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    ask_v1_runs__run_id__ask_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                run_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["AskIn"];
+            };
+        };
+        responses: {
+            /** @description NDJSON lines: {"delta": text}, then {"error": message} if the answer stops early */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/x-ndjson": unknown;
                 };
             };
             /** @description Validation Error */

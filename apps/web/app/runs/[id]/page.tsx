@@ -5,6 +5,8 @@ import { useParams, useRouter } from "next/navigation";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { LiveProgress } from "../../../components/live-progress";
 import { ReasonText } from "../../../components/reason";
+import { RunCharts } from "../../../components/run-charts";
+import { RunChat } from "../../../components/run-chat";
 import { RunShell } from "../../../components/run-shell";
 import { Tour, type TourStep } from "../../../components/tour";
 import { Banner, ConfidenceBadge, EmptyState, ErrorPanel, Skeleton, Tip } from "../../../components/ui";
@@ -455,6 +457,9 @@ export default function RunPage() {
               )}
             </div>
           )}
+
+          {page && <RunCharts rows={rows} runId={id} mass={mass} />}
+          {page && <RunChat runId={id} raised={!run.is_demo && selected.length > 0} />}
 
           {!run.is_demo && selected.length > 0 && (
             <div className="actionbar" role="region" aria-label="Selection">

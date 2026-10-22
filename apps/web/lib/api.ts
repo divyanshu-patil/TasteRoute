@@ -70,7 +70,9 @@ async function toError(r: Response): Promise<ApiError> {
   }
 }
 
-export async function api<T>(path: string, init: { method?: string; body?: unknown; signal?: AbortSignal } = {}): Promise<T> {
+type Init = { method?: string; body?: unknown; signal?: AbortSignal };
+
+async function request(path: string, init: Init): Promise<Response> {
   const call = async (token: string) =>
     fetch(`${API_URL}${path}`, {
       method: init.method ?? "GET",
@@ -91,8 +93,33 @@ export async function api<T>(path: string, init: { method?: string; body?: unkno
     throw new ApiError(0, "network_error", "Can't reach the TasteRoute API", "Check your connection and try again.");
   }
   if (!r.ok) throw await toError(r);
+  return r;
+}
+
+export async function api<T>(path: string, init: Init = {}): Promise<T> {
+  const r = await request(path, init);
   if (r.status === 204) return undefined as T;
   return (await r.json()) as T;
+}
+
+/** POSTs and reads an NDJSON stream ({"delta"} lines, then maybe {"error"}), calling onDelta as text arrives. */
+export async function apiStream(path: string, body: unknown, onDelta: (text: string) => void, signal?: AbortSignal): Promise<void> {
+  const r = await request(path, { method: "POST", body, signal });
+  if (!r.body) throw new ApiError(0, "network_error", "Streaming isn't supported here", "");
+  const reader = r.body.pipeThrough(new TextDecoderStream()).getReader();
+  let buf = "";
+  for (;;) {
+    const { value, done } = await reader.read();
+    buf += value ?? "";
+    const lines = done ? [buf] : buf.split("\n");
+    buf = done ? "" : (lines.pop() ?? "");
+    for (const line of lines.filter((l) => l.trim())) {
+      const m = JSON.parse(line) as { delta?: string; error?: string };
+      if (m.error) throw new ApiError(503, "llm_unavailable", m.error, m.error);
+      if (m.delta) onDelta(m.delta);
+    }
+    if (done) return;
+  }
 }
 
 /** Downloads the CSV with the workspace header (a plain link can't send it). */

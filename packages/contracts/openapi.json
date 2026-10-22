@@ -49,6 +49,55 @@
         "title": "AccountOut",
         "type": "object"
       },
+      "AskIn": {
+        "additionalProperties": false,
+        "properties": {
+          "history": {
+            "description": "Earlier turns, oldest first",
+            "items": {
+              "$ref": "#/components/schemas/AskTurn"
+            },
+            "maxItems": 12,
+            "title": "History",
+            "type": "array"
+          },
+          "question": {
+            "maxLength": 500,
+            "minLength": 1,
+            "title": "Question",
+            "type": "string"
+          }
+        },
+        "required": [
+          "question"
+        ],
+        "title": "AskIn",
+        "type": "object"
+      },
+      "AskTurn": {
+        "additionalProperties": false,
+        "properties": {
+          "content": {
+            "maxLength": 2000,
+            "title": "Content",
+            "type": "string"
+          },
+          "role": {
+            "enum": [
+              "user",
+              "assistant"
+            ],
+            "title": "Role",
+            "type": "string"
+          }
+        },
+        "required": [
+          "role",
+          "content"
+        ],
+        "title": "AskTurn",
+        "type": "object"
+      },
       "BestProduct": {
         "properties": {
           "label": {
@@ -3186,6 +3235,52 @@
           }
         },
         "summary": "Get Run Out"
+      }
+    },
+    "/v1/runs/{run_id}/ask": {
+      "post": {
+        "description": "A question about this run, answered by the LLM from its stored results only (the ranked venues and route),\nstreamed as it is written. No Qloo or web calls; the sample run can be asked too.",
+        "operationId": "ask_v1_runs__run_id__ask_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "run_id",
+            "required": true,
+            "schema": {
+              "title": "Run Id",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AskIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/x-ndjson": {}
+            },
+            "description": "NDJSON lines: {\"delta\": text}, then {\"error\": message} if the answer stops early"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Ask"
       }
     },
     "/v1/runs/{run_id}/cancel": {

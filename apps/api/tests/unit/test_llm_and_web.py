@@ -7,7 +7,7 @@ import pytest
 import respx
 from pydantic import BaseModel
 
-from tasteroute_api.errors import LLMBadResponse
+from tasteroute_api.errors import LLMBadResponse, LLMUnavailable
 from tasteroute_api.external import osm
 from tasteroute_api.external.website import (
     Page,
@@ -195,3 +195,18 @@ def test_site_name_from_title_and_og():
     html = '<meta property="og:site_name" content="Oslo Coffee"><title>Shop &amp; Cafés | Oslo Coffee</title>'
     assert site_name(html) == "Site name: Oslo Coffee | Shop & Cafés | Oslo Coffee"
     assert site_name("<p>no head</p>") == ""
+
+
+@respx.mock
+async def test_ollama_stream_yields_chunks_then_usage():
+    from tasteroute_api.llm.ollama_cloud import OllamaCloudProvider
+
+    body = (b'{"message":{"content":"#1 "},"done":false}\n\n{"message":{"content":"Bar"},"done":false}\n'
+            b'{"message":{"content":""},"done":true,"prompt_eval_count":12,"eval_count":3}\n')
+    respx.post("https://llm.test/api/chat").mock(return_value=httpx.Response(200, content=body))
+    p = OllamaCloudProvider(base_url="https://llm.test", api_key="k", model="m")
+    got = [c async for c in p.stream([{"role": "user", "content": "q"}], temperature=0, max_tokens=10, timeout=5)]
+    assert got == ["#1 ", "Bar", {"input_tokens": 12, "output_tokens": 3}]
+    respx.post("https://llm.test/api/chat").mock(return_value=httpx.Response(500))
+    with pytest.raises(LLMUnavailable):
+        [c async for c in p.stream([], temperature=0, max_tokens=10, timeout=5)]

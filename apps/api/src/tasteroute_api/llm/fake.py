@@ -5,6 +5,7 @@ After that it plays the plan: the next tool in `plan_order` that has no result y
 plain-text requests get "{}" so callers exercise their fallbacks.
 """
 
+from collections.abc import AsyncIterator
 from typing import Any
 
 from .base import LLMResult, ToolCall
@@ -47,3 +48,12 @@ class FakeProvider:
             if name in available and name not in done:
                 return LLMResult("", [ToolCall(f"fake_{name}", name, {})], self.model, self.name)
         return LLMResult("", [ToolCall("fake_finish", "finish_phase", {"summary": "Done."})], self.model, self.name)
+
+    async def stream(
+        self, messages: list[dict[str, Any]], *, temperature: float, max_tokens: int, timeout: float
+    ) -> AsyncIterator[str | dict[str, int]]:
+        """The next scripted reply (or "{}"), a word at a time."""
+        r = await self.chat(messages, temperature=temperature, max_tokens=max_tokens, timeout=timeout)
+        for i, word in enumerate(r.content.split(" ")):
+            yield word if i == 0 else f" {word}"
+        yield {"input_tokens": 0, "output_tokens": 0}

@@ -237,6 +237,32 @@ async def test_llm_ranking_is_stored_and_never_changes_fit(client, ws, svc):
     assert len(svc.llm.provider.calls) == calls and [v["llm_rank"] for v in again["items"]] == ranks
 
 
+async def test_ask_answers_from_the_run_data_only(client, ws, svc):
+    """The chat sends the run's stored results as its only data, makes no Qloo call and changes nothing."""
+    brand = await make_brand(client, ws, svc)
+    run_id = await scout(client, ws, brand)
+    before = (await client.get(f"/v1/runs/{run_id}/venues", headers=ws)).json()
+    qloo = await svc.pool.fetchval("select count(*) from qloo_calls where run_id = $1", uuid.UUID(run_id))
+    top = before["items"][0]
+    svc.llm.provider.script = [LLMResult(content=f"#1 {top['name']}.", model="fake-1", provider="fake")]
+    body = {"question": "Which venue fits best?", "history": [{"role": "user", "content": "hi"}, {"role": "assistant", "content": "Hello"}]}
+    r = await client.post(f"/v1/runs/{run_id}/ask", headers=ws, json=body)
+    assert r.headers["content-type"].startswith("application/x-ndjson")
+    lines = [json.loads(x) for x in r.text.splitlines()]
+    assert len(lines) > 1 and "".join(x["delta"] for x in lines) == f"#1 {top['name']}."
+    assert await svc.pool.fetchval("select status from llm_calls where purpose = 'ask' order by created_at desc limit 1") == "ok"
+    msgs = svc.llm.provider.calls[-1]["messages"]
+    assert [m["role"] for m in msgs] == ["system", "user", "assistant", "user"] and msgs[-1]["content"] == body["question"]
+    assert f"#1 | {top['name']} | " in msgs[0]["content"] and "Answer only from the run data" in msgs[0]["content"]
+    assert await svc.pool.fetchval("select count(*) from qloo_calls where run_id = $1", uuid.UUID(run_id)) == qloo
+    assert (await client.get(f"/v1/runs/{run_id}/venues", headers=ws)).json() == before
+    bad = await client.post(f"/v1/runs/{run_id}/ask", headers=ws, json={"question": ""})
+    assert bad.status_code == 422
+    svc.llm.provider.script = [LLMUnavailable("down")]
+    failed = await client.post(f"/v1/runs/{run_id}/ask", headers=ws, json={"question": "Which venue?"})
+    assert failed.status_code == 200 and "error" in json.loads(failed.text.splitlines()[-1])
+
+
 async def test_taste_route_is_stored_and_never_changes_fit(client, ws, svc):
     """QLO-11: the top venues grouped into walkable areas, ordered by the heatmap lift (brand signal minus mass-market),
     from two Qloo calls; stored (a second request makes none); fit and rank unchanged."""

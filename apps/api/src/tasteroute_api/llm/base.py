@@ -1,3 +1,4 @@
+from collections.abc import AsyncIterator
 from dataclasses import dataclass, field
 from typing import Any, Protocol
 
@@ -32,5 +33,11 @@ class LLMProvider(Protocol):
         max_tokens: int,
         timeout: float,
     ) -> LLMResult: ...
+
+    def stream(
+        self, messages: list[dict[str, Any]], *, temperature: float, max_tokens: int, timeout: float
+    ) -> AsyncIterator[str | dict[str, int]]:
+        """Text chunks as they are generated; a last dict carries the token usage."""
+        ...
 
     async def aclose(self) -> None: ...

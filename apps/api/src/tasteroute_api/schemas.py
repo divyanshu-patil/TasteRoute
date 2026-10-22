@@ -325,6 +325,16 @@ class Weights(In):
     lift: float = Field(ge=0, le=1)
 
 
+class AskTurn(In):
+    role: Literal["user", "assistant"]
+    content: str = Field(max_length=2000)
+
+
+class AskIn(In):
+    question: str = Field(min_length=1, max_length=500)
+    history: list[AskTurn] = Field(default_factory=list, max_length=12, description="Earlier turns, oldest first")
+
+
 class VenueIdsIn(In):
     venue_ids: list[str] = Field(min_length=1, max_length=60)
 

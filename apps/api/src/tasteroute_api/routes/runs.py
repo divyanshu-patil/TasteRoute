@@ -10,6 +10,7 @@ from typing import Any
 
 import httpx
 from fastapi import APIRouter, Depends, Query, Request, Response
+from fastapi.responses import StreamingResponse
 from sse_starlette.sse import EventSourceResponse
 
 from ..agent.context import Services
@@ -17,6 +18,7 @@ from ..categories import UNSUPPORTED, pack_for
 from ..errors import AppError, Conflict, NotFound, RateLimited, ValidationFailed
 from ..schemas import (
     Accepted,
+    AskIn,
     BestProduct,
     ContactOut,
     ContactStatusOut,
@@ -40,6 +42,7 @@ from ..schemas import (
 )
 from ..scoring import SCORING_VERSION, buyability, rank
 from ..security import EVENTS_TTL_S, ip_hash, sign_events, verify_events, workspace_id
+from ..services import ask as ask_service
 from ..services import compare
 from ..services import route as route_service
 from ..services import runs as run_service
@@ -300,6 +303,26 @@ async def llm_ranking(run_id: str, request: Request, ws: str = Depends(workspace
         rate(request, "llm_ranking", 10, 3600)
         await compare.llm_ranking(s, run_id)
     return await venues(run_id, None, None, None, "fit", 100, 0, False, ws, s)
+
+
+@router.post("/runs/{run_id}/ask", response_class=StreamingResponse,
+             responses={200: {"content": {"application/x-ndjson": {}}, "description": 'NDJSON lines: {"delta": text}, '
+                              'then {"error": message} if the answer stops early'}})
+async def ask(run_id: str, body: AskIn, request: Request, ws: str = Depends(workspace_id),
+              s: Services = Depends(svc)) -> StreamingResponse:
+    """A question about this run, answered by the LLM from its stored results only (the ranked venues and route),
+    streamed as it is written. No Qloo or web calls; the sample run can be asked too."""
+    run = await get_run_out(run_id, ws, s)
+    if run.status not in ("scouted", "done", "outreach_running"):
+        raise Conflict(f"Run is {run.status}.")
+    rate(request, "ask", 30, 3600)
+    page = await venues(run_id, None, None, None, "fit", 100, 0, False, ws, s)
+    signal = [e for r in run.resolution.values() for e in (r.get("entities") or [])]
+    data = ask_service.context({"brand": run.brand["name"], "city": run.city.get("name", ""),
+                                "products": [p["name"] for p in run.products], "signal": list(dict.fromkeys(signal))},
+                               page.items, await get_route(run_id, ws, s))
+    return StreamingResponse(ask_service.ask(s, data, body), media_type="application/x-ndjson",
+                             headers={"Cache-Control": "no-cache", "X-Accel-Buffering": "no"})
 
 
 # ---------------------------------------------------------------- trace (AGT-05)

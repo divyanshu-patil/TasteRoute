@@ -144,3 +144,7 @@ https://taste-route.vercel.app with the API at tasteroute.onrender.com. Main pus
 - `HUNTER_API_KEY` (optional; contacts work without it, see D-08).
 - Supabase `DATABASE_URL` (using local Postgres until then).
 - Hosting accounts for the required public demo (web on Vercel, API on Render/Railway/Fly).
+
+## Results analytics and chat — 2026-10-23
+
+Asked for by the user (beyond `01-scope.md`). The results page now has "Your results at a glance" under the table, from the venues shown (filters apply), each card led by a plain-English takeaway and a one-line "how to read": the 10 best matches, hidden gems (fit against lift in four named corners), how good the matches are (Low/Fair/Good/Great), how sure we are (donut), which product to pitch, which venue types suit the brand, and what only TasteRoute found (when the LLM comparison ran). No new dependency. A floating "Ask AI" button opens the chat; the question shows at once, a typing indicator counts the wait until the first words, then the answer streams in live as markdown (NDJSON from `/ask`, Ollama `stream: true`; Stop cancels; test `test_ollama_stream_yields_chunks_then_usage`) (`lib/markdown.tsx`, no HTML injection, tested in `markdown.test.tsx`; prompt `ask_run@2`). The chat: `POST /v1/runs/{id}/ask` sends the run's stored venues and route to the LLM as its only data ; no Qloo or web calls, 30 questions per IP per hour, not counted against the run's LLM cap. Test: `test_ask_answers_from_the_run_data_only`. 0 live calls.
