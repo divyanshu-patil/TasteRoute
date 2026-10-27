@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { deleteAccount, signIn, signOut, useAccount } from "../lib/account";
+import { ApiStatus } from "./api-status";
 
 const LINKS = [
   { href: "/", label: "Home" },
@@ -93,7 +94,8 @@ export function Nav() {
             </Link>
           ))}
         </nav>
-        <div>
+        <div className="nav-end">
+          <ApiStatus />
           <Account />
         </div>
       </div>
