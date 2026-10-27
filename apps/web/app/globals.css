@@ -377,7 +377,9 @@ table.t { width: 100%; border-collapse: collapse; font-size: 14px; }
 .map .maplibregl-ctrl-group button:hover { background-color: var(--graphite); }
 .map .maplibregl-ctrl-group .maplibregl-ctrl-icon { filter: invert(1); }
 .map .maplibregl-ctrl-attrib { font-family: var(--font-mono); font-size: 10px; background: rgba(255, 255, 255, 0.85); border-radius: var(--r-btn) 0 0 0; }
-.map .maplibregl-popup-content { background: var(--black); color: var(--white); box-shadow: none; border-radius: 16px; padding: 14px 18px; font-size: 14px; line-height: 1.5; }
+/* Pins carry inline z-index 1000-3000, so an unlayered popup is painted under them and the dots cut through its text. */
+.map .maplibregl-popup { z-index: 4000; }
+.map .maplibregl-popup-content { background: var(--black); color: var(--white); box-shadow: none; border-radius: 16px; padding: 14px 18px; font-size: 14px; line-height: 1.5; overflow-wrap: anywhere; }
 .map .maplibregl-popup-anchor-top .maplibregl-popup-tip, .map .maplibregl-popup-anchor-top-left .maplibregl-popup-tip, .map .maplibregl-popup-anchor-top-right .maplibregl-popup-tip { border-bottom-color: var(--black); }
 .map .maplibregl-popup-anchor-bottom .maplibregl-popup-tip, .map .maplibregl-popup-anchor-bottom-left .maplibregl-popup-tip, .map .maplibregl-popup-anchor-bottom-right .maplibregl-popup-tip { border-top-color: var(--black); }
 .map .maplibregl-popup-anchor-left .maplibregl-popup-tip { border-right-color: var(--black); }
