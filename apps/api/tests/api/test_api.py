@@ -8,6 +8,7 @@ import uuid
 import httpx
 from pydantic import SecretStr
 
+from tasteroute_api.external import website
 from tasteroute_api.llm import LLMResult
 from tasteroute_api.services import runs as run_service
 
@@ -153,6 +154,28 @@ async def test_intake_paths(client, ws, svc):
     r = await client.post("/v1/brands/intake", headers=ws,
                           json={"website_url": "https://blocked-site.test/", "description": "We make cold brew in Brooklyn."})
     assert r.json()["notice"] == "That site blocks automated readers like ours, so we used your description."
+
+
+async def test_intake_falls_back_when_the_site_does_not_resolve(client, ws, svc, monkeypatch):
+    """INT-02: a host that doesn't resolve counts as unreadable, so the description still carries the intake."""
+    reachable = website.system_resolver
+
+    async def resolver(host: str) -> list[str]:
+        if host in ("www.no-dns.test", "broken-dns.test"):
+            raise OSError("nodename nor servname provided, or not known")
+        return await reachable(host)
+
+    monkeypatch.setattr(website, "system_resolver", resolver)
+    profile = {"brand_name": "Raaka", "category": "food_drink", "products": [{"name": "Dark Chocolate"}]}
+    svc.llm.provider.script = [LLMResult(content=json.dumps(profile))]
+    r = await client.post("/v1/brands/intake", headers=ws, json={
+        "website_url": "https://www.no-dns.test/", "description": "We make bean-to-bar chocolate in Brooklyn."})
+    assert r.status_code == 200, r.text
+    assert r.json()["notice"] == "We couldn't read that site, so we used your description."
+
+    r = await client.post("/v1/brands/intake", headers=ws, json={"website_url": "https://broken-dns.test/"})
+    assert r.status_code == 422 and r.json()["code"] == "website_unreadable"
+    assert r.json()["detail"] == "The site's address could not be resolved"
 
 
 async def test_live_runs_are_limited_per_day(client, ws, svc):

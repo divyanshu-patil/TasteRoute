@@ -60,11 +60,13 @@ async def draft_profile(svc: Services, text: str, tag: str = "website") -> Brand
 async def propose(svc: Services, website_url: str | None, description: str | None) -> dict[str, Any]:
     text, pages, notice = "", [], None
     if website_url:
-        await check_url(website_url)  # url_not_allowed before any network call (SEC-02)
         reader = WebsiteReader(svc.web, timeout=svc.settings.website_fetch_timeout_seconds)
 
         async def fetch() -> tuple[int, Any]:
             try:
+                # The guard runs first: a private address is refused outright (SEC-02), but a site we merely can't
+                # resolve or read is not fatal, so the description can still carry the intake.
+                await check_url(website_url)
                 site = await reader.read_site(website_url)
                 return 200, {"pages": site.pages, "text": site.text}
             except WebsiteUnreadable as e:

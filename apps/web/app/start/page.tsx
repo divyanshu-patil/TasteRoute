@@ -37,6 +37,10 @@ function message(e: unknown): string {
   if (e instanceof ApiError && e.code === "validation_error" && e.detail.includes("website_url")) {
     return "Enter a full address like https://yourbrand.com";
   }
+  if (e instanceof ApiError && e.code === "website_unreadable") {
+    // Say why, then what to do: the API's title is the way out, the detail is the cause.
+    return [e.detail && `${e.detail}.`, e.title].filter(Boolean).join(" ");
+  }
   if (e instanceof ApiError) return e.detail || e.title;
   return "Something went wrong. Please try again.";
 }
