@@ -67,6 +67,26 @@ export default function Home() {
       </section>
 
       <section className="wrap section">
+        <div className="card stack" style={{ gap: 24 }}>
+          <div className="stack-s">
+            <p className="mono muted">A REAL REPLY</p>
+            <h2 className="display d-l">A venue wrote back in 2 hours</h2>
+            <p className="muted" style={{ maxWidth: "70ch" }}>
+              We sent a pitch for a Brooklyn chocolate maker to a Brooklyn hotel. Within two hours the Director of
+              Rooms replied and asked for wholesale pricing, minimum order quantities, shelf life and delivery before
+              samples. Names and branding are masked. One reply is an anecdote, not a result: the backtest is the evidence.
+            </p>
+          </div>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/venue-reply.png"
+            alt="Email reply from a Brooklyn hotel's Director of Rooms with names and branding masked: thanks the brand for reaching out, copies the Brand Manager, and asks for wholesale pricing, minimum order quantities, shelf life, sustainability and delivery capabilities before samples."
+            style={{ width: "100%", height: "auto", borderRadius: 16, border: "1px solid rgba(0,0,0,.12)" }}
+          />
+        </div>
+      </section>
+
+      <section className="wrap section">
         <div className="inverted arc stack" style={{ padding: "64px 40px", gap: 40 }}>
           <h2 className="display d-l" style={{ maxWidth: "14ch" }}>
             Taste fit, not foot traffic
